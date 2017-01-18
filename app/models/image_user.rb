@@ -1,0 +1,2 @@
+class ImageUser < ApplicationRecord
+end

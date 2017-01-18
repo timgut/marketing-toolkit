@@ -1,0 +1,2 @@
+class FlyerUser < ApplicationRecord
+end
