@@ -22,9 +22,11 @@ ActiveRecord::Schema.define(version: 20170118214749) do
   create_table "campaigns_flyers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "campaign_id"
     t.integer  "flyer_id"
+    t.integer  "creator_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["campaign_id"], name: "index_campaigns_flyers_on_campaign_id", using: :btree
+    t.index ["creator_id"], name: "index_campaigns_flyers_on_creator_id", using: :btree
     t.index ["flyer_id"], name: "index_campaigns_flyers_on_flyer_id", using: :btree
   end
 
@@ -75,8 +77,10 @@ ActiveRecord::Schema.define(version: 20170118214749) do
   create_table "images_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "image_id"
     t.integer  "user_id"
+    t.integer  "creator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_images_users_on_creator_id", using: :btree
     t.index ["image_id"], name: "index_images_users_on_image_id", using: :btree
     t.index ["user_id"], name: "index_images_users_on_user_id", using: :btree
   end

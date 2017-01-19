@@ -6,25 +6,15 @@ class Flyer < ApplicationRecord
   
   belongs_to :template
 
-  def respond_to_missing?(method, include_private = false)
-    if data_keys.include?(method)
-      true
-    else
-      super
+  after_initialize :define_data_methods
+
+  protected
+
+  def define_data_methods
+    data.each do |datum|
+      self.class.__send__(:define_method, datum.key) do
+        datum.value
+      end
     end
-  end
-
-  def method_missing(method, *arguments, &block)
-    if data_keys.include?(method)
-      data.__send__(:method)
-    else
-      super
-    end
-  end
-
-  private
-
-  def data_keys
-    @data_keys ||= data.map(&:key).map(&:to_sym)
   end
 end

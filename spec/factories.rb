@@ -8,7 +8,6 @@ FactoryGirl.define do
   factory :campaign do
     title "Never Quit"
     description "This is the Never Quit campaign"
-    flyer
   end
 
   factory :datum do
@@ -37,8 +36,8 @@ FactoryGirl.define do
   factory :template do
     title "Industry-Specific Flyer"
     description "A flyer for each industry AFSCME represents"
-    height 8.5
-    width 11
+    height 11
+    width 8.5
   end
 
   factory :user do

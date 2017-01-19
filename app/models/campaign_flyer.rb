@@ -1,4 +1,6 @@
 class CampaignFlyer < ApplicationRecord
-  belongs_to :flyer
+  self.table_name = :campaigns_flyers
+
   belongs_to :campaign
+  belongs_to :flyer
 end

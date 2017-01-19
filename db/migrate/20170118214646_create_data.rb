@@ -3,7 +3,7 @@ class CreateData < ActiveRecord::Migration[5.0]
     create_table :data do |t|
       t.belongs_to :flyer
       t.string :key
-      t.string :value
+      t.text :value
       t.timestamps
     end
   end

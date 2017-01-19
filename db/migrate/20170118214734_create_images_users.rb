@@ -3,6 +3,7 @@ class CreateImagesUsers < ActiveRecord::Migration[5.0]
     create_table :images_users do |t|
       t.belongs_to :image
       t.belongs_to :user
+      t.belongs_to :creator
       t.timestamps
     end
   end
