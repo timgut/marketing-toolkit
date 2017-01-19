@@ -16,13 +16,6 @@ FactoryGirl.define do
     value "We never quit on the people who depend on us."
   end
 
-  factory :field do
-    template
-    key "headline"
-    type "text"
-    group 1
-  end
-
   factory :flyer do
     template
     title "My Custom Flyer"
