@@ -11,7 +11,6 @@ gem 'mysql2'
 gem 'capistrano', '2.13.5'
 gem 'coffee-rails', '~> 4.2'
 gem 'devise', '~> 4.2'
-gem 'exifr'
 gem 'jquery-rails'
 gem 'mini_magick'
 gem "paperclip", "~> 5.0.0.beta1"

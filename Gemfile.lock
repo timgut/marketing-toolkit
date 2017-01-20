@@ -70,7 +70,6 @@ GEM
     docile (1.1.5)
     erubis (2.7.0)
     execjs (2.7.0)
-    exifr (1.2.5)
     factory_girl (4.8.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.8.0)
@@ -234,7 +233,6 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   database_cleaner
   devise (~> 4.2)
-  exifr
   factory_girl_rails
   jquery-rails
   listen (~> 3.0.5)
