@@ -8,6 +8,18 @@ class Flyer < ApplicationRecord
 
   after_initialize :define_data_methods
 
+  def generated?
+    File.file?(absolute_pdf_path)
+  end
+
+  def absolute_pdf_path
+    Rails.root.join("public", "pdfs", "#{id}.pdf").to_s
+  end
+
+  def relative_pdf_path
+    "/pdfs/#{id}.pdf"
+  end
+
   protected
 
   def define_data_methods

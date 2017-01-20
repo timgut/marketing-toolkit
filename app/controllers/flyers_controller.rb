@@ -6,7 +6,7 @@ class FlyersController < ApplicationController
     if @flyer.save
       redirect_to generate_flyer_path(@flyer, format: :pdf)
     else
-
+      redirect_to :back
     end
   end
 
@@ -24,26 +24,26 @@ class FlyersController < ApplicationController
   def generate
     force_format(:pdf)
     @flyer = Flyer.find(params[:id])
-
-    build_pdf
-    save_pdf
+    
+    render pdf_options.merge({
+      save_to_file: @flyer.absolute_pdf_path
+    })
   end
 
   # GET /flyers
   def index
-
+    @flyers = Flyer.all
   end
 
   # GET /flyers/new
   def new
-
+    @flyer = Flyer.new(flyer_params)
   end
 
   # GET /flyers/preview.pdf
   def preview
     force_format(:pdf)
-    build_pdf
-    render pdf: pdf_path
+    render pdf_options
   end
 
   # GET /flyers/1
@@ -64,25 +64,6 @@ class FlyersController < ApplicationController
 
   def force_format(format)
     params[:format] = format
-  end
-
-  def build_pdf
-    @pdf = WickedPdf.new.pdf_from_string(@flyer.template.pdf_markup, pdf_options)
-  end
-
-  def save_pdf
-    render pdf_options.merge({
-      save_to_file: pdf_path,
-      # save_only:    true
-    })
-  end
-
-  def preview_pdf
-
-  end
-
-  def pdf_path
-    @pdf_path ||= Rails.root.join("public", "pdfs", "#{@flyer.id}.pdf").to_s
   end
 
   def pdf_options

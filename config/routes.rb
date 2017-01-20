@@ -12,4 +12,6 @@ Rails.application.routes.draw do
   end
 
   resources :templates
+
+  root to: "dashboard#index"
 end
