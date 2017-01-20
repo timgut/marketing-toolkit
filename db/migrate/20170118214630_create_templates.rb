@@ -5,6 +5,8 @@ class CreateTemplates < ActiveRecord::Migration[5.0]
       t.text :description
       t.float :height
       t.float :width
+      t.text :pdf_markup
+      t.text :form_markup
       t.timestamps
     end
   end
