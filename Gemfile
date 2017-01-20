@@ -9,11 +9,11 @@ gem 'rails', '~> 5.0.1'
 gem 'mysql2'
 
 gem 'capistrano', '2.13.5'
+gem 'codemirror-rails'
 gem 'coffee-rails', '~> 4.2'
 gem 'devise', '~> 4.2'
 gem 'jquery-rails'
 gem 'mini_magick'
-gem "paperclip", "~> 5.0.0.beta1"
 gem 'sass-rails', '~> 5.0'
 gem 'therubyracer'
 gem 'turbolinks', '~> 5'
