@@ -1,4 +1,5 @@
 <%= form_for(template) do |f| %>
+<% Rails.logger.info template.errors.inspect %>
   <%= render partial: "/shared/errors", locals: {record: template} %>
 
   <div>

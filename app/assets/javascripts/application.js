@@ -15,4 +15,5 @@
 //= require turbolinks
 //= require codemirror
 //= require codemirror/modes/css
+//= require jquery.validate
 //= require_tree .
