@@ -30,6 +30,10 @@ require 'rspec/rails'
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
+# Concerns are shared examples that are not autoloaded, so require them before anything else.
+Dir["#{Rails.root}/spec/controllers/concerns/*.rb"].sort.each { |f| require f}
+Dir["#{Rails.root}/spec/models/concerns/*.rb"].sort.each { |f| require f}
+
 RSpec.configure do |config|
   config.include Devise::TestHelpers, type: :controller
   config.include Warden::Test::Helpers

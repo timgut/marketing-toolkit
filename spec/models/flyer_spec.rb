@@ -13,6 +13,12 @@ RSpec.describe Flyer, type: :model do
 
   before(:each){ flyer.reload }
 
+  describe "Concerns" do
+    it_behaves_like "Status" do
+      let!(:record) { flyer }
+    end
+  end
+
   describe "#define_data_methods" do
     it "creates methods for each datum" do
       expect(flyer.respond_to?(:headline)).to eq true

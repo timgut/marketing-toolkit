@@ -1,10 +1,14 @@
 class Flyer < ApplicationRecord
+  include Status
+
   has_and_belongs_to_many :campaigns
   has_and_belongs_to_many :users
   
   has_many :data
   
   belongs_to :template
+
+  validates_presence_of :template, :title, :description, :status
 
   after_initialize :define_data_methods
 

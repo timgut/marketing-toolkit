@@ -8,6 +8,7 @@ FactoryGirl.define do
   factory :campaign do
     title "Never Quit"
     description "This is the Never Quit campaign"
+    status "publish"
   end
 
   factory :datum do
@@ -20,6 +21,7 @@ FactoryGirl.define do
     template
     title "My Custom Flyer"
     description "My description for this flyer"
+    status "publish"
   end
 
   factory :image do
@@ -31,6 +33,9 @@ FactoryGirl.define do
     description "A flyer for each industry AFSCME represents"
     height 11
     width 8.5
+    pdf_markup "This is a placeholder for the PDF markup."
+    form_markup "This is a placeholder for the form markup."
+    status "publish"
   end
 
   factory :user do

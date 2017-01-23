@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20170118214749) do
   create_table "campaigns", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
     t.text     "description", limit: 65535
+    t.integer  "status"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
   end
@@ -43,6 +44,7 @@ ActiveRecord::Schema.define(version: 20170118214749) do
     t.integer  "template_id"
     t.string   "title"
     t.text     "description", limit: 65535
+    t.integer  "status"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.index ["template_id"], name: "index_flyers_on_template_id", using: :btree
@@ -82,6 +84,7 @@ ActiveRecord::Schema.define(version: 20170118214749) do
     t.float    "width",       limit: 24
     t.text     "pdf_markup",  limit: 65535
     t.text     "form_markup", limit: 65535
+    t.integer  "status"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
   end

@@ -1,5 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Template, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let!(:template) { create(:template) }
+
+  describe "Concerns" do
+    it_behaves_like "Status" do
+      let!(:record) { template }
+    end
+  end
 end
