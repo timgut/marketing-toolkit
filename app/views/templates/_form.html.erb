@@ -1,5 +1,4 @@
 <%= form_for(template) do |f| %>
-<% Rails.logger.info template.errors.inspect %>
   <%= render partial: "/shared/errors", locals: {record: template} %>
 
   <div>
@@ -20,6 +19,11 @@
   <div>
     <%= f.label :width %><br />
     <%= f.text_field :width %> inches
+  </div>
+
+  <div>
+    <%= f.label :status %><br />
+    <%= f.status_select %>
   </div>
 
   <div>
