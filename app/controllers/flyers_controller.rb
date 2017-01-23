@@ -1,9 +1,12 @@
 class FlyersController < ApplicationController
+  protect_from_forgery except: :create
+
   # POST /flyers
   def create
     @flyer = Flyer.new(flyer_params)
 
     if @flyer.save
+      create_data
       redirect_to generate_flyer_path(@flyer, format: :pdf)
     else
       redirect_to :back
@@ -37,7 +40,15 @@ class FlyersController < ApplicationController
 
   # GET /flyers/new
   def new
-    @flyer = Flyer.new(flyer_params)
+    @flyer = Flyer.new
+
+    if template_selected?
+      @template = Template.find(params[:flyer][:template])
+      render :new2
+    else
+      @templates = Template.all
+      render :new
+    end
   end
 
   # GET /flyers/preview.pdf
@@ -64,6 +75,20 @@ class FlyersController < ApplicationController
 
   def force_format(format)
     params[:format] = format
+  end
+
+  def template_selected?
+    begin
+      params.dig(:flyer).dig(:template)
+    rescue
+      false
+    end
+  end
+
+  def create_data
+    params.delete(:data).each do |key, value|
+      Datum.create!(flyer_id: @flyer.id, key: key, value: value)
+    end
   end
 
   def pdf_options
