@@ -1,9 +1,9 @@
 class Folder < ApplicationRecord
-  belongs_to :parent, class_name: name, foreign_key: "parent_id"
+  belongs_to :parent, class_name: name, foreign_key: :parent_id
   belongs_to :user
 
-  has_many   :children, -> { order(:title) }, class_name: name, foreign_key: "parent_id", dependent: :destroy
-  has_many :images
+  has_many   :children, -> { order(:title) }, class_name: name, foreign_key: :parent_id, dependent: :destroy
+  has_many :images, dependent: :destroy
 
   validates_presence_of :name, :path
   validates_presence_of :parent, unless: :is_root

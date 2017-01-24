@@ -11,6 +11,16 @@ class User < ApplicationRecord
 
   after_create :create_root_folder
 
+  class << self
+    def current_user=(current_user)
+      Thread.current[:current_user] = current_user
+    end
+
+    def current_user
+      Thread.current[:current_user]
+    end
+  end
+
   def root_folder
     folders.find_by(is_root: true)
   end
