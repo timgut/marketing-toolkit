@@ -8,6 +8,8 @@ class Folder < ApplicationRecord
   validates_presence_of :name, :path
   validates_presence_of :parent, unless: :is_root
 
+  default_scope ->{ order(path: :asc) }
+
   class << self
     def roots
       where(parent_id: nil).order(:title)

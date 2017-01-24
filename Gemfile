@@ -8,6 +8,7 @@ end
 gem 'rails', '~> 5.0.1'
 gem 'mysql2'
 
+gem 'aws-sdk', '~> 2.7.0'
 gem 'capistrano', '2.13.5'
 gem 'codemirror-rails'
 gem 'coffee-rails', '~> 4.2'

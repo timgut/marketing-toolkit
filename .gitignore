@@ -7,3 +7,4 @@
 /config/secrets.yml
 /coverage
 /public/pdfs/*.pdf
+/public/system

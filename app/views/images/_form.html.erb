@@ -1,15 +1,15 @@
-<%= form_for(image) do |f| %>
-  <% if image.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(image.errors.count, "error") %> prohibited this image from being saved:</h2>
+<%= form_for image, html: { multipart: true } do |f| %>
+  <%= render partial: "/shared/errors", locals: {record: image} %>
 
-      <ul>
-      <% image.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <div>
+    <%= f.label :image %><br />
+    <%= f.file_field :image %>
+  </div>
+  
+  <div>
+    <%= f.label :folder %><br />
+    <%= f.folder_select %>
+  </div>
 
   <div class="actions">
     <%= f.submit %>
