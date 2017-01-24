@@ -5,6 +5,7 @@ class CreateFlyers < ActiveRecord::Migration[5.0]
       t.string :title
       t.text :description
       t.integer :status
+      t.attachment :pdf
       t.timestamps
     end
   end

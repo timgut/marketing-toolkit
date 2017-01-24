@@ -1,3 +1,3 @@
-Paperclip.interpolates :id do |attachment, style|
-  attachment.instance.id
+Paperclip.interpolates :path do |attachment, style|
+  attachment.instance.folder.path
 end

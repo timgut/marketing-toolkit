@@ -43,10 +43,14 @@ ActiveRecord::Schema.define(version: 20170124145939) do
   create_table "flyers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "template_id"
     t.string   "title"
-    t.text     "description", limit: 65535
+    t.text     "description",      limit: 65535
     t.integer  "status"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.string   "pdf_file_name"
+    t.string   "pdf_content_type"
+    t.integer  "pdf_file_size"
+    t.datetime "pdf_updated_at"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.index ["template_id"], name: "index_flyers_on_template_id", using: :btree
   end
 
