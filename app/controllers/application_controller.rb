@@ -11,3 +11,4 @@ class ApplicationController < ActionController::Base
     User.current_user = nil
   end
 end
+ 
