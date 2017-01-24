@@ -1,2 +1,2 @@
-class FolderController < ApplicationController
+class FoldersController < ApplicationController
 end
