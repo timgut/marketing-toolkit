@@ -16,10 +16,7 @@
         <td><%= link_to 'Edit', edit_flyer_path(flyer) %></td>
         <td><%= link_to 'Destroy', flyer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <td><%= link_to 'Generate PDF', generate_flyer_path(flyer), target: :blank %></td>
-        <td>
-          <% if flyer.generated? %>
-            <%= link_to 'View PDF', "#{request.base_url}#{flyer.relative_pdf_path}", target: :blank %>
-          <% end %>
+        <td><%= link_to 'View PDF', flyer.pdf.url, target: :blank %>
         </td>
       </tr>
     <% end %>

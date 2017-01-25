@@ -6,10 +6,11 @@ class FlyersController < ApplicationController
     @flyer = Flyer.new(flyer_params)
 
     if @flyer.save
+      FlyerUser.create!(flyer_id: @flyer.id, user_id: User.current_user.id, creator_id: User.current_user.id)
       create_data
       redirect_to generate_flyer_path(@flyer, format: :pdf)
     else
-      redirect_to :back
+      redirect_back fallback_location: root_path
     end
   end
 
@@ -26,11 +27,20 @@ class FlyersController < ApplicationController
   # GET /flyers/1/generate.pdf
   def generate
     force_format(:pdf)
-    @flyer = Flyer.find(params[:id])
     
-    render pdf_options.merge({
-      save_to_file: @flyer.absolute_pdf_path
-    })
+    @flyer = Flyer.find(params[:id])
+
+    if params[:debug]
+      render pdf_options
+    else
+      pdf = render pdf_options.merge(save_to_file: @flyer.local_pdf_path, save_only: true)
+
+      @flyer.pdf = File.open(@flyer.local_pdf_path)
+      @flyer.save
+      File.delete(@flyer.local_pdf_path)
+
+      redirect_to @flyer.pdf.url
+    end
   end
 
   # GET /flyers
