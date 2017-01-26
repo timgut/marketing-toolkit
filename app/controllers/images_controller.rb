@@ -14,6 +14,12 @@ class ImagesController < ApplicationController
   # DELETE /images
   def destroy
     @image = Image.find(params[:id])
+
+    if @image.destroy
+      redirect_to images_path, notice: "Image deleted!"
+    else
+      redirect_back fallback_location: root_path, alert: "Cannot delete image. Please try again."
+    end
   end
 
   # GET /images/1/edit

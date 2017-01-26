@@ -15,16 +15,24 @@ class Flyer < ApplicationRecord
 
   after_initialize :define_data_methods
 
-  def generated?
-    File.file?(absolute_pdf_path)
+  # If a Datum record doesn't exist for this flyer, don't raise an error.
+  # But log something annoying so we don't forget about it.
+  # And return a String because that's the kind of data we're expecting.
+  def method_missing(method, *args, &block)
+    Rails.logger.info "*"*60
+    Rails.logger.info "Missing method: #{method}"
+    Rails.logger.info "Returning an empty string for now"
+    Rails.logger.info "*"*60
+
+    ""
   end
 
-  def absolute_pdf_path
-    Rails.root.join("public", "pdfs", "#{id}.pdf").to_s
+  def local_pdf_path
+    Rails.root.join("public", "pdfs", filename).to_s
   end
 
-  def relative_pdf_path
-    "/pdfs/#{id}.pdf"
+  def filename
+    "#{id}.pdf"
   end
 
   protected
