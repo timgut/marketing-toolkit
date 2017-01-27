@@ -13,8 +13,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :folders
   resources :images
   resources :templates
+
+  resources :image_folders, controller: 'folders'
+  resources :flyer_folders, controller: 'folders'
 
   root to: "dashboard#index"
 end

@@ -1,6 +1,8 @@
-class FolderController < ApplicationController
+class FoldersController < ApplicationController
   # POST /folders
   def create
+    @parent = Folder.find(params[:folder][:parent_id])
+    assign_path
     @folder = Folder.new(folder_params)
 
     if @folder.save
@@ -22,12 +24,13 @@ class FolderController < ApplicationController
 
   # GET /folders
   def index
-    @folders = Folder.all
+    @image_folders = User.current_user.image_folders
+    @flyer_folders = User.current_user.flyer_folders
   end
 
   # GET /folders/new
   def new
-    @folder = Folder.new
+    @folder = Folder.new(folder_params)
   end
 
   # GET /folders/1
@@ -48,7 +51,11 @@ class FolderController < ApplicationController
 
   private
 
+  def assign_path
+    params[:folder][:path] = "#{@parent.path}#{'/' unless @parent.is_root}#{params[:folder][:name]}"
+  end
+
   def folder_params
-    params.require(:folder).permit(:name, :path, :parent, :user)
+    params.require(:folder).permit(:name, :path, :parent_id, :user_id, :type)
   end
 end

@@ -10,7 +10,7 @@ class ActionView::Helpers::FormBuilder
   def folder_select(options={})
     @template.select_tag(
       field_name("folder_id"),
-      @template.options_from_collection_for_select(User.current_user.folders, "id", "path"),
+      @template.options_from_collection_for_select(User.current_user.__send__(options[:type].underscore.pluralize), "id", "path"),
       options
     )
   end

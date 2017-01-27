@@ -1,0 +1,2 @@
+class ImageFolder < Folder
+end

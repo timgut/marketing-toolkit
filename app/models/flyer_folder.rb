@@ -1,0 +1,2 @@
+class FlyerFolder < Folder
+end

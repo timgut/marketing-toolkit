@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 20170124145939) do
 
-  create_table "campaigns", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "campaigns", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
     t.text     "description", limit: 65535
     t.integer  "status"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20170124145939) do
     t.datetime "updated_at",                null: false
   end
 
-  create_table "campaigns_flyers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "campaigns_flyers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "campaign_id"
     t.integer  "flyer_id"
     t.integer  "creator_id"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20170124145939) do
     t.index ["flyer_id"], name: "index_campaigns_flyers_on_flyer_id", using: :btree
   end
 
-  create_table "data", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "data", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "flyer_id"
     t.string   "key"
     t.text     "value",      limit: 65535
@@ -40,11 +40,12 @@ ActiveRecord::Schema.define(version: 20170124145939) do
     t.index ["flyer_id"], name: "index_data_on_flyer_id", using: :btree
   end
 
-  create_table "flyers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "flyers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "template_id"
     t.string   "title"
     t.text     "description",      limit: 65535
     t.integer  "status"
+    t.integer  "folder_id"
     t.string   "pdf_file_name"
     t.string   "pdf_content_type"
     t.integer  "pdf_file_size"
@@ -54,7 +55,7 @@ ActiveRecord::Schema.define(version: 20170124145939) do
     t.index ["template_id"], name: "index_flyers_on_template_id", using: :btree
   end
 
-  create_table "flyers_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "flyers_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "flyer_id"
     t.integer  "user_id"
     t.integer  "creator_id"
@@ -65,9 +66,10 @@ ActiveRecord::Schema.define(version: 20170124145939) do
     t.index ["user_id"], name: "index_flyers_users_on_user_id", using: :btree
   end
 
-  create_table "folders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "folders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "name"
     t.string   "path"
+    t.string   "type"
     t.integer  "parent_id"
     t.integer  "user_id"
     t.boolean  "is_root"
@@ -75,7 +77,7 @@ ActiveRecord::Schema.define(version: 20170124145939) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "images", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "images", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "folder_id"
     t.string   "image_file_name"
     t.string   "image_content_type"
@@ -85,7 +87,7 @@ ActiveRecord::Schema.define(version: 20170124145939) do
     t.datetime "updated_at",         null: false
   end
 
-  create_table "images_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "images_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "image_id"
     t.integer  "user_id"
     t.integer  "creator_id"
@@ -96,7 +98,7 @@ ActiveRecord::Schema.define(version: 20170124145939) do
     t.index ["user_id"], name: "index_images_users_on_user_id", using: :btree
   end
 
-  create_table "templates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "templates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
     t.text     "description", limit: 65535
     t.float    "height",      limit: 24
@@ -108,7 +110,7 @@ ActiveRecord::Schema.define(version: 20170124145939) do
     t.datetime "updated_at",                null: false
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"

@@ -1,15 +1,21 @@
-<%= form_for(folder) do |f| %>
-  <% if folder.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(folder.errors.count, "error") %> prohibited this folder from being saved:</h2>
+<%= form_for(folder, as: :folder) do |f| %>
+  <%= render partial: "/shared/errors", locals: {record: folder} %>
+  <%= f.hidden_field :user_id, value: User.current_user.id %>
 
-      <ul>
-      <% folder.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <div>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :parent %><br />
+    <%= f.folder_select(type: folder.type, name: "folder[parent_id]") %>
+  </div>
+
+  <div>
+    <%= f.label :type %><br />
+    <%= f.select(:type, options_for_select([["Flyer", "FlyerFolder"], ["Image", "ImageFolder"]], folder.type)) %>
+  </div>
 
   <div class="actions">
     <%= f.submit %>
