@@ -1,6 +1,8 @@
 require 'paperclip/media_type_spoof_detector'
 module Paperclip
   class MediaTypeSpoofDetector
+    # PDFs from strings won't have a valid content type and will raise an error.
+    # overwriting this method to return false will fix this.
     def spoofed?
       false
     end
