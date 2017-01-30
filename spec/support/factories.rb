@@ -17,6 +17,14 @@ FactoryGirl.define do
     value "We never quit on the people who depend on us."
   end
 
+  factory :folder do
+    name "folder"
+    path "/folder"
+    user
+    type "FlyerFolder"
+    is_root false
+  end
+
   factory :flyer do
     template
     title "My Custom Flyer"
@@ -33,7 +41,7 @@ FactoryGirl.define do
     description "A flyer for each industry AFSCME represents"
     height 11
     width 8.5
-    pdf_markup "This is a placeholder for the PDF markup."
+    pdf_markup "<html><body>Hello World</body></html>"
     form_markup "This is a placeholder for the form markup."
     status "publish"
   end

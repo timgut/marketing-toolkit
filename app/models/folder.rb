@@ -2,7 +2,7 @@ class Folder < ApplicationRecord
   belongs_to :parent, class_name: name, foreign_key: :parent_id
   belongs_to :user
 
-  has_many :children, -> { order(:title) }, class_name: name, foreign_key: :parent_id, dependent: :destroy
+  has_many :children, class_name: name, foreign_key: :parent_id, dependent: :destroy
   has_many :images, dependent: :destroy
   has_many :flyers, dependent: :destroy
 
@@ -13,11 +13,7 @@ class Folder < ApplicationRecord
 
   class << self
     def roots
-      where(parent_id: nil).order(:title)
-    end
-
-    def root
-      roots.first
+      where(parent_id: nil)
     end
   end
 
@@ -39,7 +35,7 @@ class Folder < ApplicationRecord
   # Returns all siblings of the current node.
   #   subchild1.siblings # => [subchild2]
   def siblings
-    self_and_siblings - [self]
+    self_and_siblings.select{|f| f.id != self.id}
   end
 
   # Returns all siblings and a reference to the current node.

@@ -80,7 +80,7 @@ class FlyersController < ApplicationController
   private
 
   def flyer_params
-    params.require(:flyer).permit!
+    params.require(:flyer).permit(:title, :description, :status, :template_id, :folder_id)
   end
 
   def force_format(format)
