@@ -68,6 +68,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.4)
+    croppie_rails (2.4.0)
     database_cleaner (1.5.3)
     debug_inspector (0.0.2)
     devise (4.2.0)
@@ -244,6 +245,7 @@ DEPENDENCIES
   capistrano (= 2.13.5)
   codemirror-rails
   coffee-rails (~> 4.2)
+  croppie_rails
   database_cleaner
   devise (~> 4.2)
   factory_girl_rails

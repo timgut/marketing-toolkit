@@ -37,6 +37,11 @@ class ImagesController < ApplicationController
     @image = Image.new
   end
 
+  # GET /images/1/resize
+  def resize
+    @image = Image.find(params[:id])
+  end
+
   # GET /images/1
   def show
     @image = Image.find(params[:id])

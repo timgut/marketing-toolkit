@@ -14,7 +14,13 @@ Rails.application.routes.draw do
   end
 
   resources :folders
-  resources :images
+  
+  resources :images do
+    member do
+      get :resize
+    end
+  end
+
   resources :templates
 
   resources :image_folders, controller: 'folders'
