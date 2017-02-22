@@ -10,7 +10,6 @@ class Flyer < ApplicationRecord
   has_many :data
   
   belongs_to :template
-  belongs_to :folder
 
   validates_presence_of :template, :title, :description, :status
 

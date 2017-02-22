@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170124145939) do
+ActiveRecord::Schema.define(version: 20170118214749) do
 
   create_table "campaigns", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
@@ -45,7 +45,6 @@ ActiveRecord::Schema.define(version: 20170124145939) do
     t.string   "title"
     t.text     "description",      limit: 65535
     t.integer  "status"
-    t.integer  "folder_id"
     t.string   "pdf_file_name"
     t.string   "pdf_content_type"
     t.integer  "pdf_file_size"
@@ -66,19 +65,7 @@ ActiveRecord::Schema.define(version: 20170124145939) do
     t.index ["user_id"], name: "index_flyers_users_on_user_id", using: :btree
   end
 
-  create_table "folders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.string   "name"
-    t.string   "path"
-    t.string   "type"
-    t.integer  "parent_id"
-    t.integer  "user_id"
-    t.boolean  "is_root"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "images", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.integer  "folder_id"
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
