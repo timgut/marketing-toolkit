@@ -1,0 +1,45 @@
+<%= form_for([:campaign, :template, @flyer], class: "edit-form delay4") do |f| %>
+  <%= f.hidden_field :template_id, value: @template.id %>
+  <main class="clearfix">
+    <aside class="preview">
+      <ol> 
+        <li>
+          <label>
+            <button type="submit" name="commit" value="Preview" class="full-preview active">Launch full size preview</button>
+            Preview
+          </label>
+                        
+          <%= image_tag @template.blank_image %>
+        </li>
+
+        <li>
+          <%= f.label :title %>
+          <%= f.text_field :title %>
+        </li>
+                    
+        <li>
+          <%= f.label :description %>
+          <%= f.text_area :description %> 
+        </li>
+
+        <li>
+          <%= f.label :status %>
+          <%= f.status_select %>
+        </li>
+                
+        <li><strong class="metadata-label">Dimensions</strong><%= dimensions(@template) %></li>
+        <li><strong class="metadata-label">Toolkit</strong><%= @campaign.title %></li>
+        <li><strong class="metadata-label">Type</strong>Flyer</li>
+      </ol>
+    </aside>
+        
+    <section class="workspace cf">
+      <%= @template.form_markup.html_safe %>
+
+      <div class="buttons small cf">
+          <button type="submit" name="commit" value="Preview" class="preview active">Preview</button>
+          <%= f.submit "Save" %>
+      </div>
+    </section>
+  </main>
+<% end %>

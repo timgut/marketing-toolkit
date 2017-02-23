@@ -8,12 +8,14 @@ end
 gem 'rails', '~> 5.0.1'
 gem 'mysql2'
 
+gem 'aws-sdk', '~> 2.7.0'
+gem 'codemirror-rails'
 gem 'coffee-rails', '~> 4.2'
+gem 'croppie_rails'
 gem 'devise', '~> 4.2'
-gem 'exifr'
 gem 'jquery-rails'
-gem 'mini_magick'
-gem "paperclip", "~> 5.0.0.beta1"
+gem 'jquery-validation-rails'
+gem 'paperclip', '~> 5.0.0'
 gem 'sass-rails', '~> 5.0'
 gem 'therubyracer'
 gem 'turbolinks', '~> 5'
@@ -33,5 +35,8 @@ group :development do
 end
 
 group :test do
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
   gem 'rspec-rails'
+  gem 'simplecov', '0.13', require: false
 end

@@ -1,0 +1,9 @@
+<h1>Editing Image</h1>
+
+<img src="<%= @image.image.url %>"</img><br/>
+
+
+<%= render 'form', image: @image %>
+
+<%= link_to 'Show', @image %> |
+<%= link_to 'Back', images_path %>

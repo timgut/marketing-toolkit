@@ -1,0 +1,22 @@
+<%= form_for(campaign) do |f| %>
+  <%= render partial: "/shared/errors", locals: {record: campaign} %>
+
+  <div>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+
+  <div>
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </div>
+
+  <div>
+    <%= f.label :status %><br />
+    <%= f.status_select %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,60 @@
+<header>
+    <nav>
+        <a href="/intro" title="AFSCME Toolkit" id="logo" itemprop="url">
+          <%= image_tag("toolkit-logo.svg", alt: "AFSCME Toolkit", itemprop: "logo") %>
+        </a>
+                
+        <ul class="menu left mystuff"> 
+          <li>
+            <a href="/my-stuff" title="My Stuff">My Stuff</a>
+            <ol>
+              <li><a href="/my-stuff" title="My designs">My designs</a></li>
+              <li><a href="/recent" title="Recent">Recent</a></li>           
+              <li><a href="/shared-with-me" title="Shared with me">Shared with me</a></li> 
+              <li><a href="/my-images" title="My Images">My Images</a></li> 
+              <li><a href="/trash" title="Trash">Trash</a></li> 
+            </ol>
+          </li>
+        </ul>
+        
+        <ul class="menu left templates"> 
+          <li>
+            <a href="/campaigns" title="Browse Templates">Browse Templates</a>
+            <ol>
+              <li><%= link_to "Campaigns", campaigns_path %></li>
+              <li><a href="/all" title="View all">View all</a></li>
+              <li><a href="/flyers" title="Flyer">Flyers</a></li>
+              <li><a href="/posters" title="Poster">Posters</a></li>
+              <li><a href="/flyers" title="Newsletter">Newsletters</a></li>
+              <li><a href="/posters" title="Mail piece">Mail pieces</a></li>
+            </ol> 
+          </li>
+        </ul>
+
+        <ul class="menu left user">
+          <li>
+            <a href="/profile" title="User name">Amy Hendrick</a>
+            <ol>
+              <li><a href="/my-designs" title="My stuff">My stuff</a></li>
+              <li><a href="/profile" title="Edit profile">Edit profile</a></li>
+              <!-- these two are only available for administrators -->
+              <li><a href="/users" title="Manage Users">Manage Users</a></li>
+              <li><a href="/metadata" title="Manage Metadata">Manage Metadata</a></li>
+              <!-- these two are only available for administrators -->
+              <li><a href="/log" title="Log out">Log out</a></li>   
+            </ol>
+          </li>
+        </ul>
+    
+        <ul class="menu right help">
+          <li>
+            <a href="/help" title="Help">Help</a>
+            <ol>
+                <li><a href="/tutorials" title="Tutorials">Tutorials</a></li>
+                <li><a href="/faq" title="FAQ">FAQ</a></li>
+                <li><a href="/contact" title="Contact an administrator">Contact an administrator</a></li>            
+            </ol>
+          </li>
+        </ul>
+    </nav>
+</header>

@@ -13,4 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require codemirror
+//= require codemirror/modes/css
+//= require jquery.validate
+//= require croppie
 //= require_tree .
