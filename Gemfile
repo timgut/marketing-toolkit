@@ -24,10 +24,12 @@ gem 'unicorn'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary-edge', '~> 0.12.3.0'
 
+# moved outside of :development because of unknown error on remote migrations during deploy
+gem 'listen', '~> 3.0.5'
+
 group :development do
   gem 'puma', '~> 3.0'
   gem 'web-console', '>= 3.3.0'
-  gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'capistrano', '~> 3.7', require: false
