@@ -12,8 +12,6 @@ Rails.application.routes.draw do
       get :generate
     end
   end
-
-  resources :folders
   
   resources :images do
     member do
@@ -23,8 +21,5 @@ Rails.application.routes.draw do
 
   resources :templates
 
-  resources :image_folders, controller: 'folders'
-  resources :flyer_folders, controller: 'folders'
-
-  root to: "dashboard#index"
+  root to: "campaigns#index"
 end
