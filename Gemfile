@@ -8,7 +8,6 @@ end
 gem 'rails', '~> 5.0.1'
 gem 'mysql2'
 
-gem 'capistrano', '2.13.5'
 gem 'coffee-rails', '~> 4.2'
 gem 'devise', '~> 4.2'
 gem 'exifr'
@@ -29,6 +28,8 @@ group :development do
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'capistrano', '~> 3.7', require: false
+  gem 'capistrano-rails', require: false
 end
 
 group :test do
