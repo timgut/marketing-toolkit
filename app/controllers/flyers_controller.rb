@@ -50,9 +50,9 @@ class FlyersController < ApplicationController
 
   # GET /campaigns/1/templates/1/flyers/new
   def new
-    @flyer = Flyer.new(template_id: params[:template_id])
     @template = Template.find(params[:template_id])
     @campaign = Campaign.find(params[:campaign_id])
+    @flyer = Flyer.new(template_id: @template.id, title: @template.title, description: @template.description)
   end
 
   # GET /campaigns/1/templates/1/flyers/preview.pdf

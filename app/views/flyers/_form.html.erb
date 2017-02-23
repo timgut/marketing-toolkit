@@ -1,22 +1,45 @@
-<%= form_for([:campaign, :template, @flyer]) do |f| %>
-  <%= render partial: "/shared/errors", locals: {record: @flyer} %>
+<%= form_for([:campaign, :template, @flyer], class: "edit-form delay4") do |f| %>
+  <%= f.hidden_field :template_id, value: @template.id %>
+  <main class="clearfix">
+    <aside class="preview">
+      <ol> 
+        <li>
+          <label>
+            <button type="submit" name="commit" value="Preview" class="full-preview active">Launch full size preview</button>
+            Preview
+          </label>
+                        
+          <%= image_tag @template.blank_image %>
+        </li>
 
-  <div>
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </div>
+        <li>
+          <%= f.label :title %>
+          <%= f.text_field :title %>
+        </li>
+                    
+        <li>
+          <%= f.label :description %>
+          <%= f.text_area :description %> 
+        </li>
 
-  <div>
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </div>
+        <li>
+          <%= f.label :status %>
+          <%= f.status_select %>
+        </li>
+                
+        <li><strong class="metadata-label">Dimensions</strong><%= dimensions(@template) %></li>
+        <li><strong class="metadata-label">Toolkit</strong><%= @campaign.title %></li>
+        <li><strong class="metadata-label">Type</strong>Flyer</li>
+      </ol>
+    </aside>
+        
+    <section class="workspace cf">
+      <%= @template.form_markup.html_safe %>
 
-  <div>
-    <%= f.label :status %><br />
-    <%= f.status_select %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+      <div class="buttons small cf">
+          <button type="submit" name="commit" value="Preview" class="preview active">Preview</button>
+          <%= f.submit "Save" %>
+      </div>
+    </section>
+  </main>
 <% end %>
