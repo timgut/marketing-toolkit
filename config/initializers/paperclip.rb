@@ -13,17 +13,24 @@ end
 Paperclip::Attachment.default_options[:use_timestamp] = false
 
 Paperclip.interpolates :dynamic_path do |attachment, style|
+  
+  # TODO: DRY this up.
   if attachment.instance.is_a?(Image)
     file_type = "images"
     file_name = attachment.instance.image_file_name
   elsif attachment.instance.is_a?(Flyer)
     file_type = "flyers"
     file_name = attachment.instance.pdf_file_name
+  elsif attachment.instance.is_a?(Template)
+    extension = attachment.instance.__send__("#{attachment.name}_content_type".to_sym).split("/").last
+    file_type = "templates"
+    file_name = "#{attachment.name.to_s}.#{extension}"
   end
 
-  path   = attachment.instance.folder.path
-  folder = attachment.instance.folder.path == "/" ? "root" : attachment.instance.folder.path
-  
-  
-  "/#{Rails.application.secrets.aws["folder"]}/#{file_type}/#{folder}/#{style}/#{file_name}".gsub("//", "/")
+  # TODO: Determine correct S3 folder path.
+  # path   = attachment.instance.folder.path
+  # folder = attachment.instance.folder.path == "/" ? "root" : attachment.instance.folder.path
+  # "/#{Rails.application.secrets.aws["folder"]}/#{file_type}/#{folder}/#{style}/#{file_name}".gsub("//", "/")
+
+  "/#{Rails.application.secrets.aws["folder"]}/#{file_type}/#{style}/#{file_name}".gsub("//", "/")
 end

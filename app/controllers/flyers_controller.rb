@@ -1,7 +1,7 @@
 class FlyersController < ApplicationController
   protect_from_forgery except: :create
 
-  # POST /flyers
+  # POST /campaigns/1/templates/1/flyers
   def create
     @flyer = Flyer.new(flyer_params)
 
@@ -14,17 +14,17 @@ class FlyersController < ApplicationController
     end
   end
 
-  # DELETE /flyers
+  # DELETE /campaigns/1/templates/1/flyers
   def destroy
     @flyer = Flyer.find(params[:id])
   end
 
-  # GET /flyers/1/edit
+  # GET /campaigns/1/templates/1/flyers/1/edit
   def edit
     @flyer = Flyer.find(params[:id])
   end
 
-  # GET /flyers/1/generate.pdf
+  # GET /campaigns/1/templates/1/flyers/1/generate.pdf
   def generate
     force_format(:pdf)
     
@@ -43,36 +43,30 @@ class FlyersController < ApplicationController
     end
   end
 
-  # GET /flyers
+  # GET /campaigns/1/templates/1/flyers
   def index
     @flyers = Flyer.all
   end
 
-  # GET /flyers/new
+  # GET /campaigns/1/templates/1/flyers/new
   def new
-    @flyer = Flyer.new
-
-    if template_selected?
-      @template = Template.find(params[:flyer][:template])
-      render :new2
-    else
-      @templates = Template.all
-      render :new
-    end
+    @flyer = Flyer.new(template_id: params[:template_id])
+    @template = Template.find(params[:template_id])
+    @campaign = Campaign.find(params[:campaign_id])
   end
 
-  # GET /flyers/preview.pdf
+  # GET /campaigns/1/templates/1/flyers/preview.pdf
   def preview
     force_format(:pdf)
     render pdf_options
   end
 
-  # GET /flyers/1
+  # GET /campaigns/1/templates/1/flyers/1
   def show
     @flyer = Flyer.find(params[:id])
   end
 
-  # PATCH /flyers/1
+  # PATCH /campaigns/1/templates/1/flyers/1
   def update
     @flyer = Flyer.find(params[:id])
   end

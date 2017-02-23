@@ -2,5 +2,5 @@
 
 <%= render 'form', template: @template %>
 
-<%= link_to 'Show', @template %> |
-<%= link_to 'Back', templates_path %>
+<%= link_to 'Show', campaign_template_path(@template.campaign, @template) %> |
+<%= link_to 'Back', campaign_templates_path(@template.campaign) %>

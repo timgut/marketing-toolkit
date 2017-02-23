@@ -22,7 +22,7 @@ class CampaignsController < ApplicationController
 
   # GET /campaigns
   def index
-    @campaigns = Campaign.all
+    @campaigns = Campaign.includes(:templates).all
   end
 
   # GET /campaigns/new

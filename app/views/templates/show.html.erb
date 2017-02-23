@@ -1,4 +1,51 @@
-<p id="notice"><%= notice %></p>
+<section class="breadcrumbs">
+    <div class="crumbs">
+    
+        <a href="/my-stuff" title="Browse Templates">Browse Templates</a>
+        <a href="/view" title="Public Administration Flyer" class="active">Public Administration Flyer</a>
+    
+    </div><!--crumbs-->
+    
+    <ol class="options cf">
+                
+        <li><a href="/duplicate" title="Duplicate"><span class="icons">c</span> Duplicate</a></li>
+                                
+        <li><a href="/download" title="Download"><span class="icons">d</span> Download</a></li> 
+                    
+    </ol>
+</section>
 
-<%= link_to 'Edit', edit_template_path(@template) %> |
-<%= link_to 'Back', templates_path %>
+<main class="clearfix">
+  <aside class="preview">
+    <ol> 
+      <li>
+        <span class="metadata-label">Title</span>
+        <%= @template.title %>    
+      </li>
+                
+      <li>
+        <span class="metadata-label">Description</span>
+        <%= @template.description.html_safe %>
+      </li>
+            
+      <li><strong class="metadata-label">Dimensions</strong><%= dimensions(@template) %></li>
+      <li><strong class="metadata-label">Toolkit</strong><%= @template.campaign.title %></li>
+      <li><strong class="metadata-label">Type</strong>Flyer</li>
+                
+      <li>
+        <span class="metadata-label">Customizable Options</span>
+        <%= @template.customizable_options.html_safe %>
+      </li>            
+    </ol>
+  </aside>
+    
+  <section class="workspace cf">
+      <figure class="template-preview">
+        <%= image_tag @template.numbered_image.url, alt: @template.title %>
+      </figure>
+
+      <div class="buttons small cf">
+        <%= link_to "Customize", new_campaign_template_flyer_path(@campaign, @template), title: "Customize", class: "button" %>
+      </div>
+  </section>
+</main>

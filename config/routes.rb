@@ -1,15 +1,17 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :campaigns
+  resources :campaigns do
+    resources :templates do
+      resources :flyers do
+        collection do
+          get :preview
+        end
 
-  resources :flyers do
-    collection do
-      get :preview
-    end
-
-    member do
-      get :generate
+        member do
+          get :generate
+        end
+      end
     end
   end
   
@@ -18,8 +20,6 @@ Rails.application.routes.draw do
       get :resize
     end
   end
-
-  resources :templates
 
   root to: "campaigns#index"
 end

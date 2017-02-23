@@ -1,4 +1,6 @@
-<p id="notice"><%= notice %></p>
+<% @campaign.templates.each do |template| %>
+  <%= link_to template.title, campaign_template_path(template) %>
+<% end %>
 
 <%= link_to 'Edit', edit_campaign_path(@campaign) %> |
 <%= link_to 'Back', campaigns_path %>

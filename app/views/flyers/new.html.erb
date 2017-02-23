@@ -1,7 +1,2 @@
 <h1>New Flyer</h1>
-
-<%= form_for @flyer, url: new_flyer_path(@flyer), method: :get do |f| %>
-  <%= render 'form', flyer: @flyer %>
-<% end %>
-
-<%= link_to 'Back', flyers_path %>
+<%= render 'form' %>

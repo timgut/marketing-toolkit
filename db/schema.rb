@@ -87,14 +87,26 @@ ActiveRecord::Schema.define(version: 20170118214749) do
 
   create_table "templates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
-    t.text     "description", limit: 65535
-    t.float    "height",      limit: 24
-    t.float    "width",       limit: 24
-    t.text     "pdf_markup",  limit: 65535
-    t.text     "form_markup", limit: 65535
+    t.text     "description",                       limit: 65535
+    t.float    "height",                            limit: 24
+    t.float    "width",                             limit: 24
+    t.text     "pdf_markup",                        limit: 65535
+    t.text     "form_markup",                       limit: 65535
+    t.string   "thumbnail_file_name"
+    t.string   "thumbnail_content_type"
+    t.integer  "thumbnail_file_size"
+    t.datetime "thumbnail_updated_at"
+    t.string   "numbered_image_file_name"
+    t.string   "numbered_image_content_type"
+    t.integer  "numbered_image_file_size"
+    t.datetime "numbered_image_updated_at"
+    t.string   "blank_numbered_image_file_name"
+    t.string   "blank_numbered_image_content_type"
+    t.integer  "blank_numbered_image_file_size"
+    t.datetime "blank_numbered_image_updated_at"
     t.integer  "status"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
