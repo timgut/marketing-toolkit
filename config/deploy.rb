@@ -7,7 +7,7 @@ set :deploy_via,  :remote_cache
 set :use_sudo,    false
 set :deploy_user, "foo"
 
-set :branch, "master"
+set :branch, "dev"
 
 set :keep_releases, 3
 set :keep_assets, 8
