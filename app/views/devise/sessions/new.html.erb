@@ -1,0 +1,34 @@
+<div id="logo">
+  <img src="http://toolkit.afscme.bytrilogy.com/theme/img/toolkit-logo.svg" alt="AFSCME Toolkit" itemprop="logo"/>
+</div>
+
+
+<main class="login-screen">
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <h1>Log in</h1>
+    <ol>
+      <li>
+        <%= f.email_field :email, autofocus: true, placeholder: 'Email Address' %> 
+      </li>
+      <li>
+        <%= f.password_field :password, autocomplete: "off", placeholder: 'Password' %>  
+      </li>
+      <% if devise_mapping.rememberable? -%>
+      <li class="checkbox clearfix">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+      </li>
+      <% end -%>
+      <li class="button">
+          <input type="submit" name="commit" value="Log in">
+      </li>
+    </ol>  
+  <% end %>
+  
+  <p class="alternative-links">
+    <a href="/password-request" title="Forgot your password?">Forgot your password?</a> &nbsp;|&nbsp; <a href="/account-application" title="Apply for an account">Apply for an account</a>
+  </p>
+
+</main>
+
+
