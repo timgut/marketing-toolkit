@@ -27,10 +27,7 @@ Paperclip.interpolates :dynamic_path do |attachment, style|
     file_name = "#{attachment.name.to_s}.#{extension}"
   end
 
-  # TODO: Determine correct S3 folder path.
-  # path   = attachment.instance.folder.path
-  # folder = attachment.instance.folder.path == "/" ? "root" : attachment.instance.folder.path
-  # "/#{Rails.application.secrets.aws["folder"]}/#{file_type}/#{folder}/#{style}/#{file_name}".gsub("//", "/")
+  folder = "#{User.current_user.id}_#{User.current_user.last_name.downcase.gsub(' ','-')}_#{User.current_user.first_name.downcase.gsub(' ','-')}"
 
-  "/#{Rails.application.secrets.aws["folder"]}/#{file_type}/#{style}/#{file_name}".gsub("//", "/")
+  "/#{Rails.application.secrets.aws["folder"]}/#{folder}/#{file_type}/#{style}/#{file_name}".gsub("//", "/")
 end
