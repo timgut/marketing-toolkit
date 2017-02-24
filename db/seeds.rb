@@ -7,43 +7,47 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-## Create some users
+# Create some users
 
-# User.create(
-# 	first_name: 'Jarred', 
-# 	last_name: 'Trost', 
-# 	email: 'jtrost@trilogyinteractive.com', 
-# 	region: 'Houston',
-# 	title: 'Administrator',
-# 	approved: true,
-# 	cell_phone: '123-456-7890',
-# 	local_number: '1111',
-# 	council: 'Test',
-# 	password: 'temp1234',
-# 	password_confirmation: 'temp1234'
-# )
+User.create(
+	first_name: 'Jarred', 
+	last_name: 'Trost', 
+	email: 'jtrost@trilogyinteractive.com', 
+	region: 'Houston',
+	title: 'Administrator',
+	approved: true,
+	receive_alerts: false,
+	cell_phone: '123-456-7890',
+	zip_code: '12345',
+	local_number: '1111',
+	council: 'Test',
+	password: 'temp1234',
+	password_confirmation: 'temp1234'
+)
 
-# User.create(
-# 	first_name: 'Tim', 
-# 	last_name: 'Gutowski', 
-# 	email: 'tgutowski@trilogyinteractive.com', 
-# 	region: 'Chicago',
-# 	title: 'Administrator',
-# 	approved: true,
-# 	cell_phone: '123-456-7890',
-# 	local_number: '1111',
-# 	council: 'Test',
-# 	password: 'temp1234',
-# 	password_confirmation: 'temp1234'
-# )
+User.create(
+	first_name: 'Tim', 
+	last_name: 'Gutowski', 
+	email: 'tgutowski@trilogyinteractive.com', 
+	region: 'Chicago',
+	title: 'Administrator',
+	approved: true,
+	receive_alerts: false,
+	cell_phone: '123-456-7890',
+	zip_code: '60201',
+	local_number: '1111',
+	council: 'Test',
+	password: 'temp1234',
+	password_confirmation: 'temp1234'
+)
 
-# ## Create some campaigns
+## Create some campaigns
 
-# Campaign.create(title: 'Never Quit', description: 'Don\'t ever quit!', status: 1)
-# Campaign.create(title: 'Convention 2017', description: 'This is for the 2017 convention', status: 1)
-# Campaign.create(title: 'Political', description: 'This is for political documents', status: 1)
+Campaign.create(title: 'Never Quit', description: 'Don\'t ever quit!', status: 1)
+Campaign.create(title: 'Convention 2017', description: 'This is for the 2017 convention', status: 1)
+Campaign.create(title: 'Political', description: 'This is for political documents', status: 1)
 
-## Create a basic template
+# Create a basic template
 Template.create!(
 	title: 'Sector-specific',
 	description: 'Integer elit massa, vulputate sit amet blandit ac, laoreet ut nisi. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.',

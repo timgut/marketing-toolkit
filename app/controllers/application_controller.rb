@@ -11,6 +11,11 @@ class ApplicationController < ActionController::Base
     User.current_user = User.first
     yield
     User.current_user = nil
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :zip_code, :council, :local_number, :title, :cell_phone, :receive_alerts])
+  end
+
   end
 
   private
