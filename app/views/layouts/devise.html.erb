@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie ie6" lang="en" xml:lang="en" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#" xmlns="http://www.w3.org/1999/xhtml"><![endif]-->
+<!--[if IE 7]><html class="ie ie7" lang="en" xml:lang="en" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#" xmlns="http://www.w3.org/1999/xhtml"><![endif]-->
+<!--[if IE 8]><html class="ie ie8" lang="en" xml:lang="en" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#" xmlns="http://www.w3.org/1999/xhtml"><![endif]-->
+<!--[if gte IE 9]><html class="ie ie9" lang="en" xml:lang="en" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#" xmlns="http://www.w3.org/1999/xhtml"><![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" xml:lang="en" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#" xmlns="http://www.w3.org/1999/xhtml">
+<!--<![endif]-->
+  <%= render partial: "layouts/shared/devise_head" %>
+
+  <body class="login <%= params[:action] %>">
+  	<% unless params[:action] == 'new' %>
+    <%= render partial: "layouts/shared/header" %>
+    <% end %>
+    <p id="notice"><%= notice %></p>
+    <%= yield %>
+    <%= render partial: "layouts/shared/footer" %>
+  </body>
+</html>
