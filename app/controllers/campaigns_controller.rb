@@ -32,7 +32,7 @@ class CampaignsController < ApplicationController
 
   # GET /campaigns/1
   def show
-    @campaign = Campaign.find(params[:id])
+    @campaign = Campaign.includes(:templates).find(params[:id])
   end
 
   # PATCH /campaigns/1

@@ -29,7 +29,9 @@ class TemplatesController < ApplicationController
 
   # GET /campaigns/1/templates/new
   def new
-    @template = Template.new
+    @template = Template.new(campaign_id: params[:campaign_id])
+    @campaign = Campaign.find(params[:campaign_id])
+    @campaigns = Campaign.all
   end
 
   # GET /campaigns/1/templates/1
