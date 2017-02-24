@@ -1,0 +1,26 @@
+<ul>
+  <li class="active">
+      <a href="/my-stuff" title="My Designs">My Designs</a>
+      <div class="contents-counter">2</div>
+  </li>
+      
+  <li>
+    <%= link_to "Recent", recent_images_path, title: "Recent" %>
+    <div class="contents-counter"><%= @recent.count %></div>
+  </li>
+  
+  <li>
+    <%= link_to "Shared with Me", shared_images_path, title: "Shared with Me" %>
+    <div class="contents-counter"><%= @shared.count %></div>
+  </li>
+  
+  <li>
+    <%= link_to "My Images", images_path, title: "My Images" %>
+    <div class="contents-counter"><%= @all.count %></div>
+  </li>
+  
+  <li>
+      <a href="/my-trash" title="Trash">Trash</a>
+      <div class="contents-counter">2</div>
+  </li>
+</ul>

@@ -1,4 +1,6 @@
 class ImagesController < ApplicationController
+  before_action :assign_records, only: [:index, :recent, :shared]
+
   # POST /images
   def create
     @image = Image.new(image_params)
@@ -29,7 +31,7 @@ class ImagesController < ApplicationController
 
   # GET /images
   def index
-    @images = Image.all
+    @images = @all
   end
 
   # GET /images/new
@@ -37,9 +39,21 @@ class ImagesController < ApplicationController
     @image = Image.new
   end
 
+  # GET /images/recent
+  def recent
+    @images = @recent
+    render :index
+  end
+
   # GET /images/1/resize
   def resize
     @image = Image.find(params[:id])
+  end
+
+  # GET /images/shared
+  def shared
+    @images = @shared
+    render :index
   end
 
   # GET /images/1
@@ -59,6 +73,12 @@ class ImagesController < ApplicationController
   end
 
   private
+
+  def assign_records
+    @all    = Image.all
+    @recent = Image.recent
+    @shared = Image.shared_with_me
+  end
 
   def image_params
     params.require(:image).permit(:image)

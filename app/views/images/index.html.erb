@@ -1,26 +1,23 @@
-<p id="notice"><%= notice %></p>
+<section class="breadcrumbs">
+    <div class="crumbs">
+        <a href="/my-stuff" title="My Stuff">My Stuff</a>
+        <a href="/my-stuff" title="My Designs" class="active">My Designs</a>
+    </div><!--crumbs-->
+    
+    <ol class="options cf">
+      <%= link_to "<span class='icons'>C</span> Upload Photo".html_safe, new_image_path %>
+    </ol>
+</section>
 
-<h1>Images</h1>
+<main class="clearfix">
+  <aside>
+    <%= render partial: "images/nav" %>  
+  </aside>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="4"></th>
-    </tr>
-  </thead>
+    <section class="workspace cf">
+      <section class="image-grid cf">
+      <%= render @images %>
+    </section>
 
-  <tbody>
-    <% @images.each do |image| %>
-      <tr>
-        <td><%= link_to image.image_file_name, image %></td>
-        <td><%= link_to 'Edit', edit_image_path(image) %></td>
-        <td><%= link_to 'Resize', resize_image_path(image) %></td>
-        <td><%= link_to 'Destroy', image, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Image', new_image_path %>
+  </section><!--workspace-->    
+</main>

@@ -16,6 +16,11 @@ Rails.application.routes.draw do
   end
   
   resources :images do
+    collection do
+      get :recent
+      get :shared
+    end
+
     member do
       get :resize
     end
