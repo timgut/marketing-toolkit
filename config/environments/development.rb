@@ -55,4 +55,6 @@ Rails.application.configure do
   config.paperclip_defaults = {
     path: ':dynamic_path'
   }
+
+  config.action_mailer.default_url_options = { :host => 'localhost' }
 end
