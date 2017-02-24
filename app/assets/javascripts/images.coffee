@@ -1,24 +1,25 @@
 window.Toolkit ||= {}
 
 window.Toolkit.imageReady = ->
-  window.Toolkit.croppie = new Croppie(
-    document.getElementById("croppie"),
-    {
-      enableExif: true,
-      viewport: {
-          width:  800,
-          height: 640,
-          type:   'square'
-      },
-      boundary: {
-          width:  900,
-          height: 740
+  if document.getElementById("croppie")
+    window.Toolkit.croppie = new Croppie(
+      document.getElementById("croppie"),
+      {
+        enableExif: true,
+        viewport: {
+            width:  800,
+            height: 640,
+            type:   'square'
+        },
+        boundary: {
+            width:  900,
+            height: 740
+        }
       }
-    }
-  )
+    )
 
   window.Toolkit.readFile = (input) ->
-    if (input.files && input.files[0])
+    if input.files && input.files[0]
       reader = new FileReader();
 
       reader.onload = (e) ->

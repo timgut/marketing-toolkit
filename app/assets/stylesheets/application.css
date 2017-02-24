@@ -16,3 +16,8 @@
  *= require_tree .
  *= require_self
  */
+
+/* The CSS from AMPS is center aliging the lines in the codemirror textarea. */
+.CodeMirror-line {
+  text-align: left;
+}

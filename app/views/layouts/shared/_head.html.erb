@@ -7,13 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" /> 
 
   <!-- Basic Meta -->
-  <meta name="title"         content="{{ content_item.title  | escape }}" />
-  <meta name="copyright"     content="(c) Copyright {{ request.now | date:"%Y" }} {{ site.title }}" /> 
-
-  <%= csrf_meta_tags %>
-
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <meta name="title"         content="AFSCME Toolkit" />
+  <meta name="copyright"     content="(c) Copyright <%= DateTime.now.year %> AFSCME" /> 
 
   <!-- CSS -->
   <link rel="stylesheet" href="http://toolkit.afscme.bytrilogy.com/theme/css/reset.css" type="text/css" media="screen, projection"/>   
@@ -27,9 +22,8 @@
   <% end %>
 
   <!-- Scripts -->
-
-  <script type="text/javascript" src="http://toolkit.afscme.bytrilogy.com/theme/scripts/site.js"></script> 
-  <script type="text/javascript" src="http://toolkit.afscme.bytrilogy.com/theme/scripts/jquery.popupoverlay.js"></script>
+  <!-- site.js references ti.utils, which we should not use here -->
+  <!-- <script type="text/javascript" src="http://toolkit.afscme.bytrilogy.com/theme/scripts/site.js"></script>  -->
 
   <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -37,4 +31,10 @@
 
   <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700|Roboto:700" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <%= csrf_meta_tags %>
+
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <script type="text/javascript" src="http://toolkit.afscme.bytrilogy.com/theme/scripts/jquery.popupoverlay.js"></script>
 </head>

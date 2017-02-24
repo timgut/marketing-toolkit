@@ -1,6 +1,8 @@
 class FlyersController < ApplicationController
   protect_from_forgery except: :create
 
+  before_action :assign_records
+
   # POST /campaigns/1/templates/1/flyers
   def create
     @flyer = Flyer.new(flyer_params)
@@ -8,7 +10,9 @@ class FlyersController < ApplicationController
     if @flyer.save
       FlyerUser.create!(flyer_id: @flyer.id, user_id: User.current_user.id, creator_id: User.current_user.id)
       create_data
-      redirect_to generate_flyer_path(@flyer, format: :pdf)
+
+      # Eventually we'll redirect to another location, and send this to a background job.
+      redirect_to generate_campaign_template_flyer_path(@campaign, @template, @flyer, format: :pdf)
     else
       redirect_back fallback_location: root_path
     end
@@ -50,8 +54,6 @@ class FlyersController < ApplicationController
 
   # GET /campaigns/1/templates/1/flyers/new
   def new
-    @template = Template.find(params[:template_id])
-    @campaign = Campaign.find(params[:campaign_id])
     @flyer = Flyer.new(template_id: @template.id, title: @template.title, description: @template.description)
   end
 
@@ -81,14 +83,6 @@ class FlyersController < ApplicationController
     params[:format] = format
   end
 
-  def template_selected?
-    begin
-      params.dig(:flyer).dig(:template)
-    rescue
-      false
-    end
-  end
-
   def create_data
     params.delete(:data).each do |key, value|
       Datum.create!(flyer_id: @flyer.id, key: key, value: value)
@@ -115,5 +109,10 @@ class FlyersController < ApplicationController
         right:  0
       }
     }
+  end
+
+  def assign_records
+    @campaign = Campaign.find(params[:campaign_id])
+    @template = Template.find(params[:template_id])
   end
 end

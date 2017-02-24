@@ -24,6 +24,7 @@ class TemplatesController < ApplicationController
   # GET /campaigns/1/templates
   def index
     @templates = Template.includes(:campaign).all
+    @campaign = Campaign.find(params[:campaign_id])
   end
 
   # GET /campaigns/1/templates/new
