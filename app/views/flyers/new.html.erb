@@ -1,3 +1,11 @@
+<script type="text/javascript">
+  window.Toolkit.data = {};
+
+  <% @flyer.data.each do |datum| %>
+    window.Toolkit.data.<%= datum.key %> = <%= datum.value.to_json.html_safe %>;
+  <% end %>
+</script>
+
 <%= render partial: "/shared/errors", locals: {record: @flyer} %>
 
 <section class="breadcrumbs">

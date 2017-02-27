@@ -3,7 +3,7 @@ window.Toolkit ||= {}
 window.Toolkit.normalizeQuotes = (str) ->
   str.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"')
 
-window.Toolkit.addImage = ->
+window.Toolkit.flyerAddImage = ->
   # Init image picker
   $(".image-picker").addClass("image-picker_open")
   
@@ -50,13 +50,13 @@ window.Toolkit.addImage = ->
     $("#image-picker").attr("data-target", $(@).attr("data-target"))
   )
 
-window.Toolkit.saveButton = ->
+window.Toolkit.flyerSaveButton = ->
   $("[data-save='true']").click( ->
     $("input[name='generate']").val("false")
     $("form[data-flyer='true']").submit()
   )
 
-window.Toolkit.optionsMenu = ->
+window.Toolkit.flyersOptionsMenu = ->
   $(document).on("click", ".options a", ->
     $menu = $(@).next("ol")
 
@@ -66,9 +66,32 @@ window.Toolkit.optionsMenu = ->
       $menu.css({visibility: "hidden", opacity: 0})
   )
 
+window.Toolkit.flyerFillForm = ->
+  $.each(window.Toolkit.data, (key, value) ->
+    $input = $("[name='data[#{key}]']")
+
+    if $input.length is 0
+      console.log("Cannot find input named: data[#{key}]. Skipping...")
+    else
+      $predefinedInput = $("[value='#{value}']")
+
+      if $predefinedInput.length is 0
+        console.log("Cannot find predefined input.")
+        $customInput = $("[name='#{key}-custom']")
+
+        if $customInput.length is 0
+          console.log("Cannot find custom input named: #{key}-custom. Skipping...")
+        else
+          $customInput.prop("checked", true)
+          $customInput.val(value)
+      else
+        $predefinedInput.prop("checked", true)
+  )
+
 window.Toolkit.flyerReady = ->
-  window.Toolkit.addImage()
-  window.Toolkit.saveButton()
-  window.Toolkit.optionsMenu()
+  window.Toolkit.flyerAddImage()
+  window.Toolkit.flyerSaveButton()
+  window.Toolkit.flyersOptionsMenu()
+  window.Toolkit.flyerFillForm()
 
 $(document).on('turbolinks:load', window.Toolkit.flyerReady)
