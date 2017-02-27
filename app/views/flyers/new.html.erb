@@ -1,29 +1,24 @@
 <%= render partial: "/shared/errors", locals: {record: @flyer} %>
 
 <section class="breadcrumbs">
-
-    <div class="crumbs">
+  <div class="crumbs">
+  
+      <a href="/my-stuff" title="My Stuff">My Stuff</a>
+      <a href="/my-stuff" title="My Designs">My Designs</a>
+      <a href="/edit-document" title="Never Quit Industry-Specific Flyer" class="active">Never Quit Industry-Specific Flyer</a>
+  
+  </div><!--crumbs-->
     
-        <a href="/my-stuff" title="My Stuff">My Stuff</a>
-        <a href="/my-stuff" title="My Designs">My Designs</a>
-        <a href="/edit-document" title="Never Quit Industry-Specific Flyer" class="active">Never Quit Industry-Specific Flyer</a>
-    
-    </div><!--crumbs-->
-    
-    <ol class="options cf">
-    
-        <li><a href="/edit" title="Edit"><span class="icons">V</span> Save</a></li>
-        
-        <li><a href="/duplicate" title="Duplicate"><span class="icons">c</span> Duplicate</a></li>
-                    
-        <li><a href="/share" title="Share"><span class="icons">s</span> Share</a></li> 
-        
-        <li><a href="/download" title="Download"><span class="icons">d</span> Download</a></li> 
-                    
-        <li><a href="/delete" title="Delete"><span class="icons">x</span> Delete</a></li> 
-
-    </ol>
-    
+  <ol class="options cf">
+    <li><a href="#" title="Save" data-save="true"><span class="icons">V</span> Save</a></li>
+    <li><a href="/duplicate" title="Duplicate"><span class="icons">c</span> Duplicate</a></li>
+    <li><a href="/share" title="Share"><span class="icons">s</span> Share</a></li> 
+    <li><a href="/download" title="Download"><span class="icons">d</span> Download</a></li> 
+    <% unless @flyer.new_record? %>
+      <li><%= link_to "<span class='icons'>x</span> Delete".html_safe, campaign_template_flyer_path(@campaign, @template, @flyer), method: :delete, confirm: "Are you sure?" %></li>
+    <% end %>
+  </ol>
 </section>
 
 <%= render 'form' %>
+<%= render partial: "images/choose" %>

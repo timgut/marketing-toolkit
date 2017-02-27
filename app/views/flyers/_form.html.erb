@@ -1,5 +1,6 @@
-<%= form_for([:campaign, :template, @flyer], class: "edit-form delay4") do |f| %>
+<%= form_for([:campaign, :template, @flyer], html: {novalidate: "novalidate", data: {flyer: true}}) do |f| %>
   <%= f.hidden_field :template_id, value: @template.id %>
+  <%= hidden_field_tag :generate, true %>
   <main class="clearfix">
     <aside class="preview">
       <ol> 
@@ -8,7 +9,7 @@
             <button type="submit" name="commit" value="Preview" class="full-preview active">Launch full size preview</button>
             Preview
           </label>
-                        
+
           <%= image_tag @template.blank_image %>
         </li>
 
@@ -38,7 +39,7 @@
 
       <div class="buttons small cf">
           <button type="submit" name="commit" value="Preview" class="preview active">Preview</button>
-          <%= f.submit "Save" %>
+          <%= f.button "Save", class: "button save active" %>
       </div>
     </section>
   </main>

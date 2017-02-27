@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   resources :campaigns do
     resources :templates do
-      resources :flyers do
+      resources :flyers, except: [:index] do
         collection do
           get :preview
         end
@@ -28,7 +28,6 @@ Rails.application.routes.draw do
   
   resources :images do
     collection do
-      get :choose
       get :recent
       get :shared
     end
@@ -38,5 +37,6 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :flyers, only: [:index]
 
 end

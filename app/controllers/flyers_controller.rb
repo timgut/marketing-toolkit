@@ -1,7 +1,7 @@
 class FlyersController < ApplicationController
   protect_from_forgery except: :create
 
-  before_action :assign_records
+  before_action :assign_records, except: [:index]
 
   # POST /campaigns/1/templates/1/flyers
   def create
@@ -12,7 +12,11 @@ class FlyersController < ApplicationController
       create_data
 
       # Eventually we'll redirect to another location, and send this to a background job.
-      redirect_to generate_campaign_template_flyer_path(@campaign, @template, @flyer, format: :pdf)
+      if params[:generate] == "true"
+        redirect_to generate_campaign_template_flyer_path(@campaign, @template, @flyer, format: :pdf, debug: true)
+      else
+        redirect_to flyers_path, notice: "Flyer created!"
+      end
     else
       redirect_back fallback_location: root_path
     end
@@ -26,6 +30,8 @@ class FlyersController < ApplicationController
   # GET /campaigns/1/templates/1/flyers/1/edit
   def edit
     @flyer = Flyer.find(params[:id])
+    @images = Image.all
+    render :new # I think new and edit can use the same template.
   end
 
   # GET /campaigns/1/templates/1/flyers/1/generate.pdf
@@ -47,14 +53,15 @@ class FlyersController < ApplicationController
     end
   end
 
-  # GET /campaigns/1/templates/1/flyers
+  # GET /flyers
   def index
-    @flyers = Flyer.all
+    @flyers = Flyer.includes(:template, template: [:campaign]).all
   end
 
   # GET /campaigns/1/templates/1/flyers/new
   def new
     @flyer = Flyer.new(template_id: @template.id, title: @template.title, description: @template.description)
+    @images = Image.all
   end
 
   # GET /campaigns/1/templates/1/flyers/preview.pdf
@@ -71,6 +78,22 @@ class FlyersController < ApplicationController
   # PATCH /campaigns/1/templates/1/flyers/1
   def update
     @flyer = Flyer.find(params[:id])
+
+    if @flyer.save
+      ActiveRecord::Base.transaction do
+        delete_data
+        create_data
+      end
+
+      # Eventually we'll redirect to another location, and send this to a background job.
+      if params[:generate] == "true"
+        redirect_to generate_campaign_template_flyer_path(@campaign, @template, @flyer, format: :pdf, debug: true)
+      else
+        redirect_to flyers_path(@campaign, @template), notice: "Flyer created!"
+      end
+    else
+      redirect_back fallback_location: root_path
+    end
   end
 
   private
@@ -81,6 +104,10 @@ class FlyersController < ApplicationController
 
   def force_format(format)
     params[:format] = format
+  end
+
+  def delete_data
+    @flyer.data.destroy_all
   end
 
   def create_data
