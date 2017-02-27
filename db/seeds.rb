@@ -14,13 +14,14 @@ User.create(
 	last_name: 'Trost', 
 	email: 'jtrost@trilogyinteractive.com', 
 	region: 'Houston',
-	title: 'Administrator',
+	role: 'Administrator',
+	title: 'IU-Comms',
 	approved: true,
 	receive_alerts: false,
 	cell_phone: '123-456-7890',
 	zip_code: '12345',
 	local_number: '1111',
-	council: 'Test',
+	council: 'IU',
 	password: 'temp1234',
 	password_confirmation: 'temp1234'
 )
@@ -30,13 +31,31 @@ User.create(
 	last_name: 'Gutowski', 
 	email: 'tgutowski@trilogyinteractive.com', 
 	region: 'Chicago',
-	title: 'Administrator',
+	role: 'Administrator',
+	title: 'IU-Comms',
 	approved: true,
 	receive_alerts: false,
 	cell_phone: '123-456-7890',
 	zip_code: '60201',
 	local_number: '1111',
-	council: 'Test',
+	council: 'IU',
+	password: 'temp1234',
+	password_confirmation: 'temp1234'
+)
+
+User.create(
+	first_name: 'Randy', 
+	last_name: 'Stearns', 
+	email: 'rstearns@trilogyinteractive.com', 
+	region: 'Chicago',
+	role: 'Administrator',
+	title: 'IU-Comms',
+	approved: true,
+	receive_alerts: false,
+	cell_phone: '123-456-7890',
+	zip_code: '60201',
+	local_number: '1111',
+	council: 'IU',
 	password: 'temp1234',
 	password_confirmation: 'temp1234'
 )

@@ -10,6 +10,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
       t.string :title
       t.string :cell_phone
       t.string :council
+      t.string :role, null: false, default: 'User'
       t.string :local_number
       t.boolean :approved, default: false
       t.boolean :receive_alerts, default: false
