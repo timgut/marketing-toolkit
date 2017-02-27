@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     get 'confirmation', to: 'users/registrations#show'
+    get 'applications', to: 'users/registrations#applications'
     authenticated :user do
       root 'campaigns#index', as: :authenticated_root
     end

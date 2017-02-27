@@ -7,6 +7,9 @@ class User < ApplicationRecord
   has_and_belongs_to_many :flyers
   has_and_belongs_to_many :images
 
+  scope :unapproved, -> { where(approved: 0) }
+
+
   ROLES = ['User', 'Local President', 'Vetter', 'Administrator']
 
   AFFILIATES = {
@@ -178,6 +181,10 @@ class User < ApplicationRecord
     "WV - West Virginia Public Employees Retirees Chapter 77" => "RC77",
     "Unknown" => "Other/None/Don't Know" 
   }
+
+  def name
+    "#{first_name} #{last_name}"
+  end
 
   def password_required?
     self.approved? ? true : false
