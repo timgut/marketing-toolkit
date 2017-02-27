@@ -9,4 +9,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   	## just show the view
   end
 
+  def edit
+  	@body_class = 'toolkit profile'
+  	@header_navigation = true
+  end
+
 end

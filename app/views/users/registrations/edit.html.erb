@@ -1,3 +1,74 @@
+<%= render partial: "users/registrations/breadcrumbs" %>
+<main class="clearfix">
+  <section class="workspace cf">
+   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'profile-form edit-form cf'}) do |f| %>
+    <%= devise_error_messages! %>
+         
+    <ol class="cf">
+      <li>
+        <%= f.label :first_name %><br />
+        <%= f.text_field :first_name, autofocus: true %>              
+      </li>
+        
+      <li>
+        <%= f.label :last_name %><br />
+        <%= f.text_field :last_name, autofocus: true %>              
+      </li>
+        
+      <li>
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true %>
+      </li>
+        
+      <li>
+        <%= f.label :zip_code %><br />
+        <%= f.text_field :zip_code, autofocus: true %>              
+      </li>
+        
+      <li>
+        <%= f.label :council, 'Affiliate/Council' %><br />
+        <%= f.select(:council) do %>
+          <%= options_for_select( User::AFFILIATES, resource.council) %>
+        <% end %>          
+      </li>
+        
+      <li>
+        <%= f.label :local_number %><br />
+        <%= f.text_field :local_number, autofocus: true %>              
+      </li>
+        
+      <li>
+        <%= f.label :title %>
+        <%= f.select(:title) do %>
+          <%= options_for_select([ 'IU-Comms', 'IU-Organizing', 'IU-Political', 'Council-Comms',
+          'Council-Organizing', 'Council-Political', 'Local-President' ] ,resource.title) %>
+        <% end %>
+      </li>
+
+      <li>
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "off" %>
+      </li>
+        
+      <li class="checkbox clearfix">
+        <%= f.check_box :receive_alerts %>  
+        <%= f.label :receive_alerts, 'I would like to receive periodic text message alerts on this and other issues (Msg &amp; data rates may apply)' %></label>
+      </li>
+        
+    </ol> 
+    
+    <div class="buttons small cf">
+      <%= f.submit "Save Changes", class: 'button' %>
+    </div>
+          
+   <% end %>
+
+  </section><!--workspace-->
+      
+</main>
+
+
+<% if false %>
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
@@ -41,3 +112,4 @@
 <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
 
 <%= link_to "Back", :back %>
+<% end %>
