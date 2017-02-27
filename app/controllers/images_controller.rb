@@ -1,13 +1,6 @@
 class ImagesController < ApplicationController
   before_action :assign_records, only: [:index, :recent, :shared]
 
-  # GET /images/choose
-  def choose
-    @images = Image.all
-
-    render :choose, layout: false
-  end
-
   # POST /images
   def create
     @image = Image.new(image_params)

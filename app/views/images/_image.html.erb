@@ -1,6 +1,14 @@
-<%= link_to edit_image_path(image) do %>
+<% if no_link == true %>
   <figure>
     <img src="<%= image.image.url %>" alt="<%= image.image_file_name %>" />
     <figcaption><%= image.image_file_name %></figcaption>
   </figure>
+<% else %>
+  <%= link_to edit_image_path(image) do %>
+    <figure>
+      <img src="<%= image.image.url %>" alt="<%= image.image_file_name %>" />
+      <figcaption><%= image.image_file_name %></figcaption>
+    </figure>
+  <% end %>
 <% end %>
+
