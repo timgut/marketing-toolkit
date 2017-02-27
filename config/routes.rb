@@ -40,4 +40,11 @@ Rails.application.routes.draw do
 
   resources :flyers, only: [:index]
 
+  namespace :admin, path: '/admin' do
+    get 'applications', to: 'users#applications'
+    #root to: "users/index"
+    resources :users do
+    end
+  end
+
 end
