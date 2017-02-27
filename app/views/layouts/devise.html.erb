@@ -8,7 +8,7 @@
 <!--<![endif]-->
   <%= render partial: "layouts/shared/devise_head" %>
 
-  <body class="login <%= params[:action] %>">
+  <body class="<%= @body_class ? @body_class : 'login'%> <%= params[:action] %>">
     <p id="notice"><%= notice %></p>
     <div id="logo">
   		<img src="http://toolkit.afscme.bytrilogy.com/theme/img/toolkit-logo.svg" alt="AFSCME Toolkit" itemprop="logo"/>
