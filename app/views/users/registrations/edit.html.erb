@@ -1,3 +1,4 @@
+<%= render partial: "users/registrations/breadcrumbs" %>
 <main class="clearfix">
   <section class="workspace cf">
    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'profile-form edit-form cf'}) do |f| %>
@@ -43,10 +44,10 @@
           'Council-Organizing', 'Council-Political', 'Local-President' ] ,resource.title) %>
         <% end %>
       </li>
-        
+
       <li>
-        <%= f.label :cell_phone %><br />
-        <%= f.text_field :cell_phone, autofocus: true %>              
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "off" %>
       </li>
         
       <li class="checkbox clearfix">
