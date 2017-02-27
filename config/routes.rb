@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, :controllers => {:registrations => "users/registrations"}
 
   devise_scope :user do
+    get 'confirmation', to: 'users/registrations#show'
     authenticated :user do
       root 'campaigns#index', as: :authenticated_root
     end
@@ -36,5 +37,6 @@ Rails.application.routes.draw do
       get :resize
     end
   end
+
 
 end
