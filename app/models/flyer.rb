@@ -40,7 +40,7 @@ class Flyer < ApplicationRecord
   def define_data_methods
     data.each do |datum|
       self.class.__send__(:define_method, datum.key) do
-        datum.value
+        datum.value.try(:html_safe)
       end
     end
   end
