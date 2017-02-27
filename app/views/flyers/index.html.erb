@@ -1,28 +1,16 @@
-<p id="notice"><%= notice %></p>
+<section class="breadcrumbs">
+    <div class="crumbs">
+        <a href="/all" title="Browse Templates">Browse Templates</a>
+        <a href="/flyers" title="Flyers" class="active">Flyers</a>
+    </div><!--crumbs-->
+</section>
 
-<h1>Flyers</h1>
+<main class="clearfix">
+  <aside>
+    <%= render partial: "flyers/nav" %>
+  </aside>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="5"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @flyers.each do |flyer| %>
-      <tr>
-        <td><%= link_to flyer.title, flyer %></td>
-        <td><%= link_to 'Edit', edit_flyer_path(flyer) %></td>
-        <td><%= link_to 'Destroy', flyer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <td><%= link_to 'Generate PDF', generate_flyer_path(flyer), target: :blank %></td>
-        <td><%= link_to 'View PDF', flyer.pdf.url, target: :blank %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Flyer', new_flyer_path %>
+  <section class="workspace cf">
+  <%= render @flyers %>
+  </section>
+</main>

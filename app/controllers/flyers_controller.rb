@@ -1,7 +1,7 @@
 class FlyersController < ApplicationController
   protect_from_forgery except: :create
 
-  before_action :assign_records
+  before_action :assign_records, except: [:index]
 
   # POST /campaigns/1/templates/1/flyers
   def create
@@ -15,7 +15,7 @@ class FlyersController < ApplicationController
       if params[:generate] == "true"
         redirect_to generate_campaign_template_flyer_path(@campaign, @template, @flyer, format: :pdf, debug: true)
       else
-        redirect_to campaign_template_flyers_path(@campaign, @template), notice: "Flyer created!"
+        redirect_to flyers_path, notice: "Flyer created!"
       end
     else
       redirect_back fallback_location: root_path
@@ -53,9 +53,9 @@ class FlyersController < ApplicationController
     end
   end
 
-  # GET /campaigns/1/templates/1/flyers
+  # GET /flyers
   def index
-    @flyers = Flyer.all
+    @flyers = Flyer.includes(:template, template: [:campaign]).all
   end
 
   # GET /campaigns/1/templates/1/flyers/new
@@ -80,14 +80,16 @@ class FlyersController < ApplicationController
     @flyer = Flyer.find(params[:id])
 
     if @flyer.save
-      delete_data
-      create_data
+      ActiveRecord::Base.transaction do
+        delete_data
+        create_data
+      end
 
       # Eventually we'll redirect to another location, and send this to a background job.
       if params[:generate] == "true"
         redirect_to generate_campaign_template_flyer_path(@campaign, @template, @flyer, format: :pdf, debug: true)
       else
-        redirect_to campaign_template_flyers_path(@campaign, @template), notice: "Flyer created!"
+        redirect_to flyers_path(@campaign, @template), notice: "Flyer created!"
       end
     else
       redirect_back fallback_location: root_path

@@ -50,11 +50,25 @@ window.Toolkit.addImage = ->
     $("#image-picker").attr("data-target", $(@).attr("data-target"))
   )
 
-window.Toolkit.flyerReady = ->
-  window.Toolkit.addImage()
+window.Toolkit.saveButton = ->
   $("[data-save='true']").click( ->
     $("input[name='generate']").val("false")
     $("form[data-flyer='true']").submit()
   )
+
+window.Toolkit.optionsMenu = ->
+  $(document).on("click", ".options a", ->
+    $menu = $(@).next("ol")
+
+    if $menu.css("visibility") is "hidden"
+      $menu.css({visibility: "visible", opacity: 1})
+    else
+      $menu.css({visibility: "hidden", opacity: 0})
+  )
+
+window.Toolkit.flyerReady = ->
+  window.Toolkit.addImage()
+  window.Toolkit.saveButton()
+  window.Toolkit.optionsMenu()
 
 $(document).on('turbolinks:load', window.Toolkit.flyerReady)

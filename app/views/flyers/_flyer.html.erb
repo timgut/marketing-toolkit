@@ -1,0 +1,27 @@
+<div class="document">
+  <%= link_to(
+    "", 
+    edit_campaign_template_flyer_path(flyer.template.campaign, flyer.template, flyer),
+    class: "document-thumbnail",
+    title: flyer.title,
+    style: "background-image: url('#{flyer.template.thumbnail.url}');"
+  ) %>
+
+  <%= link_to(
+      flyer.title,
+      edit_campaign_template_flyer_path(flyer.template.campaign, flyer.template, flyer),
+      class: "document-title",
+      title: flyer.title 
+  ) %>
+
+  <ul class="options"> 
+    <li>
+      <a href="javascript:void(0);" title="Options" class="icons">+</a>
+      <ol>
+        <li><a href="/view" title="View"><span class="icons">e</span> View</a></li>
+        <li><a href="/duplicate" title="Duplicate"><span class="icons">c</span> Duplicate</a></li>
+        <li><a href="/download" title="Download"><span class="icons">d</span> Download</a></li> 
+      </ol>
+    </li>
+  </ul>
+</div>
