@@ -11,6 +11,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def edit
   	@body_class = 'toolkit profile'
+  	@header_navigation = true
   end
 
 end

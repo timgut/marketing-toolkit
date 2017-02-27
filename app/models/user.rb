@@ -8,7 +8,6 @@ class User < ApplicationRecord
   has_and_belongs_to_many :images
 
   AFFILIATES = {
-    "" => "Affiliate/Council*",
     "International Union" => "IU",
     "AK - Anchorage Municipal Employees" => "L16",
     "AK - Alaska State Employees Association" => "L52",
