@@ -9,9 +9,6 @@
   <%= render partial: "layouts/shared/devise_head" %>
 
   <body class="login <%= params[:action] %>">
-  	<% unless params[:action] == 'new' or params[:action] == 'show' or params[:action] == 'edit'%>
-    <%= render partial: "layouts/shared/header" %>
-    <% end %>
     <p id="notice"><%= notice %></p>
     <div id="logo">
   		<img src="http://toolkit.afscme.bytrilogy.com/theme/img/toolkit-logo.svg" alt="AFSCME Toolkit" itemprop="logo"/>
