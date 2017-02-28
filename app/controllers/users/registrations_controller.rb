@@ -4,7 +4,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     confirmation_path
   end
 
-
   def show
   	## just show the view
   end

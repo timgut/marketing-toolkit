@@ -1,0 +1,38 @@
+<%= render partial: "users/admin_breadcrumbs" %>
+
+<main class="clearfix">
+	<section class="workspace cf">
+		<h1>Open Account Applications</h1>
+
+		<% if @users.count > 0 %>
+
+		<div class="table">
+	     <div class="rows">
+	      <div class="row header">
+	        <div class="col one name">Name</div>
+	        <div class="col one affiliate-council">Affiliate/Council</div>
+	        <div class="col one local">Local</div>
+	        <div class="col one title">Title</div>
+	        <div class="col one date-submitted">Date Submitted</div>
+	      </div><!--row header-->
+	      
+	      <% @users.each do |user| %>
+	      <div class="notifications">
+          <div class="row applicant">
+            <div class="col one name"><a href="/admin/users/<%= user.id %>/edit" title="<%= user.name %>"><span class="icons">e</span> <%= user.name %></a></div>
+            <div class="col one affiliate-council"><%= user.council %></div>
+            <div class="col one local"><%= user.local_number %></div>
+            <div class="col one title"><%= user.title %></div>
+            <div class="col one date-submitted"><%= user.created_at.strftime("%m/%d/%Y") %></div>
+          </div>
+	      </div><!--notifications-->
+	      <% end %>
+	   </div><!--rows-->            
+	  </div><!--table--> 
+
+	  <% else %>
+	  <p>There are no pending applications at this time.</p>
+	  <% end %>       
+
+	</section><!--workspace--> 
+</main>

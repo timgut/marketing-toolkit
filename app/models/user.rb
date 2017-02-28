@@ -7,6 +7,11 @@ class User < ApplicationRecord
   has_and_belongs_to_many :flyers
   has_and_belongs_to_many :images
 
+  scope :unapproved, -> { where(approved: 0) }
+
+
+  ROLES = ['User', 'Local President', 'Vetter', 'Administrator']
+
   AFFILIATES = {
     "International Union" => "IU",
     "AK - Anchorage Municipal Employees" => "L16",
@@ -191,6 +196,10 @@ class User < ApplicationRecord
   #   self.errors[:password_confirmation] << "does not match password" if password != password_confirmation
   #   password == password_confirmation && !password.blank?
   # end
+
+  def admin?
+    self.role == 'Administrator'
+  end
 
   class << self
     def current_user=(current_user)

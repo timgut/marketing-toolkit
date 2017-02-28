@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     get 'confirmation', to: 'users/registrations#show'
+    get 'applications', to: 'users/registrations#applications'
     authenticated :user do
       root 'campaigns#index', as: :authenticated_root
     end
@@ -39,5 +40,11 @@ Rails.application.routes.draw do
 
   resources :flyers, only: [:index]
 
-  resources :users
+  namespace :admin, path: '/admin' do
+    get 'applications', to: 'users#applications'
+    #root to: "users/index"
+    resources :users do
+    end
+  end
+  
 end
