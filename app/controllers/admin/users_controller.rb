@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
 
-  before_action :authenticate_user!
+  before_action :require_admin
 
   # POST /users
   def create
@@ -31,15 +31,10 @@ class Admin::UsersController < ApplicationController
   end
 
   def applications
-    if current_user && current_user.admin?
-      @users = User.unapproved
-      @header_navigation = true
-      @body_class = "toolkit application-queue"
-      render "admin/users/applications"
-    else
-      flash[:notice] = "You are trying to reach a restricted area."
-      redirect_to authenticated_root_path 
-    end
+    @users = User.unapproved
+    @header_navigation = true
+    @body_class = "toolkit application-queue"
+    render "admin/users/applications"
   end
 
   # GET /users/new
@@ -61,6 +56,13 @@ class Admin::UsersController < ApplicationController
     else
       render :edit, alert: "Cannot update user!"
     end
+  end
+
+  def require_admin
+    unless current_user && current_user.approved && current_user.role == 'Administrator'
+      flash[:notice] = "You are trying to reach a restricted area."
+      redirect_to authenticated_root_path
+    end        
   end
 
   private
