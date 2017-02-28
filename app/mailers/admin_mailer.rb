@@ -9,6 +9,7 @@ class AdminMailer < ActionMailer::Base
 
   def notification_to_approvers(user, approvers)
   	@user = user
-  	emails = approvers.select { |approver| approver.email }
+  	emails = approvers.pluck(:email)
   	mail(to: emails, subject: "Toolkit account request from #{user.name}")
+  end
 end
