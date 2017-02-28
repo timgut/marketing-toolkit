@@ -1,5 +1,6 @@
 class ImagesController < ApplicationController
   before_action :assign_records, only: [:index, :recent, :shared]
+  before_action :authenticate_user!
 
   # POST /images
   def create

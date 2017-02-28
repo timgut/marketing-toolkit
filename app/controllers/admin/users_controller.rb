@@ -1,4 +1,7 @@
 class Admin::UsersController < ApplicationController
+
+  before_action :authenticate_user!
+
   # POST /users
   def create
     @user = User.new(user_params)

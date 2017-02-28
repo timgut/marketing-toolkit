@@ -1,4 +1,7 @@
 class TemplatesController < ApplicationController
+
+  before_action :authenticate_user!
+  
   # POST /campaigns/1/templates
   def create
     @template = Template.new(template_params)

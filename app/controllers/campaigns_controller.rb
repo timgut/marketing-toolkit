@@ -1,5 +1,8 @@
 class CampaignsController < ApplicationController
   # POST /campaigns
+
+  before_action :authenticate_user!
+
   def create
     @campaign = Campaign.new(campaign_params)
 

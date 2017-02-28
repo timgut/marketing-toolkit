@@ -3,6 +3,8 @@ class FlyersController < ApplicationController
 
   before_action :assign_records, except: [:index]
 
+  before_action :authenticate_user!
+
   # POST /campaigns/1/templates/1/flyers
   def create
     @flyer = Flyer.new(flyer_params)
