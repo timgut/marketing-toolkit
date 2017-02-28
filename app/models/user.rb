@@ -8,7 +8,9 @@ class User < ApplicationRecord
   has_and_belongs_to_many :images
 
   scope :unapproved, -> { where(approved: 0) }
+  scope :approvers, -> { where(role: ['Administrator','Vetter']) }
 
+  after_create :send_admin_emails
 
   ROLES = ['User', 'Local President', 'Vetter', 'Administrator']
 
@@ -182,6 +184,13 @@ class User < ApplicationRecord
     "Unknown" => "Other/None/Don't Know" 
   }
 
+  
+  def send_admin_emails
+    AdminMailer.new_user_waiting_for_approval(self).deliver
+    AdminMailer.notification_to_approvers(self, User.approvers).deliver
+  end
+
+
   def name
     "#{first_name} #{last_name}"
   end
@@ -200,6 +209,20 @@ class User < ApplicationRecord
   def admin?
     self.role == 'Administrator'
   end
+
+  ## auth methods for devise
+  def active_for_authentication? 
+    super && approved? 
+  end 
+
+  def inactive_message 
+    if !approved? 
+      :not_approved 
+    else 
+      super # Use whatever other message 
+    end 
+  end
+  ## end of auth methods for devise
 
   class << self
     def current_user=(current_user)
