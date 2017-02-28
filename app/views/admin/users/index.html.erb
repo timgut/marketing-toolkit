@@ -2,9 +2,7 @@
 
 <main class="clearfix">
 	<section class="workspace cf">
-		<h1>Open Account Applications</h1>
-
-		<% if @users.count > 0 %>
+		<h1>Toolkit Users</h1>
 
 		<div class="table">
 	     <div class="rows">
@@ -20,11 +18,7 @@
 	      	<%= render partial: "admin/users/user_row", locals: {user: user} %>
 	      <% end %>
 	   </div><!--rows-->            
-	  </div><!--table--> 
-
-	  <% else %>
-	  <p>There are no pending applications at this time.</p>
-	  <% end %>       
+	  </div><!--table-->     
 
 	</section><!--workspace--> 
 </main>
