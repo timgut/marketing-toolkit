@@ -38,4 +38,6 @@ Rails.application.routes.draw do
   end
 
   resources :flyers, only: [:index]
+
+  resources :users
 end

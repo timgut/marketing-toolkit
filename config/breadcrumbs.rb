@@ -91,3 +91,14 @@ crumb :image do |image|
   link image.image_file_name, image_path(image)
   parent :index_images
 end
+
+# Users
+crumb :users do
+  link "Manage Users", users_path
+end
+
+crumb :edit_user do |user|
+  link user.name, edit_user_registration_path
+  parent :users
+end
+

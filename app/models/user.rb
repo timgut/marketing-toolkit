@@ -177,6 +177,10 @@ class User < ApplicationRecord
     "Unknown" => "Other/None/Don't Know" 
   }
 
+  def name
+    "#{first_name} #{last_name}"
+  end
+
   def password_required?
     self.approved? ? true : false
   end
