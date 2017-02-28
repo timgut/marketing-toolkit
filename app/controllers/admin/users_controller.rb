@@ -46,7 +46,7 @@ class Admin::UsersController < ApplicationController
 
   # GET /users/1
   def show
-    @user = User.includes(:templates).find(params[:id])
+    @user = User.find(params[:id])
   end
 
   # PATCH /users/1
@@ -54,7 +54,7 @@ class Admin::UsersController < ApplicationController
     @user = User.find(params[:id])
 
     if @user.update_attributes(user_params)
-      redirect_to user_path(@user), notice: "User updated!"
+      redirect_to edit_admin_user_path(@user), notice: "User updated!"
     else
       render :edit, alert: "Cannot update user!"
     end
@@ -63,6 +63,6 @@ class Admin::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :zip_code, :council, :local_number, :title, :cell_phone, :receive_alerts, :role)
+    params.require(:user).permit(:first_name, :last_name, :email, :approved, :zip_code, :council, :local_number, :title, :cell_phone, :receive_alerts, :role)
   end
 end
