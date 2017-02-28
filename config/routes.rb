@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, :controllers => {:registrations => "users/registrations"}
+  devise_for :users, controllers: {registrations: "users/registrations"}
 
   devise_scope :user do
     get 'confirmation', to: 'users/registrations#show'
@@ -38,5 +38,4 @@ Rails.application.routes.draw do
   end
 
   resources :flyers, only: [:index]
-
 end

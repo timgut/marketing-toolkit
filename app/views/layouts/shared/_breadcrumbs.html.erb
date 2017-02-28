@@ -1,0 +1,10 @@
+<section class="breadcrumbs">
+  <%= breadcrumbs(
+    class:         :crumbs,
+    current_class: :active,
+    style:         :inline,
+    separator:     ""
+  ) %>
+
+  <%= content_for(:breadcrumb_extras) %>
+</section>

@@ -1,23 +1,12 @@
-<section class="breadcrumbs">
-    <div class="crumbs">
-        <a href="/my-stuff" title="My Stuff">My Stuff</a>
-        <a href="/my-stuff" title="My Designs" class="active">My Designs</a>
-    </div><!--crumbs-->
-    
-    <ol class="options cf">
-      <%= link_to "<span class='icons'>C</span> Upload Photo".html_safe, new_image_path %>
-    </ol>
+<% breadcrumb "#{params[:action]}_images".to_sym %>
+
+<aside>
+  <%= render partial: "images/nav" %>  
+</aside>
+
+  <section class="workspace cf">
+    <section class="image-grid cf">
+    <%= render @images %>
+  </section>
+
 </section>
-
-<main class="clearfix">
-  <aside>
-    <%= render partial: "images/nav" %>  
-  </aside>
-
-    <section class="workspace cf">
-      <section class="image-grid cf">
-      <%= render @images %>
-    </section>
-
-  </section><!--workspace-->    
-</main>

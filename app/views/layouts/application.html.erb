@@ -10,8 +10,13 @@
 
   <body class="toolkit <%= params[:action] %>">
     <%= render partial: "layouts/shared/header" %>
-    <p id="notice"><%= notice %></p>
-    <%= yield %>
+    <%= render partial: "layouts/shared/breadcrumbs" %>
+    
+    <main class="clearfix">
+      <p id="notice"><%= notice %></p>
+      <%= yield %>
+    </main>
+
     <%= render partial: "layouts/shared/footer" %>
   </body>
 </html>

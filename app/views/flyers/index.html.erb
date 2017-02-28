@@ -1,16 +1,9 @@
-<section class="breadcrumbs">
-    <div class="crumbs">
-        <a href="/all" title="Browse Templates">Browse Templates</a>
-        <a href="/flyers" title="Flyers" class="active">Flyers</a>
-    </div><!--crumbs-->
+<% breadcrumb :flyers %>
+
+<aside>
+  <%= render partial: "flyers/nav" %>
+</aside>
+
+<section class="workspace cf">
+<%= render @flyers %>
 </section>
-
-<main class="clearfix">
-  <aside>
-    <%= render partial: "flyers/nav" %>
-  </aside>
-
-  <section class="workspace cf">
-  <%= render @flyers %>
-  </section>
-</main>

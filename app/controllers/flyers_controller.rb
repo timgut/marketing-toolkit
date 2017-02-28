@@ -31,7 +31,6 @@ class FlyersController < ApplicationController
   def edit
     @flyer = Flyer.find(params[:id])
     @images = Image.all
-    render :new # I think new and edit can use the same template.
   end
 
   # GET /campaigns/1/templates/1/flyers/1/generate.pdf
