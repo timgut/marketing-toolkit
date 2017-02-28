@@ -56,5 +56,5 @@ Rails.application.configure do
     path: ':dynamic_path'
   }
 
-  config.action_mailer.default_url_options = { :host => 'localhost' }
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 end
