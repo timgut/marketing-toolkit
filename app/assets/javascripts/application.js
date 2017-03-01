@@ -18,3 +18,4 @@
 //= require jquery.validate
 //= require croppie
 //= require_tree .
+
