@@ -46,15 +46,15 @@ class Admin::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
 
-    if @user.update_attributes(user_params)
+    if @user.update_attributes!(user_params)
       redirect_to edit_admin_user_path(@user), notice: "User updated!"
     else
-      render :edit, alert: "Cannot update user!"
+      render :edit, notice: "There was a problem updating the user."
     end
   end
 
   def require_admin
-    unless current_user && current_user.approved && current_user.role == 'Administrator'
+    unless current_user && current_user.approved? && current_user.role == 'Administrator'
       flash[:notice] = "You are trying to reach a restricted area."
       redirect_to authenticated_root_path
     end        
@@ -63,6 +63,6 @@ class Admin::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :approved, :zip_code, :council, :local_number, :title, :cell_phone, :receive_alerts, :role)
+    params.require(:user).permit(:first_name, :last_name, :email, :approved, :rejected, :zip_code, :council, :local_number, :title, :cell_phone, :receive_alerts, :role)
   end
 end

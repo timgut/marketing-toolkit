@@ -62,16 +62,16 @@
 	        <% end %>
 	      </li>
 
-	      <% unless @user.rejected %>
+	      <% unless @user.rejected? %>
 	      <li class="checkbox clearfix">
 	        <%= f.check_box :approved %>  
-	        <%= f.label :approved, !@user.approved? ? "Activate User (sends email notice with login information)" ? "Deactivate User (sends email notification to deactivated user)" %></label>
+	        <%= f.label :approved, !@user.approved? ? "Activate User (sends email notice with login information)" : "User is active; uncheck/save to deactivate and notify user." %></label>
 	      </li>
 	     	<% end %>				
-	      <% unless @user.approved %>
+	      <% unless @user.approved? %>
 	      <li class="checkbox clearfix">
 	        <%= f.check_box :rejected %>  
-	        <%= f.label :rejected, !@user.rejected? ? "Decline Access (sends email notice of decision)" ? "Enter into appproval queue (must approve access subsequently)" %></label>
+	        <%= f.label :rejected, !@user.rejected? ? "Decline Access (sends email notice of decision)" : "User has been rejected; uncheck/save to enter back into appproval queue (must approve access subsequently)" %></label>
 	      </li>
 	     	<% end %>		
 
