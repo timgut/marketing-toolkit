@@ -62,19 +62,25 @@
 	        <% end %>
 	      </li>
 
+	      <% unless @user.rejected %>
 	      <li class="checkbox clearfix">
 	        <%= f.check_box :approved %>  
-	        <%= f.label :approved, 'Activate User!' %></label>
+	        <%= f.label :approved, !@user.approved? ? "Activate User (sends email notice with login information)" ? "Deactivate User (sends email notification to deactivated user)" %></label>
 	      </li>
+	     	<% end %>				
+	      <% unless @user.approved %>
+	      <li class="checkbox clearfix">
+	        <%= f.check_box :rejected %>  
+	        <%= f.label :rejected, !@user.rejected? ? "Decline Access (sends email notice of decision)" ? "Enter into appproval queue (must approve access subsequently)" %></label>
 	      </li>
-					                
+	     	<% end %>		
+
 			</ol>
 
 		</div>
     
     <div class="buttons cf">
       <%= f.submit "Save Changes", class: 'button save' %>
-			<a href="/admine/users/<%= @user.id %>/decline" title="Decline access" class="button">Send email declining access</a>
     </div>
 
           

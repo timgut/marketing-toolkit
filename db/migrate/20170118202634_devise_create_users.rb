@@ -13,6 +13,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
       t.string :role, null: false, default: 'User'
       t.string :local_number
       t.boolean :approved, default: false
+      t.boolean :rejected, default: false
       t.boolean :receive_alerts, default: false
       t.string :encrypted_password, null: false, default: ""
 
@@ -47,7 +48,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
 
     add_index :users, :email,                unique: true
     add_index :users, :reset_password_token, unique: true
-    add_index :approved
+    add_index :users, :approved
+    add_index :users, :rejected
     # add_index :users, :confirmation_token,   unique: true
     # add_index :users, :unlock_token,         unique: true
   end
