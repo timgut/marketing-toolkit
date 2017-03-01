@@ -28,20 +28,27 @@ window.Toolkit.Flyer.addImage = ->
 
   # Close the modal and assign the selected image to the target input
   $("#add_image_button").click( ->
+    $target = $("##{$("#image-picker").attr("data-target")}")                # The field where the value is set
+    value   = $("#image-picker").find("figure.enabled img").attr("src")      # The value to set on the field
+    $em     = $("label[for='#{$("#image-picker").attr("data-target")}'] em") # The parent tag that controls the modal
+    $strong = $em.find("strong")                                             # The text that launches the modal
+    $a      = $em.find("a")                                                  # The link that launches the modal
+    
     # Assign the value to the input
-    $target = $("##{$("#image-picker").attr("data-target")}")
-    value = $("#image-picker").find("figure.enabled img").attr("src")
     $target.val(value)
     $target.prop("checked", true)
+    $target.trigger("change")
 
-    # Replace the background image
-    $label = $("label[for='#{$("#image-picker").attr("data-target")}']")
-    height = $target.find("a").attr("height")
-    width = $target.find("a").attr("width")
-    $label.find(".positioner").hide()
-    $label.find("a").append("<img src='#{value}' />")
+    # Clean up any previously selected image
+    $em.find("img").remove()
 
-    # Clean up
+    # Display the selected image
+    $em.addClass("cf")
+    $em.prepend("<img src='#{value}' />")
+    $strong.text("Change Photo")
+    $a.addClass("loaded")
+
+    # Clean up the modal div
     $("#image-picker").popup("hide")
     $("#image-picker").removeAttr("data-target")
     $("#image-picker").find("figure.enabled").removeClass("enabled")
@@ -100,7 +107,18 @@ window.Toolkit.Flyer.fillForm = ->
             # Erase the custom text in case another field needs to use it.
             $("#custom-text").html("")
           when "image"
-            console.log("Filling in image field")
+            $em     = $("label[for='#{data.fieldID}'] em")
+            $strong = $em.find("strong")
+            $a      = $em.find("a")
+
+            # Set the value
+            $field.val(data.value)
+
+            # Display the selected image
+            $em.addClass("cf")
+            $em.prepend("<img src='#{data.value}' />")
+            $strong.text("Change Photo")
+            $a.addClass("loaded")
           else
             console.log("Don't know how to fill in #{$field.attr("data-custom")}")
   )
