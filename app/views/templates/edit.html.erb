@@ -1,7 +1,3 @@
 <% breadcrumb :edit_template, @template.campaign, @template %>
-<h1>Editing Template</h1>
-
 <%= render 'form', template: @template %>
 
-<%= link_to 'Show', campaign_template_path(@template.campaign, @template) %> |
-<%= link_to 'Back', campaign_templates_path(@template.campaign) %>

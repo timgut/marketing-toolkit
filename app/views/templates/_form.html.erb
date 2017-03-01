@@ -1,67 +1,75 @@
 <%= form_for([:campaign, template]) do |f| %>
   <%= render partial: "/shared/errors", locals: {record: template} %>
 
-  <div>
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </div>
+  <aside class="preview">
+    <ol class="cf">
+      <li>
+        <%= f.label :title %>
+        <%= f.text_field :title %>
+      </li>
 
-  <div>
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </div>
+      <li>
+        <%= f.label :description %>
+        <%= f.text_area :description %>
+      </li>
 
-  <div>
-    <%= f.label :campaign %><br />
-    <%= f.select(:campaign_id, options_from_collection_for_select(@campaigns, 'id', 'title', @template.campaign_id), include_blank: true) %>
-  </div>
+      <li>
+        <%= f.label :campaign %>
+        <%= f.select(:campaign_id, options_from_collection_for_select(@campaigns, 'id', 'title', @template.campaign_id), include_blank: true) %>
+      </li>
 
-  <div>
-    <%= f.label :customizable_options %><br />
-    <%= f.text_area :customizable_options %>
-  </div>
+      <li>
+        <%= f.label :customizable_options %>
+        <%= f.text_area :customizable_options %>
+      </li>
 
-  <div>
-    <%= f.label :height %><br />
-    <%= f.text_field :height %> inches
-  </div>
+      <li>
+        <%= f.label :height, "Height (inches)" %>
+        <%= f.text_field :height %>
+      </li>
 
-  <div>
-    <%= f.label :width %><br />
-    <%= f.text_field :width %> inches
-  </div>
+      <li>
+        <%= f.label :width, "Width (inches)" %>
+        <%= f.text_field :width %>
+      </li>
 
-  <div>
-    <%= f.label :status %><br />
-    <%= f.status_select %>
-  </div>
+      <li>
+        <%= f.label :status %>
+        <%= f.status_select %>
+      </li>
+    </ol>
+  </aside>
 
-  <div>
-    <%= f.label :thumbnail %><br />
-    <%= f.file_field :thumbnail %>
-  </div>
+  <section class="workspace cf">
+    <ol>
+      <li>
+        <%= f.label :thumbnail %>
+        <%= f.file_field :thumbnail %>
+      </li>
 
-  <div>
-    <%= f.label :numbered_image %><br />
-    <%= f.file_field :numbered_image %>
-  </div>
+      <li>
+        <%= f.label :numbered_image %>
+        <%= f.file_field :numbered_image %>
+      </li>
 
-  <div>
-    <%= f.label :blank_image %><br />
-    <%= f.file_field :blank_image %>
-  </div>
+      <li>
+        <%= f.label :blank_image %>
+        <%= f.file_field :blank_image %>
+      </li>
 
-  <div>
-    <%= f.label :pdf_markup %><br />
-    <%= f.text_area :pdf_markup %>
-  </div>
+      <li>
+        <%= f.label :pdf_markup %>
+        <%= f.text_area :pdf_markup %>
+      </li>
 
-  <div>
-    <%= f.label :form_markup %><br />
-    <%= f.text_area :form_markup %>
-  </div>
+      <li>
+        <%= f.label :form_markup %>
+        <%= f.text_area :form_markup %>
+      </li>
+    </ol>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="buttons small cf">
+      <%= f.submit "Save", class: "save active" %>
+    </div>
+  </section>
 <% end %>
