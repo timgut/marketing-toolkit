@@ -30,13 +30,6 @@ class Admin::UsersController < ApplicationController
     @users = User.all
   end
 
-  def applications
-    @users = User.unapproved
-    @header_navigation = true
-    @body_class = "toolkit application-queue"
-    render "admin/users/applications"
-  end
-
   # GET /users/new
   def new
     @user = User.new
