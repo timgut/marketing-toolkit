@@ -3,81 +3,8 @@
 <main class="clearfix">
   <section class="workspace cf">
    <%= form_for(@user, url: admin_user_path(@user), html: { method: :put, class: 'profile-form edit-form split cf'}) do |f| %>
-    
 
-    <div class="cf">     
-	    <ol>
-	      <li>
-	        <%= f.label :first_name %><br />
-	        <%= f.text_field :first_name, autofocus: true %>              
-	      </li>
-	        
-	      <li>
-	        <%= f.label :last_name %><br />
-	        <%= f.text_field :last_name, autofocus: true %>              
-	      </li>
-	        
-	      <li>
-	        <%= f.label :email %><br />
-	        <%= f.email_field :email, autofocus: true %>
-	      </li>
-	        
-	      <li>
-	        <%= f.label :zip_code %><br />
-	        <%= f.text_field :zip_code, autofocus: true %>              
-	      </li>
-	        
-	      <li>
-	        <%= f.label :council, 'Affiliate/Council' %><br />
-	        <%= f.select(:council) do %>
-	          <%= options_for_select( User::AFFILIATES, @user.council) %>
-	        <% end %>          
-	      </li>
-	        
-	      <li>
-	        <%= f.label :local_number %><br />
-	        <%= f.text_field :local_number, autofocus: true %>              
-	      </li>
-	        
-	      <li>
-	        <%= f.label :title %>
-	        <%= f.select(:title) do %>
-	          <%= options_for_select([ 'IU-Comms', 'IU-Organizing', 'IU-Political', 'Council-Comms',
-	          'Council-Organizing', 'Council-Political', 'Local-President' ] ,@user.title) %>
-	        <% end %>
-	      </li>
-	        
-	      <li class="checkbox clearfix">
-	        <%= f.check_box :receive_alerts %>  
-	        <%= f.label :receive_alerts, 'I would like to receive periodic text message alerts on this and other issues (Msg &amp; data rates may apply)' %></label>
-	      </li>
-	        
-	    </ol> 
-
-			<ol>
-	      <li>
-	         <%= f.label :role %><br />
-					 <%= f.select(:role) do %>
-	         <%= options_for_select( User::ROLES, @user.role) %>
-	        <% end %>
-	      </li>
-
-	      <% unless @user.rejected? %>
-	      <li class="checkbox clearfix">
-	        <%= f.check_box :approved %>  
-	        <%= f.label :approved, !@user.approved? ? "Activate User (sends email notice with login information)" : "User is active; uncheck/save to deactivate and notify user." %></label>
-	      </li>
-	     	<% end %>				
-	      <% unless @user.approved? %>
-	      <li class="checkbox clearfix">
-	        <%= f.check_box :rejected %>  
-	        <%= f.label :rejected, !@user.rejected? ? "Decline Access (sends email notice of decision)" : "User has been rejected; uncheck/save to enter back into appproval queue (must approve access subsequently)" %></label>
-	      </li>
-	     	<% end %>		
-
-			</ol>
-
-		</div>
+		<%= render partial: "admin/users/form", locals: {f: f} %>
     
     <div class="buttons cf">
       <%= f.submit "Save Changes", class: 'button save' %>

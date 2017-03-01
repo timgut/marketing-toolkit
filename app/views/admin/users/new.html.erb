@@ -1,0 +1,18 @@
+<%= render partial: "admin/users/admin_breadcrumbs" %>
+
+<main class="clearfix">
+  <section class="workspace cf">
+   <%= form_for(@user, url: admin_users_path, html: { method: :post, class: 'profile-form edit-form split cf'}) do |f| %>
+
+		<%= render partial: "admin/users/form", locals: { f: f } %>
+    
+    <div class="buttons cf">
+      <%= f.submit "Create User", class: 'button save' %>
+    </div>
+
+          
+   <% end %>
+
+  </section><!--workspace-->
+      
+</main>

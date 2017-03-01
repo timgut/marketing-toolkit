@@ -12,7 +12,10 @@ class Admin::UsersController < ApplicationController
     ## @user.password_confirmation = new_password
 
     if @user.save
-      redirect_to user_path(@user), notice: "User created!"
+      if @user.approved
+        @user.send_reset_password_instructions
+      end
+      redirect_to edit_admin_user_path(@user), notice: "User created and activation email sent!"
     else
       render :new
     end
@@ -50,6 +53,8 @@ class Admin::UsersController < ApplicationController
   # PATCH /users/1
   def update
     @user = User.find(params[:id])
+
+    ## THIS WORKS, BUT IS A LITTLE CLUNKY. TRIED TO USE ACTIVEMODEL::DIRTY, BUT IT WASN'T WORKING FOR ME
     account_status = 'same'
     if !@user.approved? and params[:user][:approved] == '1'
       account_status = 'approved'
