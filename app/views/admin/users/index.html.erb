@@ -2,23 +2,52 @@
 
 <main class="clearfix">
 	<section class="workspace cf">
-		<h1>Toolkit Users</h1>
+		<h1>Manage Users</h1>
+
+		<% if @unapproved.count > 0 %>
+
+		<h2>Unapproved Users</h2>
+		<p>Click a user name to either approve or reject their Toolkit access.</p>
 
 		<div class="table">
 	     <div class="rows">
-	      <div class="row header">
-	        <div class="col one name">Name</div>
-	        <div class="col one affiliate-council">Affiliate/Council</div>
-	        <div class="col one local">Local</div>
-	        <div class="col one title">Title</div>
-	        <div class="col one date-submitted">Date Submitted</div>
-	      </div><!--row header-->
-	      
-	      <% @users.each do |user| %>
-	      	<%= render partial: "admin/users/user_row", locals: {user: user} %>
-	      <% end %>
+	     		<%= render partial: "admin/users/header_row" %> 
+	      	<% @unapproved.each do |user| %>
+	      		<%= render partial: "admin/users/user_row", locals: {user: user} %>
+	      	<% end %>
 	   </div><!--rows-->            
 	  </div><!--table-->     
+
+	  <% end %>
+
+		<h2>Active Users</h2>
+		<p>Click a user name to update their account information.</p>
+
+		<div class="table">
+	     <div class="rows">
+	     		<%= render partial: "admin/users/header_row" %> 
+	      	<% @approved.each do |user| %>
+	      		<%= render partial: "admin/users/user_row", locals: {user: user} %>
+	      	<% end %>
+	   </div><!--rows-->            
+	  </div><!--table-->     
+
+		<% if @rejected.count > 0 %>
+
+		<h2>Rejected Users</h2>
+		<p>Click a user name to modify their Toolkit access.</p>
+
+		<div class="table">
+	     <div class="rows">
+	     		<%= render partial: "admin/users/header_row" %> 
+	      	<% @rejected.each do |user| %>
+	      		<%= render partial: "admin/users/user_row", locals: {user: user} %>
+	      	<% end %>
+	   </div><!--rows-->            
+	  </div><!--table-->     
+
+	  <% end %>
+
 
 	</section><!--workspace--> 
 </main>

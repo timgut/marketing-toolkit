@@ -1,6 +1,8 @@
 <section class="breadcrumbs">
 	<div class="crumbs">
 		<%= link_to "Manage Users", admin_users_path, title: "Manage Users" %>
-		<%= link_to 'View New Applications', admin_applications_path, class: "active" %>
+		<% if false %>
+		<%= link_to 'View New Applications', "/", class: "active" %>
+		<% end %>
 	</div><!--crumbs-->
 </section>

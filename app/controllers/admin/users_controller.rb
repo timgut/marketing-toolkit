@@ -27,7 +27,9 @@ class Admin::UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.all
+    @approved = User.approved
+    @unapproved = User.unapproved
+    @rejected = User.rejected
   end
 
   # GET /users/new

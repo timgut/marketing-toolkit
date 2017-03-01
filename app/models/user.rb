@@ -7,7 +7,10 @@ class User < ApplicationRecord
   has_and_belongs_to_many :flyers
   has_and_belongs_to_many :images
 
-  scope :unapproved, -> { where(approved: 0) }
+  scope :approved, -> { where(approved: 1) }
+  scope :unapproved, -> { where(approved: 0, rejected: 0) }
+  scope :rejected, -> { where(rejected: 1) }
+
   scope :approvers, -> { where(role: ['Administrator','Vetter']) }
 
   after_create :send_admin_emails
