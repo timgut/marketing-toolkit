@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170118214749) do
+ActiveRecord::Schema.define(version: 20170228162805) do
 
-  create_table "campaigns", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "campaigns", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
     t.text     "description", limit: 65535
     t.integer  "status"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20170118214749) do
     t.datetime "updated_at",                null: false
   end
 
-  create_table "campaigns_flyers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "campaigns_flyers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "campaign_id"
     t.integer  "flyer_id"
     t.integer  "creator_id"
@@ -31,16 +31,17 @@ ActiveRecord::Schema.define(version: 20170118214749) do
     t.index ["flyer_id"], name: "index_campaigns_flyers_on_flyer_id", using: :btree
   end
 
-  create_table "data", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "data", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "flyer_id"
     t.string   "key"
     t.text     "value",      limit: 65535
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.string   "field_id"
     t.index ["flyer_id"], name: "index_data_on_flyer_id", using: :btree
   end
 
-  create_table "flyers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "flyers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "template_id"
     t.string   "title"
     t.text     "description",      limit: 65535
@@ -54,7 +55,7 @@ ActiveRecord::Schema.define(version: 20170118214749) do
     t.index ["template_id"], name: "index_flyers_on_template_id", using: :btree
   end
 
-  create_table "flyers_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "flyers_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "flyer_id"
     t.integer  "user_id"
     t.integer  "creator_id"
@@ -65,7 +66,7 @@ ActiveRecord::Schema.define(version: 20170118214749) do
     t.index ["user_id"], name: "index_flyers_users_on_user_id", using: :btree
   end
 
-  create_table "images", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "images", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -74,7 +75,7 @@ ActiveRecord::Schema.define(version: 20170118214749) do
     t.datetime "updated_at",         null: false
   end
 
-  create_table "images_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "images_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "image_id"
     t.integer  "user_id"
     t.integer  "creator_id"
@@ -85,7 +86,7 @@ ActiveRecord::Schema.define(version: 20170118214749) do
     t.index ["user_id"], name: "index_images_users_on_user_id", using: :btree
   end
 
-  create_table "templates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "templates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
     t.text     "description",                 limit: 65535
     t.float    "height",                      limit: 24
@@ -111,29 +112,29 @@ ActiveRecord::Schema.define(version: 20170118214749) do
     t.datetime "updated_at",                                null: false
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "first_name",             default: "",    null: false
-    t.string   "last_name",              default: "",    null: false
-    t.string   "email",                  default: "",    null: false
-    t.string   "zip_code"
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string   "first_name",                       default: "", null: false
+    t.string   "last_name",                        default: "", null: false
+    t.string   "email",                            default: "", null: false
     t.string   "region"
     t.string   "title"
     t.string   "cell_phone"
     t.string   "council"
     t.string   "local_number"
-    t.boolean  "approved",               default: false
-    t.boolean  "receive_alerts",         default: false
-    t.string   "encrypted_password",     default: "",    null: false
+    t.boolean  "approved"
+    t.string   "encrypted_password",               default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,     null: false
+    t.integer  "sign_in_count",                    default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.string   "zip_code"
+    t.integer  "receive_alerts",         limit: 1
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end

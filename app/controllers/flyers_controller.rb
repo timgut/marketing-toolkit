@@ -31,7 +31,6 @@ class FlyersController < ApplicationController
   def edit
     @flyer = Flyer.find(params[:id])
     @images = Image.all
-    render :new # I think new and edit can use the same template.
   end
 
   # GET /campaigns/1/templates/1/flyers/1/generate.pdf
@@ -111,8 +110,10 @@ class FlyersController < ApplicationController
   end
 
   def create_data
+    select_data = params.delete(:select_data)
+
     params.delete(:data).each do |key, value|
-      Datum.create!(flyer_id: @flyer.id, key: key, value: value)
+      Datum.create!(flyer_id: @flyer.id, key: key, value: value, field_id: select_data[key])
     end
   end
 
