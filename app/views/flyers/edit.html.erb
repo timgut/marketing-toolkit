@@ -11,5 +11,20 @@
   </ol>
 <% end %>
 
+<script type="text/javascript">
+  window.Toolkit.Flyer.savedData = {};
+
+  <% @flyer.data.each do |datum| %>
+    window.Toolkit.Flyer.savedData.<%= datum.key %> = {
+      fieldID: <%= datum.field_id.to_json.html_safe %>,
+      value:   <%= datum.value.to_json.html_safe %>
+    };
+  <% end %>
+</script>
+
+<%= render partial: "/shared/errors", locals: {record: @flyer} %>
 <%= render 'form' %>
 <%= render partial: "images/choose" %>
+
+<!-- This is a hidden div that holds any custom text for the form so we can parse it with jQuery and insert it into the correct field. -->
+<div id="custom-text" style="display:none"></div>
