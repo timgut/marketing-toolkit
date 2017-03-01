@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170228162805) do
+ActiveRecord::Schema.define(version: 20170301175413) do
 
   create_table "campaigns", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
@@ -124,6 +124,7 @@ ActiveRecord::Schema.define(version: 20170228162805) do
     t.string   "role",                   default: "User", null: false
     t.string   "local_number"
     t.boolean  "approved",               default: false
+    t.boolean  "rejected",               default: false
     t.boolean  "receive_alerts",         default: false
     t.string   "encrypted_password",     default: "",     null: false
     t.string   "reset_password_token"
@@ -136,7 +137,9 @@ ActiveRecord::Schema.define(version: 20170228162805) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
+    t.index ["approved"], name: "index_users_on_approved", using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["rejected"], name: "index_users_on_rejected", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 

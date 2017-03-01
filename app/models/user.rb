@@ -7,7 +7,10 @@ class User < ApplicationRecord
   has_and_belongs_to_many :flyers
   has_and_belongs_to_many :images
 
-  scope :unapproved, -> { where(approved: 0) }
+  scope :approved, -> { where(approved: 1) }
+  scope :unapproved, -> { where(approved: 0, rejected: 0) }
+  scope :rejected, -> { where(rejected: 1) }
+
   scope :approvers, -> { where(role: ['Administrator','Vetter']) }
 
   after_create :send_admin_emails
@@ -190,21 +193,35 @@ class User < ApplicationRecord
     AdminMailer.notification_to_approvers(self, User.approvers).deliver
   end
 
+  def send_account_notification(status)
+    case status
+    when 'approved'
+        AdminMailer.send_account_activation(self).deliver
+        self.send_reset_password_instructions
+    when 'rejected'
+        AdminMailer.send_account_rejection(self).deliver
+    when 'unapproved'
+        AdminMailer.send_account_suspension(self).deliver
+    end
+  end
+
 
   def name
     "#{first_name} #{last_name}"
   end
 
   def password_required?
-    self.approved? ? true : false
+    #having trouble with this when admins are un-approving a current user that was previously approved
+    false
+    ##self.approved? ? true : false
   end
 
-  # def password_match?
-  #   self.errors[:password] << "can't be blank" if password.blank?
-  #   self.errors[:password_confirmation] << "can't be blank" if password_confirmation.blank?
-  #   self.errors[:password_confirmation] << "does not match password" if password != password_confirmation
-  #   password == password_confirmation && !password.blank?
-  # end
+  def password_match?
+    self.errors[:password] << "can't be blank" if password.blank?
+    self.errors[:password_confirmation] << "can't be blank" if password_confirmation.blank?
+    self.errors[:password_confirmation] << "does not match password" if password != password_confirmation
+    password == password_confirmation && !password.blank?
+  end
 
   def admin?
     self.role == 'Administrator'
