@@ -197,7 +197,7 @@ class User < ApplicationRecord
     case status
     when 'approved'
         AdminMailer.send_account_activation(self).deliver
-        ## TODO: SET PASSWORD RESET EMAIL, TOO.
+        self.send_reset_password_instructions
     when 'rejected'
         AdminMailer.send_account_rejection(self).deliver
     when 'unapproved'

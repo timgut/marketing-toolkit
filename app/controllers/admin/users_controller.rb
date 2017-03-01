@@ -6,6 +6,11 @@ class Admin::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
+    ## we could do the following to set an initial, hidden password -- which avoids some password confirmation issues later
+    ## new_password = Devise.friendly_token(length = 50)
+    ## @user.password = new_password
+    ## @user.password_confirmation = new_password
+
     if @user.save
       redirect_to user_path(@user), notice: "User created!"
     else
@@ -53,8 +58,6 @@ class Admin::UsersController < ApplicationController
     elsif !@user.rejected? and params[:user][:rejected] == '1'
       account_status = 'rejected'
     end
-
-    puts "\n\n\n\n\n\n\n#{account_status}\n\n\n\n\n\n\n"
 
     if @user.update_attributes!(user_params)
       unless account_status == 'same'
