@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Welcome to the AFSCME Toolkit, <%= @user.name %></h1>
+    <p>
+      Your account has been <strong>approved</strong> by an administrator. You will soon receive an email about creating your password. Once you have done so, you can log in to the AFSCME toolkit <%= link_to "here", new_user_session_url %>!
+    </p>
+  </body>
+</html>

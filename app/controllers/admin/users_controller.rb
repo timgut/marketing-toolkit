@@ -45,8 +45,21 @@ class Admin::UsersController < ApplicationController
   # PATCH /users/1
   def update
     @user = User.find(params[:id])
+    account_status = 'same'
+    if !@user.approved? and params[:user][:approved] == '1'
+      account_status = 'approved'
+    elsif params[:user][:approved] == '0' and @user.approved?
+      account_status = 'unapproved'
+    elsif !@user.rejected? and params[:user][:rejected] == '1'
+      account_status = 'rejected'
+    end
+
+    puts "\n\n\n\n\n\n\n#{account_status}\n\n\n\n\n\n\n"
 
     if @user.update_attributes!(user_params)
+      unless account_status == 'same'
+        @user.send_account_notification(account_status)
+      end
       redirect_to edit_admin_user_path(@user), notice: "User updated!"
     else
       render :edit, notice: "There was a problem updating the user."

@@ -12,4 +12,20 @@ class AdminMailer < ActionMailer::Base
   	emails = approvers.pluck(:email)
   	mail(to: emails, subject: "Toolkit account request from #{user.name}")
   end
+
+  def send_account_activation(user)
+    @user = user    
+    mail(to: @user.email, subject: "Your AFSCME Toolkit account is now active")
+  end
+
+  def send_account_rejection(user)
+    @user = user
+    mail(to: @user.email, subject: "Your AFSCME Toolkit account has been declined")
+  end
+
+  def send_account_suspension(user)
+    @user = user
+    mail(to: @user.email, subject: "Your AFSCME Toolkit account has been suspended")
+  end
+
 end

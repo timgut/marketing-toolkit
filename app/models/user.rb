@@ -193,6 +193,18 @@ class User < ApplicationRecord
     AdminMailer.notification_to_approvers(self, User.approvers).deliver
   end
 
+  def send_account_notification(status)
+    case status
+    when 'approved'
+        AdminMailer.send_account_activation(self).deliver
+        ## TODO: SET PASSWORD RESET EMAIL, TOO.
+    when 'rejected'
+        AdminMailer.send_account_rejection(self).deliver
+    when 'unapproved'
+        AdminMailer.send_account_suspension(self).deliver
+    end
+  end
+
 
   def name
     "#{first_name} #{last_name}"
