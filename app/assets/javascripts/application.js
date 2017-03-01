@@ -17,5 +17,5 @@
 //= require codemirror/modes/css
 //= require jquery.validate
 //= require croppie
+//= require popupoverlay
 //= require_tree .
-
