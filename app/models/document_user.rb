@@ -1,4 +1,4 @@
-class FlyerUser < ApplicationRecord
+class DocumentUser < ApplicationRecord
   self.table_name = :documents_users
 
   belongs_to :document
