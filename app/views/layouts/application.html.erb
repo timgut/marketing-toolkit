@@ -12,7 +12,7 @@
     <%= render partial: "layouts/shared/header" %>
     <%= render partial: "layouts/shared/breadcrumbs" %>
     
-    <main class="clearfix">
+    <main class="<%= params[:controller] %> <%= params[:action] %> cf">
       <p id="notice"><%= notice %></p>
       <%= yield %>
     </main>
