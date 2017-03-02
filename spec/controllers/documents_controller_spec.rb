@@ -1,6 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe FlyersController, type: :controller do
+# These specs were written when this was called "FlyersController". They probably won't pass until they are cleaned up.
+RSpec.describe DocumentsController, type: :controller do
   controller_user_sign_in
 
   let!(:template) { create(:template) }

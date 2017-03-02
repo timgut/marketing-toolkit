@@ -1,6 +1,6 @@
 class FlyerUser < ApplicationRecord
-  self.table_name = :flyers_users
+  self.table_name = :documents_users
 
-  belongs_to :flyer
+  belongs_to :document
   belongs_to :user
 end

@@ -1,7 +1,7 @@
 class Campaign < ApplicationRecord
   include Status
 
-  has_and_belongs_to_many :flyers
+  has_and_belongs_to_many :documents
 
   has_many :templates
 

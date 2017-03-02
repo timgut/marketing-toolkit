@@ -12,23 +12,15 @@ FactoryGirl.define do
   end
 
   factory :datum do
-    flyer
+    document
     key "headline"
     value "We never quit on the people who depend on us."
   end
 
-  factory :folder do
-    name "folder"
-    path "/folder"
-    user
-    type "FlyerFolder"
-    is_root false
-  end
-
-  factory :flyer do
+  factory :document do
     template
-    title "My Custom Flyer"
-    description "My description for this flyer"
+    title "My Custom Document"
+    description "My description for this document"
     status "publish"
   end
 
@@ -37,8 +29,8 @@ FactoryGirl.define do
   end
 
   factory :template do
-    title "Industry-Specific Flyer"
-    description "A flyer for each industry AFSCME represents"
+    title "Industry-Specific Document"
+    description "A document for each industry AFSCME represents"
     height 11
     width 8.5
     pdf_markup "<html><body>Hello World</body></html>"
@@ -53,13 +45,13 @@ FactoryGirl.define do
   end
 
   # JOIN TABLES
-  factory :campaign_flyer do
+  factory :campaign_document do
     campaign
-    flyer
+    document
   end
 
-  factory :flyer_user do
-    flyer
+  factory :document_user do
+    document
     user
   end
 
