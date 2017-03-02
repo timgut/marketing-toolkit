@@ -41,8 +41,12 @@ Rails.application.routes.draw do
   resources :flyers, only: [:index]
 
   namespace :admin, path: '/admin' do
-    #root to: "users/index"
+    root to: "users#home"
+    resources :campaigns do
+    end
     resources :users do
+    end
+    resources :categories do
     end
   end
   

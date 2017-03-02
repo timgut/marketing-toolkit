@@ -2,6 +2,11 @@ class Admin::UsersController < ApplicationController
 
   before_action :require_admin
 
+
+  def home
+    ## this is just /admin index
+  end
+
   # POST /users
   def create
     @user = User.new(user_params)

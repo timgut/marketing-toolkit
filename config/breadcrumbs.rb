@@ -3,6 +3,26 @@ crumb :root do
   link "", "#"
 end
 
+# Admin
+crumb :admin do 
+  link "Admin", admin_root_path
+end
+
+# Admin Campaigns
+crumb :admin_new_campaign do
+  link "New Campaign", new_admin_campaign_path
+  parent :admin
+end
+
+crumb :admin_edit_campaign do |campaign|
+  link "Edit #{campaign.title}", edit_admin_campaign_path(campaign)
+  parent :admin
+end
+
+crumb :admin_campaigns do
+  link "Campaigns", admin_campaigns_path
+end
+
 # Campaigns
 crumb :campaigns do
   link "Campaigns", authenticated_root_path
