@@ -44,7 +44,7 @@ window.Toolkit.Flyer.addImage = ->
 
     # Display the selected image
     $em.addClass("cf")
-    $em.prepend("<img src='#{value}' />")
+    $em.prepend("<figure><img src='#{value}' /></figure>")
     $strong.text("Change Photo")
     $a.addClass("loaded")
 
@@ -116,7 +116,7 @@ window.Toolkit.Flyer.fillForm = ->
 
             # Display the selected image
             $em.addClass("cf")
-            $em.prepend("<img src='#{data.value}' />")
+            $em.prepend("<figure><img src='#{data.value}' /></figure>")
             $strong.text("Change Photo")
             $a.addClass("loaded")
           else
