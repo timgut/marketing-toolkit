@@ -1,4 +1,4 @@
-<%= form_for([@campaign, @template, @document], html: {novalidate: "novalidate", data: {document: true}}) do |f| %>
+<%= form_for(@document, html: {novalidate: "novalidate", data: {document: true}}) do |f| %>
   <%= f.hidden_field :template_id, value: @template.id %>
   <%= hidden_field_tag :generate, true %>
   <main class="clearfix">

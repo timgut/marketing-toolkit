@@ -2,6 +2,6 @@
 
 <ul>
   <% @campaign.templates.each do |template| %>
-    <li><%= link_to template.title, campaign_template_path(template) %></li>
+    <li><%= link_to template.title, template_path(template) %></li>
   <% end %>
 </ul>

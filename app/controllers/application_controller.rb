@@ -1,13 +1,29 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :assign_categories
   around_action :set_current_user
 
   layout :layout_by_resource
 
-  before_action :configure_permitted_parameters, if: :devise_controller?
-  
   protected
+
+  def assign_categories
+    @categories = Category.all
+  end
+
+  def assign_sidebar_vars
+    @campaigns = Campaign.includes(:templates).all
+    @documents = Document.includes(:template).all
+
+    @sidebar_vars = @categories.inject([]) do |sidebar_vars, category|
+      sidebar_vars << {
+        category_id: category.id,
+        title:       category.title,
+        items:       @documents.select{|document| document.template.category_id == category.id}
+      }
+    end
+  end
 
   def set_current_user
     User.current_user = current_user
