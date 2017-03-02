@@ -26,7 +26,7 @@ end
 
 # Templates
 crumb :templates do
-  link "Templates", templates_path(campaign)
+  link "Templates", templates_path
   parent :root
 end
 
