@@ -106,30 +106,39 @@ Campaign.create(title: 'Affiliation', description: 'Lorem ipsum dolor sit amet, 
 Campaign.create(title: 'Legislative', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit', status: 1)
 Campaign.create(title: 'Political/Electoral', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit', status: 1)
 
-# Create a basic template
-# Template.create!(
-# 	title: 'Sector-specific',
-# 	description: 'Integer elit massa, vulputate sit amet blandit ac, laoreet ut nisi. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.',
-# 	height: 11,
-# 	width: 8.5,
-# 	pdf_markup: 'update me',
-# 	form_markup: 'update me',
-# 	numbered_image_file_name: 'numbered-ss.png',
-# 	numbered_image_content_type: 'image/png',
-# 	numbered_image_file_size: '426078',
-# 	numbered_image_updated_at: DateTime.now,
-# 	blank_image_file_name: 'blank-ss.png',
-# 	blank_image_content_type: 'image/png',
-# 	blank_image_file_size: '5876',
-# 	blank_image_updated_at: DateTime.now,
-# 	status: 1,
-# 	campaign_id: Campaign.first.id,
-# 	customizable_options: "<ol>
-#   <li>Headline</li>
-#   <li>Background image</li>
-#   <li>Quote and attribution</li>
-#   <li>Body text</li>
-#   <li>Affiliate logo (optional)</li>
-#   <li>NeverQuit logo</li>
-# </ol>"
-# )
+## Create some categories
+
+Category.create(title: "Flyer")
+Category.create(title: "Poster")
+Category.create(title: "Newsletter")
+Category.create(title: "Mail Piece")
+
+
+##Create a basic template
+Template.create!(
+	title: 'Sector-specific',
+	description: 'Integer elit massa, vulputate sit amet blandit ac, laoreet ut nisi. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.',
+	height: 11,
+	width: 8.5,
+	pdf_markup: 'update me',
+	form_markup: 'update me',
+	numbered_image_file_name: 'numbered-ss.png',
+	numbered_image_content_type: 'image/png',
+	numbered_image_file_size: '426078',
+	numbered_image_updated_at: DateTime.now,
+	blank_image_file_name: 'blank-ss.png',
+	blank_image_content_type: 'image/png',
+	blank_image_file_size: '5876',
+	blank_image_updated_at: DateTime.now,
+	status: 1,
+	campaign_id: Campaign.first.id,
+	category_id: Category.first.id,
+	customizable_options: "<ol>
+  <li>Headline</li>
+  <li>Background image</li>
+  <li>Quote and attribution</li>
+  <li>Body text</li>
+  <li>Affiliate logo (optional)</li>
+  <li>NeverQuit logo</li>
+</ol>"
+)
