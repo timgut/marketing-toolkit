@@ -2,53 +2,52 @@ class TemplatesController < ApplicationController
 
   before_action :authenticate_user!
   
-  # POST /campaigns/1/templates
+  # POST /templates
   def create
     @template = Template.new(template_params)
 
     if @template.save
-      redirect_to campaign_template_path(@template.campaign, @template), notice: "Template created!"
+      redirect_to template_path(@template.campaign, @template), notice: "Template created!"
     else
       render :new
     end
   end
 
-  # DELETE /campaigns/1/templates
+  # DELETE /templates/1
   def destroy
     @template = Template.find(params[:id])
   end
 
-  # GET /campaigns/1/templates/1/edit
+  # GET /templates/1/edit
   def edit
     @template = Template.includes(:campaign).find(params[:id])
     @campaigns = Campaign.all
   end
 
-  # GET /campaigns/1/templates
+  # GET /templates
   def index
     @templates = Template.includes(:campaign).all
-    @campaign = Campaign.find(params[:campaign_id])
   end
 
-  # GET /campaigns/1/templates/new
+  # GET /templates/new
   def new
     @template = Template.new(campaign_id: params[:campaign_id])
-    @campaign = Campaign.find(params[:campaign_id])
+    @campaign = @template.campaign
     @campaigns = Campaign.all
   end
 
-  # GET /campaigns/1/templates/1
+  # GET /templates/1
   def show
     @template = Template.includes(:campaign).find(params[:id])
-    @campaign = Campaign.find(params[:campaign_id])
+    @campaign = @template.campaign
   end
 
-  # PATCH /campaigns/1/templates/1
+  # PATCH /templates/1
   def update
     @template = Template.includes(:campaign).find(params[:id])
 
     if @template.update_attributes(template_params)
-      redirect_to campaign_template_path(@template.campaign, @template), notice: "Template updated!"
+      redirect_to template_path(@template.campaign, @template), notice: "Template updated!"
     else
       render :edit, alert: "Cannot update template!"
     end

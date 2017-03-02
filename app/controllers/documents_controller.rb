@@ -1,11 +1,10 @@
 class DocumentsController < ApplicationController
   protect_from_forgery except: :create
 
-  before_action :assign_records, except: [:index]
-
   before_action :authenticate_user!
+  before_action :assign_sidebar_vars, only: [:index]
 
-  # POST /campaigns/1/templates/1/documents
+  # POST /documents
   def create
     @document = Document.new(document_params)
 
@@ -15,7 +14,7 @@ class DocumentsController < ApplicationController
 
       # Eventually we'll redirect to another location, and send this to a background job.
       if params[:generate] == "true"
-        redirect_to generate_campaign_template_document_path(@campaign, @template, @document, format: :pdf)
+        redirect_to generate_document_path(@document, format: :pdf)
       else
         redirect_to documents_path, notice: "Document created!"
       end
@@ -24,18 +23,19 @@ class DocumentsController < ApplicationController
     end
   end
 
-  # DELETE /campaigns/1/templates/1/documents
+  # DELETE /documents/1
   def destroy
     @document = Document.find(params[:id])
   end
 
-  # GET /campaigns/1/templates/1/documents/1/edit
+  # GET /documents/1/edit
   def edit
     @document = Document.find(params[:id])
     @images = Image.all
+    assign_records
   end
 
-  # GET /campaigns/1/templates/1/documents/1/generate.pdf
+  # GET /documents/1/generate.pdf
   def generate
     force_format(:pdf)
     
@@ -56,27 +56,34 @@ class DocumentsController < ApplicationController
 
   # GET /documents
   def index
-    @documents = Document.includes(:template, template: [:campaign]).all
+    if params[:category_id]
+      @filtered_documents = @documents.select{|document| document.template.category_id == params[:category_id]}
+    else
+      @filtered_documents = @documents
+    end
   end
 
-  # GET /campaigns/1/templates/1/documents/new
+  # GET /documents/new
   def new
+    @template = Template.find(params[:template_id])
     @document = Document.new(template_id: @template.id, title: @template.title, description: @template.description)
     @images = Image.all
+    assign_records
   end
 
-  # GET /campaigns/1/templates/1/documents/preview.pdf
+  # GET /documents/preview.pdf
   def preview
     force_format(:pdf)
     render pdf_options
   end
 
-  # GET /campaigns/1/templates/1/documents/1
+  # GET /documents/1
   def show
     @document = Document.find(params[:id])
+    assign_records
   end
 
-  # PATCH /campaigns/1/templates/1/documents/1
+  # PATCH /documents/1
   def update
     @document = Document.find(params[:id])
 
@@ -88,9 +95,9 @@ class DocumentsController < ApplicationController
 
       # Eventually we'll redirect to another location, and send this to a background job.
       if params[:generate] == "true"
-        redirect_to generate_campaign_template_document_path(@campaign, @template, @document, format: :pdf)
+        redirect_to generate_document_path(@document, format: :pdf)
       else
-        redirect_to documents_path(@campaign, @template), notice: "Document created!"
+        redirect_to documents_path, notice: "Document created!"
       end
     else
       redirect_back fallback_location: root_path
@@ -142,7 +149,7 @@ class DocumentsController < ApplicationController
   end
 
   def assign_records
-    @campaign = Campaign.find(params[:campaign_id])
-    @template = Template.find(params[:template_id])
+    @template = @document.template
+    @campaign = @template.campaign
   end
 end

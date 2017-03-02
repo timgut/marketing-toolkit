@@ -13,17 +13,16 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :campaigns do
-    resources :templates do
-      resources :documents, except: [:index] do
-        collection do
-          get :preview
-        end
+  resources :campaigns
+  resources :templates
 
-        member do
-          get :generate
-        end
-      end
+  resources :documents do
+    collection do
+      get :preview
+    end
+
+    member do
+      get :generate
     end
   end
   
@@ -37,8 +36,6 @@ Rails.application.routes.draw do
       get :resize
     end
   end
-
-  resources :documents, only: [:index]
 
   namespace :admin, path: '/admin' do
     #root to: "users/index"

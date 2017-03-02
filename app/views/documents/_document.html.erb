@@ -1,7 +1,7 @@
 <div class="document">
   <%= link_to(
     "", 
-    edit_campaign_template_document_path(document.template.campaign, document.template, document),
+    edit_document_path(document),
     class: "document-thumbnail",
     title: document.title,
     style: "background-image: url('#{document.template.thumbnail.url}');"
@@ -9,7 +9,7 @@
 
   <%= link_to(
       document.title,
-      edit_campaign_template_document_path(document.template.campaign, document.template, document),
+      edit_document_path(document),
       class: "document-title",
       title: document.title 
   ) %>

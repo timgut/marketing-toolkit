@@ -1,8 +1,8 @@
 class CampaignsController < ApplicationController
-  # POST /campaigns
-
   before_action :authenticate_user!
+  before_action :assign_sidebar_vars, only: [:index]
 
+  # POST /campaigns
   def create
     @campaign = Campaign.new(campaign_params)
 
@@ -25,7 +25,6 @@ class CampaignsController < ApplicationController
 
   # GET /campaigns
   def index
-    @campaigns = Campaign.includes(:templates).all
   end
 
   # GET /campaigns/new

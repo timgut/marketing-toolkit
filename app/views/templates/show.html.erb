@@ -1,4 +1,4 @@
-<% breadcrumb :template, @campaign, @template %>
+<% breadcrumb :template, @template %>
 <% content_for :breadcrumb_extras do %>
   <ol class="options cf">
     <li><a href="/duplicate" title="Duplicate"><span class="icons">c</span> Duplicate</a></li>
@@ -35,6 +35,6 @@
     </figure>
 
     <div class="buttons small cf">
-      <%= link_to "Customize", new_campaign_template_document_path(@campaign, @template), title: "Customize", class: "button" %>
+      <%= link_to "Customize", new_document_path(template_id: @template.id), title: "Customize", class: "button" %>
     </div>
 </section>

@@ -25,24 +25,24 @@ crumb :campaign do |campaign|
 end
 
 # Templates
-crumb :templates do |campaign|
-  link "Templates", campaign_templates_path(campaign)
-  parent campaign
+crumb :templates do
+  link "Templates", templates_path(campaign)
+  parent :root
 end
 
-crumb :new_template do |campaign|
-  link "New Template", new_campaign_template_path(campaign)
-  parent campaign
+crumb :new_template do
+  link "New Template", new_template_path
+  parent :templates
 end
 
-crumb :edit_template do |campaign, template|
-  link "Edit #{template.title}", edit_campaign_template_path(campaign, template)
-  parent campaign
+crumb :edit_template do |template|
+  link "Edit #{template.title}", edit_template_path(template)
+  parent :templates
 end
 
-crumb :template do |campaign, template|
-  link template.title, campaign_template_path(campaign, template)
-  parent :templates, campaign
+crumb :template do |template|
+  link template.title, template_path(template)
+  parent :root
 end
 
 # Documents
@@ -51,14 +51,14 @@ crumb :documents do
   parent :root
 end
 
-crumb :new_document do |campaign, template|
-  link "New Document", new_campaign_template_document_path(campaign, template)
-  parent :template, campaign, template
+crumb :new_document do |template|
+  link "New Document", new_document_path
+  parent :template, template
 end
 
-crumb :edit_document do |campaign, template|
-  link "Edit #{template.title}", edit_campaign_template_path(campaign, template)
-  parent :template, campaign, template
+crumb :edit_document do |document, template|
+  link "Edit #{document.title}", edit_document_path(document)
+  parent :template, template
 end
 
 # Images
