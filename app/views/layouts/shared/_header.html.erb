@@ -33,7 +33,7 @@
 
         <ul class="menu left user">
           <li>
-            <a href="/profile" title="User name">Amy Hendrick</a>
+            <a href="/profile" title="User name"><%= User.current_user.name %></a>
             <ol>
               <li><a href="/my-designs" title="My stuff">My stuff</a></li>
               <li><a href="/profile" title="Edit profile">Edit profile</a></li>
@@ -41,7 +41,7 @@
               <li><a href="/users" title="Manage Users">Manage Users</a></li>
               <li><a href="/metadata" title="Manage Metadata">Manage Metadata</a></li>
               <!-- these two are only available for administrators -->
-              <li><a href="/log" title="Log out">Log out</a></li>   
+              <li><%= link_to "Log Out", destroy_user_session_path(current_user), method: 'delete' %></li>   
             </ol>
           </li>
         </ul>
