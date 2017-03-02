@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def set_current_user
-    User.current_user = User.first
+    User.current_user = current_user
     yield
     User.current_user = nil
   end
