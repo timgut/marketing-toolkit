@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170301175413) do
+ActiveRecord::Schema.define(version: 20170302163157) do
 
   create_table "campaigns", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "title"
@@ -20,28 +20,34 @@ ActiveRecord::Schema.define(version: 20170301175413) do
     t.datetime "updated_at",                null: false
   end
 
-  create_table "campaigns_flyers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "campaigns_documents", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "campaign_id"
-    t.integer  "flyer_id"
+    t.integer  "document_id"
     t.integer  "creator_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["campaign_id"], name: "index_campaigns_flyers_on_campaign_id", using: :btree
-    t.index ["creator_id"], name: "index_campaigns_flyers_on_creator_id", using: :btree
-    t.index ["flyer_id"], name: "index_campaigns_flyers_on_flyer_id", using: :btree
+    t.index ["campaign_id"], name: "index_campaigns_documents_on_campaign_id", using: :btree
+    t.index ["creator_id"], name: "index_campaigns_documents_on_creator_id", using: :btree
+    t.index ["document_id"], name: "index_campaigns_documents_on_document_id", using: :btree
+  end
+
+  create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "data", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "flyer_id"
+    t.integer  "document_id"
     t.string   "key"
-    t.text     "value",      limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.text     "value",       limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.string   "field_id"
-    t.index ["flyer_id"], name: "index_data_on_flyer_id", using: :btree
+    t.index ["document_id"], name: "index_data_on_document_id", using: :btree
   end
 
-  create_table "flyers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "documents", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "template_id"
     t.string   "title"
     t.text     "description",      limit: 65535
@@ -52,18 +58,19 @@ ActiveRecord::Schema.define(version: 20170301175413) do
     t.datetime "pdf_updated_at"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
-    t.index ["template_id"], name: "index_flyers_on_template_id", using: :btree
+    t.integer  "tag_id"
+    t.index ["template_id"], name: "index_documents_on_template_id", using: :btree
   end
 
-  create_table "flyers_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "flyer_id"
+  create_table "documents_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "document_id"
     t.integer  "user_id"
     t.integer  "creator_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["creator_id"], name: "index_flyers_users_on_creator_id", using: :btree
-    t.index ["flyer_id"], name: "index_flyers_users_on_flyer_id", using: :btree
-    t.index ["user_id"], name: "index_flyers_users_on_user_id", using: :btree
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["creator_id"], name: "index_documents_users_on_creator_id", using: :btree
+    t.index ["document_id"], name: "index_documents_users_on_document_id", using: :btree
+    t.index ["user_id"], name: "index_documents_users_on_user_id", using: :btree
   end
 
   create_table "images", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -110,6 +117,7 @@ ActiveRecord::Schema.define(version: 20170301175413) do
     t.text     "customizable_options",        limit: 65535
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
+    t.integer  "category_id"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

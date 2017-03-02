@@ -100,9 +100,11 @@ User.create(
 
 ## Create some campaigns
 
-# Campaign.create(title: 'Never Quit', description: 'Don\'t ever quit!', status: 1)
-# Campaign.create(title: 'Convention 2017', description: 'This is for the 2017 convention', status: 1)
-# Campaign.create(title: 'Political', description: 'This is for political documents', status: 1)
+Campaign.create(title: 'Internal Organizing', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit', status: 1)
+Campaign.create(title: 'Contract', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit', status: 1)
+Campaign.create(title: 'Affiliation', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit', status: 1)
+Campaign.create(title: 'Legislative', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit', status: 1)
+Campaign.create(title: 'Political/Electoral', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit', status: 1)
 
 # Create a basic template
 # Template.create!(
