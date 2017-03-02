@@ -18,7 +18,7 @@
         <%= f.select(:campaign_id, options_from_collection_for_select(@campaigns, 'id', 'title', @template.campaign_id), include_blank: true) %>
       </li>
 
-      <li>
+      <li id="customizable-options">
         <%= f.label :customizable_options %>
         <%= f.text_area :customizable_options %>
       </li>
@@ -57,12 +57,12 @@
         <%= f.file_field :blank_image %>
       </li>
 
-      <li>
+      <li id="pdf-markup">
         <%= f.label :pdf_markup %>
         <%= f.text_area :pdf_markup %>
       </li>
 
-      <li>
+      <li id="form-markup">
         <%= f.label :form_markup %>
         <%= f.text_area :form_markup %>
       </li>
