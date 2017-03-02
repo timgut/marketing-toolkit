@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170302145419) do
+
+ActiveRecord::Schema.define(version: 20170302163157) do
 
   create_table "campaigns", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "title"
@@ -31,7 +32,14 @@ ActiveRecord::Schema.define(version: 20170302145419) do
     t.index ["document_id"], name: "index_campaigns_documents_on_document_id", using: :btree
   end
 
-  create_table "data", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+
+  create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "data", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "document_id"
     t.string   "key"
     t.text     "value",       limit: 65535
@@ -111,6 +119,7 @@ ActiveRecord::Schema.define(version: 20170302145419) do
     t.text     "customizable_options",        limit: 65535
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
+    t.integer  "category_id"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|

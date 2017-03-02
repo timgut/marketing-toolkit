@@ -4,6 +4,7 @@ class Template < ApplicationRecord
   belongs_to :campaign
 
   has_many :documents
+  belongs_to :category
 
   validates_presence_of :title, :description, :height, :width, :pdf_markup, :form_markup, :status
   validates_numericality_of :height, :width
