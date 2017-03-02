@@ -15,7 +15,7 @@ class DocumentsController < ApplicationController
 
       # Eventually we'll redirect to another location, and send this to a background job.
       if params[:generate] == "true"
-        redirect_to generate_campaign_template_document_path(@campaign, @template, @document, format: :pdf, debug: true)
+        redirect_to generate_campaign_template_document_path(@campaign, @template, @document, format: :pdf)
       else
         redirect_to documents_path, notice: "Document created!"
       end
@@ -88,7 +88,7 @@ class DocumentsController < ApplicationController
 
       # Eventually we'll redirect to another location, and send this to a background job.
       if params[:generate] == "true"
-        redirect_to generate_campaign_template_document_path(@campaign, @template, @document, format: :pdf, debug: true)
+        redirect_to generate_campaign_template_document_path(@campaign, @template, @document, format: :pdf)
       else
         redirect_to documents_path(@campaign, @template), notice: "Document created!"
       end

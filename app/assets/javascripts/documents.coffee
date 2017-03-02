@@ -1,11 +1,11 @@
 window.Toolkit ||= {}
-window.Toolkit.Flyer ||= {}
+window.Toolkit.Document ||= {}
 
 # TODO: Remove surrounding quotes if user added them to the string.
 window.Toolkit.normalizeQuotes = (str) ->
   str.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"')
 
-window.Toolkit.Flyer.addImage = ->
+window.Toolkit.Document.addImage = ->
   # Init image picker
   $(".image-picker").addClass("image-picker_open")
   
@@ -59,13 +59,13 @@ window.Toolkit.Flyer.addImage = ->
     $("#image-picker").attr("data-target", $(@).attr("data-target"))
   )
 
-window.Toolkit.Flyer.saveButton = ->
+window.Toolkit.Document.saveButton = ->
   $("[data-save='true']").click( ->
     $("input[name='generate']").val("false")
-    $("form[data-flyer='true']").submit()
+    $("form[data-document='true']").submit()
   )
 
-window.Toolkit.Flyer.optionsMenu = ->
+window.Toolkit.Document.optionsMenu = ->
   $(document).on("click", ".options a", ->
     $menu = $(@).next("ol")
 
@@ -75,8 +75,8 @@ window.Toolkit.Flyer.optionsMenu = ->
       $menu.css({visibility: "hidden", opacity: 0})
   )
 
-window.Toolkit.Flyer.fillForm = ->
-  $.each(window.Toolkit.Flyer.savedData, (key, data) ->
+window.Toolkit.Document.fillForm = ->
+  $.each(window.Toolkit.Document.savedData, (key, data) ->
     if data.fieldID
       # Check the field and trigger a change
       $field = $("##{data.fieldID}")
@@ -123,8 +123,8 @@ window.Toolkit.Flyer.fillForm = ->
             console.log("Don't know how to fill in #{$field.attr("data-custom")}")
   )
 
-window.Toolkit.Flyer.saveIds = ->
-  $("form[data-flyer='true']").on("change", "[data-persist-id]", ->
+window.Toolkit.Document.saveIds = ->
+  $("form[data-document='true']").on("change", "[data-persist-id]", ->
     # console.log("Changed #{$(@).attr('name')}")
     $target = $("[name='#{$(@).attr("data-persist-id")}']")
     value = $(@).attr("id")
@@ -132,11 +132,11 @@ window.Toolkit.Flyer.saveIds = ->
     # console.log("Set #{$(@).attr("data-persist-id")} to #{value}")
   )
 
-window.Toolkit.Flyer.ready = ->
-  window.Toolkit.Flyer.addImage()
-  window.Toolkit.Flyer.saveButton()
-  window.Toolkit.Flyer.optionsMenu()
-  window.Toolkit.Flyer.saveIds()
-  window.Toolkit.Flyer.fillForm()
+window.Toolkit.Document.ready = ->
+  window.Toolkit.Document.addImage()
+  window.Toolkit.Document.saveButton()
+  window.Toolkit.Document.optionsMenu()
+  window.Toolkit.Document.saveIds()
+  window.Toolkit.Document.fillForm()
 
-$(document).on('turbolinks:load', window.Toolkit.Flyer.ready)
+$(document).on('turbolinks:load', window.Toolkit.Document.ready)

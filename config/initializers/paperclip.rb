@@ -18,8 +18,8 @@ Paperclip.interpolates :dynamic_path do |attachment, style|
   if attachment.instance.is_a?(Image)
     file_type = "images"
     file_name = attachment.instance.image_file_name
-  elsif attachment.instance.is_a?(Flyer)
-    file_type = "flyers"
+  elsif attachment.instance.is_a?(Document)
+    file_type = "documents"
     file_name = attachment.instance.pdf_file_name
   elsif attachment.instance.is_a?(Template)
     extension = attachment.instance.__send__("#{attachment.name}_content_type".to_sym).split("/").last
