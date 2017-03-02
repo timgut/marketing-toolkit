@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-# These specs were written when this was called "Flyer". They probably need to be cleaned up before they pass.
 RSpec.describe Flyer, type: :model do
   let!(:user)           { create(:user) }
   let!(:campaign)       { create(:campaign) }

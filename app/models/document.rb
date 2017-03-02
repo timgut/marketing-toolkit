@@ -1,4 +1,4 @@
-class Flyer < ApplicationRecord
+class Document < ApplicationRecord
   include Status
 
   has_attached_file :pdf, storage: :s3, s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) }
@@ -15,7 +15,7 @@ class Flyer < ApplicationRecord
 
   after_initialize :define_data_methods
 
-  # If a Datum record doesn't exist for this flyer, don't raise an error.
+  # If a Datum record doesn't exist for this document, don't raise an error.
   # But log something annoying so we don't forget about it.
   # And return a String because that's the kind of data we're expecting.
   def method_missing(method, *args, &block)

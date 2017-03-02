@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_and_belongs_to_many :flyers
+  has_and_belongs_to_many :documents
   has_and_belongs_to_many :images
 
   scope :approved, -> { where(approved: 1) }

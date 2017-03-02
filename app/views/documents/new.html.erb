@@ -1,14 +1,14 @@
-<%= render partial: "/shared/errors", locals: {record: @flyer} %>
+<%= render partial: "/shared/errors", locals: {record: @document} %>
 
-<% breadcrumb :new_flyer, @campaign, @template %>
+<% breadcrumb :new_document, @campaign, @template %>
 <% content_for :breadcrumb_extras do %>
   <ol class="options cf">
     <li><a href="#" title="Save" data-save="true"><span class="icons">V</span> Save</a></li>
     <li><a href="/duplicate" title="Duplicate"><span class="icons">c</span> Duplicate</a></li>
     <li><a href="/share" title="Share"><span class="icons">s</span> Share</a></li> 
     <li><a href="/download" title="Download"><span class="icons">d</span> Download</a></li> 
-    <% unless @flyer.new_record? %>
-      <li><%= link_to "<span class='icons'>x</span> Delete".html_safe, campaign_template_flyer_path(@campaign, @template, @flyer), method: :delete, confirm: "Are you sure?" %></li>
+    <% unless @document.new_record? %>
+      <li><%= link_to "<span class='icons'>x</span> Delete".html_safe, campaign_template_document_path(@campaign, @template, @document), method: :delete, confirm: "Are you sure?" %></li>
     <% end %>
   </ol>
 <% end %>

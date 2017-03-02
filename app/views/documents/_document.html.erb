@@ -1,17 +1,17 @@
 <div class="document">
   <%= link_to(
     "", 
-    edit_campaign_template_flyer_path(flyer.template.campaign, flyer.template, flyer),
+    edit_campaign_template_document_path(document.template.campaign, document.template, document),
     class: "document-thumbnail",
-    title: flyer.title,
-    style: "background-image: url('#{flyer.template.thumbnail.url}');"
+    title: document.title,
+    style: "background-image: url('#{document.template.thumbnail.url}');"
   ) %>
 
   <%= link_to(
-      flyer.title,
-      edit_campaign_template_flyer_path(flyer.template.campaign, flyer.template, flyer),
+      document.title,
+      edit_campaign_template_document_path(document.template.campaign, document.template, document),
       class: "document-title",
-      title: flyer.title 
+      title: document.title 
   ) %>
 
   <ul class="options"> 

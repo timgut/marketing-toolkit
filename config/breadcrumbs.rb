@@ -45,18 +45,18 @@ crumb :template do |campaign, template|
   parent :templates, campaign
 end
 
-# Flyers
-crumb :flyers do
-  link "Flyers", flyers_path
+# Documents
+crumb :documents do
+  link "Documents", documents_path
   parent :root
 end
 
-crumb :new_flyer do |campaign, template|
-  link "New Flyer", new_campaign_template_flyer_path(campaign, template)
+crumb :new_document do |campaign, template|
+  link "New Document", new_campaign_template_document_path(campaign, template)
   parent :template, campaign, template
 end
 
-crumb :edit_flyer do |campaign, template|
+crumb :edit_document do |campaign, template|
   link "Edit #{template.title}", edit_campaign_template_path(campaign, template)
   parent :template, campaign, template
 end
