@@ -13,8 +13,6 @@ Rails.application.routes.draw do
     end
 
     get 'profile', to: 'users/registrations#edit'
-    put 'profile', to: 'home#update'
-
   end
 
   resources :campaigns

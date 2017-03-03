@@ -23,6 +23,21 @@ crumb :admin_campaigns do
   link "Campaigns", admin_campaigns_path
 end
 
+# Admin Categories
+crumb :admin_new_category do
+  link "New Category", new_admin_category_path
+  parent :admin
+end
+
+crumb :admin_edit_category do |category|
+  link "Edit #{category.title}", edit_admin_category_path(category)
+  parent :admin
+end
+
+crumb :admin_categories do
+  link "Categories", admin_categories_path
+end
+
 # Campaigns
 crumb :campaigns do
   link "Campaigns", authenticated_root_path

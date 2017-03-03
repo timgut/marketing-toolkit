@@ -33,6 +33,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def after_sign_out_path_for(resource_or_scope)
+    unauthenticated_root_path
+  end
+
   def configure_permitted_parameters
     ## :role and :approved are intentionally omitted from this controller; only admins users should be able to modify those
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :zip_code, :council, :local_number, :title, :cell_phone, :receive_alerts])
