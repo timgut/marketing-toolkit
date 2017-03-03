@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
 
-  before_action :require_admin
+  before_action :require_admin, :except => [:update]
 
 
   def home
@@ -59,23 +59,36 @@ class Admin::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
 
-    ## THIS WORKS, BUT IS A LITTLE CLUNKY. TRIED TO USE ACTIVEMODEL::DIRTY, BUT IT WASN'T WORKING FOR ME
-    account_status = 'same'
-    if !@user.approved? and params[:user][:approved] == '1'
-      account_status = 'approved'
-    elsif params[:user][:approved] == '0' and @user.approved?
-      account_status = 'unapproved'
-    elsif !@user.rejected? and params[:user][:rejected] == '1'
-      account_status = 'rejected'
-    end
-
-    if @user.update_attributes!(user_params)
-      unless account_status == 'same'
-        @user.send_account_notification(account_status)
+    if current_user.admin?
+      ## THIS WORKS, BUT IS A LITTLE CLUNKY. TRIED TO USE ACTIVEMODEL::DIRTY, BUT IT WASN'T WORKING FOR ME
+      account_status = 'same'
+      if !@user.approved? and params[:user][:approved] == '1'
+        account_status = 'approved'
+      elsif params[:user][:approved] == '0' and @user.approved?
+        account_status = 'unapproved'
+      elsif !@user.rejected? and params[:user][:rejected] == '1'
+        account_status = 'rejected'
       end
-      redirect_to edit_admin_user_path(@user), notice: "User updated!"
+
+      if @user.update_attributes!(user_params)
+        unless account_status == 'same'
+          @user.send_account_notification(account_status)
+        end
+        redirect_to edit_admin_user_path(@user), notice: "User updated!"
+      else
+        render :edit, notice: "There was a problem updating the user."
+      end
     else
-      render :edit, notice: "There was a problem updating the user."
+      ## not an admin; must be user updating from /profile
+      if @user.id == current_user.id
+        if @user.update_attributes!(user_params)
+          redirect_to edit_user_registration_path, notice: "Profile updated!"
+        else
+          redirect_to edit_user_registration_path, notice: "There was a problem updating the user."
+        end
+      else
+        redirect_to edit_user_registration_path(@user), notice: "You are not authorized to make this change."
+      end
     end
   end
 

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {registrations: "users/registrations"}
 
   devise_scope :user do
-    get 'confirmation', to: 'users/registrations#show'
+    get 'confirmation', to: 'users/registrations#confirmation'
     get 'applications', to: 'users/registrations#applications'
     authenticated :user do
       root 'campaigns#index', as: :authenticated_root
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       root 'devise/sessions#new', as: :unauthenticated_root
     end
 
-    get 'profile', to: 'home#profile'
+    get 'profile', to: 'users/registrations#edit'
     put 'profile', to: 'home#update'
 
   end
