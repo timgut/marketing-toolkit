@@ -8,12 +8,11 @@
 <!--<![endif]-->
   <%= render partial: "layouts/shared/head" %>
 
-  <body class="toolkit <%= params[:action] %>">
+  <body class="toolkit <%= params[:action] %>">    
+    <p id="notice"><%= notice %></p>
     <%= render partial: "layouts/shared/header" %>
     <%= render partial: "layouts/shared/breadcrumbs" %>
-    
     <main class="<%= params[:controller] %> <%= params[:action] %> cf">
-      <p id="notice"><%= notice %></p>
       <%= yield %>
     </main>
 

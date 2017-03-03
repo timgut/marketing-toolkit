@@ -122,3 +122,7 @@ crumb :edit_user do |user|
   parent :users
 end
 
+crumb :profile do |user|
+  link user.name, profile_path
+end
+

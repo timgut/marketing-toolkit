@@ -39,6 +39,7 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :zip_code, :council, :local_number, :title, :cell_phone, :receive_alerts])
   end
 
+
   #https://github.com/plataformatec/devise/wiki/How-To:-Create-custom-layouts
   def layout_by_resource
   	if devise_controller?

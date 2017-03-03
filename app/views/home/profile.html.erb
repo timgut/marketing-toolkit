@@ -1,0 +1,18 @@
+<% breadcrumb :profile, @user %>
+
+<main class="clearfix">
+  <section class="workspace cf">
+   <%= form_for(@user, url: profile_path, html: { method: :put, class: 'profile-form edit-form split cf'}) do |f| %>
+
+		<%= render partial: "home/form", locals: {f: f} %>
+    
+    <div class="buttons cf">
+      <%= f.submit "Save Changes", class: 'button save' %>
+    </div>
+
+          
+   <% end %>
+
+  </section><!--workspace-->
+      
+</main>

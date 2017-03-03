@@ -11,6 +11,10 @@ Rails.application.routes.draw do
     unauthenticated do
       root 'devise/sessions#new', as: :unauthenticated_root
     end
+
+    get 'profile', to: 'home#profile'
+    put 'profile', to: 'home#update'
+
   end
 
   resources :campaigns

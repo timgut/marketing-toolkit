@@ -61,13 +61,13 @@ User.create(
 )
 
 User.create(
-	first_name: 'John', 
-	last_name: 'Lennon', 
-	email: 'jlennon@trilogyinteractive.com', 
+	first_name: 'Amy', 
+	last_name: 'Hendrick', 
+	email: 'ahendrick@afscme.org', 
 	region: 'Chicago',
-	role: 'User',
+	role: 'Administrator',
 	title: 'IU-Comms',
-	approved: false,
+	approved: true,
 	rejected: false,
 	receive_alerts: false,
 	cell_phone: '123-456-7890',
@@ -80,14 +80,32 @@ User.create(
 
 
 User.create(
-	first_name: 'Paul', 
-	last_name: 'McCartney', 
-	email: 'pmccartney@trilogyinteractive.com', 
+	first_name: 'Yanik', 
+	last_name: 'Ramon', 
+	email: 'yramon@afscme.org', 
 	region: 'Chicago',
-	role: 'User',
+	role: 'Administrator',
 	title: 'IU-Comms',
-	approved: false,
-	rejected: true,
+	approved: true,
+	rejected: false,
+	receive_alerts: false,
+	cell_phone: '123-456-7890',
+	zip_code: '60201',
+	local_number: '1111',
+	council: 'IU',
+	password: 'temp1234',
+	password_confirmation: 'temp1234'
+)
+
+User.create(
+	first_name: 'Mike', 
+	last_name: 'Carvalho', 
+	email: 'mcarvalho@afscme.org', 
+	region: 'Chicago',
+	role: 'Administrator',
+	title: 'IU-Comms',
+	approved: true,
+	rejected: false,
 	receive_alerts: false,
 	cell_phone: '123-456-7890',
 	zip_code: '60201',
