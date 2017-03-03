@@ -29,7 +29,7 @@ window.Toolkit.Template.codeMirror = ->
     window.Toolkit.optionsEditor = CodeMirror.fromTextArea(optionsTextarea, codeMirrorOpts)
 
 window.Toolkit.Template.ready = ->
-  window.Toolkit.Template.optionsMenu()
+  window.Toolkit.optionsMenu()
   window.Toolkit.Template.codeMirror()
 
 $(document).on('turbolinks:load', window.Toolkit.Template.ready)

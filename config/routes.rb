@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 
     member do
       get :duplicate
-      get :generate
+      get :download
     end
   end
   
