@@ -22,7 +22,7 @@
             <a href="/campaigns" title="Browse Templates">Browse Templates</a>
             <ol>
               <li><%= link_to "Campaigns", campaigns_path %></li>
-              <li><%= link_to "View All", campaigns_path, title: "View All" %></li>
+              <li><%= link_to "View All", templates_path, title: "View All" %></li>
               <% @categories.each do |category| %>
                 <li><%= link_to category.title, templates_path(category_id: category.id), title: category.title %></li>
               <% end %>
