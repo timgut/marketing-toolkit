@@ -16,6 +16,7 @@ class User < ApplicationRecord
   after_create :send_admin_emails
 
   ROLES = ['User', 'Local President', 'Vetter', 'Administrator']
+  TITLES = ['IU-Communications', 'IU-Organizing', 'IU-Political', 'Council-Communications','Council-Organizing', 'Council-Political', 'Local-President']
 
   AFFILIATES = {
     "International Union" => "IU",

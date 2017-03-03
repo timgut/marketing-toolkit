@@ -27,8 +27,8 @@
       </li> 
       <li>
         <%= f.select(:title) do %>
-          <% [ 'Title*', 'IU-Comms', 'IU-Organizing', 'IU-Political', 'Council-Comms',
-          'Council-Organizing', 'Council-Political', 'Local-President' ].each do |c| -%>
+          <%= content_tag(:option, "Title*", value: '') %>
+          <% User::ROLES.each do |c| -%>
             <%= content_tag(:option, c, value: c) %>
           <% end %>
         <% end %>

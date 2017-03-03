@@ -43,8 +43,7 @@
       <li>
         <%= f.label :title %>
         <%= f.select(:title) do %>
-          <%= options_for_select([ 'IU-Comms', 'IU-Organizing', 'IU-Political', 'Council-Comms',
-          'Council-Organizing', 'Council-Political', 'Local-President' ] ,resource.title) %>
+          <%= options_for_select( User::TITLES ,resource.title) %>
         <% end %>
       </li>
         
