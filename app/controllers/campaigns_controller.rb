@@ -1,6 +1,6 @@
 class CampaignsController < ApplicationController
   before_action :authenticate_user!
-  before_action :assign_sidebar_vars, only: [:index]
+  before_action :assign_sidebar_vars, only: [:index, :show]
 
   # POST /campaigns
   def create
@@ -35,6 +35,7 @@ class CampaignsController < ApplicationController
   # GET /campaigns/1
   def show
     @campaign = Campaign.includes(:templates).find(params[:id])
+    @filtered_templates = Template.where(campaign_id: @campaign.id)
   end
 
   # PATCH /campaigns/1
