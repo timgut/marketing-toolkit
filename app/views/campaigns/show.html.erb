@@ -1,7 +1,51 @@
 <% breadcrumb :campaign, @campaign %>
+<% content_for :breadcrumb_extras do %>
+  <ol class="options cf">
+    <li><a href="/duplicate" title="Duplicate"><span class="icons">c</span> Duplicate</a></li>
+    <li><a href="/download" title="Download"><span class="icons">d</span> Download</a></li> 
+  </ol>
+<% end %>
 
-<ul>
-  <% @campaign.templates.each do |template| %>
-    <li><%= link_to template.title, template_path(template) %></li>
-  <% end %>
-</ul>
+<% if @campaign.templates.count > 0 %>
+
+	<% @campaign.templates.each do |template| %>
+
+	<aside class="preview">
+	  <ol> 
+	    <li>
+	      <span class="metadata-label">Title</span>
+	      <%= template.title %>    
+	    </li>
+	              
+	    <li>
+	      <span class="metadata-label">Description</span>
+	      <%= template.description.html_safe %>
+	    </li>
+	          
+	    <li><strong class="metadata-label">Dimensions</strong><%= dimensions(template) %></li>
+	    <li><strong class="metadata-label">Toolkit</strong><%= template.campaign.title %></li>
+	    <li><strong class="metadata-label">Type</strong>Flyer</li>
+	              
+	    <li>
+	      <span class="metadata-label">Customizable Options</span>
+	      <%= template.customizable_options.html_safe %>
+	    </li>            
+	  </ol>
+	</aside>
+	  
+	<section class="workspace cf">
+	    <figure class="template-preview">
+	      <%= image_tag template.numbered_image.url, alt: template.title %>
+	    </figure>
+
+	    <div class="buttons small cf">
+	      <%= link_to "Customize", new_document_path(template_id: template.id), title: "Customize", class: "button" %>
+	    </div>
+	</section>
+
+	<% end %>
+
+<% else %>
+	<p>There are currently no templates available for this campaign.</p>
+
+<% end %>
