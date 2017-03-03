@@ -1,12 +1,12 @@
-<%= form_for image, html: { multipart: true } do |f| %>
+<%= form_for image, html: { multipart: true }, html: { class: 'profile-form edit-form split cf'} do |f| %>
   <%= render partial: "/shared/errors", locals: {record: image} %>
 
+  <p>Select image for uploading.</p>
   <div>
-    <%= f.label :image %><br />
     <%= f.file_field :image %>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="buttons small cf">
+    <%= f.submit 'Upload Image', class: 'button save' %>
   </div>
 <% end %>
