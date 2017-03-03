@@ -16,7 +16,7 @@
   
   <li>
     <%= link_to "My Images", images_path, title: "My Images" %>
-    <div class="contents-counter"><%= @all.count %></div>
+    <div class="contents-counter"><%= current_user.images.count %></div>
   </li>
   
   <li>
