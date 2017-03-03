@@ -48,6 +48,21 @@ class CampaignsController < ApplicationController
     end
   end
 
+  protected
+
+  def assign_sidebar_vars
+    @campaigns = Campaign.includes(:templates).all
+    @templates = Template.all
+
+    @sidebar_vars = @categories.inject([]) do |sidebar_vars, category|
+      sidebar_vars << {
+        category_id: category.id,
+        title:       category.title,
+        items:       @templates.select{|template| template.category_id == category.id}
+      }
+    end
+  end
+
   private
 
   def campaign_params

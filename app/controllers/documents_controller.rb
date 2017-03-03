@@ -63,7 +63,11 @@ class DocumentsController < ApplicationController
 
   # GET /documents
   def index
-    @filtered_documents = @documents
+    if params[:category_id]
+      @filtered_documents = @documents.select{|document| document.template.category_id == params[:category_id].to_i}
+    else
+      @filtered_documents = @documents
+    end
   end
 
   # GET /documents/new
@@ -122,6 +126,21 @@ class DocumentsController < ApplicationController
       end
     else
       redirect_back fallback_location: root_path
+    end
+  end
+
+  protected
+
+  def assign_sidebar_vars
+    @campaigns = Campaign.includes(:templates).all
+    @documents = Document.includes(:template).all
+
+    @sidebar_vars = @categories.inject([]) do |sidebar_vars, category|
+      sidebar_vars << {
+        category_id: category.id,
+        title:       category.title,
+        items:       @documents.select{|document| document.template.category_id == category.id}
+      }
     end
   end
 

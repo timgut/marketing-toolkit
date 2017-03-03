@@ -1,0 +1,25 @@
+<ul> 
+  <li>
+    <%= link_to "Campaigns", campaigns_path, title: "Campaigns" %>
+    <div class="contents-counter"><%= @campaigns.count %></div>
+  </li>
+        
+  <li>
+    <%= link_to "All", templates_path, title: "View All" %>
+    <div class="contents-counter"><%= @templates.count %></div>
+  </li>
+    
+  <li>
+    <span class="filter-heading">Filter by Type</span>
+
+    <ol class="filters">
+      <% @sidebar_vars.each do |sidebar_var| %>
+        <!-- TODO: Add class="active" on the active link. Figure out how to determine which link is active. -->
+        <li> 
+          <%= link_to sidebar_var[:title], templates_path(category_id: sidebar_var[:category_id]), title: sidebar_var[:title] %>
+          <div class="contents-counter"><%= sidebar_var[:items].count %></div>
+        </li>
+      <% end %>
+    </ol>
+  </li>
+</ul>

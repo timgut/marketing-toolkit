@@ -12,19 +12,6 @@ class ApplicationController < ActionController::Base
     @categories = Category.all
   end
 
-  def assign_sidebar_vars
-    @campaigns = Campaign.includes(:templates).all
-    @documents = Document.includes(:template).all
-
-    @sidebar_vars = @categories.inject([]) do |sidebar_vars, category|
-      sidebar_vars << {
-        category_id: category.id,
-        title:       category.title,
-        items:       @documents.select{|document| document.template.category_id == category.id}
-      }
-    end
-  end
-
   def set_current_user
     User.current_user = current_user
     yield

@@ -1,9 +1,9 @@
 <% breadcrumb :templates %>
 
 <aside>
-  <%= render partial: "layouts/shared/sidebar_nav" %>
+  <%= render partial: "templates/sidebar_nav" %>
 </aside>
 
 <section class="workspace cf">
-  <%= render @templates %>
+  <%= render @filtered_templates %>
 </section>

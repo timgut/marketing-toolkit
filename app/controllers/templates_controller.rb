@@ -28,9 +28,9 @@ class TemplatesController < ApplicationController
   # GET /templates
   def index
     if params[:category_id]
-      @templates = Template.with_category(params[:category_id])
+      @filtered_templates = @templates.select{|template| template.category_id == params[:category_id].to_i}
     else
-      @templates = Template.all
+      @filtered_templates = @templates
     end
   end
 
@@ -55,6 +55,21 @@ class TemplatesController < ApplicationController
       redirect_to template_path(@template.campaign, @template), notice: "Template updated!"
     else
       render :edit, alert: "Cannot update template!"
+    end
+  end
+
+  protected
+
+  def assign_sidebar_vars
+    @campaigns = Campaign.includes(:templates).all
+    @templates = Template.all
+
+    @sidebar_vars = @categories.inject([]) do |sidebar_vars, category|
+      sidebar_vars << {
+        category_id: category.id,
+        title:       category.title,
+        items:       @templates.select{|template| template.category_id == category.id}
+      }
     end
   end
 
