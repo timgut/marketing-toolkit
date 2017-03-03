@@ -1,25 +1,9 @@
 <% breadcrumb :templates %>
 
-<h1>Templates</h1>
+<aside>
+  <%= render partial: "layouts/shared/sidebar_nav" %>
+</aside>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @templates.each do |template| %>
-      <tr>
-        <td><%= link_to template.title, template_path(template) %></td>
-        <td><%= link_to 'Edit', edit_template_path(template) %></td>
-        <td><%= link_to 'Destroy', template_path(template), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Template', new_template_path %>
+<section class="workspace cf">
+  <%= render @templates %>
+</section>

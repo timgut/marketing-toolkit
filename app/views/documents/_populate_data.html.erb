@@ -1,0 +1,13 @@
+<script type="text/javascript">
+  window.Toolkit.Document.savedData = {};
+
+  <% @document.data.each do |datum| %>
+    window.Toolkit.Document.savedData.<%= datum.key %> = {
+      fieldID: <%= datum.field_id.to_json.html_safe %>,
+      value:   <%= datum.value.to_json.html_safe %>
+    };
+  <% end %>
+</script>
+
+<!-- This is a hidden div that holds any custom text for the form so we can parse it with jQuery and insert it into the correct field. -->
+<div id="custom-text" style="display:none"></div>

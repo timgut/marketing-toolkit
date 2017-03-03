@@ -1,35 +1,35 @@
 require 'rails_helper'
 
-RSpec.describe Flyer, type: :model do
+RSpec.describe Document, type: :model do
   let!(:user)           { create(:user) }
   let!(:campaign)       { create(:campaign) }
   let!(:template)       { create(:template) }
-  let!(:flyer)          { create(:flyer, template: template, folder: user.root_flyer_folder) }
-  let!(:campaign_flyer) { create(:campaign_flyer, campaign: campaign, flyer: flyer) }
+  let!(:document)          { create(:document, template: template, folder: user.root_document_folder) }
+  let!(:campaign_document) { create(:campaign_document, campaign: campaign, document: document) }
   let!(:data)           {[
-    create(:datum, flyer: flyer, key: "headline", value: "You never quit. That's why we never rest."),
-    create(:datum, flyer: flyer, key: "quote", value: "\"I'm proud of the work I do to make my community better. I couldn't do it without my union.\""),
-    create(:datum, flyer: flyer, key: "attribution", value: "Clerical")
+    create(:datum, document: document, key: "headline", value: "You never quit. That's why we never rest."),
+    create(:datum, document: document, key: "quote", value: "\"I'm proud of the work I do to make my community better. I couldn't do it without my union.\""),
+    create(:datum, document: document, key: "attribution", value: "Clerical")
   ]}
 
-  before(:each){ flyer.reload }
+  before(:each){ document.reload }
 
   describe "Concerns" do
     it_behaves_like "Status" do
-      let!(:record) { flyer }
+      let!(:record) { document }
     end
   end
 
   describe "#define_data_methods" do
     it "creates methods for each datum" do
-      expect(flyer.respond_to?(:headline)).to eq true
-      expect(flyer.headline).to eq "You never quit. That's why we never rest."
+      expect(document.respond_to?(:headline)).to eq true
+      expect(document.headline).to eq "You never quit. That's why we never rest."
 
-      expect(flyer.respond_to?(:quote)).to eq true
-      expect(flyer.quote).to eq "\"I'm proud of the work I do to make my community better. I couldn't do it without my union.\""
+      expect(document.respond_to?(:quote)).to eq true
+      expect(document.quote).to eq "\"I'm proud of the work I do to make my community better. I couldn't do it without my union.\""
 
-      expect(flyer.respond_to?(:attribution)).to eq true
-      expect(flyer.attribution).to eq "Clerical"
+      expect(document.respond_to?(:attribution)).to eq true
+      expect(document.attribution).to eq "Clerical"
     end
   end
 end

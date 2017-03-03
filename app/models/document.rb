@@ -13,12 +13,19 @@ class Document < ApplicationRecord
 
   validates_presence_of :template, :title, :description, :status
 
-  after_initialize :define_data_methods
+  scope :recent,         ->{ where("created_at >= ?", DateTime.now - 1.month) }
+  scope :shared_with_me, ->{ all.joins(:documents_users).where("documents_users.creator_id != ?", User.current_user.id) }
+
+  attr_accessor :defined_data_methods
+
+  after_initialize ->{ self.defined_data_methods = false }
 
   # If a Datum record doesn't exist for this document, don't raise an error.
   # But log something annoying so we don't forget about it.
   # And return a String because that's the kind of data we're expecting.
   def method_missing(method, *args, &block)
+    define_data_methods unless self.defined_data_methods
+
     Rails.logger.info "*"*60
     Rails.logger.info "Missing method: #{method}"
     Rails.logger.info "Returning an empty string for now"
@@ -38,6 +45,8 @@ class Document < ApplicationRecord
   protected
 
   def define_data_methods
+    self.defined_data_methods ||= true
+
     data.each do |datum|
       self.class.__send__(:define_method, datum.key) do
         datum.value.try(:html_safe)

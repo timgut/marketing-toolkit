@@ -18,9 +18,11 @@
     <li>
       <a href="javascript:void(0);" title="Options" class="icons">+</a>
       <ol>
-        <li><a href="/view" title="View"><span class="icons">e</span> View</a></li>
-        <li><a href="/duplicate" title="Duplicate"><span class="icons">c</span> Duplicate</a></li>
-        <li><a href="/download" title="Download"><span class="icons">d</span> Download</a></li> 
+        <li><%= link_to "<span class='icons'>e</span> View".html_safe, template_path(document.template), title: "View" %></li>
+        <li><%= link_to "<span class='icons'>c</span> Duplicate".html_safe, duplicate_document_path(document), title: "Duplicate" %></li>
+        <% if document.pdf_file_name %>
+          <li><%= link_to "<span class='icons'>d</span> Download</a>".html_safe, document.pdf.url, target: :blank %></li> 
+        <% end %>
       </ol>
     </li>
   </ul>

@@ -1,6 +1,17 @@
 window.Toolkit ||= {}
+window.Toolkit.Template ||= {}
 
-window.Toolkit.templateReady = ->
+window.Toolkit.Template.optionsMenu = ->
+  $(document).on("click", ".options a", ->
+    $menu = $(@).next("ol")
+
+    if $menu.css("visibility") is "hidden"
+      $menu.css({visibility: "visible", opacity: 1})
+    else
+      $menu.css({visibility: "hidden", opacity: 0})
+  )
+
+window.Toolkit.Template.codeMirror = ->
   codeMirrorOpts = {
     lineNumbers: true,
     mode:        "css",
@@ -17,4 +28,8 @@ window.Toolkit.templateReady = ->
   if optionsTextarea = document.getElementById("template_customizable_options")
     window.Toolkit.optionsEditor = CodeMirror.fromTextArea(optionsTextarea, codeMirrorOpts)
 
-$(document).on('turbolinks:load', window.Toolkit.templateReady)
+window.Toolkit.Template.ready = ->
+  window.Toolkit.Template.optionsMenu
+  window.Toolkit.Template.codeMirror
+
+$(document).on('turbolinks:load', window.Toolkit.Template.ready)

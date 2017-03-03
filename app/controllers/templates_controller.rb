@@ -1,6 +1,7 @@
 class TemplatesController < ApplicationController
 
   before_action :authenticate_user!
+  before_action :assign_sidebar_vars, only: [:index]
   
   # POST /templates
   def create
@@ -26,7 +27,11 @@ class TemplatesController < ApplicationController
 
   # GET /templates
   def index
-    @templates = Template.includes(:campaign).all
+    if params[:category_id]
+      @templates = Template.with_category(params[:category_id])
+    else
+      @templates = Template.all
+    end
   end
 
   # GET /templates/new

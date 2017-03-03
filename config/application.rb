@@ -14,5 +14,8 @@ module AfscmeToolkit
     config.generators do |g|
       g.test_framework :rspec
     end
+
+    # Uncomment to see backtraces of ActiveRecord queries
+    # ActiveRecordQueryTrace.enabled = true
   end
 end

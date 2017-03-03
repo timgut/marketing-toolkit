@@ -8,6 +8,7 @@ end
 gem 'rails', '~> 5.0.1'
 gem 'mysql2'
 
+gem 'active_record_query_trace'
 gem 'aws-sdk', '~> 2.7.0'
 gem 'codemirror-rails'
 gem 'coffee-rails', '~> 4.2'

@@ -21,9 +21,13 @@ Rails.application.routes.draw do
   resources :documents do
     collection do
       get :preview
+      get :recent
+      get :shared
+      get :trash
     end
 
     member do
+      get :duplicate
       get :generate
     end
   end

@@ -6,13 +6,13 @@
                 
         <ul class="menu left mystuff"> 
           <li>
-            <a href="/my-stuff" title="My Stuff">My Stuff</a>
+            <%= link_to "My Stuff", documents_path, title: "My Stuff" %>
             <ol>
-              <li><a href="/my-stuff" title="My designs">My designs</a></li>
-              <li><a href="/recent" title="Recent">Recent</a></li>           
-              <li><a href="/shared-with-me" title="Shared with me">Shared with me</a></li> 
+              <li><%= link_to "My Designs", documents_path, title: "My Designs" %></li>
+              <li><%= link_to "Recent", recent_documents_path, title: "Recent" %></li>           
+              <li><%= link_to "Shared with me", shared_documents_path, title: "Shared with me" %></li> 
               <li><%= link_to "My Images", images_path %></li> 
-              <li><a href="/trash" title="Trash">Trash</a></li> 
+              <li><%= link_to "Trash", trash_documents_path, title: "Trash" %></li> 
             </ol>
           </li>
         </ul>
@@ -22,9 +22,9 @@
             <a href="/campaigns" title="Browse Templates">Browse Templates</a>
             <ol>
               <li><%= link_to "Campaigns", campaigns_path %></li>
-              <li><%= link_to "View All", documents_path, title: "View All" %></li>
+              <li><%= link_to "View All", campaigns_path, title: "View All" %></li>
               <% @categories.each do |category| %>
-                <li><%= link_to category.title, documents_path(category_id: category.id), title: category.title %></li>
+                <li><%= link_to category.title, templates_path(category_id: category.id), title: category.title %></li>
               <% end %>
             </ol> 
           </li>

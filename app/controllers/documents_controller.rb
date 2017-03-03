@@ -2,7 +2,7 @@ class DocumentsController < ApplicationController
   protect_from_forgery except: :create
 
   before_action :authenticate_user!
-  before_action :assign_sidebar_vars, only: [:index]
+  before_action :assign_sidebar_vars, only: [:index, :recent, :shared, :trash]
 
   # POST /documents
   def create
@@ -26,6 +26,13 @@ class DocumentsController < ApplicationController
   # DELETE /documents/1
   def destroy
     @document = Document.find(params[:id])
+  end
+
+  # GET /documents/1/duplicate
+  def duplicate
+    @document = Document.find(params[:id])
+    @images = Image.all
+    assign_records
   end
 
   # GET /documents/1/edit
@@ -56,11 +63,7 @@ class DocumentsController < ApplicationController
 
   # GET /documents
   def index
-    if params[:category_id]
-      @filtered_documents = @documents.select{|document| document.template.category_id == params[:category_id]}
-    else
-      @filtered_documents = @documents
-    end
+    @filtered_documents = @documents
   end
 
   # GET /documents/new
@@ -77,10 +80,28 @@ class DocumentsController < ApplicationController
     render pdf_options
   end
 
+  # GET /documents/recent
+  def recent
+    @filtered_documents = Document.includes(:template).recent
+    render :index
+  end
+
+  # GET /documents/shared
+  def shared
+    @filtered_documents = Document.includes(:template).shared
+    render :index
+  end
+
   # GET /documents/1
   def show
-    @document = Document.find(params[:id])
+    @document = Document.includes(:template).find(params[:id])
     assign_records
+  end
+
+  # GET /documents/trash
+  def trash
+    @filtered_documents = Document.includes(:template).trashed
+    render :index
   end
 
   # PATCH /documents/1

@@ -1,30 +1,8 @@
 <%= render partial: "/shared/errors", locals: {record: @document} %>
 
 <% breadcrumb :edit_document, @document, @template %>
-<% content_for :breadcrumb_extras do %>
-  <ol class="options cf">
-    <li><a href="#" title="Save" data-save="true"><span class="icons">V</span> Save</a></li>
-    <li><a href="/duplicate" title="Duplicate"><span class="icons">c</span> Duplicate</a></li>
-    <li><a href="/share" title="Share"><span class="icons">s</span> Share</a></li> 
-    <li><a href="/download" title="Download"><span class="icons">d</span> Download</a></li> 
-    <li><%= link_to "<span class='icons'>x</span> Delete".html_safe, document_path(@document), method: :delete, confirm: "Are you sure?" %></li>
-  </ol>
-<% end %>
+<%= render partial: "documents/breadcrumb_extras" %>
+<%= render partial: "documents/populate_data" %>
 
-<script type="text/javascript">
-  window.Toolkit.Document.savedData = {};
-
-  <% @document.data.each do |datum| %>
-    window.Toolkit.Document.savedData.<%= datum.key %> = {
-      fieldID: <%= datum.field_id.to_json.html_safe %>,
-      value:   <%= datum.value.to_json.html_safe %>
-    };
-  <% end %>
-</script>
-
-<%= render partial: "/shared/errors", locals: {record: @document} %>
 <%= render 'form' %>
 <%= render partial: "images/choose" %>
-
-<!-- This is a hidden div that holds any custom text for the form so we can parse it with jQuery and insert it into the correct field. -->
-<div id="custom-text" style="display:none"></div>
