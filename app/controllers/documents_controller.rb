@@ -100,7 +100,7 @@ class DocumentsController < ApplicationController
 
   # GET /documents/trash
   def trash
-    @filtered_documents = Document.includes(:template).trashed
+    @filtered_documents = Document.includes(:template).trash
     render :index
   end
 
