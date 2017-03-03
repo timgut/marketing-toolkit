@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170302163157) do
+ActiveRecord::Schema.define(version: 20170303202439) do
 
   create_table "campaigns", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "title"
@@ -126,7 +126,7 @@ ActiveRecord::Schema.define(version: 20170302163157) do
     t.string   "email",                  default: "",     null: false
     t.string   "zip_code"
     t.string   "region"
-    t.string   "title"
+    t.string   "department"
     t.string   "cell_phone"
     t.string   "council"
     t.string   "role",                   default: "User", null: false

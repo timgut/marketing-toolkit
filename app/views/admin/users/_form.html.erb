@@ -33,9 +33,9 @@
 	      </li>
 	        
 	      <li>
-	        <%= f.label :title %>
-	        <%= f.select(:title) do %>
-	          <%= options_for_select( User::TITLES, @user.title) %>
+	        <%= f.label :department %>
+	        <%= f.select(:department) do %>
+	          <%= options_for_select( User::DEPARTMENTS, @user.department) %>
 	        <% end %>
 	      </li>
 	        

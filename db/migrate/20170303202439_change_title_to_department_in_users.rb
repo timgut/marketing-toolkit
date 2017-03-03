@@ -1,0 +1,5 @@
+class ChangeTitleToDepartmentInUsers < ActiveRecord::Migration[5.0]
+  def change
+  	rename_column :users, :title, :department
+  end
+end
