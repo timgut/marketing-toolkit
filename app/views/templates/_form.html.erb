@@ -1,4 +1,4 @@
-<%= form_for([:campaign, template]) do |f| %>
+<%= form_for(template, html: {class: "dropzone"}) do |f| %>
   <%= render partial: "/shared/errors", locals: {record: template} %>
 
   <aside class="preview">

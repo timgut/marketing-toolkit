@@ -28,8 +28,12 @@ window.Toolkit.Template.codeMirror = ->
   if optionsTextarea = document.getElementById("template_customizable_options")
     window.Toolkit.optionsEditor = CodeMirror.fromTextArea(optionsTextarea, codeMirrorOpts)
 
+window.Toolkit.Template.dropzone = ->
+  $("[data-dropzone='true']").find("input[type='file']").dropzone({ url: $("[data-dropzone='true']").attr("action") })
+
 window.Toolkit.Template.ready = ->
-  window.Toolkit.Template.optionsMenu
-  window.Toolkit.Template.codeMirror
+  window.Toolkit.Template.optionsMenu()
+  window.Toolkit.Template.codeMirror()
+  # window.Toolkit.Template.dropzone()
 
 $(document).on('turbolinks:load', window.Toolkit.Template.ready)

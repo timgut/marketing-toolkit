@@ -13,6 +13,7 @@
  *= require codemirror
  *= require codemirror/themes/ambiance
  *= require croppie
+ *= require dropzone/dropzone
  *= require_tree .
  *= require_self
  */
