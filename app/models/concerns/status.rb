@@ -9,9 +9,9 @@ module Status
       publish: 1
     }
 
-    scope :trash,   ->{ where(status: -2) }
-    scope :archive, ->{ where(status: -1) }
-    scope :draft,   ->{ where(status: 0)  }
-    scope :publish, ->{ where(status: 1)  }    
+    scope :trash,   ->{ where(status: -2) } unless self.respond_to?(:trash)
+    scope :archive, ->{ where(status: -1) } unless self.respond_to?(:archive)
+    scope :draft,   ->{ where(status: 0)  } unless self.respond_to?(:draft)
+    scope :publish, ->{ where(status: 1)  } unless self.respond_to?(:publish)  
   end
 end

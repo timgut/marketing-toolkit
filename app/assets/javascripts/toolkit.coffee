@@ -17,7 +17,7 @@ window.Toolkit.optionsMenu = ->
 
     $(document).on("click", ".options a", ->
       $menu = $(@).next("ol")
-      console.log($menu)
+
       if $menu.css("visibility") is "hidden"
         $menu.css({visibility: "visible", opacity: 1})
       else

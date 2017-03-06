@@ -94,6 +94,12 @@ class DocumentsController < ApplicationController
     render :index
   end
 
+  # GET /documents/1/share
+  def share
+    @document = Document.includes(:template).find(params[:id])
+    assign_records
+  end
+
   # GET /documents/shared
   def shared
     @filtered_documents = Document.includes(:template).shared_with_me

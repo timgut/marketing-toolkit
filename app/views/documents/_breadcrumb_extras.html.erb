@@ -3,7 +3,7 @@
     <li><a href="#" title="Save" data-save="true"><span class="icons">V</span> Save</a></li>
     <% unless @document.new_record? %>
       <li><%= link_to "<span class='icons'>c</span> Duplicate".html_safe, duplicate_document_path(@document), title: "Duplicate" %></li>
-      <li><a href="/share" title="Share"><span class="icons">s</span> Share</a></li>
+      <li><%= link_to "<span class='icons'>s</span> Share".html_safe, share_document_path(@document), title: "Share" %></li>
       <li><%= link_to "<span class='icons'>d</span> Download".html_safe, download_link(@document), data: {download: true} %></li>
       <li><%= link_to "<span class='icons'>x</span> Delete".html_safe, document_path(@document), method: :delete, data: {confirm: "Are you sure that you want to DELETE this document? This cannot be undone!"} %></li>
     <% end %>
