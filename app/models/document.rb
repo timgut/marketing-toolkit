@@ -42,12 +42,37 @@ class Document < ApplicationRecord
     document_users.where(document_id: self.id).first.creator
   end
 
-  def local_pdf_path
-    Rails.root.join("public", "pdfs", filename).to_s
+  def duplicate!
+    begin
+      # Duplicate and save the document
+      new_self = self.dup
+      new_self.save!
+      
+      # Create the join record and remove the PDF.
+      DocumentUser.create!(document_id: new_self.id, user_id: User.current_user.id, creator_id: User.current_user.id)
+      new_self.assign_attributes(pdf: nil)
+      new_self.save!
+
+      # Duplicate the document's data
+      self.data.each do |datum|
+        new_datum = datum.dup
+        new_datum.document_id = new_self.id
+        new_datum.save!
+      end
+
+      new_self
+    rescue => e
+      binding.irb
+      false
+    end
   end
 
   def filename
     "#{id}.pdf"
+  end
+
+  def local_pdf_path
+    Rails.root.join("public", "pdfs", filename).to_s
   end
 
   protected

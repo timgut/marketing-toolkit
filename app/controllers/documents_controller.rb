@@ -30,9 +30,13 @@ class DocumentsController < ApplicationController
 
   # GET /documents/1/duplicate
   def duplicate
-    @document = Document.find(params[:id])
-    @images = Image.all
-    assign_records
+    @original_document = Document.find(params[:id])
+
+    if @document = @original_document.duplicate!
+      redirect_to edit_document_path(@document), notice: "#{@original_document.title} was duplicated and saved. You are editing the new document."
+    else
+      redirect_to edit_document_path(@original_document), notice: "Cannot duplicate this document. Please try again."
+    end
   end
 
   # GET /documents/1/edit

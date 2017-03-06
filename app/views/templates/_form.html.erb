@@ -64,50 +64,53 @@
   </section>
 <% end %>
 
-<%= form_for(template, html: {class: "dropzone", multipart: true, id: "template-thumbnail-form"}) do |f| %>
-  <div class="label">
-    <%= f.label :thumbnail %>
-  </div>
-  
-  <% if @template.thumbnail_file_name %>
-    <div class="current-image">
-      <img src="<%= @template.thumbnail.url %>" />
+<div class="image-upload cf">
+  <%= form_for(template, html: {class: "dropzone", multipart: true, id: "template-thumbnail-form"}) do |f| %>
+    <div class="label">
+      <%= f.label :thumbnail %>
+    </div>
+    
+    <% if @template.thumbnail_file_name %>
+      <div class="current-image">
+        <img src="<%= @template.thumbnail.url %>" />
+      </div>
+    <% end %>
+
+    <div class="fallback">
+      <%= f.file_field :thumbnail %>
     </div>
   <% end %>
 
-  <div class="fallback">
-    <%= f.file_field :thumbnail %>
-  </div>
-<% end %>
+  <%= form_for(template, html: {class: "dropzone", multipart: true, id: "template-numbered-form"}) do |f| %>
+    <div class="label">
+      <%= f.label :numbered_image %>
+    </div>
+    
+    <% if @template.numbered_image_file_name %>
+      <div class="current-image">
+        <img src="<%= @template.numbered_image.url %>" />
+      </div>
+    <% end %>
 
-<%= form_for(template, html: {class: "dropzone", multipart: true, id: "template-numbered-form"}) do |f| %>
-  <div class="label">
-    <%= f.label :numbered_image %>
-  </div>
-  
-  <% if @template.numbered_image_file_name %>
-    <div class="current-image">
-      <img src="<%= @template.numbered_image.url %>" />
+    <div class="fallback">
+      <%= f.file_field :numbered_image %>
     </div>
   <% end %>
 
-  <div class="fallback">
-    <%= f.file_field :numbered_image %>
-  </div>
-<% end %>
+  <%= form_for(template, html: {class: "dropzone", multipart: true, id: "template-blank-form"}) do |f| %>
+    <div class="label">
+      <%= f.label :blank_image %>
+    </div>
+    
+    <% if @template.blank_image_file_name %>
+      <div class="current-image">
+        <img src="<%= @template.blank_image.url %>" />
+      </div>
+    <% end %>
 
-<%= form_for(template, html: {class: "dropzone", multipart: true, id: "template-blank-form"}) do |f| %>
-  <div class="label">
-    <%= f.label :blank_image %>
-  </div>
-  
-  <% if @template.blank_image_file_name %>
-    <div class="current-image">
-      <img src="<%= @template.blank_image.url %>" />
+    <div class="fallback">
+      <%= f.file_field :blank_image %>
     </div>
   <% end %>
+</div>
 
-  <div class="fallback">
-    <%= f.file_field :blank_image %>
-  </div>
-<% end %>
