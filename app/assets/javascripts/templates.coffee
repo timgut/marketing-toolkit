@@ -29,7 +29,7 @@ window.Toolkit.Template.codeMirror = ->
     window.Toolkit.optionsEditor = CodeMirror.fromTextArea(optionsTextarea, codeMirrorOpts)
 
 window.Toolkit.Template.dropzone = ->
-  $("[data-dropzone='true']").find("input[type='file']").dropzone({ url: $("[data-dropzone='true']").attr("action") })
+  # $("[data-dropzone='true']").find("input[type='file']").dropzone({ url: $("[data-dropzone='true']").attr("action") })
 
 window.Toolkit.Template.ready = ->
   window.Toolkit.Template.optionsMenu()

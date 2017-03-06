@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-<%= form_for(template, html: {class: "dropzone"}) do |f| %>
-=======
-<%= form_for(template) do |f| %>
->>>>>>> dev
+<%= form_for(template, html: {class: "dropzone", multipart: true}) do |f| %>
   <%= render partial: "/shared/errors", locals: {record: template} %>
 
   <aside class="preview">
