@@ -62,7 +62,6 @@ class Document < ApplicationRecord
 
       new_self
     rescue => e
-      binding.irb
       false
     end
   end
