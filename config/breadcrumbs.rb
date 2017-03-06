@@ -11,31 +11,33 @@ end
 # Admin Campaigns
 crumb :admin_new_campaign do
   link "New Campaign", new_admin_campaign_path
-  parent :admin
+  parent :admin_campaigns
 end
 
 crumb :admin_edit_campaign do |campaign|
   link "Edit #{campaign.title}", edit_admin_campaign_path(campaign)
-  parent :admin
+  parent :admin_campaigns
 end
 
 crumb :admin_campaigns do
   link "Campaigns", admin_campaigns_path
+  parent :admin
 end
 
 # Admin Categories
 crumb :admin_new_category do
   link "New Category", new_admin_category_path
-  parent :admin
+  parent :admin_categories
 end
 
 crumb :admin_edit_category do |category|
   link "Edit #{category.title}", edit_admin_category_path(category)
-  parent :admin
+  parent :admin_categories
 end
 
 crumb :admin_categories do
   link "Categories", admin_categories_path
+  parent :admin
 end
 
 # Campaigns
@@ -130,6 +132,7 @@ end
 # Admin Users
 crumb :admin_users do
   link "Manage Users", admin_users_path
+  parent :admin
 end
 
 crumb :edit_user do |user|
