@@ -8,7 +8,8 @@ class Document < ApplicationRecord
   has_and_belongs_to_many :users
   
   has_many :data
-  
+  has_many :document_users, class_name: "DocumentUser"
+
   belongs_to :template
 
   validates_presence_of :template, :title, :description, :status
@@ -35,6 +36,10 @@ class Document < ApplicationRecord
     Rails.logger.info "*"*60
 
     ""
+  end
+
+  def creator
+    document_users.where(document_id: self.id).first.creator
   end
 
   def local_pdf_path

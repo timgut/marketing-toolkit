@@ -6,13 +6,12 @@ class Image < ApplicationRecord
 
   has_and_belongs_to_many :users
 
-  has_many :images_users, class_name: "ImageUser"
+  has_many :image_users, class_name: "ImageUser"
 
   scope :recent, ->{ all.joins(:images_users).where("user_id = ? and images.created_at >= ?", User.current_user.id, DateTime.now - 1.month) }
   scope :shared_with_me, ->{ all.joins(:images_users).where("user_id = ? and images_users.creator_id != ?", User.current_user.id, User.current_user.id) }
 
-  # Unsure right now if this should be a method or association. This returns the User record for the creator.
   def creator
-    images_users.where(user_id: User.current_user.id).first.creator
+    image_users.where(image_id: self.id).first.creator
   end
 end
