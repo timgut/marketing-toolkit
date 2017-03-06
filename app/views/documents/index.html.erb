@@ -11,5 +11,9 @@
 </section>
 
 <% else %>
-	<p class="no-results">You have not created any documents of this type.</p>
+	<% if @shared %>
+		<p class="no-results">You have not had any documents shared with you.</p>
+	<% else %>
+		<p class="no-results">You have not created any documents of this type.</p>
+	<% end %>
 <% end %>

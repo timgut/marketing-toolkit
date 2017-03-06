@@ -97,6 +97,7 @@ class DocumentsController < ApplicationController
   # GET /documents/shared
   def shared
     @filtered_documents = Document.includes(:template).shared_with_me
+    @shared = true
     render :index
   end
 
