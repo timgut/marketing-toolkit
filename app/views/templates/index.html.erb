@@ -4,6 +4,12 @@
   <%= render partial: "templates/sidebar_nav" %>
 </aside>
 
+<% if @filtered_templates.count > 0 %>
+
 <section class="workspace cf">
   <%= render @filtered_templates %>
 </section>
+
+<% else %>
+	<p class="no-results">There are currently no templates available for this document type.</p>
+<% end %>
