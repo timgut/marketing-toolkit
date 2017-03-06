@@ -25,6 +25,7 @@ class CampaignsController < ApplicationController
 
   # GET /campaigns
   def index
+
   end
 
   # GET /campaigns/new
@@ -52,7 +53,7 @@ class CampaignsController < ApplicationController
   protected
 
   def assign_sidebar_vars
-    @campaigns = Campaign.includes(:templates).all
+    @campaigns = Campaign.includes(:templates).all.order('title ASC')
     @templates = Template.all
 
     @sidebar_vars = @categories.inject([]) do |sidebar_vars, category|
