@@ -18,4 +18,5 @@
 //= require jquery.validate
 //= require croppie
 //= require popupoverlay
+//= require dropzone
 //= require_tree .

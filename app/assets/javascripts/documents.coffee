@@ -1,10 +1,6 @@
 window.Toolkit ||= {}
 window.Toolkit.Document ||= {}
 
-# TODO: Remove surrounding quotes if user added them to the string.
-window.Toolkit.normalizeQuotes = (str) ->
-  str.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"')
-
 window.Toolkit.Document.addImage = ->
   # Init image picker
   $(".image-picker").addClass("image-picker_open")

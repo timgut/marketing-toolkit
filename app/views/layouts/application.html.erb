@@ -12,7 +12,9 @@
     <%= render partial: "layouts/shared/header" %>
     <%= render partial: "layouts/shared/breadcrumbs" %>
 
-    <p id="notice"><%= notice %></p>
+    <% if flash.count > 0 %>
+      <p id="notice"><%= notice %></p>
+    <% end %>
 
     <main class="<%= params[:controller] %> <%= params[:action] %> cf">
       <%= yield %>
