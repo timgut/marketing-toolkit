@@ -106,6 +106,7 @@ class DocumentsController < ApplicationController
   # PATCH /documents/1
   def update
     @document = Document.find(params[:id])
+    @document.pdf = nil
 
     if @document.save
       ActiveRecord::Base.transaction do
