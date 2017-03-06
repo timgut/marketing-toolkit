@@ -20,7 +20,7 @@ class DocumentsController < ApplicationController
 
   # DELETE /documents/1
   def destroy
-    @document = Document.find(params[:id]
+    @document = Document.find(params[:id])
     if @document.destroy
       redirect_to documents_path, notice: "Document deleted!"
     else
@@ -129,7 +129,11 @@ class DocumentsController < ApplicationController
 
   def assign_sidebar_vars
     @campaigns = Campaign.includes(:templates).all
-    @documents = Document.includes(:template).all
+    if current_user
+      @documents = current_user.documents.includes(:template)
+    else
+      @documents = Document.includes(:template).all
+    end
 
     @sidebar_vars = @categories.inject([]) do |sidebar_vars, category|
       sidebar_vars << {
