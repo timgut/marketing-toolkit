@@ -43,7 +43,7 @@
       <li>
         <%= f.label :department %>
         <%= f.select(:department) do %>
-          <%= options_for_select( User::DEPARTMENTS ,resource.title) %>
+          <%= options_for_select( User::DEPARTMENTS ,resource.department) %>
         <% end %>
       </li>
         
