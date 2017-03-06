@@ -54,6 +54,7 @@ class TemplatesController < ApplicationController
     if @template.update_attributes(template_params)
       redirect_to template_path(@template), notice: "Template updated!"
     else
+      @campaigns = Campaign.all
       render :edit, alert: "Cannot update template!"
     end
   end
