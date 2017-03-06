@@ -1,10 +1,10 @@
 <% breadcrumb :campaign, @campaign %>
 
-<% if @campaign.templates.count > 0 %>
-
 <aside>
   <%= render partial: "templates/sidebar_nav" %>
 </aside>
+
+<% if @campaign.templates.count > 0 %>
 
 <section class="workspace cf">
   <%= render @filtered_templates %>
