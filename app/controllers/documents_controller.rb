@@ -21,6 +21,11 @@ class DocumentsController < ApplicationController
   # DELETE /documents/1
   def destroy
     @document = Document.find(params[:id])
+    #if @document.destroy
+    #  redirect_to documents_path, notice: "Document deleted!"
+    #else
+    #  redirect_to documents_path, notice: "There was a problem deleting your document."
+    #end
   end
 
   # GET /documents/1/duplicate
