@@ -117,7 +117,7 @@ class DocumentsController < ApplicationController
     @document = Document.find(params[:id])
     @document.pdf = nil
 
-    if @document.save
+    if @document.update_attributes(document_params)
       ActiveRecord::Base.transaction do
         delete_data
         create_data
