@@ -14,18 +14,18 @@ class DocumentsController < ApplicationController
 
       redirect_to documents_path, notice: "Document created!"
     else
-      redirect_back fallback_location: root_path
+      redirect_back fallback_location: documents_path
     end
   end
 
   # DELETE /documents/1
   def destroy
-    @document = Document.find(params[:id])
-    #if @document.destroy
-    #  redirect_to documents_path, notice: "Document deleted!"
-    #else
-    #  redirect_to documents_path, notice: "There was a problem deleting your document."
-    #end
+    @document = Document.find(params[:id]
+    if @document.destroy
+      redirect_to documents_path, notice: "Document deleted!"
+    else
+      redirect_back fallback_location: documents_path, alert: "Document was not deleted. Please try again."
+    end
   end
 
   # GET /documents/1/duplicate
@@ -111,6 +111,7 @@ class DocumentsController < ApplicationController
   # PATCH /documents/1
   def update
     @document = Document.find(params[:id])
+    @document.pdf = nil
 
     if @document.save
       ActiveRecord::Base.transaction do
@@ -120,7 +121,7 @@ class DocumentsController < ApplicationController
 
       redirect_to documents_path, notice: "Document updated!"
     else
-      redirect_back fallback_location: root_path
+      redirect_back fallback_location: documents_path
     end
   end
 

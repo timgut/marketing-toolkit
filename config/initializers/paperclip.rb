@@ -18,16 +18,22 @@ Paperclip.interpolates :dynamic_path do |attachment, style|
   if attachment.instance.is_a?(Image)
     file_type = "images"
     file_name = attachment.instance.image_file_name
+
+    creator = attachment.instance.creator
+    folder  = "#{creator.id}_#{creator.last_name.downcase.gsub(' ','-')}_#{creator.first_name.downcase.gsub(' ','-')}"
   elsif attachment.instance.is_a?(Document)
     file_type = "documents"
     file_name = attachment.instance.pdf_file_name
+
+    creator = attachment.instance.creator
+    folder  = "#{creator.id}_#{creator.last_name.downcase.gsub(' ','-')}_#{creator.first_name.downcase.gsub(' ','-')}"
   elsif attachment.instance.is_a?(Template)
     extension = attachment.instance.__send__("#{attachment.name}_content_type".to_sym).split("/").last
     file_type = "templates"
     file_name = "#{attachment.name.to_s}.#{extension}"
-  end
 
-  folder = "#{User.current_user.id}_#{User.current_user.last_name.downcase.gsub(' ','-')}_#{User.current_user.first_name.downcase.gsub(' ','-')}"
+    folder = ""
+  end
 
   "/#{Rails.application.secrets.aws["folder"]}/#{folder}/#{file_type}/#{style}/#{file_name}".gsub("//", "/")
 end
