@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     member do
       get :duplicate
       get :download
+      get :share
     end
   end
   

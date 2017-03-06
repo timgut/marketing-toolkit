@@ -96,6 +96,11 @@ crumb :edit_document do |document, template|
   parent :template, template
 end
 
+crumb :share_document do |document, template|
+  link "Share #{document.title}", share_document_path(document)
+  parent :edit_document, document, template
+end
+
 # Images
 crumb :index_images do
   link "Images", images_path
