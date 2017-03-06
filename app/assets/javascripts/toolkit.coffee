@@ -6,6 +6,11 @@ window.Toolkit ||= {}
 window.Toolkit.init ||= {}
 window.Toolkit.init.optionsMenu = false
 
+Dropzone.autoDiscover = false
+
+window.Toolkit.resetDropzones = ->
+  window.Toolkit.dropzones = []
+
 window.Toolkit.optionsMenu = ->
   if window.Toolkit.init.optionsMenu is false
     window.Toolkit.init.optionsMenu = true
@@ -18,3 +23,7 @@ window.Toolkit.optionsMenu = ->
       else
         $menu.css({visibility: "hidden", opacity: 0})
     )
+
+# TODO: Remove surrounding quotes if user added them to the string.
+window.Toolkit.normalizeQuotes = (str) ->
+  str.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"')
