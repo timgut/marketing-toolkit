@@ -11,7 +11,11 @@
 
   <section class="workspace cf">
     <section class="image-grid cf">
-    <%= render @images %>
+    <% if @images.count > 0 %>
+    	<%= render @images %>
+    <% else %>
+    	<p>You have not <%= link_to 'uploaded', new_image_path %> any images yet.</p>
+    <% end %>
   </section>
 
 </section>

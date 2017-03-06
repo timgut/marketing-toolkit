@@ -34,6 +34,6 @@ window.Toolkit.Template.dropzone = ->
 window.Toolkit.Template.ready = ->
   window.Toolkit.Template.optionsMenu()
   window.Toolkit.Template.codeMirror()
-  # window.Toolkit.Template.dropzone()
+  window.Toolkit.Template.dropzone()
 
 $(document).on('turbolinks:load', window.Toolkit.Template.ready)

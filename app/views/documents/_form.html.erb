@@ -38,8 +38,10 @@
       <%= @template.form_markup.html_safe %>
 
       <div class="buttons small cf">
-          <button type="submit" name="commit" value="Preview" class="preview active">Preview</button>
-          <%= f.button "Save", class: "button save active" %>
+        <% unless @document.new_record? %>
+          <%= link_to "Download".html_safe, download_link(@document), class: "preview action button", data: {download: true} %>
+        <% end %>
+        <%= f.button "Save", class: "button save active" %>
       </div>
     </section>
   </main>

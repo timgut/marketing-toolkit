@@ -2,13 +2,14 @@ class TemplatesController < ApplicationController
 
   before_action :authenticate_user!
   before_action :assign_sidebar_vars, only: [:index]
+  before_action :assign_form_vars,    only: [:edit, :new, :update]
   
   # POST /templates
   def create
     @template = Template.new(template_params)
 
     if @template.save
-      redirect_to template_path(@template.campaign, @template), notice: "Template created!"
+      redirect_to template_path(@template), notice: "Template created!"
     else
       render :new
     end
@@ -22,7 +23,6 @@ class TemplatesController < ApplicationController
   # GET /templates/1/edit
   def edit
     @template = Template.includes(:campaign).find(params[:id])
-    @campaigns = Campaign.all
   end
 
   # GET /templates
@@ -38,7 +38,6 @@ class TemplatesController < ApplicationController
   def new
     @template = Template.new(campaign_id: params[:campaign_id])
     @campaign = @template.campaign
-    @campaigns = Campaign.all
   end
 
   # GET /templates/1
@@ -52,13 +51,18 @@ class TemplatesController < ApplicationController
     @template = Template.includes(:campaign).find(params[:id])
 
     if @template.update_attributes(template_params)
-      redirect_to template_path(@template.campaign, @template), notice: "Template updated!"
+      redirect_to template_path(@template), notice: "Template updated!"
     else
       render :edit, alert: "Cannot update template!"
     end
   end
 
   protected
+
+  def assign_form_vars
+    @campaigns = Campaign.all
+    @categories = Category.all
+  end
 
   def assign_sidebar_vars
     @campaigns = Campaign.includes(:templates).all
@@ -76,6 +80,9 @@ class TemplatesController < ApplicationController
   private
 
   def template_params
-    params.require(:template).permit(:title, :description, :height, :width, :pdf_markup, :form_markup, :status, :thumbnail, :numbered_image, :blank_image, :customizable_options, :campaign_id)
+    params.require(:template).permit(
+      :title, :description, :height, :width, :pdf_markup, :form_markup, :status, :thumbnail,
+      :numbered_image, :blank_image, :customizable_options, :campaign_id, :category_id
+    )
   end
 end

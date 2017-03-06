@@ -1,7 +1,15 @@
 <% breadcrumb :campaign, @campaign %>
 
-<ul>
-  <% @campaign.templates.each do |template| %>
-    <li><%= link_to template.title, template_path(template) %></li>
-  <% end %>
-</ul>
+<% if @campaign.templates.count > 0 %>
+
+<aside>
+  <%= render partial: "templates/sidebar_nav" %>
+</aside>
+
+<section class="workspace cf">
+  <%= render @filtered_templates %>
+</section>
+
+<% else %>
+	<p class="no-results">There are currently no templates available for this campaign.</p>
+<% end %>

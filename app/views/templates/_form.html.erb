@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <%= form_for(template, html: {class: "dropzone"}) do |f| %>
+=======
+<%= form_for(template) do |f| %>
+>>>>>>> dev
   <%= render partial: "/shared/errors", locals: {record: template} %>
 
   <aside class="preview">
@@ -16,6 +20,11 @@
       <li>
         <%= f.label :campaign %>
         <%= f.select(:campaign_id, options_from_collection_for_select(@campaigns, 'id', 'title', @template.campaign_id), include_blank: true) %>
+      </li>
+
+      <li>
+        <%= f.label :category %>
+        <%= f.select(:category_id, options_from_collection_for_select(@categories, 'id', 'title', @template.category_id), include_blank: true) %>
       </li>
 
       <li id="customizable-options">

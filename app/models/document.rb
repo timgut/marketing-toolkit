@@ -8,7 +8,8 @@ class Document < ApplicationRecord
   has_and_belongs_to_many :users
   
   has_many :data
-  
+  has_many :document_users, class_name: "DocumentUser"
+
   belongs_to :template
 
   validates_presence_of :template, :title, :description, :status
@@ -19,12 +20,15 @@ class Document < ApplicationRecord
   attr_accessor :defined_data_methods
 
   after_initialize ->{ self.defined_data_methods = false }
+  before_destroy   ->{ self.pdf = nil }
 
   # If a Datum record doesn't exist for this document, don't raise an error.
   # But log something annoying so we don't forget about it.
   # And return a String because that's the kind of data we're expecting.
   def method_missing(method, *args, &block)
-    define_data_methods unless self.defined_data_methods
+    unless self.defined_data_methods
+      define_data_methods
+    end
 
     Rails.logger.info "*"*60
     Rails.logger.info "Missing method: #{method}"
@@ -32,6 +36,10 @@ class Document < ApplicationRecord
     Rails.logger.info "*"*60
 
     ""
+  end
+
+  def creator
+    document_users.where(document_id: self.id).first.creator
   end
 
   def local_pdf_path
@@ -45,7 +53,7 @@ class Document < ApplicationRecord
   protected
 
   def define_data_methods
-    self.defined_data_methods ||= true
+    self.defined_data_methods = true
 
     data.each do |datum|
       self.class.__send__(:define_method, datum.key) do

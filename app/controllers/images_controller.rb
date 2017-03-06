@@ -32,7 +32,11 @@ class ImagesController < ApplicationController
 
   # GET /images
   def index
-    @images = @all
+    if current_user
+      @images = current_user.images
+    else
+      @images = @all
+    end
   end
 
   # GET /images/new

@@ -65,16 +65,6 @@ window.Toolkit.Document.saveButton = ->
     $("form[data-document='true']").submit()
   )
 
-window.Toolkit.Document.optionsMenu = ->
-  $(document).on("click", ".options a", ->
-    $menu = $(@).next("ol")
-
-    if $menu.css("visibility") is "hidden"
-      $menu.css({visibility: "visible", opacity: 1})
-    else
-      $menu.css({visibility: "hidden", opacity: 0})
-  )
-
 window.Toolkit.Document.fillForm = ->
   $.each(window.Toolkit.Document.savedData, (key, data) ->
     if data.fieldID
@@ -132,11 +122,23 @@ window.Toolkit.Document.saveIds = ->
     # console.log("Set #{$(@).attr("data-persist-id")} to #{value}")
   )
 
+# Disable the "Download" button if the form is changed
+window.Toolkit.Document.disableDownloadButton = ->
+  $(document).on("click", "a.disabled", (e) ->
+    e.preventDefault()
+    return false
+  )
+  $(document).on("change", "form[data-document='true']", ->
+    $("[data-download='true']").addClass("disabled")
+    $("[data-download='true']").prop("title", "This document must be saved before it can be downloaded.")
+  )
+
 window.Toolkit.Document.ready = ->
   window.Toolkit.Document.addImage()
   window.Toolkit.Document.saveButton()
-  window.Toolkit.Document.optionsMenu()
+  window.Toolkit.optionsMenu()
   window.Toolkit.Document.saveIds()
   window.Toolkit.Document.fillForm()
+  window.Toolkit.Document.disableDownloadButton()
 
 $(document).on('turbolinks:load', window.Toolkit.Document.ready)

@@ -12,20 +12,21 @@ class DocumentsController < ApplicationController
       DocumentUser.create!(document_id: @document.id, user_id: User.current_user.id, creator_id: User.current_user.id)
       create_data
 
-      # Eventually we'll redirect to another location, and send this to a background job.
-      if params[:generate] == "true"
-        redirect_to generate_document_path(@document, format: :pdf)
-      else
-        redirect_to documents_path, notice: "Document created!"
-      end
+      redirect_to documents_path, notice: "Document created!"
     else
-      redirect_back fallback_location: root_path
+      redirect_back fallback_location: documents_path
     end
   end
 
   # DELETE /documents/1
   def destroy
     @document = Document.find(params[:id])
+
+    if @document.destroy
+      redirect_to documents_path, notice: "Document deleted!"
+    else
+      redirect_back fallback_location: documents_path, alert: "Document was not deleted. Please try again."
+    end
   end
 
   # GET /documents/1/duplicate
@@ -42,8 +43,8 @@ class DocumentsController < ApplicationController
     assign_records
   end
 
-  # GET /documents/1/generate.pdf
-  def generate
+  # GET /documents/1/download.pdf
+  def download
     force_format(:pdf)
     
     @document = Document.find(params[:id])
@@ -111,6 +112,7 @@ class DocumentsController < ApplicationController
   # PATCH /documents/1
   def update
     @document = Document.find(params[:id])
+    @document.pdf = nil
 
     if @document.save
       ActiveRecord::Base.transaction do
@@ -118,14 +120,9 @@ class DocumentsController < ApplicationController
         create_data
       end
 
-      # Eventually we'll redirect to another location, and send this to a background job.
-      if params[:generate] == "true"
-        redirect_to generate_document_path(@document, format: :pdf)
-      else
-        redirect_to documents_path, notice: "Document created!"
-      end
+      redirect_to documents_path, notice: "Document updated!"
     else
-      redirect_back fallback_location: root_path
+      redirect_back fallback_location: documents_path
     end
   end
 
