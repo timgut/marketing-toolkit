@@ -127,17 +127,21 @@ crumb :image do |image|
   parent :index_images
 end
 
-# Users
-crumb :users do
-  link "Manage Users", users_path
+# Admin Users
+crumb :admin_users do
+  link "Manage Users", admin_users_path
 end
 
 crumb :edit_user do |user|
   link user.name, edit_user_registration_path
-  parent :users
+  parent :admin_users
 end
 
 crumb :profile do |user|
-  link user.name, profile_path
+  link 'My Profile', profile_path
 end
 
+crumb :edit_password do |user|
+  link 'Change Password', password_path
+  parent :profile
+end

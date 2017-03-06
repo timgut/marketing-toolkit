@@ -1,3 +1,5 @@
+<% breadcrumb :profile, @user %>
+
 <% content_for :breadcrumb_extras do %>
   <%= render partial: "users/registrations/breadcrumbs" %>
 <% end %>
@@ -43,7 +45,7 @@
       <li>
         <%= f.label :department %>
         <%= f.select(:department) do %>
-          <%= options_for_select( User::DEPARTMENTS ,resource.title) %>
+          <%= options_for_select( User::DEPARTMENTS ,resource.department) %>
         <% end %>
       </li>
         

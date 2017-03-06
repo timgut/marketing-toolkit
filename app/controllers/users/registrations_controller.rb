@@ -14,4 +14,31 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = User.current_user || current_user
   end
 
+  def password
+    @user = current_user
+  end
+
+  def update_password
+    @user = current_user
+    puts "\n\n\n#{params['user'].inspect}\n\n\n"
+    if params['user']['password'] == params['user']['password_confirmation']
+      @user.password = params['user']['password']
+      @user.password_confirmation = params['user']['password_confirmation']
+      if @user.update(password_params)
+        bypass_sign_in(@user)
+        redirect_to profile_path, notice: "Password changed!"
+      else
+        redirect_to profile_path, notice: "There was a problem changing your password"
+      end
+    else
+      redirect_to profile_path, notice: "Password and confirmation must match."
+    end
+  end
+
+  private
+
+  def password_params
+    params.require(:user).permit(:password, :password_confirmation)
+  end
+
 end

@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {registrations: "users/registrations"}
 
   devise_scope :user do
+    get 'password', to: 'users/registrations#password'
+    put 'update_password', to: 'users/registrations#update_password'
     get 'confirmation', to: 'users/registrations#confirmation'
     get 'applications', to: 'users/registrations#applications'
     authenticated :user do
