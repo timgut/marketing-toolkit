@@ -28,12 +28,38 @@ window.Toolkit.Template.codeMirror = ->
   if optionsTextarea = document.getElementById("template_customizable_options")
     window.Toolkit.optionsEditor = CodeMirror.fromTextArea(optionsTextarea, codeMirrorOpts)
 
-window.Toolkit.Template.dropzone = ->
+window.Toolkit.Template.dropzones = ->
+  window.Toolkit.resetDropzones()
+
+  if $("#template-thumbnail-form").length isnt 0
+    window.Toolkit.dropzones.push(
+      $("#template-thumbnail-form").dropzone({
+        paramName: "template[thumbnail]",
+        url: $("#template-thumbnail-form").attr("action")
+      });
+    )
+
+  if $("#template-numbered-form").length isnt 0
+    window.Toolkit.dropzones.push(
+      $("#template-numbered-form").dropzone({
+        paramName: "template[numbered_image]",
+        url: $("#template-numbered-form").attr("action")
+      });
+    )
+
+  if $("#template-blank-form").length isnt 0
+    window.Toolkit.dropzones.push(
+      $("#template-blank-form").dropzone({
+        paramName: "template[blank_image]",
+        url: $("#template-blank-form").attr("action")
+      });
+    )
+
   # $("[data-dropzone='true']").find("input[type='file']").dropzone({ url: $("[data-dropzone='true']").attr("action") })
 
 window.Toolkit.Template.ready = ->
   window.Toolkit.Template.optionsMenu()
   window.Toolkit.Template.codeMirror()
-  window.Toolkit.Template.dropzone()
+  window.Toolkit.Template.dropzones()
 
 $(document).on('turbolinks:load', window.Toolkit.Template.ready)

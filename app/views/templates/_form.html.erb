@@ -1,4 +1,4 @@
-<%= form_for(template, html: {class: "dropzone", multipart: true}) do |f| %>
+<%= form_for(template) do |f| %>
   <%= render partial: "/shared/errors", locals: {record: template} %>
 
   <aside class="preview">
@@ -47,21 +47,6 @@
 
   <section class="workspace cf">
     <ol>
-      <li>
-        <%= f.label :thumbnail %>
-        <%= f.file_field :thumbnail %>
-      </li>
-
-      <li>
-        <%= f.label :numbered_image %>
-        <%= f.file_field :numbered_image %>
-      </li>
-
-      <li>
-        <%= f.label :blank_image %>
-        <%= f.file_field :blank_image %>
-      </li>
-
       <li id="pdf-markup">
         <%= f.label :pdf_markup %>
         <%= f.text_area :pdf_markup %>
@@ -77,4 +62,52 @@
       <%= f.submit "Save", class: "save active" %>
     </div>
   </section>
+<% end %>
+
+<%= form_for(template, html: {class: "dropzone", multipart: true, id: "template-thumbnail-form"}) do |f| %>
+  <div class="label">
+    <%= f.label :thumbnail %>
+  </div>
+  
+  <% if @template.thumbnail_file_name %>
+    <div class="current-image">
+      <img src="<%= @template.thumbnail.url %>" />
+    </div>
+  <% end %>
+
+  <div class="fallback">
+    <%= f.file_field :thumbnail %>
+  </div>
+<% end %>
+
+<%= form_for(template, html: {class: "dropzone", multipart: true, id: "template-numbered-form"}) do |f| %>
+  <div class="label">
+    <%= f.label :numbered_image %>
+  </div>
+  
+  <% if @template.numbered_image_file_name %>
+    <div class="current-image">
+      <img src="<%= @template.numbered_image.url %>" />
+    </div>
+  <% end %>
+
+  <div class="fallback">
+    <%= f.file_field :numbered_image %>
+  </div>
+<% end %>
+
+<%= form_for(template, html: {class: "dropzone", multipart: true, id: "template-blank-form"}) do |f| %>
+  <div class="label">
+    <%= f.label :blank_image %>
+  </div>
+  
+  <% if @template.blank_image_file_name %>
+    <div class="current-image">
+      <img src="<%= @template.blank_image.url %>" />
+    </div>
+  <% end %>
+
+  <div class="fallback">
+    <%= f.file_field :blank_image %>
+  </div>
 <% end %>
