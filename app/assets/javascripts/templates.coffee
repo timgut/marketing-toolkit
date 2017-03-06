@@ -1,16 +1,6 @@
 window.Toolkit ||= {}
 window.Toolkit.Template ||= {}
 
-window.Toolkit.Template.optionsMenu = ->
-  $(document).on("click", ".options a", ->
-    $menu = $(@).next("ol")
-
-    if $menu.css("visibility") is "hidden"
-      $menu.css({visibility: "visible", opacity: 1})
-    else
-      $menu.css({visibility: "hidden", opacity: 0})
-  )
-
 window.Toolkit.Template.codeMirror = ->
   codeMirrorOpts = {
     lineNumbers: true,
@@ -55,10 +45,8 @@ window.Toolkit.Template.dropzones = ->
       });
     )
 
-  # $("[data-dropzone='true']").find("input[type='file']").dropzone({ url: $("[data-dropzone='true']").attr("action") })
-
 window.Toolkit.Template.ready = ->
-  window.Toolkit.Template.optionsMenu()
+  window.Toolkit.optionsMenu()
   window.Toolkit.Template.codeMirror()
   window.Toolkit.Template.dropzones()
 
