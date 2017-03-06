@@ -4,6 +4,12 @@
   <%= render partial: "documents/sidebar_nav" %>
 </aside>
 
+<% if @filtered_documents.count > 0 %>
+
 <section class="workspace cf">
   <%= render @filtered_documents %>
 </section>
+
+<% else %>
+	<p class="no-results">You have not created any documents of this type.</p>
+<% end %>
