@@ -2,7 +2,12 @@ class Image < ApplicationRecord
   has_attached_file :image, storage: :s3, s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) }
   
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
-  validates_uniqueness_of :image_file_name
+
+  validates_each :image_file_name do |record, attr, value|
+    if User.current_user.images.map(&:image_file_name).include?(value)
+      record.errors.add attr, "You already have an image named #{value}."
+    end
+  end
 
   has_and_belongs_to_many :users
 
