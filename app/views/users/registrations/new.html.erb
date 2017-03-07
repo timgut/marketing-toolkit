@@ -26,9 +26,9 @@
         <%= f.text_field :local_number, placeholder: 'Local Number' %>   
       </li> 
       <li>
-        <%= f.select(:title) do %>
-          <%= content_tag(:option, "Title*", value: '') %>
-          <% User::ROLES.each do |c| -%>
+        <%= f.select(:department) do %>
+          <%= content_tag(:option, "Department*", value: '') %>
+          <% User::DEPARTMENTS.each do |c| -%>
             <%= content_tag(:option, c, value: c) %>
           <% end %>
         <% end %>
