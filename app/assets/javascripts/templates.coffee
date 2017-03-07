@@ -1,6 +1,8 @@
 window.Toolkit ||= {}
 window.Toolkit.Template ||= {}
 
+window.Toolkit.Template.dropMsg = "Drop image here to upload"
+
 window.Toolkit.Template.codeMirror = ->
   codeMirrorOpts = {
     lineNumbers: true,
@@ -26,7 +28,7 @@ window.Toolkit.Template.dropzones = ->
       $("#template-thumbnail-form").dropzone({
         paramName: "template[thumbnail]",
         url: $("#template-thumbnail-form").attr("action"),
-        dictDefaultMessage: "Drop image here to upload"
+        dictDefaultMessage: window.Toolkit.Template.dropMsg
       });
     )
 
@@ -35,7 +37,7 @@ window.Toolkit.Template.dropzones = ->
       $("#template-numbered-form").dropzone({
         paramName: "template[numbered_image]",
         url: $("#template-numbered-form").attr("action"),
-        dictDefaultMessage: "Drop image here to upload"
+        dictDefaultMessage: window.Toolkit.Template.dropMsg
       });
     )
 
@@ -44,7 +46,7 @@ window.Toolkit.Template.dropzones = ->
       $("#template-blank-form").dropzone({
         paramName: "template[blank_image]",
         url: $("#template-blank-form").attr("action"),
-        dictDefaultMessage: "Drop image here to upload"
+        dictDefaultMessage: window.Toolkit.Template.dropMsg
       });
     )
 

@@ -5,20 +5,22 @@ window.Toolkit.Image.dropzone = ->
   window.Toolkit.resetDropzones()
 
   if $("#image-form").length isnt 0
+    if window.Toolkit.isEditPage()
+      flash = "Image updated!"
+      dropMsg = "Drop image here to replace"
+    else
+      flash = "Image created!"
+      dropMsg = "Drop image here to upload"
+
     window.Toolkit.dropzones.push(
       $("#image-form").dropzone({
         paramName: "image[image]",
         url: $("#image-form").attr("action"),
-        dictDefaultMessage: "Drop image here to upload",
+        dictDefaultMessage: dropMsg,
         error: ((errorMessage) ->
           $("#image-error").html(errorMessage.xhr.responseText)
         ),
         success: ((file) ->
-          if location.href.indexOf("edit") isnt -1
-            flash = "Image updated!"
-          else
-            flash = "Image created!"
-
           document.location.replace("/images?flash=#{flash}")
         )
       });

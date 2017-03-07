@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   
   resources :images do
     collection do
+      get :choose
       get :recent
       get :shared
     end

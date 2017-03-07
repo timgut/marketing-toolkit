@@ -1,8 +1,8 @@
 <div id="image-picker" class="" style="display: none;">
   <button class="image-picker_close close icons">X</button>
   
-  <section class="image-grid cf">
-      <%= render partial: @images, locals: {no_link: true} %>
+  <section class="image-grid cf" data-loaded="false">
+    Loading. Please wait...
   </section>
 
   <div class="buttons small cf">

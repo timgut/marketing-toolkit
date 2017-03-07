@@ -42,7 +42,6 @@ class DocumentsController < ApplicationController
   # GET /documents/1/edit
   def edit
     @document = Document.find(params[:id])
-    @images = Image.all
     assign_records
   end
 
@@ -78,7 +77,6 @@ class DocumentsController < ApplicationController
   def new
     @template = Template.find(params[:template_id])
     @document = Document.new(template_id: @template.id, title: @template.title, description: @template.description)
-    @images = Image.all
     assign_records
   end
 

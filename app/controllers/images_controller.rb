@@ -19,13 +19,19 @@ class ImagesController < ApplicationController
       format.json do
         if @image.save
           ImageUser.create!(image: @image, user: User.current_user)    
-          head :no_content, notice: "Image created!"
+          render json: {url: @image.image.url}
         else
           Rails.logger.info @image.errors.full_messages.to_sentence.inspect
           render plain: @image.errors.full_messages.to_sentence, status: 403
         end
       end
     end
+  end
+
+  # GET /images/choose
+  def choose
+    @images = User.current_user.images
+    render layout: false
   end
 
   # DELETE /images

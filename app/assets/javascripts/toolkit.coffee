@@ -8,6 +8,9 @@ window.Toolkit.init.optionsMenu = false
 
 Dropzone.autoDiscover = false
 
+window.Toolkit.isEditPage = ->
+  location.href.indexOf("edit") isnt -1
+
 window.Toolkit.resetDropzones = ->
   window.Toolkit.dropzones = []
 

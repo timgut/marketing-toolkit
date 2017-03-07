@@ -12,8 +12,22 @@ window.Toolkit.Document.addImage = ->
 
   $('#add_image_button').attr('disabled','disabled').addClass('disabled')
   
+  # Get images and populate .image-grid
+  $(document).on("click", ".image-picker", ->
+    $target = $("#image-picker .image-grid")
+
+    if $target.attr("data-loaded") is "false"
+      $.get("/images/choose", (data) ->
+        $target.html(data)
+        $target.attr("data-loaded", "true")
+        window.Toolkit.Document.dropzone()
+      ).fail((data) ->
+        $("#image-picker .image-grid").html("There was a problem retrieving your images. Please try again.")
+      )
+  )
+
   # Stylize only the selected image
-  $('.image-grid > figure').click( ->
+  $(document).on("click", ".image-grid > figure", ->
     $(@).addClass('enabled')
     $(@).siblings().each( ->
       $(@).removeClass('enabled')
@@ -57,7 +71,6 @@ window.Toolkit.Document.addImage = ->
 
 window.Toolkit.Document.saveButton = ->
   $("[data-save='true']").click( ->
-    $("input[name='generate']").val("false")
     $("form[data-document='true']").submit()
   )
 
@@ -111,11 +124,9 @@ window.Toolkit.Document.fillForm = ->
 
 window.Toolkit.Document.saveIds = ->
   $("form[data-document='true']").on("change", "[data-persist-id]", ->
-    # console.log("Changed #{$(@).attr('name')}")
     $target = $("[name='#{$(@).attr("data-persist-id")}']")
     value = $(@).attr("id")
     $target.val(value)
-    # console.log("Set #{$(@).attr("data-persist-id")} to #{value}")
   )
 
 # Disable the "Download" button if the form is changed
@@ -128,6 +139,40 @@ window.Toolkit.Document.disableDownloadButton = ->
     $("[data-download='true']").addClass("disabled")
     $("[data-download='true']").prop("title", "This document must be saved before it can be downloaded.")
   )
+
+ window.Toolkit.Document.dropzone = ->
+  window.Toolkit.resetDropzones() # This throws an error. Not sure why.
+
+  if $("#upload-photo-form").length isnt 0
+    dropMsg = "
+      <a href='javascript:void(0);' title='Upload Photo' class='image-picker'>
+        <div class='positioner'>
+          <span class='icons'>C</span>
+          <strong>Upload Photo</strong>
+        </div>
+      </a>
+    "
+    window.Toolkit.dropzones.push(
+      $("#upload-photo-form").dropzone({
+        paramName: "image[image]",
+        url: "/images",
+        dictDefaultMessage: dropMsg,
+        error: ((errorMessage) ->
+          $("#image-error").html(errorMessage.xhr.responseText)
+          @.removeAllFiles()
+        ),
+        success: ((file, json) ->
+          $("#image-picker .image-grid").append("
+            <figure>
+              <img src='#{json.url}' alt='#{file.name}' />
+              <figcaption>#{json.url}</figcaption>
+            </figure>
+          ")
+
+          @.removeFile(file)
+        )
+      });
+    )
 
 window.Toolkit.Document.ready = ->
   window.Toolkit.Document.addImage()
