@@ -1,4 +1,8 @@
 <%= form_for image, html: { id: "image-form", class: 'dropzone profile-form edit-form split cf', multipart: true } do |f| %>
+  <% if image.new_record? %>
+    <%= f.hidden_field :creator_id, value: User.current_user.id %>
+  <% end %>
+
   <%= render partial: "/shared/errors", locals: {record: image} %>
 
   <div class="label">
@@ -14,16 +18,6 @@
   <div class="fallback">
     <%= f.file_field :image %>
   </div>
-
-  <div class="buttons small cf">
-    <%= f.submit 'Upload Image', class: 'button save' %>
-    <% unless image.new_record? %>
-      <%= link_to(
-        "<span class='icons'>x</span> Delete".html_safe, image_path(image),
-        method: :delete,
-        class: "button",
-        data: {confirm: "Are you sure that you want to DELETE this image? This cannot be undone!"}
-      ) %>
-    <% end %>
-  </div>
 <% end %>
+
+<div id="image-error"></div>

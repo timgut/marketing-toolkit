@@ -1,0 +1,14 @@
+<% unless @image.new_record? %>
+  <% content_for :breadcrumb_extras do %>
+    <ol class="options cf">
+      <li>
+        <%= link_to(
+          "<span class='icons'>x</span> Delete".html_safe, image_path(@image),
+          method: :delete,
+          class: "button",
+          data: {confirm: "Are you sure that you want to DELETE this image? This cannot be undone!"}
+        ) %>
+      </li>
+    </ol>
+  <% end %>
+<% end %>

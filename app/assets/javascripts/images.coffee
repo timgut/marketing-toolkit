@@ -9,7 +9,18 @@ window.Toolkit.Image.dropzone = ->
       $("#image-form").dropzone({
         paramName: "image[image]",
         url: $("#image-form").attr("action"),
-        dictDefaultMessage: "Drop image here to upload"
+        dictDefaultMessage: "Drop image here to upload",
+        error: ((errorMessage) ->
+          $("#image-error").html(errorMessage.xhr.responseText)
+        ),
+        success: ((file) ->
+          if location.href.indexOf("edit") isnt -1
+            flash = "Image updated!"
+          else
+            flash = "Image created!"
+
+          document.location.replace("/images?flash=#{flash}")
+        )
       });
     )
 
@@ -43,7 +54,7 @@ window.Toolkit.Image.readFile = (input) ->
     reader.readAsDataURL(input.files[0])
 
 window.Toolkit.Image.ready = ->
-  console.log "images ready"
+  window.Toolkit.optionsMenu()
   window.Toolkit.Image.dropzone()
   # window.Toolkit.Image.croppie()
   # $("#image_image").on("change", -> window.Toolkit.Image.readFile(this))

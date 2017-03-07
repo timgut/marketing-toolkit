@@ -9,7 +9,7 @@ class DocumentsController < ApplicationController
     @document = Document.new(document_params)
 
     if @document.save
-      DocumentUser.create!(document_id: @document.id, user_id: User.current_user.id, creator_id: User.current_user.id)
+      DocumentUser.create!(document_id: @document.id, user_id: User.current_user.id)
       create_data
 
       redirect_to documents_path, notice: "Document created!"
@@ -158,7 +158,7 @@ class DocumentsController < ApplicationController
   private
 
   def document_params
-    params.require(:document).permit(:title, :description, :status, :template_id)
+    params.require(:document).permit(:title, :description, :status, :template_id, :creator_id)
   end
 
   def force_format(format)

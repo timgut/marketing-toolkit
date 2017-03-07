@@ -20,7 +20,7 @@
       <ol>
         <li><%= link_to "<span class='icons'>e</span> View".html_safe, template_path(document.template), title: "View" %></li>
         <li><%= link_to "<span class='icons'>c</span> Duplicate".html_safe, duplicate_document_path(document), title: "Duplicate" %></li>
-        <li><%= link_to "<span class='icons'>d</span> Download".html_safe, download_link(document), title: "Download" %></li> 
+        <li><%= link_to "<span class='icons'>d</span> Download".html_safe, download_link(document), title: "Download", target: :blank %></li> 
       </ol>
     </li>
   </ul>

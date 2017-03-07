@@ -14,6 +14,8 @@
 
     <% if flash.count > 0 %>
       <p id="notice"><%= notice %></p>
+    <% elsif params[:flash] %>
+      <p id="notice"><%= params[:flash] %></p>
     <% end %>
 
     <main class="<%= params[:controller] %> <%= params[:action] %> cf">

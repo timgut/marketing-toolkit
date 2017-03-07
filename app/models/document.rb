@@ -10,12 +10,13 @@ class Document < ApplicationRecord
   has_many :data
   has_many :document_users, class_name: "DocumentUser"
 
+  belongs_to :creator, class_name: "User", foreign_key: :creator_id
   belongs_to :template
 
   validates_presence_of :template, :title, :description, :status
 
   scope :recent,         ->{ all.joins(:documents_users).where("creator_id = ? and documents_users.created_at >= ?", User.current_user.id, DateTime.now - 1.month) }
-  scope :shared_with_me, ->{ all.joins(:documents_users).where("user_id = ? and documents_users.creator_id != ?", User.current_user.id, User.current_user.id) }
+  scope :shared_with_me, ->{ all.joins(:documents_users).where("user_id = ? and documents_users.user_id != ?", User.current_user.id, User.current_user.id) }
 
   attr_accessor :defined_data_methods
 
@@ -38,10 +39,6 @@ class Document < ApplicationRecord
     ""
   end
 
-  def creator
-    document_users.where(document_id: self.id).first.creator
-  end
-
   def duplicate!
     begin
       # Duplicate and save the document
@@ -49,7 +46,7 @@ class Document < ApplicationRecord
       new_self.save!
       
       # Create the join record and remove the PDF.
-      DocumentUser.create!(document_id: new_self.id, user_id: User.current_user.id, creator_id: User.current_user.id)
+      DocumentUser.create!(document_id: new_self.id, user_id: User.current_user.id)
       new_self.assign_attributes(pdf: nil)
       new_self.save!
 

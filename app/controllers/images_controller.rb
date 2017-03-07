@@ -6,11 +6,25 @@ class ImagesController < ApplicationController
   def create
     @image = Image.new(image_params)
 
-    if @image.save
-      ImageUser.create!(image: @image, user: User.current_user, creator: User.current_user)
-      redirect_to image_path(@image), notice: "Image created!"
-    else
-      render :new
+    respond_to do |format|
+      format.html do
+        if @image.save
+          ImageUser.create!(image: @image, user: User.current_user)    
+          redirect_to image_path(@image), notice: "Image created!"
+        else
+          render :new, alert: "Cannot create image."
+        end
+      end
+
+      format.json do
+        if @image.save
+          ImageUser.create!(image: @image, user: User.current_user)    
+          head :no_content, notice: "Image created!"
+        else
+          Rails.logger.info @image.errors.full_messages.to_sentence.inspect
+          render plain: @image.errors.full_messages.to_sentence, status: 403
+        end
+      end
     end
   end
 
@@ -81,7 +95,6 @@ class ImagesController < ApplicationController
 
       format.json do
         @image.update_attributes(image_params)
-        Rails.logger.info @image.errors.inspect
         head :no_content
       end
     end
@@ -96,6 +109,6 @@ class ImagesController < ApplicationController
   end
 
   def image_params
-    params.require(:image).permit(:image)
+    params.require(:image).permit(:image, :creator_id)
   end
 end

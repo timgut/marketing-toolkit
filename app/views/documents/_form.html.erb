@@ -1,6 +1,10 @@
 <%= form_for(@document, html: {novalidate: "novalidate", data: {document: true}}) do |f| %>
   <%= f.hidden_field :template_id, value: @template.id %>
-  <%= hidden_field_tag :generate, true %>
+  
+  <% if @document.new_record? %>
+    <%= f.hidden_field :creator_id, value: User.current_user.id %>
+  <% end %>
+
   <main class="clearfix">
     <aside class="preview">
       <ol> 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170303202439) do
+ActiveRecord::Schema.define(version: 20170307160727) do
 
   create_table "campaigns", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
@@ -59,16 +59,16 @@ ActiveRecord::Schema.define(version: 20170303202439) do
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
     t.integer  "tag_id"
+    t.integer  "creator_id"
+    t.index ["creator_id"], name: "index_documents_on_creator_id", using: :btree
     t.index ["template_id"], name: "index_documents_on_template_id", using: :btree
   end
 
   create_table "documents_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "document_id"
     t.integer  "user_id"
-    t.integer  "creator_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["creator_id"], name: "index_documents_users_on_creator_id", using: :btree
     t.index ["document_id"], name: "index_documents_users_on_document_id", using: :btree
     t.index ["user_id"], name: "index_documents_users_on_user_id", using: :btree
   end
@@ -80,15 +80,15 @@ ActiveRecord::Schema.define(version: 20170303202439) do
     t.datetime "image_updated_at"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.integer  "creator_id"
+    t.index ["creator_id"], name: "index_images_on_creator_id", using: :btree
   end
 
   create_table "images_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "image_id"
     t.integer  "user_id"
-    t.integer  "creator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["creator_id"], name: "index_images_users_on_creator_id", using: :btree
     t.index ["image_id"], name: "index_images_users_on_image_id", using: :btree
     t.index ["user_id"], name: "index_images_users_on_user_id", using: :btree
   end

@@ -1,2 +1,6 @@
 <% breadcrumb :edit_image, @image %>
-<%= render 'form', image: @image %>
+<%= render partial: "images/breadcrumb_extras" %>
+
+<section class="workspace cf">
+  <%= render 'form', image: @image %>
+</section>
