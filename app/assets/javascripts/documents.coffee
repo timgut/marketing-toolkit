@@ -165,7 +165,7 @@ window.Toolkit.Document.disableDownloadButton = ->
           $("#image-picker .image-grid").append("
             <figure>
               <img src='#{json.url}' alt='#{file.name}' />
-              <figcaption>#{json.url}</figcaption>
+              <figcaption>#{file.name}</figcaption>
             </figure>
           ")
 
