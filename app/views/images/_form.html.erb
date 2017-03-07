@@ -1,12 +1,29 @@
-<%= form_for image, html: { multipart: true }, html: { class: 'profile-form edit-form split cf'} do |f| %>
+<%= form_for image, html: { id: "image-form", class: 'dropzone profile-form edit-form split cf', multipart: true } do |f| %>
   <%= render partial: "/shared/errors", locals: {record: image} %>
 
-  <p>Select image for uploading.</p>
-  <div>
+  <div class="label">
+    <%= f.label :image %>
+  </div>
+  
+  <% if image.image_file_name %>
+    <div class="current-image">
+      <img src="<%= image.image.url %>" />
+    </div>
+  <% end %>
+
+  <div class="fallback">
     <%= f.file_field :image %>
   </div>
 
   <div class="buttons small cf">
     <%= f.submit 'Upload Image', class: 'button save' %>
+    <% unless image.new_record? %>
+      <%= link_to(
+        "<span class='icons'>x</span> Delete".html_safe, image_path(image),
+        method: :delete,
+        class: "button",
+        data: {confirm: "Are you sure that you want to DELETE this image? This cannot be undone!"}
+      ) %>
+    <% end %>
   </div>
 <% end %>

@@ -70,10 +70,20 @@ class ImagesController < ApplicationController
   def update
     @image = Image.find(params[:id])
 
-    if @image.update_attributes(image_params)
-      redirect_to image_path(@image), notice: "Image updated!"
-    else
-      render :edit, alert: "Cannot update image!"
+    respond_to do |format|
+      format.html do
+        if @image.update_attributes(image_params)
+          redirect_to image_path(@image), notice: "Image updated!"
+        else
+          render :edit, alert: "Cannot update image!"
+        end
+      end
+
+      format.json do
+        @image.update_attributes(image_params)
+        Rails.logger.info @image.errors.inspect
+        head :no_content
+      end
     end
   end
 

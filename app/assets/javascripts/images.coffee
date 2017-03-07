@@ -1,6 +1,19 @@
 window.Toolkit ||= {}
+window.Toolkit.Image ||= {}
 
-window.Toolkit.imageReady = ->
+window.Toolkit.Image.dropzone = ->
+  window.Toolkit.resetDropzones()
+
+  if $("#image-form").length isnt 0
+    window.Toolkit.dropzones.push(
+      $("#image-form").dropzone({
+        paramName: "image[image]",
+        url: $("#image-form").attr("action"),
+        dictDefaultMessage: "Drop image here to upload"
+      });
+    )
+
+window.Toolkit.Image.croppie = ->
   if document.getElementById("croppie")
     window.Toolkit.croppie = new Croppie(
       document.getElementById("croppie"),
@@ -18,18 +31,21 @@ window.Toolkit.imageReady = ->
       }
     )
 
-  window.Toolkit.readFile = (input) ->
-    if input.files && input.files[0]
-      reader = new FileReader();
+window.Toolkit.Image.readFile = (input) ->
+  if input.files && input.files[0]
+    reader = new FileReader();
 
-      reader.onload = (e) ->
-        $('#upload-crop').croppie('bind', {
-          url: e.target.result
-        })
+    reader.onload = (e) ->
+      $('#upload-crop').croppie('bind', {
+        url: e.target.result
+      })
 
-      reader.readAsDataURL(input.files[0])
+    reader.readAsDataURL(input.files[0])
 
-  $("#image_image").on("change", -> window.Toolkit.readFile(this))
+window.Toolkit.Image.ready = ->
+  console.log "images ready"
+  window.Toolkit.Image.dropzone()
+  # window.Toolkit.Image.croppie()
+  # $("#image_image").on("change", -> window.Toolkit.Image.readFile(this))
 
-
-$(document).on('turbolinks:load', window.Toolkit.imageReady)
+$(document).on('turbolinks:load', window.Toolkit.Image.ready)

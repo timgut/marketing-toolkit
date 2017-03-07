@@ -25,7 +25,8 @@ window.Toolkit.Template.dropzones = ->
     window.Toolkit.dropzones.push(
       $("#template-thumbnail-form").dropzone({
         paramName: "template[thumbnail]",
-        url: $("#template-thumbnail-form").attr("action")
+        url: $("#template-thumbnail-form").attr("action"),
+        dictDefaultMessage: "Drop image here to upload"
       });
     )
 
@@ -33,7 +34,8 @@ window.Toolkit.Template.dropzones = ->
     window.Toolkit.dropzones.push(
       $("#template-numbered-form").dropzone({
         paramName: "template[numbered_image]",
-        url: $("#template-numbered-form").attr("action")
+        url: $("#template-numbered-form").attr("action"),
+        dictDefaultMessage: "Drop image here to upload"
       });
     )
 
@@ -41,7 +43,8 @@ window.Toolkit.Template.dropzones = ->
     window.Toolkit.dropzones.push(
       $("#template-blank-form").dropzone({
         paramName: "template[blank_image]",
-        url: $("#template-blank-form").attr("action")
+        url: $("#template-blank-form").attr("action"),
+        dictDefaultMessage: "Drop image here to upload"
       });
     )
 
