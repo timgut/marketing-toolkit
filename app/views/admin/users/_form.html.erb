@@ -38,6 +38,11 @@
 	          <%= options_for_select( User::DEPARTMENTS, @user.department) %>
 	        <% end %>
 	      </li>
+
+	      <li>
+	        <%= f.label :cell_phone %><br />
+	        <%= f.text_field :cell_phone, autofocus: true %>              
+	      </li>
 	        
 	      <li class="checkbox clearfix">
 	        <%= f.check_box :receive_alerts %>  
