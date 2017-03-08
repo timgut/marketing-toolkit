@@ -51,6 +51,7 @@ class DocumentsController < ApplicationController
     force_format(:pdf)
     
     @document = Document.find(params[:id])
+    @document.define_data_methods
 
     if params[:debug]
       render pdf_options
