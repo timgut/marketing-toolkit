@@ -84,7 +84,7 @@ end
 
 # Documents
 crumb :documents do
-  link "Documents", documents_path
+  link "My Stuff", documents_path
   parent :root
 end
 
@@ -93,13 +93,13 @@ crumb :new_document do |template|
   parent :template, template
 end
 
-crumb :edit_document do |document, template|
-  link "Edit #{document.title}", edit_document_path(document)
-  parent :template, template
+crumb :edit_document do |document|
+  link "Edit '#{document.title}'", edit_document_path(document)
+  parent :documents
 end
 
 crumb :share_document do |document, template|
-  link "Share #{document.title}", share_document_path(document)
+  link "Share '#{document.title}'", share_document_path(document)
   parent :edit_document, document, template
 end
 
