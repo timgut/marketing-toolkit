@@ -109,9 +109,10 @@ crumb :share_document do |document, template|
 end
 
 # Images
+
 crumb :index_images do
-  link "Images", images_path
-  parent :root
+  link "My Images", images_path
+  parent :documents 
 end
 
 crumb :recent_images do
@@ -130,7 +131,7 @@ crumb :new_image do
 end
 
 crumb :edit_image do |image|
-  link "Edit #{image.image_file_name}", edit_image_path(image)
+  link "Edit '#{image.image_file_name}'", edit_image_path(image)
   parent :index_images
 end
 
