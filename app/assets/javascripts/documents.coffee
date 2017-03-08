@@ -86,7 +86,15 @@ window.Toolkit.Document.fillForm = ->
       if $field.attr("data-custom")?
         switch $field.attr("data-custom")
           when "text"
-            $customField = $("##{data.fieldID}-custom")
+            # Some forms contain checkboxes with a custom field, where the custom field's ID ends in "-custom"
+            # Other forms contain only custom fields, where every field ID ends in "-custom"
+            # This if/else block looks for the correct ID in the form based on the datum's field_id attribute.
+            if data.fieldID.indexOf("custom") is -1
+              customSelector = "##{data.fieldID}-custom"
+            else
+              customSelector = "##{data.fieldID}"
+
+            $customField = $(customSelector)
             $customField.val(data.value)
             $customField.trigger("change")
           when "combine"

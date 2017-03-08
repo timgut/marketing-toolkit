@@ -42,6 +42,7 @@ class DocumentsController < ApplicationController
   # GET /documents/1/edit
   def edit
     @document = Document.find(params[:id])
+    @document.define_data_methods
     assign_records
   end
 
