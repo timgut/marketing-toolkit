@@ -1,0 +1,16 @@
+<% breadcrumb :admin_templates %>
+
+<main class="clearfix">
+
+	<section class="workspace metadata cf">
+	
+		<h1>Templates</h1>
+    <ul>
+    <% @templates.each do |template| %>
+      <li><%= link_to "Edit '#{template.title}'", edit_admin_template_path(template) %></li>
+    </ul>      
+    <% end %>
+  
+  </section><!--workspace-->
+		    
+</main>

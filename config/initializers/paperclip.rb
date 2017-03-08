@@ -29,10 +29,8 @@ Paperclip.interpolates :dynamic_path do |attachment, style|
     folder  = "#{creator.id}_#{creator.last_name.downcase.gsub(' ','-')}_#{creator.first_name.downcase.gsub(' ','-')}"
   elsif attachment.instance.is_a?(Template)
     extension = attachment.instance.__send__("#{attachment.name}_content_type".to_sym).split("/").last
-    file_type = "templates"
+    file_type = "templates/#{attachment.instance.id}"
     file_name = "#{attachment.name.to_s}.#{extension}"
-
-    folder = ""
   end
 
   "/#{Rails.application.secrets.aws["folder"]}/#{folder}/#{file_type}/#{style}/#{file_name}".gsub("//", "/")
