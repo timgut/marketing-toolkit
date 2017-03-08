@@ -144,19 +144,11 @@ window.Toolkit.Document.disableDownloadButton = ->
   window.Toolkit.resetDropzones() # This throws an error. Not sure why.
 
   if $("#upload-photo-form").length isnt 0
-    dropMsg = "
-      <a href='javascript:void(0);' title='Upload Photo' class='image-picker'>
-        <div class='positioner'>
-          <span class='icons'>C</span>
-          <strong>Upload Photo</strong>
-        </div>
-      </a>
-    "
     window.Toolkit.dropzones.push(
       $("#upload-photo-form").dropzone({
         paramName: "image[image]",
         url: "/images",
-        dictDefaultMessage: dropMsg,
+        dictDefaultMessage: "DROP IMAGE HERE TO UPLOAD",
         error: ((errorMessage) ->
           $("#image-error").html(errorMessage.xhr.responseText)
           @.removeAllFiles()
