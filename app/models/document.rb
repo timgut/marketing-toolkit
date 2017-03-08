@@ -29,7 +29,7 @@ class Document < ApplicationRecord
   def method_missing(meth, *args, &block)
     Rails.logger.info "*"*60
     Rails.logger.info "Missing method: #{meth}"
-    Rails.logger.info "Make sure you called #define_data_methods on this document?"
+    Rails.logger.info "Make sure you called #define_data_methods on this document."
     Rails.logger.info "Returning an empty string for now"
     Rails.logger.info "*"*60
 
