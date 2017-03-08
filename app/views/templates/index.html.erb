@@ -1,4 +1,8 @@
-<% breadcrumb :templates %>
+<% if @category %>
+	<% breadcrumb :category, @category %>
+<% else %>
+	<% breadcrumb :templates %>
+<% end %>
 
 <aside>
   <%= render partial: "templates/sidebar_nav" %>

@@ -67,6 +67,11 @@ crumb :templates do
   parent :root
 end
 
+crumb :category do |category|
+  link category.title, templates_path
+  parent :templates
+end
+
 crumb :new_template do
   link "New Template", new_template_path
   parent :templates
@@ -79,7 +84,7 @@ end
 
 crumb :template do |template|
   link template.title, template_path(template)
-  parent :root
+  parent :templates
 end
 
 # Documents

@@ -29,6 +29,7 @@ class TemplatesController < ApplicationController
   def index
     if params[:category_id]
       @filtered_templates = @templates.select{|template| template.category_id == params[:category_id].to_i}
+      @category = Category.find(params[:category_id])
     else
       @filtered_templates = @templates
     end
