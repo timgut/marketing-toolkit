@@ -26,13 +26,14 @@ class Document < ApplicationRecord
   # If a Datum record doesn't exist for this document, don't raise an error.
   # But log something annoying so we don't forget about it.
   # And return a String because that's the kind of data we're expecting.
-  def method_missing(method, *args, &block)
+  def method_missing(meth, *args, &block)
     unless self.defined_data_methods
       define_data_methods
+      self.__send__(meth)
     end
 
     Rails.logger.info "*"*60
-    Rails.logger.info "Missing method: #{method}"
+    Rails.logger.info "Missing method: #{meth}"
     Rails.logger.info "Returning an empty string for now"
     Rails.logger.info "*"*60
 
@@ -70,8 +71,6 @@ class Document < ApplicationRecord
   def local_pdf_path
     Rails.root.join("public", "pdfs", filename).to_s
   end
-
-  protected
 
   def define_data_methods
     self.defined_data_methods = true
