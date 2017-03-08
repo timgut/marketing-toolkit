@@ -33,8 +33,12 @@ class ApplicationController < ActionController::Base
 
   #https://github.com/plataformatec/devise/wiki/How-To:-Create-custom-layouts
   def layout_by_resource
-  	if devise_controller?
-  		"devise"
+  	if devise_controller? 
+      if params[:controller] == 'users/registrations' and (params[:action] == 'edit' or params[:action] == 'password')
+        "application"
+      else
+    		"devise"
+      end
   	else
   		"application"
   	end
