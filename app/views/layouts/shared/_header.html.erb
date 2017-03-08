@@ -9,10 +9,14 @@
             <%= link_to "My Stuff", documents_path, title: "My Stuff" %>
             <ol>
               <li><%= link_to "My Designs", documents_path, title: "My Designs" %></li>
+              <% if false %>
               <li><%= link_to "Recent", recent_documents_path, title: "Recent" %></li>           
               <li><%= link_to "Shared with me", shared_documents_path, title: "Shared with me" %></li> 
+              <% end %>
               <li><%= link_to "My Images", images_path %></li> 
+              <% if false %>
               <li><%= link_to "Trash", trash_documents_path, title: "Trash" %></li> 
+              <% end %>
             </ol>
           </li>
         </ul>
