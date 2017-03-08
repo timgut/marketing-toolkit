@@ -93,14 +93,19 @@ crumb :new_document do |template|
   parent :template, template
 end
 
+crumb :my_designs do |document|
+  link 'My Designs', documents_path
+  parent :documents
+end
+
 crumb :edit_document do |document|
   link "Edit '#{document.title}'", edit_document_path(document)
-  parent :documents
+  parent :my_designs
 end
 
 crumb :share_document do |document, template|
   link "Share '#{document.title}'", share_document_path(document)
-  parent :edit_document, document, template
+  parent :my_designs, document, template
 end
 
 # Images
