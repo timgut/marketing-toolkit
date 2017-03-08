@@ -1,12 +1,1 @@
-<figure> 
-  <%= form_tag("#", id: "upload-photo-form", class: "dropzone", multipart: true) do %>
-  <%= hidden_field_tag "image[creator_id]", User.current_user.id %>
-    <div class="fallback">
-      <%= file_field_tag "image[image]" %>
-    </div>
-  <% end %>
-
-  <div id="image-error"></div>
-</figure>
-
 <%= render partial: @images, locals: {no_link: true} %>

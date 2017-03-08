@@ -8,4 +8,15 @@
   <div class="buttons small cf">
       <button value="Add Image" class="save" id="add_image_button">Add Image</button>
   </div>
+
+  <section class="upload-image">
+    <%= form_tag("#", id: "upload-photo-form", class: "dropzone", multipart: true) do %>
+      <%= hidden_field_tag "image[creator_id]", User.current_user.id %>
+        <div class="fallback">
+          <%= file_field_tag "image[image]" %>
+        </div>
+    <% end %>
+
+    <div id="image-error"></div>
+  </section>
 </div>
