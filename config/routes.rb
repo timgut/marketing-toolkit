@@ -56,6 +56,8 @@ Rails.application.routes.draw do
     end
     resources :categories do
     end
+    resources :templates do
+    end
   end
   
 end

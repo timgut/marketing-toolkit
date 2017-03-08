@@ -153,3 +153,13 @@ crumb :edit_password do |user|
   link 'Change Password', password_path
   parent :profile
 end
+
+crumb :admin_templates do
+  link "Manage Templates", admin_templates_path
+  parent :admin
+end
+
+crumb :admin_edit_template do |template|
+  link template.title, edit_admin_template_path(template)
+  parent :admin_templates
+end
