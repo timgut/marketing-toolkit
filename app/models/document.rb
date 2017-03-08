@@ -20,18 +20,13 @@ class Document < ApplicationRecord
 
   attr_accessor :defined_data_methods
 
-  after_initialize ->{ self.defined_data_methods = false }
+  after_initialize ->{ self.defined_data_methods = false } # Toggle to 'true' when #define_data_methods is called, so we don't load Datum records over and over.
   before_destroy   ->{ self.pdf = nil }
 
   # If a Datum record doesn't exist for this document, don't raise an error.
-  # But log something annoying so we don't forget about it.
+  # But log something annoying so we know the data doesn't exist.
   # And return a String because that's the kind of data we're expecting.
   def method_missing(meth, *args, &block)
-    unless self.defined_data_methods
-      define_data_methods
-      self.__send__(meth)
-    end
-
     Rails.logger.info "*"*60
     Rails.logger.info "Missing method: #{meth}"
     Rails.logger.info "Returning an empty string for now"
