@@ -189,6 +189,10 @@ class User < ApplicationRecord
   }
 
   
+  def has_role?(role)
+    self.role == role
+  end
+
   def send_admin_emails
     AdminMailer.new_user_waiting_for_approval(self).deliver
     AdminMailer.notification_to_approvers(self, User.approvers).deliver

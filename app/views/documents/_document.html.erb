@@ -18,9 +18,24 @@
     <li>
       <a href="javascript:void(0);" title="Options" class="icons">+</a>
       <ol>
-        <li><%= link_to "<span class='icons'>e</span> View".html_safe, template_path(document.template), title: "View" %></li>
+        <li><%= link_to "<span class='icons'>e</span> Edit".html_safe, edit_document_path(document), title: "View" %></li>
         <li><%= link_to "<span class='icons'>c</span> Duplicate".html_safe, duplicate_document_path(document), title: "Duplicate" %></li>
         <li><%= link_to "<span class='icons'>d</span> Download".html_safe, download_link(document), title: "Download", target: :blank %></li> 
+        <li>
+          <%= link_to(
+            "<span class='icons'>d</span> Delete".html_safe,
+            download_link(document),
+            title:  "Download",
+            target: :blank,
+            method: :delete,
+            data:   {confirm: "Are you sure that you want to DELETE this document? This cannot be undone!"} 
+          ) %>
+        </li>
+
+        <% if User.current_user.has_role?("Administrator") %>
+          <li><%= link_to "<span class='icons'>S</span> Debug PDF".html_safe, download_document_path(document, debug: true), title: "Debug PDF", target: :blank %></li> 
+          <li><%= link_to "<span class='icons'>F</span> Rebuild PDF".html_safe, download_document_path(document), title: "Debug PDF", target: :blank %></li> 
+        <% end %>
       </ol>
     </li>
   </ul>
