@@ -19,3 +19,5 @@ module AfscmeToolkit
     # ActiveRecordQueryTrace.enabled = true
   end
 end
+
+require 'afscme_toolkit'

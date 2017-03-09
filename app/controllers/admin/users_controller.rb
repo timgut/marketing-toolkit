@@ -33,26 +33,29 @@ class Admin::UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @user = User.find(params[:id])
+    @user = User.includes(:affiliate).find(params[:id])
     @body_class = 'toolkit USER'
     @header_navigation = true
+    @affiliates = Affiliate.all
   end
 
   # GET /users
   def index
-    @approved = User.approved
-    @unapproved = User.unapproved
-    @rejected = User.rejected
+    @approved = User.includes(:affiliate).approved
+    @unapproved = User.includes(:affiliate).unapproved
+    @rejected = User.includes(:affiliate).rejected
   end
 
   # GET /users/new
   def new
     @user = User.new
+    @affiliates = Affiliate.all
   end
 
   # GET /users/1
   def show
     @user = User.find(params[:id])
+    @affiliates = Affiliate.all
   end
 
   # PATCH /users/1
@@ -102,6 +105,6 @@ class Admin::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :approved, :rejected, :zip_code, :council, :local_number, :title, :cell_phone, :receive_alerts, :role)
+    params.require(:user).permit(:first_name, :last_name, :email, :approved, :rejected, :zip_code, :affiliate_id, :department, :local_number, :title, :cell_phone, :receive_alerts, :role)
   end
 end

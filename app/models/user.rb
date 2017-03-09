@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_and_belongs_to_many :documents
   has_and_belongs_to_many :images
 
-  belongs_to :affiliates
+  belongs_to :affiliate
 
   scope :approved, -> { where(approved: 1) }
   scope :unapproved, -> { where(approved: 0, rejected: 0) }

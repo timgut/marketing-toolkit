@@ -21,9 +21,9 @@
 	      </li>
 	        
 	      <li>
-	        <%= f.label :council, 'Affiliate/Council' %><br />
-	        <%= f.select(:council) do %>
-	          <%= options_for_select( User::AFFILIATES, @user.council) %>
+	        <%= f.label :affiliate_id, 'Affiliate/Council' %><br />
+	        <%= f.select(:affiliate_id) do %>
+            <%= options_for_select(@affiliates.collect { |aff| [aff.to_s, aff.id] }, @user.affiliate_id) %>
 	        <% end %>          
 	      </li>
 	        

@@ -15,10 +15,10 @@
         <%= f.text_field :zip_code, placeholder: 'Zip Code*' %>   
       </li>      
       <li>
-        <%= f.select(:council) do %>
+        <%= f.select(:affiliate_id) do %>
           <option>Affiliate/Council*</option>
-          <% User::AFFILIATES.each do |c| -%>
-            <%= content_tag(:option, c.first, value: c.last) %>
+          <% Affiliate.all.each do |aff| -%>
+            <%= content_tag(:option, aff.to_s, value: aff.id) %>
           <% end %>
         <% end %>   
       </li>
