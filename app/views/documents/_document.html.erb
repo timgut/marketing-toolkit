@@ -33,8 +33,8 @@
         </li>
 
         <% if User.current_user.has_role?("Administrator") %>
-          <li><%= link_to "<span class='icons'>S</span> Debug PDF".html_safe, download_document_path(document, debug: true), title: "Debug PDF", target: :blank %></li> 
-          <li><%= link_to "<span class='icons'>F</span> Rebuild PDF".html_safe, download_document_path(document), title: "Debug PDF", target: :blank %></li> 
+          <li><%= link_to "<span class='icons'>S</span> Debug PDF".html_safe, download_document_path(document, debug: true), title: "Debug PDF", target: :_blank %></li> 
+          <li><%= link_to "<span class='icons'>F</span> Rebuild PDF".html_safe, download_document_path(document), title: "Rebuild PDF", target: :_blank %></li> 
         <% end %>
       </ol>
     </li>
