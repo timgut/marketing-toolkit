@@ -3,6 +3,14 @@
         <a href="/" title="AFSCME Toolkit" id="logo" itemprop="url">
           <%= image_tag("toolkit-logo.svg", alt: "AFSCME Toolkit", itemprop: "logo") %>
         </a>
+
+        <button title="Menu" class="menu-trigger">
+          <span class="hamburger"></span>
+          <span class="hide">Menu</span>
+        </button>    
+        <button title="Your Account" class="user-trigger">
+          <span class="icons">u</span>
+        </button>  
                 
         <ul class="menu left mystuff"> 
           <li>
@@ -65,4 +73,14 @@
         </ul>
         <% end %>
     </nav>
+
+    <ul class="menu mobile"> 
+      <li><a href="/my-stuff" title="My Stuff">My Stuff</a></li>
+      <li><a href="/campaigns" title="Browse Templates">Browse Templates</a></li>
+      <li><a href="/help" title="Help">Help</a></li>
+    </ul>  
+    <div class="mobile user menu"></div>
+
+
+
 </header>
