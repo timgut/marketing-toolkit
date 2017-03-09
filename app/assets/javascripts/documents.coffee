@@ -37,7 +37,7 @@ window.Toolkit.Document.addImage = ->
   )
 
   # Close the modal and assign the selected image to the target input
-  $("#add_image_button").click( ->
+  $(document).on("click", "#add_image_button", ->
     $target = $("##{$("#image-picker").attr("data-target")}")                # The field where the value is set
     value   = $("#image-picker").find("figure.enabled img").attr("src")      # The value to set on the field
     $em     = $("label[for='#{$("#image-picker").attr("data-target")}'] em") # The parent tag that controls the modal
@@ -181,5 +181,11 @@ window.Toolkit.Document.ready = ->
   window.Toolkit.Document.saveIds()
   window.Toolkit.Document.fillForm()
   window.Toolkit.Document.disableDownloadButton()
+
+  $(document).on("change", "[data-target]", ->
+    $target = $("##{$(@).attr('data-target')}")
+    console.log "Target is #{$target.attr('id')}"
+    $target.val($(@).val())
+  )
 
 $(document).on('turbolinks:load', window.Toolkit.Document.ready)
