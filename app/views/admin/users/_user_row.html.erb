@@ -1,7 +1,7 @@
 <div class="notifications">
   <div class="row applicant">
     <div class="col one name"><a href="/admin/users/<%= user.id %>/edit" title="<%= user.name %>"><span class="icons">e</span> <%= user.name %></a></div>
-    <div class="col one affiliate-council"><%= user.council %></div>
+    <div class="col one affiliate-council"><%= user.affiliate.title %></div>
     <div class="col one local"><%= user.local_number %></div>
     <div class="col one title"><%= user.department %></div>
     <div class="col one date-submitted"><%= user.created_at.strftime("%m/%d/%Y") %></div>

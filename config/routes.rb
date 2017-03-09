@@ -58,6 +58,8 @@ Rails.application.routes.draw do
     end
     resources :templates do
     end
+    resources :affiliates do
+    end
   end
   
 end
