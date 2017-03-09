@@ -1,11 +1,11 @@
 class Users::RegistrationsController < Devise::RegistrationsController
 
-  def after_sign_up_path_for(resource)
-    confirmation_path
-  end
-
   def show
   	## just show the view
+  end
+
+  def confirmation
+    ## just show the view
   end
 
   def edit
@@ -34,6 +34,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
     else
       redirect_to profile_path, notice: "Password and confirmation must match."
     end
+  end
+
+  protected
+
+  def after_sign_up_path_for(resource)
+    confirmation_path
+  end
+
+  def after_inactive_sign_up_path_for(resource)
+    confirmation_path
   end
 
   private
