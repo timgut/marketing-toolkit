@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170307160727) do
+ActiveRecord::Schema.define(version: 20170309163944) do
 
-  create_table "campaigns", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "affiliates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "title"
+    t.string   "slug"
+    t.string   "state"
+    t.string   "region"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "campaigns", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
     t.text     "description", limit: 65535
     t.integer  "status"
@@ -20,7 +29,7 @@ ActiveRecord::Schema.define(version: 20170307160727) do
     t.datetime "updated_at",                null: false
   end
 
-  create_table "campaigns_documents", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "campaigns_documents", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "campaign_id"
     t.integer  "document_id"
     t.integer  "creator_id"
@@ -31,13 +40,13 @@ ActiveRecord::Schema.define(version: 20170307160727) do
     t.index ["document_id"], name: "index_campaigns_documents_on_document_id", using: :btree
   end
 
-  create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "data", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "data", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "document_id"
     t.string   "key"
     t.text     "value",       limit: 65535
@@ -73,7 +82,7 @@ ActiveRecord::Schema.define(version: 20170307160727) do
     t.index ["user_id"], name: "index_documents_users_on_user_id", using: :btree
   end
 
-  create_table "images", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "images", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -84,7 +93,7 @@ ActiveRecord::Schema.define(version: 20170307160727) do
     t.index ["creator_id"], name: "index_images_on_creator_id", using: :btree
   end
 
-  create_table "images_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "images_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "image_id"
     t.integer  "user_id"
     t.datetime "created_at", null: false
@@ -120,7 +129,7 @@ ActiveRecord::Schema.define(version: 20170307160727) do
     t.integer  "category_id"
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "first_name",             default: "",     null: false
     t.string   "last_name",              default: "",     null: false
     t.string   "email",                  default: "",     null: false
@@ -145,6 +154,8 @@ ActiveRecord::Schema.define(version: 20170307160727) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
+    t.integer  "affiliate_id"
+    t.index ["affiliate_id"], name: "index_users_on_affiliate_id", using: :btree
     t.index ["approved"], name: "index_users_on_approved", using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["rejected"], name: "index_users_on_rejected", using: :btree
