@@ -11,6 +11,7 @@ class TemplatesController < ApplicationController
     if @template.save
       redirect_to template_path(@template), notice: "Template created!"
     else
+      assign_form_vars
       render :new
     end
   end
@@ -92,7 +93,7 @@ class TemplatesController < ApplicationController
   def template_params
     params.require(:template).permit(
       :title, :description, :height, :width, :pdf_markup, :form_markup, :status, :thumbnail,
-      :numbered_image, :blank_image, :customizable_options, :campaign_id, :category_id
+      :numbered_image, :blank_image, :customizable_options, :campaign_id, :category_id, :orientation
     )
   end
 end

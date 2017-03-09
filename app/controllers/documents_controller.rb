@@ -182,7 +182,7 @@ class DocumentsController < ApplicationController
       pdf:           @document.title,
       template:      "documents/build.pdf.erb",
       disposition:   :inline,
-      orientation:   "Portrait",
+      orientation:   @document.template.orientation,
       grayscale:     false,
       lowquality:    false,
       image_quality: 94,

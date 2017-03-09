@@ -15,17 +15,22 @@
 
       <li>
         <%= f.label :campaign %>
-        <%= f.select(:campaign_id, options_from_collection_for_select(@campaigns, 'id', 'title', @template.campaign_id), include_blank: true) %>
+        <%= f.select(:campaign_id, options_from_collection_for_select(@campaigns, 'id', 'title', @template.campaign_id)) %>
       </li>
 
       <li>
         <%= f.label :category %>
-        <%= f.select(:category_id, options_from_collection_for_select(@categories, 'id', 'title', @template.category_id), include_blank: true) %>
+        <%= f.select(:category_id, options_from_collection_for_select(@categories, 'id', 'title', @template.category_id)) %>
       </li>
 
       <li id="customizable-options">
         <%= f.label :customizable_options %>
         <%= f.text_area :customizable_options %>
+      </li>
+
+      <li>
+        <%= f.label :orientation %>
+        <%= f.select(:orientation, [["Portrait", "Portrait"], ["Landscape", "Landscape"]]) %>
       </li>
 
       <li>
