@@ -27,7 +27,9 @@ class User < ApplicationRecord
 
   def send_admin_emails
     AdminMailer.new_user_waiting_for_approval(self).deliver
-    AdminMailer.notification_to_approvers(self, User.approvers).deliver
+    unless self.admin?
+      AdminMailer.notification_to_approvers(self, self.regional_approvers).deliver
+    end
   end
 
   def send_account_notification(status)
@@ -76,6 +78,10 @@ class User < ApplicationRecord
     end 
   end
 
+  def regional_approvers
+    region = self.affiliate.region
+    User.approvers.select {|user| user.affiliate.region == region}
+  end
   ## end of auth methods for devise
 
   class << self
