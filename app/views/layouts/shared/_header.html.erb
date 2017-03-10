@@ -10,7 +10,7 @@
         </button>    
         <button title="Your Account" class="user-trigger">
           <span class="icons">u</span>
-        </button>  
+        </button>    
                 
         <ul class="menu left mystuff"> 
           <li>
@@ -74,11 +74,19 @@
         <% end %>
     </nav>
 
-    <ul class="menu mobile"> 
-      <li><a href="/my-stuff" title="My Stuff">My Stuff</a></li>
+    <ul class="menu mobile main"> 
+      <li><%= link_to "My Stuff", documents_path, title: "My Stuff" %></li>
       <li><a href="/campaigns" title="Browse Templates">Browse Templates</a></li>
-      <li><a href="/help" title="Help">Help</a></li>
     </ul>  
-    <div id="mobile-user-menu" class="mobile user menu"></div>
+    <ul class="menu mobile user"> 
+      <%= link_to "<strong>#{current_user.name}</strong>".html_safe, profile_path %></a>
+      <ol>
+        <li><%= link_to "My Stuff", documents_path, title: "My Stuff" %></li>
+        <% if current_user.admin? %>
+        <li><%= link_to "Toolkit Admin", admin_root_path, title: "My Stuff" %></li>
+        <% end %>
+        <li><%= link_to "Log Out", destroy_user_session_path, method: 'delete' %></li>  
+      </ol>
+    </ul>  
 
 </header>

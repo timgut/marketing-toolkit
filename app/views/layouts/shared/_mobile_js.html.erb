@@ -1,39 +1,25 @@
-  <script>        
-
-    // set up the mobile menus
-    function attachmMobileMenu(){
-      $('#user-menu').clone().appendTo("#mobile-user-menu");
-    }
-
-    jQuery(document).ready(function($) {   
-
-      // resize listener for responsive menus
-      $(window).resize(function(){
-        if($(this).width() < 1000) {
-          attachmMobileMenu();
-        }
-      });
-
-      // if loading on mobile
-      if($(window).width() < 1000) {
-        attachmMobileMenu();
-      }
-
-      // click event for main mobile menu
+<script>        
+  jQuery(document).ready(function($) {
+    
+    $(function () {
       $(".menu-trigger").click(function(){
-        $(".mobile.menu").slideToggle();
+        $(".mobile.menu.main").slideToggle();
+         if ( $(".mobile.menu.user").is(":visible") ) {
+          $(".mobile.menu.user").slideToggle();
+          $("body").toggleClass("expanded-user-menu");
+        }       
         $("body").toggleClass("expanded-menu");
       });
-
-      // click even for user mobile menu
+      
       $(".user-trigger").click(function(){
-        $("#mobile-user-menu ul").slideToggle();
+        $(".mobile.menu.user").slideToggle();
+        if ( $(".mobile.menu.main").is(":visible") ) {
+          $(".mobile.menu.main").slideToggle();
+          $("body").toggleClass("expanded-menu");
+        }
         $("body").toggleClass("expanded-user-menu");
-        // if ($("body").hasClass("expanded-user-menu")) {
-        //   $("body").removeClass("expanded-menu");
-        // }
       });
-
-    });   
-
-  </script>
+          
+    });
+  });
+</script>
