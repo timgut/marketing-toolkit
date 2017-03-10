@@ -37,45 +37,7 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-  <script>        
-
-    // set up the mobile menus
-    function attachmMobileMenu(){
-      $('#user-menu').clone().appendTo("#mobile-user-menu");
-    }
-
-    jQuery(document).ready(function($) {   
-
-      // resize listener for responsive menus
-      $(window).resize(function(){
-        if($(this).width() < 1000) {
-          attachmMobileMenu();
-        }
-      });
-
-      // if loading on mobile
-      if($(window).width() < 1000) {
-        attachmMobileMenu();
-      }
-
-      // click event for main mobile menu
-      $(".menu-trigger").click(function(){
-        $(".mobile.menu").slideToggle();
-        $("body").toggleClass("expanded-menu");
-      });
-
-      // click even for user mobile menu
-      $(".user-trigger").click(function(){
-        $("#mobile-user-menu ul").slideToggle();
-        $("body").toggleClass("expanded-user-menu");
-        // if ($("body").hasClass("expanded-user-menu")) {
-        //   $("body").removeClass("expanded-menu");
-        // }
-      });
-
-    });   
-
-  </script>
+  
 
 
 </head>
