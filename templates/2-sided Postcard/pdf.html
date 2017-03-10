@@ -321,41 +321,41 @@ main#back .body {
           end
         %>
 
-          <div class="row <%= num_class %>"><!-- This number should be dynamic between 3-5 -->
-            <article class="column">
-              <figure style="background-image: url('<%= @document.headshot1 %>');"></figure>
-              <blockquote>"<%= @document.quote1 %>"</blockquote>
-              <p><%= @document.attribution1 %></p>
-            </article>
-            
-            <article class="column">
-              <figure style="background-image: url('<%= @document.headshot2 %>');"></figure>
-              <blockquote>"<%= @document.quote2 %>"</blockquote>
-              <p><%= @document.attribution2 %></p>
-            </article>
+        <div class="row <%= num_class %>"><!-- This number should be dynamic between 3-5 -->
+          <article class="column">
+            <figure style="background-image: url('<%= @document.headshot1 %>');"></figure>
+            <blockquote>"<%= @document.quote1 %>"</blockquote>
+            <p><%= @document.attribution1 %></p>
+          </article>
+          
+          <article class="column">
+            <figure style="background-image: url('<%= @document.headshot2 %>');"></figure>
+            <blockquote>"<%= @document.quote2 %>"</blockquote>
+            <p><%= @document.attribution2 %></p>
+          </article>
 
+          <article class="column">
+            <figure style="background-image: url('<%= @document.headshot3 %>');"></figure>
+            <blockquote>"<%= @document.quote3 %>"</blockquote>
+            <p><%= @document.attribution3 %></p>
+          </article>
+
+          <% unless @document.headshot4.blank? %>
             <article class="column">
-              <figure style="background-image: url('<%= @document.headshot3 %>');"></figure>
-              <blockquote>"<%= @document.quote3 %>"</blockquote>
-              <p><%= @document.attribution3 %></p>
+              <figure style="background-image: url('<%= @document.headshot4 %>');"></figure>
+              <blockquote>"<%= @document.quote4 %>"</blockquote>
+              <p><%= @document.attribution4 %></p>
             </article>
+          <% end %>
 
-            <% unless @document.headshot4.blank? %>
-              <article class="column">
-                <figure style="background-image: url('<%= @document.headshot4 %>');"></figure>
-                <blockquote>"<%= @document.quote4 %>"</blockquote>
-                <p><%= @document.attribution4 %></p>
-              </article>
-            <% end %>
-
-            <% unless @document.headshot5.blank? %>
-              <article class="column">
-                <figure style="background-image: url('<%= @document.headshot5 %>');"></figure>
-                <blockquote>"<%= @document.quote5 %>"</blockquote>
-                <p><%= @document.attribution5 %></p>
-              </article>
-            <% end %>
-          </div>
+          <% unless @document.headshot5.blank? %>
+            <article class="column">
+              <figure style="background-image: url('<%= @document.headshot5 %>');"></figure>
+              <blockquote>"<%= @document.quote5 %>"</blockquote>
+              <p><%= @document.attribution5 %></p>
+            </article>
+          <% end %>
+        </div>
       </article>
     </main>
     
