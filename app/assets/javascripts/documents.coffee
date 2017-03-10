@@ -131,10 +131,23 @@ window.Toolkit.Document.fillForm = ->
   )
 
 window.Toolkit.Document.saveIds = ->
-  $("form[data-document='true']").on("change", "[data-persist-id]", ->
-    $target = $("[name='#{$(@).attr("data-persist-id")}']")
-    value = $(@).attr("id")
-    $target.val(value)
+  $form = $("form[data-document='true']")
+  $dataFields = $form.find("[name^=data]")
+
+  $.each($dataFields, (i, field) ->
+    $field = $(field)                         # A jQuery object of the data field
+    name   = "select_#{$field.attr('name')}"  # The name attribute for the hidden field
+    id     = $(@).attr("id")                  # The id attribute of the data field
+
+    # Add a hidden field to the form to save the IDs of the selected fields
+    $form.prepend("<input type='hidden' name='#{name}' value='' />")
+
+    # Add an event listener for this field to populate the hidden field when it's changed
+    $("form[data-document='true']").on("change", "##{id}", ->
+      $target = $("[name='#{name}']")
+      value = $("##{id}").val()
+      $target.val(value)
+    )
   )
 
 # Disable the "Download" button if the form is changed
