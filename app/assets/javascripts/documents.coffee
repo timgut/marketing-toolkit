@@ -93,7 +93,7 @@ window.Toolkit.Document.fillForm = ->
               customSelector = "##{data.fieldID}-custom"
             else
               customSelector = "##{data.fieldID}"
-            console.log(customSelector)
+
             $customField = $(customSelector)
             $customField.val(data.value)
             $customField.trigger("change")
@@ -194,9 +194,9 @@ window.Toolkit.Document.ready = ->
   window.Toolkit.Document.fillForm()
   window.Toolkit.Document.disableDownloadButton()
 
+  # When a custom value is entered, change the value in the actual field
   $(document).on("change", "[data-target]", ->
     $target = $("##{$(@).attr('data-target')}")
-    console.log "Target is #{$target.attr('id')}"
     $target.val($(@).val())
   )
 
