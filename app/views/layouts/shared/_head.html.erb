@@ -38,22 +38,45 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
   <script>        
-    jQuery(document).ready(function($) {
-      console.log('yes!');
-      $(function () {
-        if($(window).width() < 1000) {
-          $('.menu.user').clone().appendTo(".mobile.user");
-        }    
-        $(".menu-trigger").click(function(){
-          $(".mobile.menu").slideToggle();
-          $("body").toggleClass("expanded-menu");
-        });
-        $(".user-trigger").click(function(){
-          $(".mobile.user.menu ul").slideToggle();
-          $("body").toggleClass("expanded-user-menu");
-        });      
+
+    // set up the mobile menus
+    function attachmobileMenu(){
+      $('#user-menu').clone().appendTo("#mobile-user-menu");
+    }
+
+    jQuery(document).ready(function($) {   
+
+      // resize listener for responsive menus
+      $(window).resize(function(){
+        if($(this).width() < 1000) {
+          attachmobileMenu();
+        }
       });
-    });
+
+      // if loading on mobile
+      if($(window).width() < 1000) {
+        attachmobileMenu();
+      }
+
+      // click event for main mobile menu
+      $(".menu-trigger").click(function(){
+        $(".mobile.menu").slideToggle();
+        $("body").toggleClass("expanded-menu");
+      });
+
+      // click even for user mobile menu
+      $(".user-trigger").click(function(){
+        //console.log($("#mobile-user-menu").html());
+        if ( $(".mobile.menu").is(":visible") ) {
+          $(".mobile.menu").slideToggle();
+          $("body").removeClass("expanded-menu");
+        }
+        $("#mobile-user-menu ul").slideToggle();
+        $("body").toggleClass("expanded-user-menu");
+      });
+
+    });   
+
   </script>
 
 

@@ -38,23 +38,23 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
   <script>        
-    jQuery(document).ready(function($) {
-      console.log('yes!');
-      $(function () {
-        if($(window).width() < 1000) {
-          $('.menu.user').clone().appendTo(".mobile.user");
-        }    
-        $(".menu-trigger").click(function(){
-          $(".mobile.menu").slideToggle();
-          $("body").toggleClass("expanded-menu");
+      jQuery(document).ready(function($) {
+        $(function () {
+          if($(window).width() < 1000) {
+            $('.menu.user').clone().appendTo(".mobile.user");
+          }    
+          $(".menu-trigger").click(function(){
+            $(".mobile.menu").slideToggle();
+            $("body").toggleClass("expanded-menu");
+          });
+          $(".user-trigger").click(function(){
+            console.log('user devise');
+            $(".mobile.user.menu").find("ol").slideToggle();
+            $("body").toggleClass("expanded-user-menu");
+          });      
         });
-        $(".user-trigger").click(function(){
-          $(".mobile.user.menu ul").slideToggle();
-          $("body").toggleClass("expanded-user-menu");
-        });      
       });
-    });
-  </script>
+    </script>
 
 
 </head>
