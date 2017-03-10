@@ -13,7 +13,8 @@ class User < ApplicationRecord
   scope :unapproved, -> { where(approved: 0, rejected: 0) }
   scope :rejected, -> { where(rejected: 1) }
 
-  scope :approvers, -> { where(role: ['Administrator','Vetter']) }
+  #scope :approvers, -> { where(role: ['Administrator','Vetter']) }
+  scope :approvers, -> { where(role: 'Vetter') }
 
   after_create :send_admin_emails
 
@@ -60,7 +61,7 @@ class User < ApplicationRecord
   end
 
   def admin?
-    self.role == 'Administrator'
+    self.role == 'Administrator' or self.role == 'Vetter'
   end
 
   ## auth methods for devise

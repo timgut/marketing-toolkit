@@ -1,6 +1,6 @@
 class Admin::TemplatesController < ApplicationController
 
-  ##before_action :require_admin
+  before_action :require_admin
 
   # POST /templates
   def create

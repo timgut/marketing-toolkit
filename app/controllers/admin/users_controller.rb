@@ -95,13 +95,6 @@ class Admin::UsersController < ApplicationController
     end
   end
 
-  def require_admin
-    unless current_user && current_user.approved? && current_user.role == 'Administrator'
-      flash[:notice] = "You are trying to reach a restricted area."
-      redirect_to authenticated_root_path
-    end        
-  end
-
   private
 
   def user_params
