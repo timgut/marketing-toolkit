@@ -93,7 +93,7 @@ window.Toolkit.Document.fillForm = ->
               customSelector = "##{data.fieldID}-custom"
             else
               customSelector = "##{data.fieldID}"
-
+            console.log(customSelector)
             $customField = $(customSelector)
             $customField.val(data.value)
             $customField.trigger("change")
@@ -145,8 +145,7 @@ window.Toolkit.Document.saveIds = ->
     # Add an event listener for this field to populate the hidden field when it's changed
     $("form[data-document='true']").on("change", "##{id}", ->
       $target = $("[name='#{name}']")
-      value = $("##{id}").val()
-      $target.val(value)
+      $target.val(id)
     )
   )
 
