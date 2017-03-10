@@ -40,7 +40,7 @@
   <script>        
 
     // set up the mobile menus
-    function attachmobileMenu(){
+    function attachmMobileMenu(){
       $('#user-menu').clone().appendTo("#mobile-user-menu");
     }
 
@@ -49,13 +49,13 @@
       // resize listener for responsive menus
       $(window).resize(function(){
         if($(this).width() < 1000) {
-          attachmobileMenu();
+          attachmMobileMenu();
         }
       });
 
       // if loading on mobile
       if($(window).width() < 1000) {
-        attachmobileMenu();
+        attachmMobileMenu();
       }
 
       // click event for main mobile menu
@@ -66,13 +66,11 @@
 
       // click even for user mobile menu
       $(".user-trigger").click(function(){
-        //console.log($("#mobile-user-menu").html());
-        if ( $(".mobile.menu").is(":visible") ) {
-          $(".mobile.menu").slideToggle();
-          $("body").removeClass("expanded-menu");
-        }
         $("#mobile-user-menu ul").slideToggle();
         $("body").toggleClass("expanded-user-menu");
+        // if ($("body").hasClass("expanded-user-menu")) {
+        //   $("body").removeClass("expanded-menu");
+        // }
       });
 
     });   
