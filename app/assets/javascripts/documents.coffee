@@ -131,16 +131,19 @@ window.Toolkit.Document.fillForm = ->
   )
 
 window.Toolkit.Document.saveIds = ->
-  $form = $("form[data-document='true']")
-  $dataFields = $form.find("[name^=data]")
+  $form        = $("form[data-document='true']") # The form object
+  $dataFields  = $form.find("[name^=data]")      # All fields whose data are saved
+  hiddenFields = []                              # Many $dataFields share the same name. Use this to make sure we don't have duplicates.
 
   $.each($dataFields, (i, field) ->
     $field = $(field)                         # A jQuery object of the data field
     name   = "select_#{$field.attr('name')}"  # The name attribute for the hidden field
     id     = $(@).attr("id")                  # The id attribute of the data field
 
-    # Add a hidden field to the form to save the IDs of the selected fields
-    $form.prepend("<input type='hidden' name='#{name}' value='' />")
+    # Add a hidden field to the form to save the IDs of the selected fields, but don't create duplicate fields.
+    if hiddenFields.indexOf(name) is -1
+      $form.prepend("<input type='hidden' name='#{name}' value='' />")
+      hiddenFields.push(name)
 
     # Add an event listener for this field to populate the hidden field when it's changed
     $("form[data-document='true']").on("change", "##{id}", ->
