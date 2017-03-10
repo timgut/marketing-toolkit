@@ -42,7 +42,6 @@ class User < ApplicationRecord
     end
   end
 
-
   def name
     "#{first_name} #{last_name}"
   end
@@ -76,6 +75,7 @@ class User < ApplicationRecord
       super # Use whatever other message 
     end 
   end
+
   ## end of auth methods for devise
 
   class << self
