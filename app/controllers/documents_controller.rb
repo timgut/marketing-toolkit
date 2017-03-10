@@ -130,7 +130,7 @@ class DocumentsController < ApplicationController
         create_data
       end
 
-      redirect_to documents_path, notice: "Document updated!"
+      redirect_to edit_document_path(@document), notice: "Your changes have been saved."
     else
       redirect_back fallback_location: documents_path
     end
