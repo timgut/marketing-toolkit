@@ -18,6 +18,13 @@ class ApplicationController < ActionController::Base
     User.current_user = nil
   end
 
+  def require_admin
+    unless current_user && current_user.approved? && current_user.admin?
+      flash[:notice] = "You are trying to reach a restricted area."
+      redirect_to authenticated_root_path
+    end        
+  end
+
   private
 
   def after_sign_out_path_for(resource_or_scope)

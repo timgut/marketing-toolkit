@@ -13,7 +13,8 @@ class User < ApplicationRecord
   scope :unapproved, -> { where(approved: 0, rejected: 0) }
   scope :rejected, -> { where(rejected: 1) }
 
-  scope :approvers, -> { where(role: ['Administrator','Vetter']) }
+  #scope :approvers, -> { where(role: ['Administrator','Vetter']) }
+  scope :approvers, -> { where(role: 'Vetter') }
 
   after_create :send_admin_emails
 
@@ -26,7 +27,9 @@ class User < ApplicationRecord
 
   def send_admin_emails
     AdminMailer.new_user_waiting_for_approval(self).deliver
-    AdminMailer.notification_to_approvers(self, User.approvers).deliver
+    unless self.admin?
+      AdminMailer.notification_to_approvers(self, self.regional_approvers).deliver
+    end
   end
 
   def send_account_notification(status)
@@ -40,7 +43,6 @@ class User < ApplicationRecord
         AdminMailer.send_account_suspension(self).deliver
     end
   end
-
 
   def name
     "#{first_name} #{last_name}"
@@ -60,7 +62,7 @@ class User < ApplicationRecord
   end
 
   def admin?
-    self.role == 'Administrator'
+    self.role == 'Administrator' or self.role == 'Vetter'
   end
 
   ## auth methods for devise
@@ -74,6 +76,11 @@ class User < ApplicationRecord
     else 
       super # Use whatever other message 
     end 
+  end
+
+  def regional_approvers
+    region = self.affiliate.region
+    User.approvers.select {|user| user.affiliate.region == region}
   end
   ## end of auth methods for devise
 

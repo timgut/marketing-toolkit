@@ -59,13 +59,6 @@ class Admin::CampaignsController < ApplicationController
     redirect_to admin_campaigns_path, notice: "Campaign deleted!"
   end
 
-  def require_admin
-    unless current_user && current_user.approved? && current_user.role == 'Administrator'
-      flash[:notice] = "You are trying to reach a restricted area."
-      redirect_to authenticated_root_path
-    end        
-  end
-
   private
 
   def campaign_params
