@@ -1,0 +1,124 @@
+<script type="text/javascript">  
+  $(document).ready(function() {
+    // Custom Left Body: Call To Action
+    $("form[data-document='true']").on("click", "#body1-headline-custom, #body1-custom", function(){
+      $("#body1").prop("checked", true);
+    });
+    $("form[data-document='true']").on("change", "#body1-headline-custom, #body1-custom", function(){
+      $("#body1").val("<div class='take-action'><h3>" + $("#body1-headline-custom").val() + "</h3><p>" + $("#body1-custom").val() + "</p></div>");
+    });
+
+    // Custom Left Body: Quote
+    $("form[data-document='true']").on("click", "#body2-custom", function(){
+      $("#body2").prop("checked", true);
+    });
+    $("form[data-document='true']").on("change", "#body2-custom", function(){
+      $("#body2").val("<div class='quote'><h3>\"" + $("#body2-headline-custom").val() + "\"</h3></div>");
+    });
+  });
+</script>
+
+<div class="fieldset headline cf"> 
+  <h3><strong>1</strong> Create a headline</h3>
+
+  <div class="field radio wide"> 
+    <label for="headline">
+      <input type="text" name="data[headline]" id="headline-custom" data-custom="text" value="" maxlength="30" placeholder="Headline" />
+      <label for="headline-custom"></label>
+      <small>Maximum of 30 characters. Please preview, since words may wrap unexpectedly and cutoff your headline.</small>
+    </label>
+  </div>
+</div><!--headline-->
+
+<div class="fieldset photo three cf"> 
+  <h3><strong>2</strong> Photo</h3>
+  <small>Please size your image to 8.5 inches by 3 inches</small>
+
+  <div class="field radio"> 
+    <input id="photo-custom" name="data[photo]" data-custom="image" type="radio" value="" />
+    <label for="photo-custom" class="photo">
+      <em class="cf">
+        <a href="/image-picker" title="Add Photo" class="image-picker" data-target="photo-custom">
+          <div class="positioner">
+            <span class="icons">C</span>
+            <strong>Add Photo</strong>
+          </div>
+        </a>
+      </em>
+    </label>
+  </div>
+</div><!--photo-->
+
+<div class="fieldset headline cf"> 
+  <h3><strong>3</strong> Create a subheadline</h3>
+  
+  <div class="field radio wide"> 
+    <label for="sub-headline">
+      <input type="text" name="data[subheadline]" data-custom="text" id="subheadline-custom" value="" maxlength="50" placeholder="Sub-headline" />
+      <label for="subheadline-custom"></label>
+      <small>Maximum of 50 characters. Please preview, since words may wrap unexpectedly and cutoff your sub-headline.</small>
+    </label> 
+  </div>
+</div><!--subheadline-->
+
+<div class="fieldset headline cf"> 
+  <h3><strong>4</strong> Add a Call to Action or a Quote</h3>
+
+  <div class="field radio wide"> 
+    <input id="body1" name="data[body_left]" data-custom="combine" type="radio" value="" />
+    <label for="body1">
+      <em>
+        <strong>ADD A CALL TO ACTION</strong><br/>
+        <small>Maximum of 75 characters. Please preview, since words may wrap unexpectedly and cut off your headline.</small>
+        <input type="text" name="body1-headline-custom" id="body1-headline-custom" data-combine-tag="h3" value="" placeholder="Headline" maxlength="50" />
+        <textarea name="body1-custom" id="body1-custom" placeholder="Your body text" data-combine-tag="p" maxlength="75"></textarea>
+      </em>
+    </label>
+  </div>
+        
+  <div class="field radio wide"> 
+    <input id="body2" name="data[body_left]" type="radio" value="" />
+    <label for="body2">
+      <em>
+        <strong>OR, ADD A QUOTE</strong><br/>
+        <small>Maximum of 80 characters. Please preview, since words may wrap unexpectedly and cut off your headline.</small>
+        <input type="text" name="body2-custom" id="body2-custom" value="" placeholder="Quote" maxlength="80" />
+      </em>
+    </label>
+  </div>  
+</div><!--left body-->
+
+<div class="fieldset headline cf"> 
+  <h3><strong>5</strong> Add a second Subheadline and Body Text</h3>
+  
+  <div class="field radio wide">
+    <label for="sub-headline">
+      <input type="text" name="data[body_right_headline]" data-custom="text" id="body-right-headline-custom" value="" maxlength="50" placeholder="Sub-headline" />
+      <label for="subheadline2-custom"></label>
+      <small>Maximum of 50 characters. Please preview, since words may wrap unexpectedly and cutoff your sub-headline.</small>
+    </label>
+
+    <label for="body2">
+       <textarea name="data[body_right_text]" data-custom="text" id="body-right-text-custom" placeholder="Your body text" maxlength="500" ></textarea>
+       <small>Maximum of 500 characters. Please preview, since words may wrap unexpectedly and cut off your headline.</small>
+    </label>
+  </div>  
+</div><!--right body-->
+
+<div class="fieldset photo three cf"> 
+  <h3><strong>6</strong> Council/Affiliate Logo (optional)</h3>
+
+  <div class="field radio"> 
+    <input id="logo2" name="data[affiliate_logo]" data-custom="image" type="radio" value="custom" />
+    <label for="logo2">
+      <em class="cf">
+        <a href="/image-picker" title="Add Photo" class="image-picker" data-target="logo2">
+          <div class="positioner">
+            <span class="icons">C</span>
+            <strong>Add Logo</strong>
+          </div>
+        </a>
+      </em>
+    </label>
+  </div>
+</div><!--logo-->
