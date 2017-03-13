@@ -25,7 +25,7 @@ class CampaignsController < ApplicationController
 
   # GET /campaigns
   def index
-
+    @campaigns = Campaign.active
   end
 
   # GET /campaigns/new

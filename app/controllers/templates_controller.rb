@@ -29,7 +29,7 @@ class TemplatesController < ApplicationController
   # GET /templates
   def index
     if params[:category_id]
-      @filtered_templates = @templates.select{|template| template.category_id == params[:category_id].to_i}
+      @filtered_templates = @templates.select{|template| template.category_id == params[:category_id].to_i && template.campaign_id == nil }
       @category = Category.find(params[:category_id])
     else
       @filtered_templates = @templates
@@ -83,7 +83,7 @@ class TemplatesController < ApplicationController
       sidebar_vars << {
         category_id: category.id,
         title:       category.title,
-        items:       @templates.select{|template| template.category_id == category.id}
+        items:       @templates.select{|template| template.category_id == category.id && template.campaign_id == nil}
       }
     end
   end
