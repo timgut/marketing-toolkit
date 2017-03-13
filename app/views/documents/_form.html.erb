@@ -33,7 +33,7 @@
         </li>
                 
         <li><strong class="metadata-label">Dimensions</strong><%= dimensions(@template) %></li>
-        <li><strong class="metadata-label">Toolkit</strong><%= @campaign.title %></li>
+        <li><strong class="metadata-label">Toolkit</strong><%= @campaign.title if @campaign %></li>
         <li><strong class="metadata-label">Type</strong>Flyer</li>
       </ol>
     </aside>
