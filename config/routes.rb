@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   end
 
   resources :campaigns
-  resources :templates
+  resources :templates, only: [:index, :show]
 
   resources :documents do
     collection do
@@ -56,8 +56,7 @@ Rails.application.routes.draw do
     end
     resources :categories do
     end
-    resources :templates do
-    end
+    resources :templates
     resources :affiliates do
     end
   end

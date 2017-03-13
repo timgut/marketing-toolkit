@@ -1,7 +1,6 @@
 class DocumentsController < ApplicationController
   protect_from_forgery except: :create
 
-  before_action :authenticate_user!
   before_action :assign_sidebar_vars, only: [:index, :recent, :shared, :trash]
 
   # POST /documents

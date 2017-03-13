@@ -1,4 +1,4 @@
-<%= form_for(template, url: admin_template_path(template), html: { method: :put } ) do |f| %>
+<%= form_for([:admin, template]) do |f| %>
   <%= render partial: "/shared/errors", locals: {record: template} %>
 
   <aside class="preview">
@@ -15,17 +15,22 @@
 
       <li>
         <%= f.label :campaign %>
-        <%= f.select(:campaign_id, options_from_collection_for_select(@campaigns, 'id', 'title', @template.campaign_id), include_blank: true) %>
+        <%= f.select(:campaign_id, options_from_collection_for_select(@campaigns, 'id', 'title', @template.campaign_id)) %>
       </li>
 
       <li>
         <%= f.label :category %>
-        <%= f.select(:category_id, options_from_collection_for_select(@categories, 'id', 'title', @template.category_id), include_blank: true) %>
+        <%= f.select(:category_id, options_from_collection_for_select(@categories, 'id', 'title', @template.category_id)) %>
       </li>
 
       <li id="customizable-options">
         <%= f.label :customizable_options %>
         <%= f.text_area :customizable_options %>
+      </li>
+
+      <li>
+        <%= f.label :orientation %>
+        <%= f.select(:orientation, [["Portrait", "Portrait"], ["Landscape", "Landscape"]]) %>
       </li>
 
       <li>
@@ -66,7 +71,7 @@
 
 <% unless @template.new_record? %>
   <div class="image-upload cf">
-    <%= form_for(template, html: {class: "dropzone", multipart: true, id: "template-thumbnail-form"}) do |f| %>
+    <%= form_for([:admin, template], html: {class: "dropzone", multipart: true, id: "template-thumbnail-form"}) do |f| %>
       <div class="label">
         <%= f.label :thumbnail %>
       </div>
@@ -82,7 +87,7 @@
       </div>
     <% end %>
 
-    <%= form_for(template, html: {class: "dropzone", multipart: true, id: "template-numbered-form"}) do |f| %>
+    <%= form_for([:admin, template], html: {class: "dropzone", multipart: true, id: "template-numbered-form"}) do |f| %>
       <div class="label">
         <%= f.label :numbered_image %>
       </div>
@@ -98,7 +103,7 @@
       </div>
     <% end %>
 
-    <%= form_for(template, html: {class: "dropzone", multipart: true, id: "template-blank-form"}) do |f| %>
+    <%= form_for([:admin, template], html: {class: "dropzone", multipart: true, id: "template-blank-form"}) do |f| %>
       <div class="label">
         <%= f.label :blank_image %>
       </div>

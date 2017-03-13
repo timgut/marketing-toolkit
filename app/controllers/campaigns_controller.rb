@@ -1,5 +1,4 @@
 class CampaignsController < ApplicationController
-  before_action :authenticate_user!
   before_action :assign_sidebar_vars, only: [:index, :show]
 
   # POST /campaigns

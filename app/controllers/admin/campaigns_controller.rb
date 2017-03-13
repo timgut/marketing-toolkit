@@ -1,7 +1,4 @@
-class Admin::CampaignsController < ApplicationController
-
-  before_action :require_admin
-
+class Admin::CampaignsController < AdminController
   # POST /users
   def create
     @new_campaign = Campaign.new(campaign_params)

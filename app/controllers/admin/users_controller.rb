@@ -1,7 +1,6 @@
-class Admin::UsersController < ApplicationController
-
-  before_action :require_admin, :except => [:update]
-
+class Admin::UsersController < AdminController
+  skip_before_action :require_admin, raise: false
+  before_action :require_admin, except: [:update]
 
   def home
     ## this is just /admin index
