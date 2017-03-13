@@ -1,7 +1,4 @@
-class Admin::CategoriesController < ApplicationController
-
-  before_action :require_admin
-
+class Admin::CategoriesController < AdminController
   # POST /users
   def create
     @new_category = Category.new(category_params)

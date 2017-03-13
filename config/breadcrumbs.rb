@@ -61,30 +61,37 @@ crumb :campaign do |campaign|
   parent :campaigns
 end
 
+# Categories
+crumb :category do |category|
+  link category.title, templates_path
+  parent :templates
+end
+
 # Templates
 crumb :templates do
   link "Templates", templates_path
   parent :root
 end
 
-crumb :category do |category|
-  link category.title, templates_path
-  parent :templates
-end
-
-crumb :new_template do
-  link "New Template", new_template_path
-  parent :templates
-end
-
-crumb :edit_template do |template|
-  link "Edit #{template.title}", edit_template_path(template)
-  parent :templates
-end
-
 crumb :template do |template|
   link template.title, template_path(template)
   parent :templates
+end
+
+# Admin Templates
+crumb :admin_templates do
+  link "Manage Templates", admin_templates_path
+  parent :admin
+end
+
+crumb :admin_new_template do
+  link "New Template", new_admin_template_path
+  parent :admin_templates
+end
+
+crumb :admin_edit_template do |template|
+  link template.title, edit_admin_template_path(template)
+  parent :admin_templates
 end
 
 # Documents
@@ -163,14 +170,4 @@ end
 crumb :edit_password do |user|
   link 'Change Password', password_path
   parent :profile
-end
-
-crumb :admin_templates do
-  link "Manage Templates", admin_templates_path
-  parent :admin
-end
-
-crumb :admin_edit_template do |template|
-  link template.title, edit_admin_template_path(template)
-  parent :admin_templates
 end
