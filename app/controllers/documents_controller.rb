@@ -139,7 +139,7 @@ class DocumentsController < ApplicationController
   protected
 
   def assign_sidebar_vars
-    @campaigns = Campaign.includes(:templates).all
+    @campaigns = Campaign.active
     if current_user
       @documents = current_user.documents.includes(:template)
     else
