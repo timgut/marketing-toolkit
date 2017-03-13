@@ -53,14 +53,14 @@ class CampaignsController < ApplicationController
   protected
 
   def assign_sidebar_vars
-    @campaigns = Campaign.includes(:templates).all.order('title ASC')
+    @campaigns = Campaign.includes(:templates).active('title ASC')
     @templates = Template.all
 
     @sidebar_vars = @categories.inject([]) do |sidebar_vars, category|
       sidebar_vars << {
         category_id: category.id,
         title:       category.title,
-        items:       @templates.select{|template| template.category_id == category.id}
+        items:       @templates.select{|template| template.category_id == category.id && template.campaign_id == nil}
       }
     end
   end
