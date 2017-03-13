@@ -76,7 +76,7 @@ class TemplatesController < ApplicationController
   end
 
   def assign_sidebar_vars
-    @campaigns = Campaign.includes(:templates).all
+    @campaigns = Campaign.active
     @templates = Template.all
 
     @sidebar_vars = @categories.inject([]) do |sidebar_vars, category|
