@@ -9,63 +9,63 @@
 
 # Create some users
 
-User.create(
-	first_name: 'Kevin', 
-	last_name: 'Hanes', 
-	email: 'nothing@trilogyinteractive.com', 
-	affiliate_id: 6,
-	role: 'Vetter',
-	department: 'IU-Communications',
-	approved: true,
-	receive_alerts: false,
-	cell_phone: '123-456-7890',
-	zip_code: '12345',
-	local_number: '1111',
-	council: 'IU',
-	password: 'temp1234',
-	password_confirmation: 'temp1234'
-)
+# User.create(
+# 	first_name: 'Kevin', 
+# 	last_name: 'Hanes', 
+# 	email: 'nothing@trilogyinteractive.com', 
+# 	affiliate_id: 6,
+# 	role: 'Vetter',
+# 	department: 'IU-Communications',
+# 	approved: true,
+# 	receive_alerts: false,
+# 	cell_phone: '123-456-7890',
+# 	zip_code: '12345',
+# 	local_number: '1111',
+# 	council: 'IU',
+# 	password: 'temp1234',
+# 	password_confirmation: 'temp1234'
+# )
 
-User.create(
-  first_name: 'Kevin', 
-  last_name: 'Brown', 
-  email: 'nothing-1@trilogyinteractive.com', 
-  affiliate_id: 6,
-  role: 'Vetter',
-  department: 'IU-Communications',
-  approved: true,
-  receive_alerts: false,
-  cell_phone: '123-456-7890',
-  zip_code: '12345',
-  local_number: '1111',
-  council: 'IU',
-  password: 'temp1234',
-  password_confirmation: 'temp1234'
-)
+# User.create(
+#   first_name: 'Kevin', 
+#   last_name: 'Brown', 
+#   email: 'nothing-1@trilogyinteractive.com', 
+#   affiliate_id: 6,
+#   role: 'Vetter',
+#   department: 'IU-Communications',
+#   approved: true,
+#   receive_alerts: false,
+#   cell_phone: '123-456-7890',
+#   zip_code: '12345',
+#   local_number: '1111',
+#   council: 'IU',
+#   password: 'temp1234',
+#   password_confirmation: 'temp1234'
+# )
 
-User.create(
-  first_name: 'Dave', 
-  last_name: 'Kreisman', 
-  email: 'nothing-2@trilogyinteractive.com', 
-  affiliate_id: 6,
-  role: 'Vetter',
-  department: 'IU-Communications',
-  approved: true,
-  receive_alerts: false,
-  cell_phone: '123-456-7890',
-  zip_code: '12345',
-  local_number: '1111',
-  council: 'IU',
-  password: 'temp1234',
-  password_confirmation: 'temp1234'
-)
+# User.create(
+#   first_name: 'Dave', 
+#   last_name: 'Kreisman', 
+#   email: 'nothing-2@trilogyinteractive.com', 
+#   affiliate_id: 6,
+#   role: 'Vetter',
+#   department: 'IU-Communications',
+#   approved: true,
+#   receive_alerts: false,
+#   cell_phone: '123-456-7890',
+#   zip_code: '12345',
+#   local_number: '1111',
+#   council: 'IU',
+#   password: 'temp1234',
+#   password_confirmation: 'temp1234'
+# )
 
 User.create(
   first_name: 'Namita', 
   last_name: 'Waghray', 
-  email: 'nothing-2@trilogyinteractive.com', 
+  email: 'nothing-3@trilogyinteractive.com', 
   affiliate_id: 6,
-  role: 'Vetter',
+  role: 'Administrator',
   department: 'IU-Communications',
   approved: true,
   receive_alerts: false,
@@ -76,6 +76,38 @@ User.create(
   password: 'temp1234',
   password_confirmation: 'temp1234'
 )
+
+users = [ 
+  {name: 'Michelle Sforza', email: 'msforza@testg.org' },
+  {name: 'Megan Eierman', email: 'meierman@testg.org' },
+  {name: 'Joe Guzynshki', email: 'jguzynski@testg.org' },
+  {name: 'Brian Weeks', email: 'bweeks@testg.org' },
+  {name: 'Doug Brunett', email: 'dburnett@testg.org' },
+  {name: 'Roni Beavins ', email: 'rbeavin@testg.org' },
+  {name: 'Dalia Thornton', email: 'dthornton@testg.org' },
+  {name: 'Stacey Bashara', email: 'sbashara@testg.org' },
+]
+
+users.each do |user|
+
+  User.create(
+    first_name: user[:name].split(' ')[0], 
+    last_name: user[:name].split(' ')[1], 
+    email: user[:email],
+    affiliate_id: 6,
+    role: 'Administrator',
+    department: 'IU-Communications',
+    approved: true,
+    receive_alerts: false,
+    cell_phone: '123-456-7890',
+    zip_code: '12345',
+    local_number: '1111',
+    council: 'IU',
+    password: 'temp1234',
+    password_confirmation: 'temp1234'
+  )
+
+end
 
 ## Create some campaigns
 
