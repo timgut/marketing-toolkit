@@ -1,0 +1,16 @@
+<% content_for :title {"Trashed Images"} %>
+<% breadcrumb :trashed_images %>
+
+<aside>
+  <%= render partial: "images/nav" %>  
+</aside>
+
+<section class="workspace cf">
+  <section class="image-grid cf">
+    <% if @trashed.count > 0 %>
+      <%= render partial: @trashed, locals: {menu: :trash} %>
+    <% else %>
+      <p class="no-results">There are no images in the trash.</p>
+    <% end %>
+  </section>
+</section>

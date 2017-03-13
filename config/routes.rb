@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+  concern :trashable do
+    collection do
+      get :trashed
+    end
+
+    member do
+      patch  :trash
+      patch  :restore
+    end
+  end
+
   devise_for :users, controllers: {registrations: "users/registrations"}
 
   devise_scope :user do
@@ -18,14 +29,13 @@ Rails.application.routes.draw do
   end
 
   resources :campaigns, only: [:index, :show]
-  resources :templates, only: [:index, :show]
+  resources :templates, only: [:index, :show], concerns: [:trashable]
 
-  resources :documents, except: [:show] do
+  resources :documents, except: [:show], concerns: [:trashable] do
     collection do
       get :preview
       get :recent
       get :shared
-      get :trash
     end
 
     member do
@@ -35,7 +45,7 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :images do
+  resources :images, concerns: [:trashable] do
     collection do
       get :choose
       get :recent

@@ -1,5 +1,5 @@
 class TemplatesController < ApplicationController
-  before_action :assign_sidebar_vars, only: [:index]
+  before_action :assign_sidebar_vars, only: [:index, :trashed]
 
   # GET /templates
   def index

@@ -1,7 +1,7 @@
 <ul>
   <li class="active">
       <% link_to "My Designs", documents_path %>
-      <div class="contents-counter"><%= current_user.documents.count %></div>
+      <div class="contents-counter"><%= @documents.count %></div>
   </li>
       
   <li>
@@ -17,12 +17,11 @@
   
   <li>
     <%= link_to "My Images", images_path, title: "My Images" %>
-    <div class="contents-counter"><%= current_user.images.count %></div>
+    <div class="contents-counter"><%= @all.count %></div>
   </li>
-  <% if false %>
+
   <li>
-      <a href="#" title="Trash">Trash</a>
-      <div class="contents-counter">0</div>
+    <%= link_to "Trash", trashed_images_path, title: "Trash" %>
+    <div class="contents-counter"><%= @trashed.count %></div>
   </li>
-  <% end %>
 </ul>
