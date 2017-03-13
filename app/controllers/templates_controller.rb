@@ -1,30 +1,5 @@
 class TemplatesController < ApplicationController
-
-  before_action :authenticate_user!
   before_action :assign_sidebar_vars, only: [:index]
-  before_action :assign_form_vars,    only: [:edit, :new, :update]
-  
-  # POST /templates
-  def create
-    @template = Template.new(template_params)
-
-    if @template.save
-      redirect_to template_path(@template), notice: "Template created!"
-    else
-      assign_form_vars
-      render :new
-    end
-  end
-
-  # DELETE /templates/1
-  def destroy
-    @template = Template.find(params[:id])
-  end
-
-  # GET /templates/1/edit
-  def edit
-    @template = Template.includes(:campaign).find(params[:id])
-  end
 
   # GET /templates
   def index
@@ -36,44 +11,13 @@ class TemplatesController < ApplicationController
     end
   end
 
-  # GET /templates/new
-  def new
-    @template = Template.new(campaign_id: params[:campaign_id])
-    @campaign = @template.campaign
-  end
-
   # GET /templates/1
   def show
     @template = Template.includes(:campaign).find(params[:id])
     @campaign = @template.campaign
   end
 
-  # PATCH /templates/1
-  def update
-    @template = Template.includes(:campaign).find(params[:id])
-
-    respond_to do |format|
-      format.html do
-        if @template.update_attributes(template_params)
-          redirect_to template_path(@template), notice: "Template updated!"
-        else
-          render :edit, alert: "Cannot update template!"
-        end
-      end
-
-      format.json do
-        @template.update_attributes(template_params)
-        head :no_content
-      end
-    end
-  end
-
-  protected
-
-  def assign_form_vars
-    @campaigns = Campaign.all
-    @categories = Category.all
-  end
+  private
 
   def assign_sidebar_vars
     @campaigns = Campaign.active
@@ -87,8 +31,6 @@ class TemplatesController < ApplicationController
       }
     end
   end
-
-  private
 
   def template_params
     params.require(:template).permit(

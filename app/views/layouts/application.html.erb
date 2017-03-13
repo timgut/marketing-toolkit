@@ -18,7 +18,7 @@
       <p id="notice"><%= params[:flash] %></p>
     <% end %>
 
-    <main class="<%= params[:controller] %> <%= params[:action] %> cf">
+    <main class="<%= params[:controller].split("/").last %> <%= params[:action] %> cf">
       <%= yield %>
     </main>
 

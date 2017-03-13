@@ -1,53 +1,53 @@
-class Admin::TemplatesController < ApplicationController
+class Admin::TemplatesController < AdminController
+  before_action :assign_form_vars, only: [:edit, :new, :update]
 
-  before_action :require_admin
-
-  # POST /templates
+  # POST /admin/templates
   def create
     @template = Template.new(template_params)
 
     if @template.save
-      redirect_to admin_template_path(@template), notice: "Template created!"
+      redirect_to edit_admin_template_path(@template), notice: "Template created! You can now add images."
     else
+      assign_form_vars
       render :new
     end
   end
 
-  # DELETE /templates/1
+  # DELETE /admin/templates/1
   def destroy
     @template = Template.find(params[:id])
+
+    if @template.destroy
+      redirect_to :back, fallback_location: admin_templates_path, notice: "Template deleted!"
+    else
+      redirect_to :back, fallback_location: admin_templates_path, alert: "Cannot delete template. Please try again."
+    end
   end
 
-  # GET /templates/1/edit
+  # GET /admin/templates/1/edit
   def edit
     @template = Template.includes(:campaign).find(params[:id])
-    @campaigns = Campaign.all
   end
 
-  # GET /templates
+  # GET /admin/templates
   def index
     @templates = Template.all
   end
 
-  # GET /templates/new
+  # GET /admin/templates/new
   def new
-    @template = Template.new
-  end
-
-  # GET /templates/1
-  def show
-    @template = Template.includes(:campaign).find(params[:id])
+    @template = Template.new(campaign_id: params[:campaign_id])
     @campaign = @template.campaign
   end
 
-  # PATCH /templates/1
+  # PATCH /admin/templates/1
   def update
     @template = Template.includes(:campaign).find(params[:id])
 
     respond_to do |format|
       format.html do
         if @template.update_attributes(template_params)
-          redirect_to admin_template_path(@template), notice: "Template updated!"
+          redirect_to template_path(@template), notice: "Template updated!"
         else
           render :edit, alert: "Cannot update template!"
         end
@@ -61,6 +61,11 @@ class Admin::TemplatesController < ApplicationController
   end
 
   private
+
+  def assign_form_vars
+    @campaigns = Campaign.all
+    @categories = Category.all
+  end
 
   def template_params
     params.require(:template).permit(
