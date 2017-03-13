@@ -15,7 +15,7 @@ User.create(
 	email: 'nothing@trilogyinteractive.com', 
 	affiliate_id: 6,
 	role: 'Vetter',
-	title: 'IU-Communications',
+	department: 'IU-Communications',
 	approved: true,
 	receive_alerts: false,
 	cell_phone: '123-456-7890',
@@ -32,7 +32,7 @@ User.create(
   email: 'nothing-1@trilogyinteractive.com', 
   affiliate_id: 6,
   role: 'Vetter',
-  title: 'IU-Communications',
+  department: 'IU-Communications',
   approved: true,
   receive_alerts: false,
   cell_phone: '123-456-7890',
@@ -49,7 +49,7 @@ User.create(
   email: 'nothing-2@trilogyinteractive.com', 
   affiliate_id: 6,
   role: 'Vetter',
-  title: 'IU-Communications',
+  department: 'IU-Communications',
   approved: true,
   receive_alerts: false,
   cell_phone: '123-456-7890',
@@ -66,7 +66,7 @@ User.create(
   email: 'nothing-2@trilogyinteractive.com', 
   affiliate_id: 6,
   role: 'Vetter',
-  title: 'IU-Communications',
+  department: 'IU-Communications',
   approved: true,
   receive_alerts: false,
   cell_phone: '123-456-7890',
@@ -76,112 +76,6 @@ User.create(
   password: 'temp1234',
   password_confirmation: 'temp1234'
 )
-
-# User.create(
-# 	first_name: 'Tim', 
-# 	last_name: 'Gutowski', 
-# 	email: 'tgutowski@trilogyinteractive.com', 
-#   affiliate_id: 6,
-# 	role: 'Administrator',
-# 	title: 'IU-Communications',
-# 	approved: true,
-# 	receive_alerts: false,
-# 	cell_phone: '123-456-7890',
-# 	zip_code: '60201',
-# 	local_number: '1111',
-# 	council: 'IU',
-# 	password: 'temp1234',
-# 	password_confirmation: 'temp1234'
-# )
-
-# User.create(
-# 	first_name: 'Randy', 
-# 	last_name: 'Stearns', 
-# 	email: 'rstearns@trilogyinteractive.com', 
-#   affiliate_id: 6,
-# 	role: 'Administrator',
-# 	title: 'IU-Communications',
-# 	approved: true,
-# 	receive_alerts: false,
-# 	cell_phone: '123-456-7890',
-# 	zip_code: '60201',
-# 	local_number: '1111',
-# 	council: 'IU',
-# 	password: 'temp1234',
-# 	password_confirmation: 'temp1234'
-# )
-
-# User.create(
-# 	first_name: 'Amy', 
-# 	last_name: 'Hendrick', 
-# 	email: 'ahendrick@afscme.org', 
-#   affiliate_id: 6,
-# 	role: 'Administrator',
-# 	title: 'IU-Communications',
-# 	approved: true,
-# 	rejected: false,
-# 	receive_alerts: false,
-# 	cell_phone: '123-456-7890',
-# 	zip_code: '60201',
-# 	local_number: '1111',
-# 	council: 'IU',
-# 	password: 'temp1234',
-# 	password_confirmation: 'temp1234'
-# )
-
-
-# User.create(
-# 	first_name: 'Yanik', 
-# 	last_name: 'Ramon', 
-# 	email: 'yramon@afscme.org', 
-#   affiliate_id: 6,
-# 	role: 'Administrator',
-# 	title: 'IU-Communications',
-# 	approved: true,
-# 	rejected: false,
-# 	receive_alerts: false,
-# 	cell_phone: '123-456-7890',
-# 	zip_code: '60201',
-# 	local_number: '1111',
-# 	council: 'IU',
-# 	password: 'temp1234',
-# 	password_confirmation: 'temp1234'
-# )
-
-# User.create(
-# 	first_name: 'Mike', 
-# 	last_name: 'Carvalho', 
-# 	email: 'mcarvalho@afscme.org',
-# 	role: 'Administrator',
-# 	title: 'IU-Communications',
-# 	approved: true,
-# 	rejected: false,
-# 	receive_alerts: false,
-# 	cell_phone: '123-456-7890',
-# 	zip_code: '60201',
-# 	local_number: '1111',
-# 	council: 'IU',
-# 	password: 'temp1234',
-# 	password_confirmation: 'temp1234'
-# )
-
-# User.create(
-# 	first_name: 'Kevin', 
-# 	last_name: 'Brown', 
-# 	email: 'kbrown@afscme.org', 
-#   affiliate_id: 6,
-# 	role: 'Administrator',
-# 	title: 'IU-Communications',
-# 	approved: true,
-# 	rejected: false,
-# 	receive_alerts: false,
-# 	cell_phone: '123-456-7890',
-# 	zip_code: '60201',
-# 	local_number: '1111',
-# 	council: 'IU',
-# 	password: 'temp1234',
-# 	password_confirmation: 'temp1234'
-# )
 
 ## Create some campaigns
 
