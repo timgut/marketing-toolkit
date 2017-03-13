@@ -28,11 +28,6 @@ class Admin::CategoriesController < AdminController
     @categories = Category.all
   end
 
-  # GET /users/new
-  def new
-    @category = Category.new
-  end
-
   # GET /users/1
   def show
     @category = Category.find(params[:id])

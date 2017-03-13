@@ -25,11 +25,6 @@ crumb :admin_campaigns do
 end
 
 # Admin Categories
-crumb :admin_new_category do
-  link "New Category", new_admin_category_path
-  parent :admin_categories
-end
-
 crumb :admin_edit_category do |category|
   link "Edit #{category.title}", edit_admin_category_path(category)
   parent :admin_categories

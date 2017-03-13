@@ -1,5 +1,5 @@
 class Admin::CampaignsController < AdminController
-  # POST /users
+  # POST /admin/campaigns
   def create
     @new_campaign = Campaign.new(campaign_params)
     if @new_campaign.save
@@ -11,31 +11,23 @@ class Admin::CampaignsController < AdminController
     end
   end
 
-  # DELETE /users
+  # DELETE /admin/campaigns
   def destroy
     @campaign = Campaign.find(params[:id])
+    @campaign.destroy
+    redirect_to admin_campaigns_path, notice: "Campaign deleted!"
   end
 
-  # GET /users/1/edit
+  # GET /admin/campaigns/1/edit
   def edit
     @campaign = Campaign.find(params[:id])
     @body_class = 'toolkit campaign'
     @header_navigation = true
   end
 
-  # GET /users
+  # GET /admin/campaigns
   def index
     @campaigns = Campaign.all
-  end
-
-  # GET /users/new
-  def new
-    @campaign = Campaign.new
-  end
-
-  # GET /users/1
-  def show
-    @campaign = Campaign.find(params[:id])
   end
 
   # PATCH /admin/campaigns/1
@@ -47,13 +39,6 @@ class Admin::CampaignsController < AdminController
     else
       render :edit, alert: "Cannot update campaign!"
     end
-  end
-
-  # DELETE /adminc/ampaigns/1
-  def destroy
-    @campaign = Campaign.find(params[:id])
-    @campaign.destroy
-    redirect_to admin_campaigns_path, notice: "Campaign deleted!"
   end
 
   private

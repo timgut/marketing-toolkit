@@ -17,10 +17,10 @@ Rails.application.routes.draw do
     get 'profile', to: 'users/registrations#edit'
   end
 
-  resources :campaigns
+  resources :campaigns, only: [:index, :show]
   resources :templates, only: [:index, :show]
 
-  resources :documents do
+  resources :documents, except: [:show] do
     collection do
       get :preview
       get :recent
@@ -50,13 +50,11 @@ Rails.application.routes.draw do
 
   namespace :admin, path: '/admin' do
     root to: "users#home"
-    resources :campaigns do
-    end
+    resources :campaigns, except: [:new, :show]
     resources :users do
     end
-    resources :categories do
-    end
-    resources :templates
+    resources :categories, except: [:new]
+    resources :templates, except: [:show]
     resources :affiliates do
     end
   end

@@ -106,12 +106,6 @@ class DocumentsController < ApplicationController
     render :index
   end
 
-  # GET /documents/1
-  def show
-    @document = Document.includes(:template).find(params[:id])
-    assign_records
-  end
-
   # GET /documents/trash
   def trash
     @filtered_documents = Document.includes(:template).trash
