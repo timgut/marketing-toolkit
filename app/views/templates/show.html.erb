@@ -19,7 +19,7 @@
     </li>
           
     <li><strong class="metadata-label">Dimensions</strong><%= dimensions(@template) %></li>
-    <li><strong class="metadata-label">Toolkit</strong><%= @template.campaign.title %></li>
+    <li><strong class="metadata-label">Toolkit</strong><%= @template.campaign ? @template.campaign.title : 'None'  %></li>
     <li><strong class="metadata-label">Type</strong>Flyer</li>
               
     <li>
