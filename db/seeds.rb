@@ -9,22 +9,73 @@
 
 # Create some users
 
-# User.create(
-# 	first_name: 'Jarred', 
-# 	last_name: 'Trost', 
-# 	email: 'jtrost@trilogyinteractive.com', 
-# 	affiliate_id: 6,
-# 	role: 'Administrator',
-# 	title: 'IU-Communications',
-# 	approved: true,
-# 	receive_alerts: false,
-# 	cell_phone: '123-456-7890',
-# 	zip_code: '12345',
-# 	local_number: '1111',
-# 	council: 'IU',
-# 	password: 'temp1234',
-# 	password_confirmation: 'temp1234'
-# )
+User.create(
+	first_name: 'Kevin', 
+	last_name: 'Hanes', 
+	email: 'nothing@trilogyinteractive.com', 
+	affiliate_id: 6,
+	role: 'Vetter',
+	title: 'IU-Communications',
+	approved: true,
+	receive_alerts: false,
+	cell_phone: '123-456-7890',
+	zip_code: '12345',
+	local_number: '1111',
+	council: 'IU',
+	password: 'temp1234',
+	password_confirmation: 'temp1234'
+)
+
+User.create(
+  first_name: 'Kevin', 
+  last_name: 'Brown', 
+  email: 'nothing-1@trilogyinteractive.com', 
+  affiliate_id: 6,
+  role: 'Vetter',
+  title: 'IU-Communications',
+  approved: true,
+  receive_alerts: false,
+  cell_phone: '123-456-7890',
+  zip_code: '12345',
+  local_number: '1111',
+  council: 'IU',
+  password: 'temp1234',
+  password_confirmation: 'temp1234'
+)
+
+User.create(
+  first_name: 'Dave', 
+  last_name: 'Kreisman', 
+  email: 'nothing-2@trilogyinteractive.com', 
+  affiliate_id: 6,
+  role: 'Vetter',
+  title: 'IU-Communications',
+  approved: true,
+  receive_alerts: false,
+  cell_phone: '123-456-7890',
+  zip_code: '12345',
+  local_number: '1111',
+  council: 'IU',
+  password: 'temp1234',
+  password_confirmation: 'temp1234'
+)
+
+User.create(
+  first_name: 'Namita', 
+  last_name: 'Waghray', 
+  email: 'nothing-2@trilogyinteractive.com', 
+  affiliate_id: 6,
+  role: 'Vetter',
+  title: 'IU-Communications',
+  approved: true,
+  receive_alerts: false,
+  cell_phone: '123-456-7890',
+  zip_code: '12345',
+  local_number: '1111',
+  council: 'IU',
+  password: 'temp1234',
+  password_confirmation: 'temp1234'
+)
 
 # User.create(
 # 	first_name: 'Tim', 
@@ -466,19 +517,19 @@ affiliates = [
     {:title => "West Virginia Public Employees Retirees Chapter 77", :state => "WV", :slug => "RC77"}
 ]
 
-Affiliate.create!(title: 'International Union', slug: "IU", state: 'N/A', region: 'N/A')
+# Affiliate.create!(title: 'International Union', slug: "IU", state: 'N/A', region: 'N/A')
 
-affiliates.each do |aff|
-	aff[:state] = STATE[aff[:state]]
-	aff[:region] = REGION[aff[:state]]
-	puts 
-	@aff = Affiliate.new(aff)
-	if @aff.save
-		puts "#{@aff.title} created."
-	else
-		puts "There was a problem: #{@aff.inspect}."
-	end
-end
+# affiliates.each do |aff|
+# 	aff[:state] = STATE[aff[:state]]
+# 	aff[:region] = REGION[aff[:state]]
+# 	puts 
+# 	@aff = Affiliate.new(aff)
+# 	if @aff.save
+# 		puts "#{@aff.title} created."
+# 	else
+# 		puts "There was a problem: #{@aff.inspect}."
+# 	end
+# end
 
-Affiliate.create!(title: 'Unknown', slug: "unknown", state: 'N/A', region: 'N/A')
+# Affiliate.create!(title: 'Unknown', slug: "unknown", state: 'N/A', region: 'N/A')
 
