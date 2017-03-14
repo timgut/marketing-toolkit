@@ -1,5 +1,4 @@
 <% no_link ||= false %>
-<% menu ||= :publish %>
 
 <% if no_link == true %>
   <figure>
@@ -17,38 +16,11 @@
       <li>
         <a href="javascript:void(0);" title="Options" class="icons">+</a>
         <ol>
-          <% case menu %>
-          <% when :publish %>
-            <li><%= link_to "<span class='icons'>e</span> Edit".html_safe, edit_image_path(image), title: "Edit" %></li>
-            <% if false %>
-            <li><%= link_to "<span class='icons'>s</span> Share".html_safe, share_image_path(image), title: "Share" %></li>
-            <% end %>
-            <li><%= link_to "<span class='icons'>d</span> Download".html_safe, image.image.url, title: "Download", target: :blank %></li>
-            <li>
-              <%= link_to(
-                "<span class='icons'>x</span> Delete".html_safe, 
-                trash_image_path(image),
-                method: :patch, 
-                data: {confirm: "Are you sure that you want to move this image to the trash?"}
-              ) %>
-            </li> 
-          <% when :trash %>
-            <li>
-              <%= link_to(
-                "<span class='icons'>C</span> Restore".html_safe, 
-                restore_image_path(image),
-                method: :patch, 
-                data: {confirm: "Are you sure that you want to restore this image?"}
-              ) %>
-            </li>
-            <li>
-              <%= link_to(
-                "<span class='icons'>x</span> Delete".html_safe, 
-                image_path(image),
-                method: :delete, 
-                data: {confirm: "Are you sure that you want to DESTROY this image? This cannot be undone!"}
-              ) %>
-            </li>
+          <% case image.status %>
+          <% when "trash" %>
+            <%= render partial: "images/menus/trash", locals: {image: image} %>
+          <% else %>
+            <%= render partial: "images/menus/publish", locals: {image: image} %>
           <% end %>
         </ol>
       </li>

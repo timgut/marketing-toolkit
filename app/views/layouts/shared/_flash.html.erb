@@ -1,0 +1,9 @@
+<% if flash.count > 0 %>
+  <% if notice %>
+    <p id="notice"><%= notice %></p>
+  <% elsif alert %>
+    <p id="alert"><%= alert %></p>
+  <% end %>
+<% elsif params[:flash] %>
+  <p id="notice"><%= params[:flash] %></p>
+<% end %>

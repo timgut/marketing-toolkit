@@ -1,0 +1,16 @@
+<li>
+  <%= link_to(
+    "<span class='icons'>C</span> Restore".html_safe, 
+    restore_image_path(image),
+    method: :patch, 
+    data: {confirm: "Are you sure that you want to restore this image?"}
+  ) %>
+</li>
+<li>
+  <%= link_to(
+    "<span class='icons'>x</span> Delete".html_safe, 
+    image_path(image),
+    method: :delete, 
+    data: {confirm: "Are you sure that you want to DESTROY this image? This cannot be undone!"}
+  ) %>
+</li>

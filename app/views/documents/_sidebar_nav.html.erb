@@ -22,4 +22,9 @@
       <% end %>
     </ol>
   </li>
+
+  <li>
+    <%= link_to "Trash", trashed_documents_path, title: "Trash" %>
+    <div class="contents-counter"><%= @trashed.count %></div>
+  </li>
 </ul>

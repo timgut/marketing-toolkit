@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   end
 
   resources :campaigns, only: [:index, :show]
-  resources :templates, only: [:index, :show], concerns: [:trashable]
+  resources :templates, only: [:index, :show]
 
   resources :documents, except: [:show], concerns: [:trashable] do
     collection do

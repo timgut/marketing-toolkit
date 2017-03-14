@@ -1,0 +1,31 @@
+<li><%= link_to "<span class='icons'>e</span> Edit".html_safe, edit_document_path(document), title: "View" %></li>
+<li><%= link_to "<span class='icons'>c</span> Duplicate".html_safe, duplicate_document_path(document), title: "Duplicate" %></li>
+<li><%= link_to "<span class='icons'>d</span> Download".html_safe, download_link(document), title: "Download", target: :blank %></li> 
+<li>
+  <%= link_to(
+    "<span class='icons'>x</span> Delete".html_safe,
+    trash_document_path(document),
+    title:  "Delete",
+    method: :patch,
+    data:   {confirm: "Are you sure that you want to move this document to the trash?"} 
+  ) %>
+</li>
+
+<% if User.current_user.admin? %>
+  <li>
+    <%= link_to(
+      "<span class='icons'>S</span> Debug PDF".html_safe,
+      download_document_path(document, debug: true),
+      title: "Debug PDF",
+      target: :_blank 
+    ) %>
+  </li> 
+  <li>
+    <%= link_to(
+      "<span class='icons'>F</span> Rebuild PDF".html_safe,
+      download_document_path(document),
+      title: "Rebuild PDF",
+      target: :_blank 
+    ) %>
+  </li> 
+<% end %>

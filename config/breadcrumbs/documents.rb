@@ -14,6 +14,11 @@ crumb :my_designs do |document|
   parent :documents
 end
 
+crumb :trashed_documents do |document|
+  link 'Trashed Documents', trashed_documents_path
+  parent :documents
+end
+
 crumb :edit_document do |document|
   link "Edit '#{document.title}'", edit_document_path(document)
   parent :my_designs

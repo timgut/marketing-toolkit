@@ -6,7 +6,4 @@ class Campaign < ApplicationRecord
   has_many :templates
 
   validates_presence_of :title
-
-  scope :active, -> { where(status: 1) }
-
 end

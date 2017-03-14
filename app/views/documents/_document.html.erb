@@ -18,22 +18,11 @@
     <li>
       <a href="javascript:void(0);" title="Options" class="icons">+</a>
       <ol>
-        <li><%= link_to "<span class='icons'>e</span> Edit".html_safe, edit_document_path(document), title: "View" %></li>
-        <li><%= link_to "<span class='icons'>c</span> Duplicate".html_safe, duplicate_document_path(document), title: "Duplicate" %></li>
-        <li><%= link_to "<span class='icons'>d</span> Download".html_safe, download_link(document), title: "Download", target: :blank %></li> 
-        <li>
-          <%= link_to(
-            "<span class='icons'>x</span> Delete".html_safe,
-            document_path(document),
-            title:  "Delete",
-            method: :delete,
-            data:   {confirm: "Are you sure that you want to DELETE this document? This cannot be undone!"} 
-          ) %>
-        </li>
-
-        <% if User.current_user.admin? %>
-          <li><%= link_to "<span class='icons'>S</span> Debug PDF".html_safe, download_document_path(document, debug: true), title: "Debug PDF", target: :_blank %></li> 
-          <li><%= link_to "<span class='icons'>F</span> Rebuild PDF".html_safe, download_document_path(document), title: "Rebuild PDF", target: :_blank %></li> 
+        <% case document.status %>
+        <% when "trash" %>
+          <%= render partial: "documents/menus/trash", locals: {document: document} %>
+        <% else %>
+          <%= render partial: "documents/menus/publish", locals: {document: document} %>
         <% end %>
       </ol>
     </li>

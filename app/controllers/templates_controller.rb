@@ -1,5 +1,5 @@
 class TemplatesController < ApplicationController
-  before_action :assign_sidebar_vars, only: [:index, :trashed]
+  before_action :assign_sidebar_vars, only: [:index]
 
   # GET /templates
   def index
@@ -20,8 +20,8 @@ class TemplatesController < ApplicationController
   private
 
   def assign_sidebar_vars
-    @campaigns = Campaign.active
-    @templates = Template.all
+    @campaigns = Campaign.publish
+    @templates = Template.publish
 
     @sidebar_vars = @categories.inject([]) do |sidebar_vars, category|
       sidebar_vars << {
