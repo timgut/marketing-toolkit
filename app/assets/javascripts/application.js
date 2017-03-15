@@ -16,7 +16,8 @@
 //= require codemirror
 //= require codemirror/modes/css
 //= require jquery.validate
-//= require croppie
+//= require jquery.jcrop
+//= require papercrop
 //= require jquery.popupoverlay.1.7.13.js
 //= require dropzone
 //= require_tree .

@@ -1,1 +1,5 @@
-<img id="croppie" src="<%= @image.image.url %>" />
+<%= form_for(@image) do |f| %>
+  <%= f.cropbox :image %>
+  <%= f.crop_preview :image %>
+  <%= f.submit "Save", class: "button" %>
+<% end %>
