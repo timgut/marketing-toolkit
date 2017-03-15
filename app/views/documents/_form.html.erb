@@ -7,16 +7,24 @@
 
   <main class="clearfix">
     <aside class="preview">
-      <ol> 
-        <li>
-          <label>
-            <button type="submit" name="commit" value="Preview" class="full-preview active">Launch full size preview</button>
-            Preview
-          </label>
+      <ol>
+        <% if @document.pdf_file_name %>
+          <li>
+            <label>
+              <%= link_to(
+                "Launch full size preview",
+                @document.pdf.url,
+                name: "commit",
+                value: "Preview",
+                class: "full-preview active",
+                target: :_blank 
+              ) %>
+              Preview
+            </label>
 
-          <%= image_tag @template.numbered_image %>
-        </li>
-
+            <%= image_tag @template.numbered_image %>
+          </li>
+        <% end %>
         <li>
           <%= f.label :title %>
           <%= f.text_field :title %>
