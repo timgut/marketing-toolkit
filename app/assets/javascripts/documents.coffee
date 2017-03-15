@@ -33,7 +33,7 @@ window.Toolkit.Document.addImage = ->
       $(@).removeClass('enabled')
     )
 
-    $('#add_image_button').removeAttr('disabled').removeClass('disabled')
+    $('#add_image_button').removeAttr('disabled')
   )
 
   # Close the modal and assign the selected image to the target input
@@ -62,6 +62,7 @@ window.Toolkit.Document.addImage = ->
     $("#image-picker").popup("hide")
     $("#image-picker").removeAttr("data-target")
     $("#image-picker").find("figure.enabled").removeClass("enabled")
+    $('#add_image_button').attr("disabled", "disabled")
   )
 
   # Let the modal know which input to apply the selection to
