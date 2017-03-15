@@ -16,7 +16,7 @@ window.Toolkit.Image.dropzone = ->
       $("#image-form").dropzone({
         paramName: "image[image]",
         url: $("#image-form").attr("action"),
-        dictDefaultMessage: dropMsg,
+        dictDefaultMessage: "<h4>#{dropMsg}</h4><p class='or'>or</p><div class='button'>Select File</div>",
         error: ((errorMessage) ->
           $("#image-error").html(errorMessage.xhr.responseText)
         ),
