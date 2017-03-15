@@ -10,7 +10,7 @@ class ImagesController < ApplicationController
       format.html do
         if @image.save
           ImageUser.create!(image: @image, user: User.current_user)    
-          redirect_to image_path(@image), notice: "Image created!"
+          redirect_to resize_image_path(@image), notice: "Image created! You may now crop the image."
         else
           render :new, alert: "Cannot create image."
         end
@@ -19,9 +19,8 @@ class ImagesController < ApplicationController
       format.json do
         if @image.save
           ImageUser.create!(image: @image, user: User.current_user)    
-          render json: {url: @image.image.url}
+          render json: {id: @image.id, url: @image.image.url}
         else
-          Rails.logger.info @image.errors.full_messages.to_sentence.inspect
           render plain: @image.errors.full_messages.to_sentence, status: 403
         end
       end
@@ -70,8 +69,8 @@ class ImagesController < ApplicationController
     render :index
   end
 
-  # GET /images/1/resize
-  def resize
+  # GET /images/1/crop
+  def crop
     @image = Image.find(params[:id])
   end
 
@@ -93,7 +92,7 @@ class ImagesController < ApplicationController
     respond_to do |format|
       format.html do
         if @image.update_attributes(image_params)
-          redirect_to image_path(@image), notice: "Image updated!"
+          redirect_to images_path, notice: "Image updated!"
         else
           render :edit, alert: "Cannot update image!"
         end

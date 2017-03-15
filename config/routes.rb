@@ -43,7 +43,7 @@ Rails.application.routes.draw do
     end
 
     member do
-      get :resize
+      get :crop
       get :share
     end
   end
