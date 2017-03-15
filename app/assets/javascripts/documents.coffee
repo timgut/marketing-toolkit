@@ -171,7 +171,7 @@ window.Toolkit.Document.disableDownloadButton = ->
       $("#upload-photo-form").dropzone({
         paramName: "image[image]",
         url: "/images",
-        dictDefaultMessage: "DROP IMAGE HERE TO UPLOAD",
+        dictDefaultMessage: "<h4>DROP IMAGE HERE TO UPLOAD</h4><p class='or'>or</p><div class='button'>Select File</div>",
         error: ((errorMessage) ->
           $("#image-error").html(errorMessage.xhr.responseText)
           @.removeAllFiles()
