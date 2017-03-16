@@ -1,4 +1,5 @@
 <%= form_for(@image, remote: true) do |f| %>
+  <%= hidden_field_tag :format, :json %>
   <%= f.cropbox :image %>
   <%= f.submit "Crop Image", class: "save button active" %>
 <% end %>

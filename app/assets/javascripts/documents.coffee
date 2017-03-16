@@ -64,6 +64,8 @@ window.Toolkit.Document.addImage = ->
     $("#image-picker").find("figure.enabled").removeClass("enabled")
     $('#add_image_button').attr("disabled", "disabled")
     $("#image-picker .upload-image").show()
+    $(document).off("ajax:success", "#image-picker .edit_image")
+    $(document).off("ajax:error", "#image-picker .edit_image")
   )
 
   # Let the modal know which input to apply the selection to
@@ -154,7 +156,15 @@ window.Toolkit.Document.saveIds = ->
     )
   )
 
-# Disable the "Download" button if the form is changed
+window.Toolkit.Document.dataTarget = ->
+  # When a custom value is entered, change the value in the actual field
+  if window.Toolkit.init.documentDataTarget is false
+    window.Toolkit.init.documentDataTarget = true
+    $(document).on("change", "[data-target]", ->
+      $target = $("##{$(@).attr('data-target')}")
+      $target.val($(@).val())
+    )
+
 window.Toolkit.Document.disableDownloadButton = ->
   $(document).on("click", "a.disabled", (e) ->
     e.preventDefault()
@@ -169,69 +179,68 @@ window.Toolkit.Document.disableDownloadButton = ->
   window.Toolkit.dropzones = []
 
   if $("#upload-photo-form").length isnt 0
-    window.Toolkit.dropzones.push(
-      # Initialize Dropzone
-      $("#upload-photo-form").dropzone({
-        paramName: "image[image]",
-        url: "/images",
-        dictDefaultMessage: "<h4>DROP IMAGE HERE TO UPLOAD</h4><p class='or'>or</p><div class='button'>Select File</div>",
-        
-        # Callback when the image cannot be uploaded
-        error: ((errorMessage) ->
-          $("#image-error").html(errorMessage.xhr.responseText)
-          @.removeAllFiles()
-        ),
-        
-        # Callback when the image is uploaded
-        success: ((file, data) ->
-          # Get the image crop form
-          $.get("/images/#{data.id}/crop?modal=true", (data) =>
-            @.removeFile(file)
+    try
+      window.Toolkit.dropzones.push(
+        # Initialize Dropzone
+        $("#upload-photo-form").dropzone({
+          paramName: "image[image]",
+          url: "/images",
+          dictDefaultMessage: "<h4>DROP IMAGE HERE TO UPLOAD</h4><p class='or'>or</p><div class='button'>Select File</div>",
+          
+          # Callback when the image cannot be uploaded
+          error: ((errorMessage) ->
+            $("#image-error").html(errorMessage.xhr.responseText)
+            @.removeAllFiles()
+          ),
+          
+          # Callback when the image is uploaded
+          success: ((file, data) ->
+            # Get the image crop form
+            $.get("/images/#{data.id}/crop?modal=true", (data) =>
+              @.removeFile(file)
 
-            $("#image-picker .upload-image").hide( ->
-              # Modify the DOM
-              $("#image-picker .crop-image").html(data).show()
-              $("#image_cropbox img").Jcrop()
-              $(".edit_image").prepend("<input type='hidden' name='format' value='json' />")
+              $("#image-picker .upload-image").hide( ->
+                # Add the crop form the DOM and initialize Papercrop
+                $("#image-picker .crop-image").html(data).show()
+                window.init_papercrop()
+
+                $(document).on("ajax:success", "#image-picker .edit_image", (e, data, status, xhr) ->
+                  e.preventDefault()
+                  
+                  # Add the image to the grid and select it
+                  $("#image-picker .crop-image").hide( ->
+                    $("#image-picker .image-grid").append("
+                      <figure>
+                        <img src='#{data.cropped_url}' alt='#{data.file_name}' />
+                        <figcaption>#{data.file_name}</figcaption>
+                      </figure>
+                    ")
+
+                    $(".image-grid figure:last").click()
+                  )
+
+                # When the image cannot be cropped
+                ).on("ajax:error", (e, xhr, status, error) ->
+                  $("#image-error").html("There was an error cropping your image. Please try again.")
+                )
+              )
             )
           )
-        )
-      });
-    )
+        });
+      )
+    catch
+      # Dropzone will throw an error if it's being initialized multiple times.
+      # This shouldn't cause a problem, but you never know.
+      # console.log "Dropzone already attached"
 
 window.Toolkit.Document.ready = ->
-  window.Toolkit.Document.addImage()
-  window.Toolkit.Document.saveButton()
-  window.Toolkit.optionsMenu()
-  window.Toolkit.Document.saveIds()
-  window.Toolkit.Document.fillForm()
-  window.Toolkit.Document.disableDownloadButton()
-
-  # When a custom value is entered, change the value in the actual field
-  $(document).on("change", "[data-target]", ->
-    $target = $("##{$(@).attr('data-target')}")
-    $target.val($(@).val())
-  )
-
-  # When the image is cropped
-  $(document).on("ajax:success", ".edit_image", (e, data, status, xhr) ->
-    e.preventDefault()
-    
-    # Add the image to the grid and select it
-    $("#image-picker .crop-image").hide( ->
-      $("#image-picker .image-grid").append("
-        <figure>
-          <img src='#{data.cropped_url}' alt='#{data.file_name}' />
-          <figcaption>#{data.file_name}</figcaption>
-        </figure>
-      ")
-
-      $(".image-grid figure:last").click()
-    )
-
-  # When the image cannot be cropped
-  ).on("ajax:error", (e, xhr, status, error) ->
-    $("#image-error").html("There was an error cropping your image. Please try again.")
-  )
+  if window.Toolkit.isDocumentPage()
+    window.Toolkit.Document.addImage()
+    window.Toolkit.Document.saveButton()
+    window.Toolkit.optionsMenu()
+    window.Toolkit.Document.saveIds()
+    window.Toolkit.Document.fillForm()
+    window.Toolkit.Document.dataTarget()
+    window.Toolkit.Document.disableDownloadButton()
 
 $(document).on('turbolinks:load', window.Toolkit.Document.ready)
