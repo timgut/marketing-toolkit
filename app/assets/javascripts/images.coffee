@@ -6,10 +6,10 @@ window.Toolkit.Image.dropzone = ->
 
   if $("#image-form").length isnt 0
     if window.Toolkit.isEditPage()
-      flash = "Image updated! You may now crop the image."
+      flash = "Step 2: Crop Your Image"
       dropMsg = "Drop image here to replace"
     else
-      flash = "Image created! You may now crop the image."
+      flash = "Step 2: Crop Your Image"
       dropMsg = "Drop image here to upload"
 
     window.Toolkit.dropzones.push(

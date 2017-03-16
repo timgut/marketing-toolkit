@@ -10,7 +10,7 @@ class ImagesController < ApplicationController
       format.html do
         if @image.save
           ImageUser.create!(image: @image, user: User.current_user)    
-          redirect_to resize_image_path(@image), notice: "Image created! You may now crop the image."
+          redirect_to resize_image_path(@image), notice: "Image created!"
         else
           render :new, alert: "Cannot create image."
         end
@@ -19,7 +19,7 @@ class ImagesController < ApplicationController
       format.json do
         if @image.save
           ImageUser.create!(image: @image, user: User.current_user)    
-          render json: {id: @image.id, url: @image.image.url}
+          render json: {id: @image.id, url: @image.image.url, cropped_url: @image.image.url(:cropped), file_name: @image.image_file_name}
         else
           render plain: @image.errors.full_messages.to_sentence, status: 403
         end
@@ -46,6 +46,7 @@ class ImagesController < ApplicationController
 
   # GET /images/1/edit
   def edit
+    params[:flash] = "Step 1: Replace Your Image"
     @image = Image.find(params[:id])
   end
 
@@ -60,6 +61,7 @@ class ImagesController < ApplicationController
 
   # GET /images/new
   def new
+    params[:flash] = "Step 1: Upload Your Image"
     @image = Image.new
   end
 
@@ -72,6 +74,12 @@ class ImagesController < ApplicationController
   # GET /images/1/crop
   def crop
     @image = Image.find(params[:id])
+
+    if params[:modal] == "true"
+      render :crop_modal, layout: false
+    else
+      render :crop
+    end
   end
 
   # GET /images/shared
@@ -92,7 +100,7 @@ class ImagesController < ApplicationController
     respond_to do |format|
       format.html do
         if @image.update_attributes(image_params)
-          redirect_to images_path, notice: "Image updated!"
+          redirect_to images_path, notice: "Image saved!"
         else
           render :edit, alert: "Cannot update image!"
         end
@@ -100,7 +108,7 @@ class ImagesController < ApplicationController
 
       format.json do
         @image.update_attributes(image_params)
-        head :no_content
+        render json: {id: @image.id, url: @image.image.url, cropped_url: @image.image.url(:cropped), file_name: @image.image_file_name}
       end
     end
   end

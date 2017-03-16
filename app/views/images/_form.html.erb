@@ -7,7 +7,7 @@
 
   <% if image.image_file_name %>
     <div class="current-image">
-      <img src="<%= image.image.url %>" />
+      <img src="<%= image.image.url(:cropped) %>" />
     </div>
   <% end %>
 
