@@ -216,7 +216,7 @@ input, select { vertical-align: middle; }
          line-height: 1;
          margin: 0;
          position: relative;
-         top: .5in; }
+         top: .1in; }
 
       figure.photo {
          width: 8.5in;
@@ -355,8 +355,11 @@ input, select { vertical-align: middle; }
 
       <footer>
         <div class="angle"></div>
+        
+        <% unless @document.affiliate_logo.blank? %>
+          <div class="affiliate-logo"><div style="background-image: url('<%= @document.affiliate_logo %>');"></div></div>
+        <% end %>
 
-        <div class="affiliate-logo"><div style="background-image: url('<%= @document.affiliate_logo %>');"></div></div>
         <div class="afscme-logo"></div>
         <div class="union-bug"></div>
       </footer>
