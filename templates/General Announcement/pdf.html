@@ -356,8 +356,8 @@ input, select { vertical-align: middle; }
       <footer>
         <div class="angle"></div>
         
-        <% unless @document.affiliate_logo.blank? %>
-          <div class="affiliate-logo"><div style="background-image: url('<%= @document.affiliate_logo %>');"></div></div>
+        <% unless @document.announcement_affiliate_logo.blank? %>
+          <div class="affiliate-logo"><div style="background-image: url('<%= @document.announcement_affiliate_logo %>');"></div></div>
         <% end %>
 
         <div class="afscme-logo"></div>
