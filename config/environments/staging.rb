@@ -55,5 +55,6 @@ Rails.application.configure do
   config.paperclip_defaults = {
     path: ':dynamic_path'
   }
+  Paperclip.options[:use_exif_orientation] = false
   config.action_mailer.default_url_options = { :host => 'toolkit-app.afscme.bytrilogy.com' }
 end
