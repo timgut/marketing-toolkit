@@ -21,7 +21,97 @@
   <link href='https://fonts.googleapis.com/css?family=Lato:400,300,900' rel='stylesheet' type='text/css'>
 
   <style>
-    /* global.css */
+    <style>
+
+    <style>
+
+    *,
+    *:before,
+    *:after {
+        -moz-box-sizing:    border-box; 
+        -webkit-box-sizing: border-box;
+        box-sizing:         border-box; 
+        transition:         all .25s ease-in-out;    
+        -webkit-transition: all .25s ease-in-out;  
+        -moz-transition:    all .25s ease-in-out;  
+        -o-transition:      all .25s ease-in-out;  
+        -ms-transition:     all .25s ease-in-out; 
+        }
+
+
+    html, body, div, span, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    abbr, address, cite, code,
+    del, dfn, em, img, ins, kbd, q, samp,
+    small, strong, sub, sup, var,
+    b, i,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, figcaption, figure, main,
+    footer, header, hgroup, menu, nav, section, summary,
+    time, mark, audio, video {
+      margin: 0 auto;
+      padding: 0;
+      border: 0;
+      outline: 0;
+      font-size: 100%;
+      vertical-align: baseline;
+      background: transparent; }
+
+    body { line-height: 1; }
+
+    article,
+    aside,
+    details,
+    figcaption,
+    figure,
+    footer,
+    header,
+    hgroup,
+    menu,
+    nav,
+    section,
+    main { display: block; }
+
+    nav ul { list-style: none; }
+
+    blockquote, q { quotes: none; }
+
+    blockquote:before,
+    blockquote:after,
+    q:before, q:after {
+      content: '';
+      content: none; }
+
+
+    del { text-decoration: line-through; }
+
+    abbr[title],
+    dfn[title] {
+      border-bottom: 1px dotted;
+      cursor: help; }
+
+    table {
+      border-collapse: collapse;
+      border-spacing: 0; }
+
+    hr {
+      display: block;
+      height: 1px;
+      border: 0;   
+      border-top: 1px solid #cccccc;
+      margin: 1em 0;
+      padding: 0; 
+      }
+
+    /* Clearfix */
+    .cf:before,
+    .cf:after {
+       content: "";
+       display: table; }
+    .cf:after { clear: both; }
+
     body { 
       font-family: 'Open Sans', Arial, Helvetica, sans-serif;
       font-weight: normal;
@@ -33,7 +123,6 @@
       margin: 0 auto;
       text-rendering: optimizelegibility;
       }
-
 
     .container {
       margin: auto;
@@ -51,6 +140,7 @@
     header {
       position: relative;
       z-index: 9999;
+      padding-top: .55in;
       }
       
     header .bar {
@@ -108,43 +198,39 @@ header {
   width: 100%; 
   height: 64pt;
   position: relative;
-   margin: 0.55in 0 0 0;}
+  text-align: center;}
+
+header figure {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    width: 1.8in;
+    height: .7in;
+    display: inline-block;
+    vertical-align: top;
+}
 
   figure.affiliate-logo {
-      float: left;
-      display: inline-block;
-    width: 50%;
-    height: 64pt;
-    position: relative;
-    padding: 0;
-    margin: 0; }
-  
-  figure.affiliate-logo img {
-      float: right;
-    width: auto;
-    height: 64pt;
-      margin-right: .1in; }
-  
-  figure.logo {
-    width: 40%;
-    height: auto;
-    border-left: 1px #00953A solid;
-    position: relative;
-      float: left;
-      margin: .05in 0 0 0;}
-  
-  figure.logo img {
-      float: left;
-    width: auto;
-      height: .4in;
-      padding: .2in;
-      }
+}
+
+  .line {
+    display: inline-block;
+    width: 1px;
+    margin: 0 .25in;
+    height: .7in;
+    vertical-align: top;
+    background: #00953A;
+}
+
+.body {
+  z-index: 100;
+}
 
 main#front .body {
    position: relative;
     top: 0.15in;
     width: 7.25in;
-    margin: 0 .75in; }
+    padding: 0 .75in; }
 
   main#front .body h1 {
     font-size: 32pt;
@@ -167,12 +253,14 @@ main#front .body {
   width: 100%;
   border-top: 1px #24408E solid;
   margin: .15in 0 0 0;
-  text-align:center; }
+  text-align:center; 
+  vertical-align: top; }
 
   article.column {
     width: 86pt;
     margin: 10pt 5pt 0 5pt;
-    display: inline-block; }
+    display: inline-block;
+    vertical-align: top; }
   
     .row.three article.column {
       width: 126pt; }
@@ -208,6 +296,21 @@ main#front .body {
     color: #626366;
     content: "– ";
     position: relative; }
+
+
+.background {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  display: block;
+}
+
 
 /* BACK OF PDF */
 #stamp {
@@ -256,6 +359,7 @@ main#back .body {
   width: 50%;
   text-align:left; }
 
+
   main#back .body h1 {
     font-size: 24pt;
     font-family:'Lato','Arial Black',san-serif;
@@ -301,10 +405,11 @@ main#back .body {
 </head>
 
 <body id="wide" class="mailer toolkit">
-    <main id="front" class="container" style="background-image: url('http://toolkit.afscme.bytrilogy.com/print/img/2-sided-postcard/Postcard-Mail-Template-Back-wCropMarks.png');">
-      <header>
-        <figure class="affiliate-logo"><img src="<%= @document.affiliate_logo %>" alt="Affiliate Logo" /></figure>
-        <figure class="logo"><img src="http://toolkit.afscme.bytrilogy.com/print/img/2-sided-postcard/afscme-logo.png" alt="AFSCME" /></figure>
+    <main id="front" class="container">
+      <header class="cf">
+        <figure class="affiliate-logo" style="background-image: url(<%= @document.affiliate_logo %>)"></figure>
+        <div class="line"></div>
+        <figure class="afscme-logo" style="background-image: url(http://toolkit.afscme.bytrilogy.com/print/img/2-sided-postcard/afscme-logo.png)"></figure>
       </header>
 
       <article class="body">
@@ -321,42 +426,45 @@ main#back .body {
           end
         %>
 
-        <div class="row <%= num_class %>"><!-- This number should be dynamic between 3-5 -->
-          <article class="column">
-            <figure style="background-image: url('<%= @document.headshot1 %>');"></figure>
-            <blockquote>"<%= @document.quote1 %>"</blockquote>
-            <p><%= @document.attribution1 %></p>
-          </article>
-          
-          <article class="column">
-            <figure style="background-image: url('<%= @document.headshot2 %>');"></figure>
-            <blockquote>"<%= @document.quote2 %>"</blockquote>
-            <p><%= @document.attribution2 %></p>
-          </article>
-
-          <article class="column">
-            <figure style="background-image: url('<%= @document.headshot3 %>');"></figure>
-            <blockquote>"<%= @document.quote3 %>"</blockquote>
-            <p><%= @document.attribution3 %></p>
-          </article>
-
-          <% unless @document.headshot4.blank? %>
+          <div class="row <%= num_class %>"><!-- This number should be dynamic between 3-5 -->
             <article class="column">
-              <figure style="background-image: url('<%= @document.headshot4 %>');"></figure>
-              <blockquote>"<%= @document.quote4 %>"</blockquote>
-              <p><%= @document.attribution4 %></p>
+              <figure style="background-image: url('<%= @document.headshot1 %>');"></figure>
+              <blockquote>"<%= @document.quote1 %>"</blockquote>
+              <p><%= @document.attribution1 %></p>
             </article>
-          <% end %>
-
-          <% unless @document.headshot5.blank? %>
+            
             <article class="column">
-              <figure style="background-image: url('<%= @document.headshot5 %>');"></figure>
-              <blockquote>"<%= @document.quote5 %>"</blockquote>
-              <p><%= @document.attribution5 %></p>
+              <figure style="background-image: url('<%= @document.headshot2 %>');"></figure>
+              <blockquote>"<%= @document.quote2 %>"</blockquote>
+              <p><%= @document.attribution2 %></p>
             </article>
-          <% end %>
-        </div>
+
+            <article class="column">
+              <figure style="background-image: url('<%= @document.headshot3 %>');"></figure>
+              <blockquote>"<%= @document.quote3 %>"</blockquote>
+              <p><%= @document.attribution3 %></p>
+            </article>
+
+            <% unless @document.headshot4.blank? %>
+              <article class="column">
+                <figure style="background-image: url('<%= @document.headshot4 %>');"></figure>
+                <blockquote>"<%= @document.quote4 %>"</blockquote>
+                <p><%= @document.attribution4 %></p>
+              </article>
+            <% end %>
+
+            <% unless @document.headshot5.blank? %>
+              <article class="column">
+                <figure style="background-image: url('<%= @document.headshot5 %>');"></figure>
+                <blockquote>"<%= @document.quote5 %>"</blockquote>
+                <p><%= @document.attribution5 %></p>
+              </article>
+            <% end %>
+          </div>
       </article>
+          
+      <div class="background" style="background-image: url('http://toolkit.afscme.bytrilogy.com/print/img/2-sided-postcard/Postcard-Mail-Template-Back-wCropMarks.png');"></div>
+          
     </main>
     
     <div class="new-page"></div>

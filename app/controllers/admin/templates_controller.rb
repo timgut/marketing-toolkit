@@ -47,7 +47,7 @@ class Admin::TemplatesController < ApplicationController
     respond_to do |format|
       format.html do
         if @template.update_attributes(template_params)
-          redirect_to admin_template_path(@template), notice: "Template updated!"
+          redirect_to edit_admin_template_path(@template), notice: "Template updated!"
         else
           render :edit, alert: "Cannot update template!"
         end
