@@ -3,7 +3,7 @@ class Image < ApplicationRecord
     :image,
     storage: :s3,
     s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) },
-    styles: {cropped: "100x100>"},
+    styles: {cropped: ""},
   )
 
   crop_attached_file :image, aspect: false
