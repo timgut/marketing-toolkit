@@ -1,3 +1,4 @@
+<% content_for :title {"Edit Document: #{@document.title}"} %>
 <%= render partial: "/shared/errors", locals: {record: @document} %>
 
 <% breadcrumb :edit_document, @document, @template %>

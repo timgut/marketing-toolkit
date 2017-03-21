@@ -1,7 +1,6 @@
 class DocumentsController < ApplicationController
   protect_from_forgery except: :create
 
-  before_action :authenticate_user!
   before_action :assign_sidebar_vars, only: [:index, :recent, :shared, :trash]
 
   # POST /documents
@@ -105,12 +104,6 @@ class DocumentsController < ApplicationController
     @filtered_documents = Document.includes(:template).shared_with_me
     @shared = true
     render :index
-  end
-
-  # GET /documents/1
-  def show
-    @document = Document.includes(:template).find(params[:id])
-    assign_records
   end
 
   # GET /documents/trash

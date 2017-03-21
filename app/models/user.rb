@@ -20,10 +20,6 @@ class User < ApplicationRecord
 
   ROLES = ['User', 'Local President', 'Vetter', 'Administrator']
   DEPARTMENTS = ['IU-Communications', 'IU-Organizing', 'IU-Political', 'Council-Communications','Council-Organizing', 'Council-Political', 'Local-President']
-  
-  def has_role?(role)
-    self.role == role
-  end
 
   def send_admin_emails
     AdminMailer.new_user_waiting_for_approval(self).deliver
