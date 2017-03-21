@@ -13,7 +13,7 @@
       $("#body2").prop("checked", true).trigger("change");
     });
     $("form[data-document='true']").on("change", "#body2-custom", function(){
-      $("#body2").val("<div class='quote'><h3>\"" + $("#body2-headline-custom").val() + "\"</h3></div>");
+      $("#body2").val("<div class='quote'><h3>\"" + $("#body2-custom").val() + "\"</h3></div>");
     });
   });
 </script>
@@ -77,12 +77,12 @@
   </div>
         
   <div class="field radio wide"> 
-    <input id="body2" name="data[body_left]" type="radio" value="" data-custom="text" />
+    <input id="body2" name="data[body_left]" type="radio" value="" data-custom="combine" />
     <label for="body2">
       <em>
         <strong>OR, ADD A QUOTE</strong><br/>
         <small>Maximum of 80 characters. Please preview, since words may wrap unexpectedly and cut off your headline.</small>
-        <input type="text" name="body2-custom" id="body2-custom" value="" placeholder="Quote" maxlength="80" data-target="body2" />
+        <input type="text" name="body2-custom" id="body2-custom" value="" placeholder="Quote" maxlength="80" data-combine-tag="h3" />
       </em>
     </label>
   </div>  
