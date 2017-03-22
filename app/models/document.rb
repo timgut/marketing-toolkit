@@ -73,6 +73,12 @@ class Document < ApplicationRecord
 
     data.each do |datum|
       self.class.__send__(:define_method, datum.key) do
+        Rails.logger.info "current_user: #{User.current_user.id}\ndocument.id: #{self.id}\ndata: #{datum.inspect}"
+        
+        if self.id != datum.document_id
+          Rails.logger.info "THIS DATUM RECORD DOES NOT BELONG TO THIS DOCUMENT!"
+        end
+
         datum.value.try(:html_safe)
       end
     end
