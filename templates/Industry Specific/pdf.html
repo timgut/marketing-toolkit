@@ -380,9 +380,9 @@
       <footer>
         <div class="angle"></div>
         <div class="url"></div>
-        <% unless @document.affiliate_logo.blank? %>
+        <% unless @document.ss_affiliate_logo.blank? %>
           <div class="affiliate-logo">
-            <div style="background-image: url('<%= "#{@document.affiliate_logo}" %>');"></div>
+            <div style="background-image: url('<%= "#{@document.ss_affiliate_logo}" %>');"></div>
           </div>
         <% end %>
         <div class="nq-logo" style="background-image: url('<%= "#{@document.logo}" %>');"></div>
