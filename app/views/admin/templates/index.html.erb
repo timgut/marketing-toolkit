@@ -1,17 +1,7 @@
+<% content_for :title {"Admin: Manage Templates"} %>
 <% breadcrumb :admin_templates %>
+<% render partial: "breadcrumb_extras" %>
 
-<main class="clearfix">
-
-	<section class="workspace metadata cf">
-	
-		<h1>Templates</h1>
-    <ul>
-    <% @templates.each do |template| %>
-      <li><%= link_to "Edit '#{template.title}'", edit_admin_template_path(template) %></li>
-    <% end %>
-    </ul>      
-
-  
-  </section><!--workspace-->
-		    
-</main>
+<section class="workspace metadata cf">
+  <%= render @templates %>
+</section>

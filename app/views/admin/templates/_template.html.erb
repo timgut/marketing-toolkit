@@ -1,0 +1,35 @@
+<div class="document">
+  <%= link_to(
+    "", 
+    edit_admin_template_path(template),
+    class: "document-thumbnail",
+    title: template.title,
+    style: "background-image: url('#{template.thumbnail.url}');"
+  ) %>
+
+  <%= link_to(
+      template.title,
+      edit_admin_template_path(template),
+      class: "document-title",
+      title: template.title 
+  ) %>
+
+  <ul class="options"> 
+    <li>
+      <a href="javascript:void(0);" title="Options" class="icons">+</a>
+      <ol>
+        <li><%= link_to "<span class='icons'>S</span> View".html_safe, template_path(template), title: "View" %></li>
+        <li><%= link_to "<span class='icons'>e</span> Edit".html_safe, edit_admin_template_path(template), title: "Edit" %></li>
+        <li>
+          <%= link_to(
+            "<span class='icons'>x</span> Delete".html_safe,
+            admin_template_path(template),
+            title:  "Delete",
+            method: :delete,
+            data:   {confirm: "Are you sure that you want to DELETE this template? This cannot be undone!"} 
+          ) %>
+        </li>
+      </ol>
+    </li>
+  </ul>
+</div>

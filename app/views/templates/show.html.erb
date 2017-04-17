@@ -1,9 +1,11 @@
+<% content_for :title {"Templates: #{@template.title}"} %>
 <% breadcrumb :template, @template %>
 <% content_for :breadcrumb_extras do %>
-  <ol class="options cf">
+<% # These links were in the mockup, but they don't make much sense here. Keeping them here just in case. %>
+<!--   <ol class="options cf">
     <li><a href="/duplicate" title="Duplicate"><span class="icons">c</span> Duplicate</a></li>
     <li><a href="/download" title="Download"><span class="icons">d</span> Download</a></li> 
-  </ol>
+  </ol> -->
 <% end %>
 
 <aside class="preview">

@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :assign_categories
   around_action :set_current_user
@@ -16,13 +17,6 @@ class ApplicationController < ActionController::Base
     User.current_user = current_user
     yield
     User.current_user = nil
-  end
-
-  def require_admin
-    unless current_user && current_user.approved? && current_user.admin?
-      flash[:notice] = "You are trying to reach a restricted area."
-      redirect_to authenticated_root_path
-    end        
   end
 
   private

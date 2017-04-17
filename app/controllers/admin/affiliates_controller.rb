@@ -1,3 +1,2 @@
-class AffiliatesController < ApplicationController
-	 before_action :require_admin
+class AffiliatesController < AdminController
 end
