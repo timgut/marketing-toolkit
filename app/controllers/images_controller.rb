@@ -9,7 +9,7 @@ class ImagesController < ApplicationController
       format.html do
         if @image.save
           ImageUser.create!(image: @image, user: User.current_user)    
-          redirect_to resize_image_path(@image), notice: "Image created!"
+          redirect_to images_path(@image), notice: "Image created!"
         else
           render :new, alert: "Cannot create image."
         end
@@ -45,7 +45,6 @@ class ImagesController < ApplicationController
 
   # GET /images/1/edit
   def edit
-    params[:flash] = "Step 1: Replace Your Image"
     @image = Image.find(params[:id])
   end
 
@@ -60,7 +59,6 @@ class ImagesController < ApplicationController
 
   # GET /images/new
   def new
-    params[:flash] = "Step 1: Upload Your Image"
     @image = Image.new
   end
 

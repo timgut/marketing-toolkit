@@ -6,10 +6,10 @@ window.Toolkit.Image.dropzone = ->
 
   if $("#image-form").length isnt 0
     if window.Toolkit.isEditPage()
-      flash = "Step 2: Crop Your Image"
+      flash = "Image updated!"
       dropMsg = "Drop image here to replace"
     else
-      flash = "Step 2: Crop Your Image"
+      flash = "Image created!"
       dropMsg = "Drop image here to upload"
 
     window.Toolkit.dropzones.push(
@@ -21,7 +21,7 @@ window.Toolkit.Image.dropzone = ->
           $("#image-error").html(errorMessage.xhr.responseText)
         ),
         success: ((file, data) ->
-          document.location.replace("/images/#{data.id}/crop?flash=#{flash}")
+          document.location.replace("/images?flash=#{flash}")
         )
       });
     )
