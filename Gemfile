@@ -19,8 +19,8 @@ gem 'gretel'
 gem 'jquery-rails'
 gem 'jquery-validation-rails'
 gem 'paperclip', '~> 5.0.0'
-gem 'papercrop', github: "trilogyinteractive/papercrop", branch: 'postercrop'
-# gem 'papercrop', path: "/Users/jarred/dev/papercrop"
+# gem 'papercrop', github: "trilogyinteractive/papercrop", branch: 'postercrop'
+gem 'papercrop', path: "/Users/jarred/dev/papercrop"
 gem 'sass-rails', '~> 5.0'
 gem 'therubyracer'
 gem 'turbolinks', '~> 5'

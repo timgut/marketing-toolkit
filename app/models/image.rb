@@ -6,7 +6,7 @@ class Image < ApplicationRecord
     styles: {cropped: ""},
   )
 
-  crop_attached_file :image, aspect: false
+  crop_attached_file :image, with: :image
   
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
   validates_uniqueness_of :image_file_name, scope: :creator_id

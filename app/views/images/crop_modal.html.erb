@@ -1,5 +1,7 @@
 <%= form_for(@image, remote: true) do |f| %>
   <%= hidden_field_tag :format, :json %>
   <%= f.cropbox :image %>
+  <label for="resize-image">Drag to Resize</label>
+  <input id="resize-image" type="range" min="0" max="200" value="100" />
   <%= f.submit "Crop Image", class: "save button active" %>
 <% end %>

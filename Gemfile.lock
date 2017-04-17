@@ -1,7 +1,5 @@
-GIT
-  remote: https://github.com/trilogyinteractive/papercrop.git
-  revision: 2f5f10d8788db546aa9438c36ac770df49956812
-  branch: postercrop
+PATH
+  remote: /Users/jarred/dev/papercrop
   specs:
     papercrop (0.3.0)
       jquery-rails

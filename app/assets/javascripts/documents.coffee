@@ -177,6 +177,7 @@ window.Toolkit.Document.disableDownloadButton = ->
 
  window.Toolkit.Document.dropzone = ->
   window.Toolkit.dropzones = []
+  croppable = $("form[data-document='true']").attr("data-croppable") is "true"
 
   if $("#upload-photo-form").length isnt 0
     try
@@ -195,36 +196,48 @@ window.Toolkit.Document.disableDownloadButton = ->
           
           # Callback when the image is uploaded
           success: ((file, data) ->
-            # Get the image crop form
-            $.get("/images/#{data.id}/crop?modal=true", (data) =>
-              @.removeFile(file)
+            if croppable
+              # Get the image crop form
+              $.get("/images/#{data.id}/crop?modal=true", (data) =>
+                @.removeFile(file)
 
-              $("#image-picker .upload-image").hide( ->
-                # Add the crop form the DOM and initialize Papercrop
-                $("#image-picker .crop-image").html(data).show()
-                window.init_papercrop()
+                $("#image-picker .upload-image").hide( ->
+                  # Add the crop form the DOM and initialize Papercrop
+                  $("#image-picker .crop-image").html(data).show()
+                  window.posterCrop.init()
 
-                $(document).on("ajax:success", "#image-picker .edit_image", (e, data, status, xhr) ->
-                  e.preventDefault()
-                  
-                  # Add the image to the grid and select it
-                  $("#image-picker .crop-image").hide( ->
-                    $("#image-picker .image-grid").append("
-                      <figure>
-                        <img src='#{data.cropped_url}' alt='#{data.file_name}' />
-                        <figcaption>#{data.file_name}</figcaption>
-                      </figure>
-                    ")
+                  $(document).on("ajax:success", "#image-picker .edit_image", (e, data, status, xhr) ->
+                    e.preventDefault()
+                    
+                    # Add the image to the grid and select it
+                    $("#image-picker .crop-image").hide( ->
+                      $("#image-picker .image-grid").append("
+                        <figure>
+                          <img src='#{data.cropped_url}' alt='#{data.file_name}' />
+                          <figcaption>#{data.file_name}</figcaption>
+                        </figure>
+                      ")
 
-                    $(".image-grid figure:last").click()
+                      $(".image-grid figure:last").click()
+                    )
+
+                  # When the image cannot be cropped
+                  ).on("ajax:error", (e, xhr, status, error) ->
+                    $("#image-error").html("There was an error cropping your image. Please try again.")
                   )
-
-                # When the image cannot be cropped
-                ).on("ajax:error", (e, xhr, status, error) ->
-                  $("#image-error").html("There was an error cropping your image. Please try again.")
                 )
               )
-            )
+            else
+              $("#image-picker .crop-image").hide( ->
+                $("#image-picker .image-grid").append("
+                  <figure>
+                    <img src='#{data.cropped_url}' alt='#{data.file_name}' />
+                    <figcaption>#{data.file_name}</figcaption>
+                  </figure>
+                ")
+
+                $(".image-grid figure:last").click()
+              )
           )
         });
       )
@@ -242,5 +255,32 @@ window.Toolkit.Document.ready = ->
     window.Toolkit.Document.fillForm()
     window.Toolkit.Document.dataTarget()
     window.Toolkit.Document.disableDownloadButton()
+
+    $(document).on("input", "#resize-image", ->
+      holder = {
+        el:     $(".jcrop-holder"),
+        height: $(".jcrop-holder").height(),
+        width:  $(".jcrop-holder").width()
+      }
+
+      image  = {
+        el:     $(".jcrop-holder img"),
+        height: $(".jcrop-holder img").height(),
+        width:  $(".jcrop-holder img").width()
+      }
+
+      # What % of the original dimensions should the image be reszied to?
+      change = parseInt($(@).val()) / 100
+
+      holder.el.css({
+        height: parseFloat(holder.height) * change,
+        width:  parseFloat(holder.width)  * change,
+      })
+
+      image.el.css({
+        height: parseFloat(image.height) * change,
+        width:  parseFloat(image.width)  * change,
+      })
+    )
 
 $(document).on('turbolinks:load', window.Toolkit.Document.ready)
