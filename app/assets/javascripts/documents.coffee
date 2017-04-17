@@ -203,7 +203,21 @@ window.Toolkit.Document.disableDownloadButton = ->
 
                 $("#image-picker .upload-image").hide( ->
                   # Add the crop form the DOM and initialize Papercrop
-                  $("#image-picker .crop-image").html(data).show()
+                  $("#image-picker .crop-image").html(data).show(->
+                    window.Toolkit.cropHolder = {
+                      el:     $(".jcrop-holder"),
+                      height: $(".jcrop-holder").height(),
+                      width:  $(".jcrop-holder").width()
+                    }
+
+                    window.Toolkit.cropImage  = {
+                      croppedEl:  $($(".jcrop-holder img")[0]),
+                      originalEl: $($(".jcrop-holder img")[1]),
+                      height:     $(".jcrop-holder > div > div > img").height(),
+                      width:      $(".jcrop-holder > div > div > img").width()
+                    }
+                  )
+
                   window.posterCrop.init()
 
                   $(document).on("ajax:success", "#image-picker .edit_image", (e, data, status, xhr) ->
@@ -256,30 +270,33 @@ window.Toolkit.Document.ready = ->
     window.Toolkit.Document.dataTarget()
     window.Toolkit.Document.disableDownloadButton()
 
+    # Event listener for resizing the image
     $(document).on("input", "#resize-image", ->
-      holder = {
-        el:     $(".jcrop-holder"),
-        height: $(".jcrop-holder").height(),
-        width:  $(".jcrop-holder").width()
-      }
+      change    = parseInt($(@).val()) / 100
+      imgHeight = parseFloat(window.Toolkit.cropImage.height) * change
+      imgWidth  = parseFloat(window.Toolkit.cropImage.width)  * change
 
-      image  = {
-        el:     $(".jcrop-holder img"),
-        height: $(".jcrop-holder img").height(),
-        width:  $(".jcrop-holder img").width()
-      }
-
-      # What % of the original dimensions should the image be reszied to?
-      change = parseInt($(@).val()) / 100
-
-      holder.el.css({
-        height: parseFloat(holder.height) * change,
-        width:  parseFloat(holder.width)  * change,
+      # Update the sizes of elements
+      window.Toolkit.cropHolder.el.css({
+        height: parseFloat(window.Toolkit.cropHolder.height) * change,
+        width:  parseFloat(window.Toolkit.cropHolder.width)  * change,
+      })
+      window.Toolkit.cropImage.croppedEl.css({
+        height: imgHeight,
+        width:  imgWidth,
+      })
+      window.Toolkit.cropImage.originalEl.css({
+        height: imgHeight,
+        width:  imgWidth,
       })
 
-      image.el.css({
-        height: parseFloat(image.height) * change,
-        width:  parseFloat(image.width)  * change,
+      # Update form fields
+      $("#image_image_original_w").val(imgWidth)
+      $("#image_image_original_h").val(imgHeight)
+
+      # Set the size of the cropbox
+      window.posterCrop.jCropApi.setOptions({
+        maxSize: [window.Toolkit.cropImage.originalEl.height(), window.Toolkit.cropImage.originalEl.width()]
       })
     )
 
