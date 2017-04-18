@@ -1,9 +1,9 @@
 class Image < ApplicationRecord
   has_attached_file(
     :image,
-    storage: :s3,
+    storage:        :s3,
     s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) },
-    styles: {cropped: ""},
+    styles:         {cropped: ""}
   )
 
   crop_attached_file :image, with: :image

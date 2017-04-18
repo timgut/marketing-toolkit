@@ -1,7 +1,31 @@
-<%= form_for(@image, remote: true) do |f| %>
-  <%= hidden_field_tag :format, :json %>
-  <%= f.cropbox :image %>
-  <label for="resize-image">Drag to Resize</label>
-  <input id="resize-image" type="range" min="0" max="200" value="100" />
-  <%= f.submit "Crop Image", class: "save button active" %>
-<% end %>
+<div id="croparea">
+  <img id="context-image" src="<%= params[:context] %>" />
+
+  <%= form_for(@image, remote: true) do |f| %>
+    <%= hidden_field_tag :format, :json %>
+    <%= f.cropbox :image, {aspect_ratio: params[:context_width].to_f / params[:context_height].to_f} %>
+
+    <label for="resize-image">Drag to Resize</label>
+    <input id="resize-image" type="range" min="0" max="200" value="100" />
+
+    <%= f.submit "Crop Image", class: "save button active" %>
+  <% end %>
+  <div style="clear:both;"></div>
+</div>
+
+<style>
+#context-image {
+  z-index:  2;
+  position: absolute;
+  top:      0px;
+  left:     0px;
+  height:   <%= params[:context_height].to_i * 75 %>px;
+  width:    <%= params[:context_width].to_i * 75 %>px;
+}
+</style>
+
+<!-- <script type="text/javascript">
+$(document).ready(function(){
+  
+});
+</script> -->

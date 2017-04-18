@@ -1,4 +1,15 @@
-<%= form_for(@document, html: {novalidate: "novalidate", data: {document: true, croppable: @template.croppable?}}) do |f| %>
+<%= form_for(@document,
+  html: {
+    novalidate: "novalidate", 
+    data: {
+      "document"       => true,
+      "crop-enabled"   => @template.croppable?,
+      "crop-context"   => @template.blank_image.url,
+      "context-height" => @template.height,
+      "context-width"  => @template.width
+    }
+  }
+) do |f| %>
   <%= f.hidden_field :template_id, value: @template.id %>
   
   <% if @document.new_record? %>

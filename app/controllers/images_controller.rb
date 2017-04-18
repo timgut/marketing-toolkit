@@ -121,7 +121,8 @@ class ImagesController < ApplicationController
   def image_params
     params.require(:image).permit(
       :image, :creator_id, :image_original_w, :image_original_h, :image_box_w, 
-      :image_aspect, :image_crop_x, :image_crop_y, :image_crop_w, :image_crop_h
+      :image_aspect, :image_crop_x, :image_crop_y, :image_crop_w, :image_crop_h,
+      :image_resized_w, :image_resized_h
     )
   end
 end
