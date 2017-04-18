@@ -203,36 +203,41 @@ window.Toolkit.Document.disableDownloadButton = ->
               $.get(url, (data) =>
                 @.removeFile(file)
 
-                $("#image-picker .upload-image").hide( ->
-                  # Add the crop form the DOM and initialize Papercrop
+                $("#image-picker .upload-image, #image-picker .select-image").hide( ->
                   $("#image-picker .crop-image").html(data).show(->
-                    window.Toolkit.cropHolder = {
-                      el:     $(".jcrop-holder"),
-                      height: $(".jcrop-holder").height(),
-                      width:  $(".jcrop-holder").width()
-                    }
-
-                    window.Toolkit.cropImage  = {
-                      croppedEl:  $($(".jcrop-holder img")[0]),
-                      originalEl: $($(".jcrop-holder img")[1]),
-                      height:     $(".jcrop-holder > div > div > img").height(),
-                      width:      $(".jcrop-holder > div > div > img").width()
-                    }
+                    $(".resize").resizable({})
+                    $(".drag").draggable({})
+                    
                   )
+                  # Add the crop form the DOM and initialize Papercrop
+                  # $("#image-picker .crop-image").html(data).show(->
+                  #   window.Toolkit.cropHolder = {
+                  #     el:     $(".jcrop-holder"),
+                  #     height: $(".jcrop-holder").height(),
+                  #     width:  $(".jcrop-holder").width()
+                  #   }
 
-                  # if window.Toolkit.cropHolder? and window.Toolkit.cropImage?
-                  window.posterCrop.init()
+                  #   window.Toolkit.cropImage  = {
+                  #     croppedEl:  $($(".jcrop-holder img")[0]),
+                  #     originalEl: $($(".jcrop-holder img")[1]),
+                  #     height:     $(".jcrop-holder > div > div > img").height(),
+                  #     width:      $(".jcrop-holder > div > div > img").width()
+                  #   }
+                  # )
 
-                  # TODO: This assumes 75 DPI for 8.5in x 11in. Make DPI customizable.
-                  window.posterCrop.jCropApi.setSelect([
-                    0, 0, 
-                    825, 637
-                  ])
+                  # # if window.Toolkit.cropHolder? and window.Toolkit.cropImage?
+                  # window.posterCrop.init()
 
-                  $("#context-image").css({
-                    top:  $("#image_cropbox").offset().top,
-                    left: $("#image_cropbox").offset().left
-                  });
+                  # # TODO: This assumes 75 DPI for 8.5in x 11in. Make DPI customizable.
+                  # window.posterCrop.jCropApi.setSelect([
+                  #   0, 0, 
+                  #   825, 637
+                  # ])
+
+                  # $("#context-image").css({
+                  #   top:  $("#image_cropbox").offset().top,
+                  #   left: $("#image_cropbox").offset().left
+                  # });
 
                   # else
                   #   console.log("There was a problem. Please try again.")
@@ -297,38 +302,37 @@ window.Toolkit.Document.ready = ->
 
     # Event listener for resizing the image
     $(document).on("input", "#resize-image", ->
-      console.log("Resized image")
-      change    = parseInt($(@).val()) / 100
-      
-      imgHeight = Math.ceil(parseFloat(window.Toolkit.cropImage.height) * change)
-      imgWidth  = Math.ceil(parseFloat(window.Toolkit.cropImage.width)  * change)
+      # console.log("Resized image")
+      # change    = parseInt($(@).val()) / 100
+      # imgHeight = Math.ceil(parseFloat(window.Toolkit.cropImage.height) * change)
+      # imgWidth  = Math.ceil(parseFloat(window.Toolkit.cropImage.width)  * change)
+      # $("#croparea").css({"background-size": "#{imgHeight}px #{imgWidth}px"})
+      # # Update the sizes of elements
+      # window.Toolkit.cropHolder.el.css({
+      #   height: Math.ceil(parseFloat(window.Toolkit.cropHolder.height) * change),
+      #   width:  Math.ceil(parseFloat(window.Toolkit.cropHolder.width)  * change)
+      # })
+      # window.Toolkit.cropImage.croppedEl.css({
+      #   height: imgHeight,
+      #   width:  imgWidth
+      # })
+      # window.Toolkit.cropImage.originalEl.css({
+      #   height: imgHeight,
+      #   width:  imgWidth
+      # })
 
-      # Update the sizes of elements
-      window.Toolkit.cropHolder.el.css({
-        height: Math.ceil(parseFloat(window.Toolkit.cropHolder.height) * change),
-        width:  Math.ceil(parseFloat(window.Toolkit.cropHolder.width)  * change)
-      })
-      window.Toolkit.cropImage.croppedEl.css({
-        height: imgHeight,
-        width:  imgWidth
-      })
-      window.Toolkit.cropImage.originalEl.css({
-        height: imgHeight,
-        width:  imgWidth
-      })
+      # # Update form fields
+      # $("#image_image_resized_w").val(imgWidth)
+      # $("#image_image_resized_h").val(imgHeight)
 
-      # Update form fields
-      $("#image_image_resized_w").val(imgWidth)
-      $("#image_image_resized_h").val(imgHeight)
+      # # Resize the image
+      # window.posterCrop.jCropApi.resizeImage(imgWidth, imgHeight)
 
-      # Resize the image
-      window.posterCrop.jCropApi.resizeImage(imgWidth, imgHeight)
-
-      # Set the selection
-      window.posterCrop.jCropApi.animateTo([
-        0, 0, 
-        Math.ceil(window.Toolkit.cropImage.originalEl.height() / 2), Math.ceil(window.Toolkit.cropImage.originalEl.width() / 2)
-      ])
+      # # Set the selection
+      # window.posterCrop.jCropApi.animateTo([
+      #   0, 0, 
+      #   Math.ceil(window.Toolkit.cropImage.originalEl.height() / 2), Math.ceil(window.Toolkit.cropImage.originalEl.width() / 2)
+      # ])
     )
 
 $(document).on('turbolinks:load', window.Toolkit.Document.ready)
