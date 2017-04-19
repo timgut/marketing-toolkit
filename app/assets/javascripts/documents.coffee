@@ -207,6 +207,7 @@ window.Toolkit.Document.disableDownloadButton = ->
                 $("#image-picker .upload-image, #image-picker .select-image").hide( ->
                   $("#image-picker .crop-image").html(data).show(->
                     $(".drag").draggable({
+                      # containment: "window",
                       drag: (event, ui) ->
                         # Event has several x,y properties that may be useful here.
                         # Update form fields
@@ -280,7 +281,7 @@ window.Toolkit.Document.ready = ->
       imgHeight = Math.ceil(parseFloat($("#croparea").attr("data-height")) * change)
       imgWidth  = Math.ceil(parseFloat($("#croparea").attr("data-width"))  * change)
 
-      $("#croparea").css({"background-size": "#{imgHeight}px #{imgWidth}px"})
+      $("#uploaded").css({height: "#{imgHeight}px", width: "#{imgWidth}px"})
 
       # Update form fields
       $("#image_image_size_w").val(imgWidth)

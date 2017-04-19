@@ -1,7 +1,8 @@
 <div id="croparea" data-height="<%= @image.dimensions(:image)[:height] %>" data-width="<%= @image.dimensions(:image)[:width] %>">
   <div class="drag">
-    <img id="context-img" src="<%= @template.blank_image %>" data-height="<%= @template.dimensions(:blank_image)[:height] %>" data-width="<%= @template.dimensions(:blank_image)[:width] %>" />
+    <img id="uploaded" src="<%= @image.image.url %>" />
   </div>
+  <img id="context" src="<%= @template.blank_image %>" />
 </div>
 
 <%= form_for(@image, remote: true) do |f| %>
@@ -21,15 +22,24 @@
 
 <style>
 #croparea {
-  background-image:  url('<%= @image.image.url %>');
-  background-repeat: no-repeat;
-
-  height:  <%= @template.height.to_i * 75 %>px;
-  width:   <%= @template.width.to_i * 75 %>px;
-  z-index: 2;
+  height:   <%= @template.dimensions(:blank_image)[:height].to_f %>px;
+  width:    <%= @template.dimensions(:blank_image)[:width].to_f %>px;
+  border:   solid 2px #000;
+  overflow: hidden;
+  z-index:  2;
 }
 
-#context-img {
-  border: solid 2px #fff;
+#uploaded {
+  position: absolute;
+  top:      25%;
+  left:     auto;
+  z-index:  1;
+  height:   <%= @image.dimensions(:image)[:height] %>px;
+  width:    <%= @image.dimensions(:image)[:width] %>px;
+}
+
+#context {
+  position: relative;
+  z-index:  1;
 }
 </style>
