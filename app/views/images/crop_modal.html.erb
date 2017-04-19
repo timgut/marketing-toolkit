@@ -1,13 +1,18 @@
-<div id="croparea">
+<div id="croparea" data-height="<%= @image.dimensions(:image)[:height] %>" data-width="<%= @image.dimensions(:image)[:width] %>">
   <div class="drag">
-    <img class="resize" src="<%= @image.image.url %>" />
+    <img id="context-img" src="<%= @template.blank_image %>" data-height="<%= @template.dimensions(:blank_image)[:height] %>" data-width="<%= @template.dimensions(:blank_image)[:width] %>" />
   </div>
 </div>
 
 <%= form_for(@image, remote: true) do |f| %>
   <%= hidden_field_tag :format, :json %>
-  
-  <!-- f.cropbox :image, {aspect_ratio: params[:context_width].to_f / params[:context_height].to_f} -->
+  <%= f.hidden_field :image_crop_x, value: "" %>
+  <%= f.hidden_field :image_crop_y, value: "" %>
+  <%= f.hidden_field :image_crop_w, value: "" %>
+  <%= f.hidden_field :image_crop_h, value: "" %>
+  <%= f.hidden_field :image_size_w, value: "" %>
+  <%= f.hidden_field :image_size_h, value: "" %>
+
   <label for="resize-image">Drag to Resize</label>
   <input id="resize-image" type="range" min="0" max="200" value="100" />
 
@@ -16,19 +21,15 @@
 
 <style>
 #croparea {
-  background-image:  url('<%= params[:context] %>');
-  background-size:   cover;
+  background-image:  url('<%= @image.image.url %>');
+  background-repeat: no-repeat;
 
-  height:  <%= params[:context_height].to_i * 75 %>px;
-  width:   <%= params[:context_width].to_i * 75 %>px;
-  border:  solid 2px #000;
+  height:  <%= @template.height.to_i * 75 %>px;
+  width:   <%= @template.width.to_i * 75 %>px;
   z-index: 2;
 }
 
-img.resize {
-  position: relative;
-  top:      0px;
-  left:     0px;
-  z-index:  1;
+#context-img {
+  border: solid 2px #fff;
 }
 </style>
