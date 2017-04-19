@@ -31,15 +31,17 @@
 
 #uploaded {
   position: absolute;
-  top:      25%;
-  left:     auto;
+  top:      0;
+  left:     0;
   z-index:  1;
   height:   <%= @image.dimensions(:image)[:height] %>px;
   width:    <%= @image.dimensions(:image)[:width] %>px;
+  border:   solid 1px #000;
 }
 
 #context {
   position: relative;
   z-index:  1;
+  pointer-events: none;
 }
 </style>
