@@ -156,10 +156,10 @@
         overflow: hidden;
         text-align: left;
         background-repeat: no-repeat;
-
+/* TODO: 72 IS THE ASSUMED DPI. WE NEED THE DPI OF THE PRINTER HERE. */
         <% if @document.ss_bg_x.present? && @document.ss_bg_y.present? %>
           position: absolute;
-          background-position:<%= @document.ss_bg_x %>px <%= @document.ss_bg_y %>px;
+          background-position:<%= @document.ss_bg_x.to_f / 72 %>in <%= @document.ss_bg_y.to_f / 72 %>in;
         <% else %>
           background-position: center 1.8in;
           background-size: cover;
