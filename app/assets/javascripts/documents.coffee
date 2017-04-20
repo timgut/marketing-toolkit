@@ -211,8 +211,8 @@ window.Toolkit.Document.disableDownloadButton = ->
                       drag: (event, ui) ->
                         # Event has several x,y properties that may be useful here.
                         # Update form fields
-                        $("#image_image_crop_x").val(ui.position.left)
-                        $("#image_image_crop_y").val(ui.position.top)
+                        $("#image_image_x").val(ui.position.left)
+                        $("#image_image_y").val(ui.position.top)
                     })
                     
                     # Keep track of oriignal position so we know where to crop
@@ -228,6 +228,10 @@ window.Toolkit.Document.disableDownloadButton = ->
                     # Clear out this image's data in case the user wants to crop another image
                     $("#image-picker .crop-image").html("")
                     
+                    $("#image-picker .crop-image").hide(->
+                      $("#image-picker .select-image").show()
+                    )
+
                     # Add the image to the grid and select it
                     $("#image-picker .crop-image").hide( ->
                       $("#image-picker .image-grid").append("

@@ -15,6 +15,8 @@ module AfscmeToolkit
       g.test_framework :rspec
     end
 
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
+
     # Uncomment to see backtraces of ActiveRecord queries
     # ActiveRecordQueryTrace.enabled = true
   end

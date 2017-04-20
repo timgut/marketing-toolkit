@@ -7,12 +7,10 @@
 
 <%= form_for(@image, remote: true) do |f| %>
   <%= hidden_field_tag :format, :json %>
-  <%= f.hidden_field :image_crop_x, value: "" %>
-  <%= f.hidden_field :image_crop_y, value: "" %>
-  <%= f.hidden_field :image_crop_w, value: "" %>
-  <%= f.hidden_field :image_crop_h, value: "" %>
-  <%= f.hidden_field :image_size_w, value: "" %>
-  <%= f.hidden_field :image_size_h, value: "" %>
+  <%= f.hidden_field :image_x, value: "" %>
+  <%= f.hidden_field :image_y, value: "" %>
+  <%= f.hidden_field :image_size_w, value: "#{@image.dimensions(:image)[:width]}" %>
+  <%= f.hidden_field :image_size_h, value: "#{@image.dimensions(:image)[:height]}" %>
 
   <label for="resize-image">Drag to Resize</label>
   <input id="resize-image" type="range" min="0" max="200" value="100" />
@@ -36,7 +34,8 @@
   z-index:  1;
   height:   <%= @image.dimensions(:image)[:height] %>px;
   width:    <%= @image.dimensions(:image)[:width] %>px;
-  border:   solid 1px #000;
+  /*border:   dashed 1px #000;*/
+  cursor:   grab;
 }
 
 #context {
