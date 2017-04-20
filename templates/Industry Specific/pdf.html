@@ -153,14 +153,19 @@
         margin: auto;
         width: 8.5in;
         height: 11in;
-        background-repeat: no-repeat;
-        background-position: center 1.8in;
-        background-size: cover;
-        position: relative;
         overflow: hidden;
         text-align: left;
-        }
+        background-repeat: no-repeat;
 
+        <% if @document.ss_bg_x.present? && @document.ss_bg_y.present? %>
+          position: absolute;
+          background-position:<%= @document.ss_bg_x %>px <%= @document.ss_bg_y %>px;
+        <% else %>
+          background-position: center 1.8in;
+          background-size: cover;
+          position: relative;
+        <% end %>
+        }
 
       header {
         position: relative;

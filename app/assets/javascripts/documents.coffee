@@ -81,9 +81,15 @@ window.Toolkit.Document.saveButton = ->
 window.Toolkit.Document.fillForm = ->
   $.each(window.Toolkit.Document.savedData, (key, data) ->
     if data.fieldID
-      # Check the field and trigger a change
+      # Assign the saved value to the field
       $field = $("##{data.fieldID}")
-      $field.prop("checked", true)
+      
+      switch $field.attr("type")
+        when "hidden"
+          $field.val(data.value)
+        else
+          $field.prop("checked", true)
+      
       $field.trigger("change")
 
       # If there is a custom field, fill in the value
@@ -211,8 +217,8 @@ window.Toolkit.Document.disableDownloadButton = ->
                       drag: (event, ui) ->
                         # Event has several x,y properties that may be useful here.
                         # Update form fields
-                        $("#image_image_x").val(ui.position.left)
-                        $("#image_image_y").val(ui.position.top)
+                        $("#ss_bg_x").val(ui.position.top)
+                        $("#ss_bg_y").val(ui.position.left)
                     })
                     
                     # Keep track of oriignal position so we know where to crop
@@ -290,6 +296,10 @@ window.Toolkit.Document.ready = ->
       # Update form fields
       $("#image_image_size_w").val(imgWidth)
       $("#image_image_size_h").val(imgHeight)
+
+      $(".drag").css({top: 0, left: 0})
+      $("#ss_bg_x").val(0)
+      $("#ss_bg_y").val(0)
     )
 
 $(document).on('turbolinks:load', window.Toolkit.Document.ready)
