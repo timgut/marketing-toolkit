@@ -123,7 +123,7 @@ class ImagesController < ApplicationController
 
   def image_params
     params.require(:image).permit(
-      :image, :creator_id, :image_size_w, :image_size_h
+      :image, :creator_id#, :image_size_w, :image_size_h
     )
   end
 end
