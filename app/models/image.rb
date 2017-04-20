@@ -4,7 +4,7 @@ class Image < ApplicationRecord
     storage:        :s3,
     s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials)},
     styles:         {cropped: ""},
-    # processors:     [:resize]
+    processors:     [:resize]
   )
   
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
@@ -19,9 +19,9 @@ class Image < ApplicationRecord
   scope :recent, ->{ all.joins(:images_users).where("user_id = ? and images.created_at >= ?", User.current_user.id, DateTime.now - 1.month) }
   scope :shared_with_me, ->{ all.joins(:images_users).where("user_id = ? and images_users.user_id != ?", User.current_user.id, User.current_user.id) }
 
-  # attr_accessor :image_size_w, :image_size_h
+  attr_accessor :image_size_w, :image_size_h
 
-  # def resizing?
-  #   image_size_w.present? && image_size_h.present?
-  # end
+  def resizing?
+    image_size_w.present? && image_size_h.present?
+  end
 end

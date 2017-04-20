@@ -94,8 +94,8 @@ class ImagesController < ApplicationController
   # PATCH /images/1
   def update
     @image = Image.find(params[:id])
-    # @image.image_size_w = params[:image][:image_size_w]
-    # @image.image_size_h = params[:image][:image_size_h]
+    @image.image_size_w = params[:image][:image_size_w]
+    @image.image_size_h = params[:image][:image_size_h]
 
     respond_to do |format|
       format.html do
@@ -123,7 +123,7 @@ class ImagesController < ApplicationController
 
   def image_params
     params.require(:image).permit(
-      :image, :creator_id#, :image_size_w, :image_size_h
+      :image, :creator_id, :image_size_w, :image_size_h
     )
   end
 end

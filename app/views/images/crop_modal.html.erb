@@ -11,6 +11,7 @@
   <%= f.hidden_field :image_y, value: "" %>
   <%= f.hidden_field :image_size_w, value: "#{@image.dimensions(:image)[:width]}" %>
   <%= f.hidden_field :image_size_h, value: "#{@image.dimensions(:image)[:height]}" %>
+  <%= f.hidden_field :image %>
 
   <label for="resize-image">Drag to Resize</label>
   <input id="resize-image" type="range" min="0" max="200" value="100" />
