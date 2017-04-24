@@ -70,7 +70,8 @@ class Admin::TemplatesController < AdminController
   def template_params
     params.require(:template).permit(
       :title, :description, :height, :width, :pdf_markup, :form_markup, :status, :thumbnail,
-      :numbered_image, :blank_image, :customizable_options, :campaign_id, :category_id
+      :numbered_image, :blank_image, :customizable_options, :campaign_id, :category_id,
+      :crop_top, :crop_bottom, :blank_image_height, :blank_image_width, :orientation
     )
   end
 end

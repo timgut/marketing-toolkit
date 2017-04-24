@@ -213,19 +213,18 @@ window.Toolkit.Document.disableDownloadButton = ->
                 $("#image-picker .upload-image, #image-picker .select-image").hide( ->
                   $("#image-picker .crop-image").html(data).show(->
                     $(".drag").draggable({
-                      # containment: "window",
-                      drag: (event, ui) ->
-                        # Event has several x,y properties that may be useful here.
-                        # Update form fields
-                        $("#ss_bg_x").val(ui.position.top)
-                        $("#ss_bg_y").val(ui.position.left)
+                      stop: (event, ui) ->
+                        console.log("stopped")
+                        position = $(".drag").position()
+                        $("#image_pos_x").val(position.top)
+                        $("#image_pos_y").val(position.left)
                     })
                     
                     # Keep track of oriignal position so we know where to crop
-                    $(".drag").data({
-                      originalLeft: $("#draggable").css('left'),
-                      origionalTop: $("#draggable").css('top')
-                    });
+                    # $(".drag").data({
+                    #   originalLeft: $("#draggable").css('left'),
+                    #   origionalTop: $("#draggable").css('top')
+                    # });
                   )
 
                   $(document).on("ajax:success", "#image-picker .edit_image", (e, data, status, xhr) ->
@@ -284,22 +283,5 @@ window.Toolkit.Document.ready = ->
     window.Toolkit.Document.fillForm()
     window.Toolkit.Document.dataTarget()
     window.Toolkit.Document.disableDownloadButton()
-
-    # Event listener for resizing the image
-    $(document).on("input", "#resize-image", ->
-      change    = parseInt($(@).val()) / 100
-      imgHeight = Math.ceil(parseFloat($("#croparea").attr("data-height")) * change)
-      imgWidth  = Math.ceil(parseFloat($("#croparea").attr("data-width"))  * change)
-
-      $("#uploaded").css({height: "#{imgHeight}px", width: "#{imgWidth}px"})
-
-      # Update form fields
-      $("#image_image_size_w").val(imgWidth)
-      $("#image_image_size_h").val(imgHeight)
-
-      $(".drag").css({top: 0, left: 0})
-      $("#ss_bg_x").val(0)
-      $("#ss_bg_y").val(0)
-    )
 
 $(document).on('turbolinks:load', window.Toolkit.Document.ready)

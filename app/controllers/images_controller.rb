@@ -73,11 +73,7 @@ class ImagesController < ApplicationController
     @image    = Image.find(params[:id])
     @template = Template.find(params[:template_id])
 
-    if params[:modal] == "true"
-      render :crop_modal, layout: false
-    else
-      render :crop
-    end
+    render :crop_modal, layout: false
   end
 
   # GET /images/shared
@@ -94,8 +90,7 @@ class ImagesController < ApplicationController
   # PATCH /images/1
   def update
     @image = Image.find(params[:id])
-    @image.image_size_w = params[:image][:image_size_w]
-    @image.image_size_h = params[:image][:image_size_h]
+    set_cropping_data
 
     respond_to do |format|
       format.html do
@@ -123,7 +118,13 @@ class ImagesController < ApplicationController
 
   def image_params
     params.require(:image).permit(
-      :image, :creator_id, :image_size_w, :image_size_h
+      :image, :creator_id, :pos_x, :pos_y, :template_id
     )
+  end
+
+  def set_cropping_data
+    @image.context = Template.find(params[:image].delete(:template_id))
+    @image.pos_x = params[:image].delete(:pos_x)
+    @image.pos_y = params[:image].delete(:pos_y)
   end
 end

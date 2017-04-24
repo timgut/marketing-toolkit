@@ -17,7 +17,6 @@
 //= require codemirror/modes/css
 //= require jquery.validate
 //= require jquery-ui/widgets/draggable
-//= require jquery-ui/widgets/resizable
 //= require jquery.popupoverlay.1.7.13.js
 //= require dropzone
 //= require_tree .
