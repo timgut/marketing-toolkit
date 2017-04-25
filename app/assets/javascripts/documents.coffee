@@ -220,7 +220,7 @@ window.Toolkit.Document.disableDownloadButton = ->
                     })
                   )
 
-                  $(document).on("ajax:success", "#image-picker .edit_image", (e, data, status, xhr) ->
+                  $(".edit_image").on("ajax:success", (e, data, status, xhr) ->
                     e.preventDefault()
 
                     # Clear out this image's data in case the user wants to crop another image
@@ -232,7 +232,6 @@ window.Toolkit.Document.disableDownloadButton = ->
 
                     # Add the image to the grid and select it
                     $("#image-picker .crop-image").hide( ->
-                      console.log("Appending image picker (236)")
                       $("#image-picker .image-grid").append("
                         <figure>
                           <img src='#{data.cropped_url}' alt='#{data.file_name}' />
@@ -241,6 +240,9 @@ window.Toolkit.Document.disableDownloadButton = ->
                       ")
 
                       $(".image-grid figure:last").click()
+
+                      # Remove the event listener so it doesn't fire multuple times
+                      $(".edit_image").off("ajax:success")
                     )
 
                   # When the image cannot be cropped
@@ -251,7 +253,6 @@ window.Toolkit.Document.disableDownloadButton = ->
               )
             else
               $("#image-picker .crop-image").hide( ->
-                console.log("Appending image picker (255)")
                 $("#image-picker .image-grid").append("
                   <figure>
                     <img src='#{data.cropped_url}' alt='#{data.file_name}' />
