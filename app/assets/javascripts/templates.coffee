@@ -32,6 +32,15 @@ window.Toolkit.Template.dropzones = ->
       });
     )
 
+  if $("#template-static-pdf-form").length isnt 0
+    window.Toolkit.dropzones.push(
+      $("#template-static-pdf-form").dropzone({
+        paramName: "template[static_pdf]",
+        url: $("#template-static-pdf-form").attr("action"),
+        dictDefaultMessage: window.Toolkit.Template.dropMsg
+      });
+    )
+
   if $("#template-numbered-form").length isnt 0
     window.Toolkit.dropzones.push(
       $("#template-numbered-form").dropzone({
