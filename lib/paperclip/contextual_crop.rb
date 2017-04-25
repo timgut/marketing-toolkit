@@ -14,7 +14,8 @@ module Paperclip
         crop_w = Integer(context.blank_image_width)
 
         # The crop height is the height of the transparent part of the image.
-        crop_h = Integer(context.crop_bottom - context.crop_top)
+        # crop_h = Integer(context.crop_bottom - context.crop_top)
+        crop_h = Integer(context.blank_image_height)
         
         # The x position where the crop starts is pos_x.
         crop_x = Integer(target.pos_x).abs
