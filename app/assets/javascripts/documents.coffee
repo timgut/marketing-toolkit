@@ -205,7 +205,6 @@ window.Toolkit.Document.disableDownloadButton = ->
           success: ((file, data) ->
             if croppable
               # Get the image crop form
-              # url = "/images/#{data.id}/crop?modal=true&context=#{$form.attr("data-crop-context")}&context_height=#{$form.attr("data-context-height")}&context_width=#{$form.attr("data-context-width")}"
               url = "/images/#{data.id}/crop?modal=true&template_id=#{$form.attr("data-template-id")}"
               $.get(url, (data) =>
                 @.removeFile(file)
@@ -214,17 +213,11 @@ window.Toolkit.Document.disableDownloadButton = ->
                   $("#image-picker .crop-image").html(data).show(->
                     $(".drag").draggable({
                       stop: (event, ui) ->
-                        console.log("stopped")
                         position = $(".drag").position()
-                        $("#image_pos_x").val(position.top)
-                        $("#image_pos_y").val(position.left)
+                        console.log(position)
+                        $("#image_pos_x").val(position.left)
+                        $("#image_pos_y").val(position.top)
                     })
-                    
-                    # Keep track of oriignal position so we know where to crop
-                    # $(".drag").data({
-                    #   originalLeft: $("#draggable").css('left'),
-                    #   origionalTop: $("#draggable").css('top')
-                    # });
                   )
 
                   $(document).on("ajax:success", "#image-picker .edit_image", (e, data, status, xhr) ->
@@ -239,6 +232,7 @@ window.Toolkit.Document.disableDownloadButton = ->
 
                     # Add the image to the grid and select it
                     $("#image-picker .crop-image").hide( ->
+                      console.log("Appending image picker (236)")
                       $("#image-picker .image-grid").append("
                         <figure>
                           <img src='#{data.cropped_url}' alt='#{data.file_name}' />
@@ -257,6 +251,7 @@ window.Toolkit.Document.disableDownloadButton = ->
               )
             else
               $("#image-picker .crop-image").hide( ->
+                console.log("Appending image picker (255)")
                 $("#image-picker .image-grid").append("
                   <figure>
                     <img src='#{data.cropped_url}' alt='#{data.file_name}' />
