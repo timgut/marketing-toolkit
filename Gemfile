@@ -40,7 +40,6 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'capistrano', '~> 3.7', require: false
   gem 'capistrano-rails', require: false
-  gem 'byebug'
 end
 
 group :test do
@@ -48,4 +47,8 @@ group :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'simplecov', '0.13', require: false
+end
+
+group :development, :test do
+  gem 'byebug'
 end
