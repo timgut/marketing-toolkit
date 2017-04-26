@@ -1,5 +1,6 @@
 <% unless params[:controller].split("/").last == "misc" %>
-  <section class="breadcrumbs">
+  <section class="breadcrumbs branding">
+    <div class="gradient-mask"></div>
     <%= breadcrumbs(
       class:         :crumbs,
       current_class: :active,
