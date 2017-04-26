@@ -1,0 +1,15 @@
+<div class="intro-video">
+  <%= video_tag(["Workers-video-for-Jon_RC2.mp4"], preload: true, autoplay: true, muted: true, loop: true, type: "video/mp4") do %>
+    Video not supported.
+  <% end %>
+</div>
+            
+<%= link_to(campaigns_path, title: "Campaigns", class: "tile") do %>
+  <div class="hover-effect"></div>
+  <span>Individual Lit</span>
+<% end %>
+
+<%= link_to(campaigns_path, title: "Campaigns", class: "tile") do %>
+  <div class="hover-effect"></div>
+  <span>Campaigns</span>
+<% end %>
