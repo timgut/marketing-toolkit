@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170310213226) do
+ActiveRecord::Schema.define(version: 20170425185845) do
 
   create_table "affiliates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
@@ -54,6 +54,21 @@ ActiveRecord::Schema.define(version: 20170310213226) do
     t.datetime "updated_at",                null: false
     t.string   "field_id"
     t.index ["document_id"], name: "index_data_on_document_id", using: :btree
+  end
+
+  create_table "delayed_jobs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.integer  "priority",                 default: 0, null: false
+    t.integer  "attempts",                 default: 0, null: false
+    t.text     "handler",    limit: 65535,             null: false
+    t.text     "last_error", limit: 65535
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
   end
 
   create_table "documents", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -124,10 +139,19 @@ ActiveRecord::Schema.define(version: 20170310213226) do
     t.integer  "status"
     t.integer  "campaign_id"
     t.text     "customizable_options",        limit: 65535
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
     t.integer  "category_id"
     t.string   "orientation"
+    t.float    "blank_image_height",          limit: 24
+    t.float    "blank_image_width",           limit: 24
+    t.integer  "crop_top"
+    t.integer  "crop_bottom"
+    t.boolean  "customize",                                 default: true
+    t.string   "static_pdf_file_name"
+    t.string   "static_pdf_content_type"
+    t.integer  "static_pdf_file_size"
+    t.datetime "static_pdf_updated_at"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|

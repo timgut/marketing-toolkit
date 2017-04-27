@@ -19,15 +19,20 @@
       <span class="metadata-label">Description</span>
       <%= @template.description.html_safe %>
     </li>
-          
-    <li><strong class="metadata-label">Dimensions</strong><%= dimensions(@template) %></li>
+    
+    <% if @template.customize %>
+      <li><strong class="metadata-label">Dimensions</strong><%= dimensions(@template) %></li>
+    <% end %>
+
     <li><strong class="metadata-label">Toolkit</strong><%= @template.campaign ? @template.campaign.title : 'None'  %></li>
     <li><strong class="metadata-label">Type</strong>Flyer</li>
-              
-    <li>
-      <span class="metadata-label">Customizable Options</span>
-      <%= @template.customizable_options.html_safe %>
-    </li>            
+    
+    <% if @template.customize %>
+      <li>
+        <span class="metadata-label">Customizable Options</span>
+        <%= @template.customizable_options.html_safe %>
+      </li>
+    <% end %>
   </ol>
 </aside>
   
@@ -37,6 +42,10 @@
     </figure>
 
     <div class="buttons small cf">
-      <%= link_to "Customize", new_document_path(template_id: @template.id), title: "Customize", class: "button" %>
+      <% if @template.customize %>
+        <%= link_to "Customize", new_document_path(template_id: @template.id), title: "Customize", class: "button" %>
+      <% else %>
+        <%= link_to "Download", @template.static_pdf.url, title: "Download", class: "button" %>
+      <% end %>
     </div>
 </section>
