@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+<<<<<<< HEAD
   concern :trashable do
     collection do
       get :trashed
@@ -10,15 +11,18 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'intro', to: 'misc#intro', as: :intro
+
   devise_for :users, controllers: {registrations: "users/registrations"}
 
   devise_scope :user do
-    get 'password', to: 'users/registrations#password'
+    get 'password',        to: 'users/registrations#password'
     put 'update_password', to: 'users/registrations#update_password'
-    get 'confirmation', to: 'users/registrations#confirmation'
-    get 'applications', to: 'users/registrations#applications'
+    get 'confirmation',    to: 'users/registrations#confirmation'
+    get 'applications',    to: 'users/registrations#applications'
+
     authenticated :user do
-      root 'campaigns#index', as: :authenticated_root
+      root 'misc#intro', as: :authenticated_root
     end
 
     unauthenticated do

@@ -33,7 +33,7 @@ window.Toolkit.Document.addImage = ->
       $(@).removeClass('enabled')
     )
 
-    $('#add_image_button').removeAttr('disabled').removeClass('disabled')
+    $('#add_image_button').removeAttr('disabled')
   )
 
   # Close the modal and assign the selected image to the target input
@@ -62,6 +62,7 @@ window.Toolkit.Document.addImage = ->
     $("#image-picker").popup("hide")
     $("#image-picker").removeAttr("data-target")
     $("#image-picker").find("figure.enabled").removeClass("enabled")
+    $('#add_image_button').attr("disabled", "disabled")
   )
 
   # Let the modal know which input to apply the selection to
@@ -171,7 +172,7 @@ window.Toolkit.Document.disableDownloadButton = ->
       $("#upload-photo-form").dropzone({
         paramName: "image[image]",
         url: "/images",
-        dictDefaultMessage: "DROP IMAGE HERE TO UPLOAD",
+        dictDefaultMessage: "<h4>DROP IMAGE HERE TO UPLOAD</h4><p class='or'>or</p><div class='button'>Select File</div>",
         error: ((errorMessage) ->
           $("#image-error").html(errorMessage.xhr.responseText)
           @.removeAllFiles()

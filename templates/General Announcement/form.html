@@ -2,7 +2,7 @@
   $(document).ready(function() {
     // Custom Left Body: Call To Action
     $("form[data-document='true']").on("click", "#body1-headline-custom, #body1-custom", function(){
-      $("#body1").prop("checked", true);
+      $("#body1").prop("checked", true).trigger("change");
     });
     $("form[data-document='true']").on("change", "#body1-headline-custom, #body1-custom", function(){
       $("#body1").val("<div class='take-action'><h3>" + $("#body1-headline-custom").val() + "</h3><p>" + $("#body1-custom").val() + "</p></div>");
@@ -10,10 +10,10 @@
 
     // Custom Left Body: Quote
     $("form[data-document='true']").on("click", "#body2-custom", function(){
-      $("#body2").prop("checked", true);
+      $("#body2").prop("checked", true).trigger("change");
     });
     $("form[data-document='true']").on("change", "#body2-custom", function(){
-      $("#body2").val("<div class='quote'><h3>\"" + $("#body2-headline-custom").val() + "\"</h3></div>");
+      $("#body2").val("<div class='quote'><h3>" + $("#body2-custom").val() + "</h3></div>");
     });
   });
 </script>
@@ -77,12 +77,12 @@
   </div>
         
   <div class="field radio wide"> 
-    <input id="body2" name="data[body_left]" type="radio" value="" />
+    <input id="body2" name="data[body_left]" type="radio" value="" data-custom="combine" />
     <label for="body2">
       <em>
         <strong>OR, ADD A QUOTE</strong><br/>
         <small>Maximum of 80 characters. Please preview, since words may wrap unexpectedly and cut off your headline.</small>
-        <input type="text" name="body2-custom" id="body2-custom" value="" placeholder="Quote" maxlength="80" />
+        <input type="text" name="body2-custom" id="body2-custom" value="" placeholder="Quote" maxlength="80" data-combine-tag="h3" />
       </em>
     </label>
   </div>  
@@ -109,7 +109,7 @@
   <h3><strong>6</strong> Council/Affiliate Logo (optional)</h3>
 
   <div class="field radio"> 
-    <input id="logo2" name="data[affiliate_logo]" data-custom="image" type="radio" value="custom" />
+    <input id="logo2" name="data[announcement_affiliate_logo]" data-custom="image" type="radio" value="custom" />
     <label for="logo2">
       <em class="cf">
         <a href="/image-picker" title="Add Photo" class="image-picker" data-target="logo2">

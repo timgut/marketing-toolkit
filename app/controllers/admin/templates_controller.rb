@@ -51,7 +51,7 @@ class Admin::TemplatesController < AdminController
     respond_to do |format|
       format.html do
         if @template.update_attributes(template_params)
-          redirect_to template_path(@template), notice: "Template updated!"
+          redirect_to edit_admin_template_path(@template), notice: "Template updated!"
         else
           render :edit, alert: "Cannot update template!"
         end
@@ -74,7 +74,8 @@ class Admin::TemplatesController < AdminController
   def template_params
     params.require(:template).permit(
       :title, :description, :height, :width, :pdf_markup, :form_markup, :status, :thumbnail,
-      :numbered_image, :blank_image, :customizable_options, :campaign_id, :category_id
+      :numbered_image, :blank_image, :customizable_options, :campaign_id, :category_id,
+      :customize, :static_pdf
     )
   end
 end

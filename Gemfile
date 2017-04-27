@@ -19,7 +19,6 @@ gem 'gretel'
 gem 'jquery-rails'
 gem 'jquery-validation-rails'
 gem 'paperclip', '~> 5.0.0'
-gem 'popupoverlay-rails'
 gem 'sass-rails', '~> 5.0'
 gem 'therubyracer'
 gem 'turbolinks', '~> 5'
@@ -45,4 +44,8 @@ group :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'simplecov', '0.13', require: false
+end
+
+group :development, :test do
+  gem 'byebug'
 end
