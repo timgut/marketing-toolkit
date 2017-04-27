@@ -3,6 +3,8 @@ module ApplicationHelper
     "#{template.width}\" x #{template.height}\""
   end
 
+  ## touching this file
+
   def download_link(document)
     if document.pdf_file_name
       document.pdf.url
