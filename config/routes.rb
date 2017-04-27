@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-<<<<<<< HEAD
   concern :trashable do
     collection do
       get :trashed
