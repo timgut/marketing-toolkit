@@ -8,7 +8,7 @@
 			<li>
 			  <%= link_to(
 			    "<span class='icons'>x</span> Delete".html_safe,
-			    trash_document_path(document),
+			    trash_document_path(@document),
 			    title:  "Delete",
 			    method: :patch,
 			    data:   {confirm: "Are you sure that you want to move this document to the trash?"} 
