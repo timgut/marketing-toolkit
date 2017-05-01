@@ -3,12 +3,12 @@ class CampaignsController < ApplicationController
 
   # GET /campaigns
   def index
-    @campaigns = Campaign.publish
+    @campaigns = Campaign.publish.roots
   end
 
   # GET /campaigns/1
   def show
-    @campaign = Campaign.includes(:templates).find(params[:id])
+    @campaign = Campaign.includes(:templates, :children).find(params[:id])
     @filtered_templates = @campaign.templates
   end
 
