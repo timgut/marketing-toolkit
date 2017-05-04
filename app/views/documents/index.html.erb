@@ -1,5 +1,9 @@
 <% content_for :title {"My Designs"} %>
-<% breadcrumb :my_designs %>
+<% if params[:action] == 'recent' %>
+	<% breadcrumb :recent_documents %>
+<% else %>
+	<% breadcrumb :my_designs %>
+<% end %>
 
 <aside>
   <%= render partial: "documents/sidebar_nav" %>

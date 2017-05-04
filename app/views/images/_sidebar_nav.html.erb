@@ -1,4 +1,8 @@
 <ul>      
+  <li <% if params[:controller] == 'documents' && params[:action] == 'index' %>class="active"<% end %>>
+    <%= link_to "My Designs", documents_path, title: "My Designs" %>
+    <div class="contents-counter"><%= @documents.count %></div>
+  </li>
   <li <% if params[:action] == 'recent' %>class="active"<% end %>>
     <%= link_to "Recent", recent_images_path, title: "Recent" %>
     <div class="contents-counter"><%= @recent.count %></div>
