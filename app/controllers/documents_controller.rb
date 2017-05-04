@@ -63,6 +63,7 @@ class DocumentsController < ApplicationController
       @filtered_documents = @documents.select{|document| document.template.category_id == params[:category_id].to_i}
     else
       @filtered_documents = @documents
+
     end
   end
 
@@ -120,9 +121,13 @@ class DocumentsController < ApplicationController
   def assign_sidebar_vars
     if current_user
       @documents = current_user.documents.includes(:template, :creator)
+      @images = current_user.images
     else
       @documents = Document.includes(:template, :creator).all
+      @images = Image.all
     end
+
+    @recent = @documents.recent
 
     @campaigns = Campaign.publish
     @trashed   = @documents.select{|d| d.status == "trash"}

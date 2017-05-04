@@ -1,29 +1,22 @@
 <ul> 
-  <li>
-    <%= link_to "Campaigns", campaigns_path, title: "Campaigns" %>
-    <div class="contents-counter"><%= @campaigns.count %></div>
-  </li>
-        
-  <li>
-    <%= link_to "All", documents_path, title: "View All" %>
+  <li <% if params[:controller] == 'documents' && params[:action] == 'index' %>class="active"<% end %>>
+    <%= link_to "My Designs", documents_path, title: "My Designs" %>
     <div class="contents-counter"><%= @documents.count %></div>
   </li>
-    
-  <li>
-    <span class="filter-heading">Filter by Type</span>
-
-    <ol class="filters">
-      <% @sidebar_vars.each do |sidebar_var| %>
-        <!-- TODO: Add class="active" on the active link. Figure out how to determine which link is active. -->
-        <li> 
-          <%= link_to sidebar_var[:title], documents_path(category_id: sidebar_var[:category_id]), title: sidebar_var[:title] %>
-          <div class="contents-counter"><%= sidebar_var[:items].count %></div>
-        </li>
-      <% end %>
-    </ol>
+        
+  <li <% if params[:action] == 'recent' %>class="active"<% end %>>
+    <%= link_to "Recent", recent_documents_path, title: "Recent" %>
+    <div class="contents-counter"><%= @recent.count %></div>
   </li>
 
+  <!-- shared with me here when done -->
+
   <li>
+    <%= link_to "Images", images_path, title: "Images" %>
+    <div class="contents-counter"><%= @images.count %></div>
+  </li>  
+
+  <li <% if params[:action] == 'trashed' %>class="active"<% end %>>
     <%= link_to "Trash", trashed_documents_path, title: "Trash" %>
     <div class="contents-counter"><%= @trashed.count %></div>
   </li>
