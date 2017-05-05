@@ -120,17 +120,17 @@ class DocumentsController < ApplicationController
 
   def assign_sidebar_vars
     if current_user
-      @documents = current_user.documents.includes(:template, :creator)
+      @documents = current_user.documents.includes(:template, :creator).not_trashed
       @images = current_user.images
     else
-      @documents = Document.includes(:template, :creator).all
+      @documents = Document.includes(:template, :creator).not_trashed
       @images = Image.all
     end
 
     @recent = @documents.recent
 
     @campaigns = Campaign.publish
-    @trashed   = @documents.select{|d| d.status == "trash"}
+    @trashed   = current_user.documents.trash
 
 
     @sidebar_vars = @categories.inject([]) do |sidebar_vars, category|
