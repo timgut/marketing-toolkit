@@ -102,7 +102,7 @@ class ImagesController < ApplicationController
     @recent    = current_user.images.recent.not_trashed
     @shared    = current_user.images.shared_with_me.not_trashed
     @trashed   = current_user.images.trash
-    @documents = current_user.documents
+    @documents = current_user.document.not_trashed
   end
 
   def image_params
