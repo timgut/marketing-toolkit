@@ -15,6 +15,7 @@ window.Toolkit.Document.addImage = ->
   # Get images and populate .image-grid
   $(document).on("click", ".image-picker", ->
     $target = $("#image-picker .image-grid")
+    window.Toolkit.Document.cropImages = $(@).attr("data-crop") is "true"
 
     if $target.attr("data-loaded") is "false"
       $.get("/images/choose", (data) ->
@@ -183,7 +184,6 @@ window.Toolkit.Document.disableDownloadButton = ->
 
  window.Toolkit.Document.dropzone = ->
   $form = $("form[data-document='true']")
-  croppable = $form.attr("data-crop-enabled") is "true"
   window.Toolkit.dropzones = []
 
   if $("#upload-photo-form").length isnt 0
@@ -203,7 +203,7 @@ window.Toolkit.Document.disableDownloadButton = ->
           
           # Callback when the image is uploaded
           success: ((file, data) ->
-            if croppable
+            if $form.attr("data-crop-enabled") is "true" and window.Toolkit.Document.cropImages
               # Get the image crop form
               url = "/images/#{data.id}/crop?modal=true&template_id=#{$form.attr("data-template-id")}"
               $.get(url, (data) =>
