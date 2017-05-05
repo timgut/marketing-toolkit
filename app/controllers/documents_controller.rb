@@ -121,10 +121,10 @@ class DocumentsController < ApplicationController
   def assign_sidebar_vars
     if current_user
       @documents = current_user.documents.includes(:template, :creator).not_trashed
-      @images = current_user.images
+      @images = current_user.images.not_trashed
     else
       @documents = Document.includes(:template, :creator).not_trashed
-      @images = Image.all
+      @images = Image.not_trashed
     end
 
     @recent = @documents.recent
