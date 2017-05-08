@@ -191,7 +191,7 @@
     top: 0;
     left: 50%;
     margin-left: -1.2in;
-    background: url('/theme/img/certificate-logo.png') no-repeat center top;
+    background: url('http://neverquit.afscme.org/theme/img/certificate-logo.png') no-repeat center top;
     background-size: contain;
     }  
 
@@ -202,7 +202,7 @@
   .body {
     padding: 2in .75in .4in .75in;
     font-size: 14pt;
-    line-height: 1.7;
+    line-height: 1.5;
   }
     
   .body h1 {
@@ -221,7 +221,7 @@
   /* ------- Quote ------- */  
 
   .name {
-    padding: 0 .75in .5in .75in;
+    padding: 0 .5in .5in .5in;
     }
     
   .name h2 {
@@ -252,7 +252,7 @@
     border-top: 1px solid #9d9d9d;
     padding-top: .1in;
     margin-top: .1in;
-    font-size: 14pt;
+    font-size: 12pt;
     line-height: 1.1;
     position: absolute;
     top: 0;
@@ -268,7 +268,7 @@
     margin-left: -.6in;
     width: 1.2in;
     height: .6in;
-    background: url('/theme/img/certificate-watermark.png') no-repeat center center;
+    background: url('http://neverquit.afscme.org/theme/img/certificate-watermark.png') no-repeat center center;
     background-size: contain;
     }
     
@@ -354,7 +354,7 @@
       </section><!--name-->
       
       <section class="signature">
-        <div class="date"><%= @document.date %></div>
+        <div class="date">Date</div>
         <div class="watermark"></div>
         <div class="signed"><%= @document.signator_name %><br/><%= @document.signator_title %></div>
       </section><!--signature-->

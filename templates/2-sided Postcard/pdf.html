@@ -1,12 +1,5 @@
 <!DOCTYPE html>
-
-<!--[if lt IE 7]><html class="ie ie6" lang="en" xml:lang="en" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#" xmlns="http://www.w3.org/1999/xhtml"><![endif]-->
-<!--[if IE 7]><html class="ie ie7" lang="en" xml:lang="en" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#" xmlns="http://www.w3.org/1999/xhtml"><![endif]-->
-<!--[if IE 8]><html class="ie ie8" lang="en" xml:lang="en" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#" xmlns="http://www.w3.org/1999/xhtml"><![endif]-->
-<!--[if gte IE 9]><html class="ie ie9" lang="en" xml:lang="en" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#" xmlns="http://www.w3.org/1999/xhtml"><![endif]-->
-<!--[if !IE]><!-->
-<html lang="en" xml:lang="en" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#" xmlns="http://www.w3.org/1999/xhtml">
-<!--<![endif]-->
+<html>
 
 <head>
   <meta charset='utf-8' />
@@ -21,10 +14,6 @@
   <link href='https://fonts.googleapis.com/css?family=Lato:400,300,900' rel='stylesheet' type='text/css'>
 
   <style>
-    <style>
-
-    <style>
-
     *,
     *:before,
     *:after {
@@ -407,7 +396,7 @@ main#back .body {
 <body id="wide" class="mailer toolkit">
     <main id="front" class="container">
       <header class="cf">
-        <figure class="affiliate-logo" style="background-image: url(<%= @document.affiliate_logo %>)"></figure>
+        <figure class="affiliate-logo" style="background-image: url(<%= @document.tsp_affiliate_logo %>)"></figure>
         <div class="line"></div>
         <figure class="afscme-logo" style="background-image: url(http://toolkit.afscme.bytrilogy.com/print/img/2-sided-postcard/afscme-logo.png)"></figure>
       </header>
@@ -463,19 +452,19 @@ main#back .body {
           </div>
       </article>
           
-      <div class="background" style="background-image: url('http://toolkit.afscme.bytrilogy.com/print/img/2-sided-postcard/Postcard-Mail-Template-Back-wCropMarks.png');"></div>
+      <div class="background" style="background-image: url('https://toolkit-afscme.bytrilogy.com/print/img/2-sided-postcard/Postcard-Mail-Template-Back-wCropMarks.png');"></div>
           
     </main>
     
     <div class="new-page"></div>
 
-    <main id="back" class="container" style="background-image: url('http://toolkit.afscme.bytrilogy.com/print/img/2-sided-postcard/Postcard-Mail-Template-Back-wCropMarks.png');">
+    <main id="back" class="container" style="background-image: url('https://toolkit-afscme.bytrilogy.com/print/img/2-sided-postcard/Postcard-Mail-Template-Back-wCropMarks.png');">
       <div id="stamp"><%= @document.permit_number %></div>
 
       <div id="act"><%= @document.call_to_action %></div>
 
       <div id="legalmarks">
-        <img src="http://toolkit.afscme.bytrilogy.com//print/img/2-sided-postcard/legalmarks.png" alt="Legal Marks" />
+        <img src="https://toolkit-afscme.bytrilogy.com/print/img/2-sided-postcard/legalmarks.png" alt="Legal Marks" />
       </div>
 
       <article class="body">
