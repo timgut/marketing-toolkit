@@ -18,10 +18,10 @@
   });
 </script>
 
-<div class="fieldset headline cf"> 
-  <h3><strong>1</strong> Create a headline</h3>
+<div class="step grouping cf"> 
+  <h3>Create a headline</h3>
 
-  <div class="field radio wide"> 
+  <div class="field"> 
     <label for="headline">
       <input type="text" name="data[headline]" id="headline-custom" data-custom="text" value="" maxlength="30" placeholder="Headline" />
       <label for="headline-custom"></label>
@@ -30,13 +30,12 @@
   </div>
 </div><!--headline-->
 
-<div class="fieldset photo cf"> 
-  <h3><strong>2</strong> Photo</h3>
-  <small>Please size your image to 8.5 inches by 3 inches</small>
+<div class="step grouping image-select cf"> 
+  <h3>Photo</h3>
+  <small style="display: block;">Please size your image to 8.5 inches by 3 inches</small>
 
-  <div class="field upload"> 
+  <div class="field upload cf"> 
     <input id="photo-custom" data-custom="image" name="data[ga_photo]" type="radio" value="" />
-
     <label for="photo-custom">
        <figure href="javascript:void(0);" title="Add Photo" class="image-picker" data-target="photo-custom">
            <div class="positioner">
@@ -48,10 +47,10 @@
   </div>
 </div><!--photo-->
 
-<div class="fieldset headline cf"> 
-  <h3><strong>3</strong> Create a subheadline</h3>
+<div class="step grouping cf"> 
+  <h3>Create a subheadline</h3>
   
-  <div class="field radio wide"> 
+  <div class="field"> 
     <label for="sub-headline">
       <input type="text" name="data[subheadline]" data-custom="text" id="subheadline-custom" value="" maxlength="50" placeholder="Sub-headline" />
       <label for="subheadline-custom"></label>
@@ -60,37 +59,35 @@
   </div>
 </div><!--subheadline-->
 
-<div class="fieldset headline cf"> 
-  <h3><strong>4</strong> Add a Call to Action or a Quote</h3>
+<div class="step grouping radio cf"> 
+  <h3>Add a Call to Action or a Quote</h3>
 
-  <div class="field radio wide"> 
+  <div class="field"> 
     <input id="body1" name="data[body_left]" data-custom="combine" type="radio" value="" />
     <label for="body1">
-      <em>
+        <div class="radio-button"></div>
         <strong>ADD A CALL TO ACTION</strong><br/>
         <small>Maximum of 75 characters. Please preview, since words may wrap unexpectedly and cut off your headline.</small>
         <input type="text" name="body1-headline-custom" id="body1-headline-custom" data-combine-tag="h3" value="" placeholder="Headline" maxlength="50" />
         <textarea name="body1-custom" id="body1-custom" placeholder="Your body text" data-combine-tag="p" maxlength="75"></textarea>
-      </em>
     </label>
   </div>
         
-  <div class="field radio wide"> 
+  <div class="field"> 
     <input id="body2" name="data[body_left]" type="radio" value="" data-custom="combine" />
     <label for="body2">
-      <em>
+        <div class="radio-button"></div>
         <strong>OR, ADD A QUOTE</strong><br/>
         <small>Maximum of 80 characters. Please preview, since words may wrap unexpectedly and cut off your headline.</small>
         <input type="text" name="body2-custom" id="body2-custom" value="" placeholder="Quote" maxlength="80" data-combine-tag="h3" />
-      </em>
     </label>
   </div>  
 </div><!--left body-->
 
-<div class="fieldset headline cf"> 
-  <h3><strong>5</strong> Add a second Subheadline and Body Text</h3>
+<div class="step grouping cf"> 
+  <h3>Add a second Subheadline and Body Text</h3>
   
-  <div class="field radio wide">
+  <div class="field">
     <label for="sub-headline">
       <input type="text" name="data[body_right_headline]" data-custom="text" id="body-right-headline-custom" value="" maxlength="50" placeholder="Sub-headline" />
       <label for="subheadline2-custom"></label>
@@ -104,8 +101,8 @@
   </div>  
 </div><!--right body-->
 
-<div class="fieldset photo cf"> 
-  <h3><strong>6</strong> Council/Affiliate Logo (optional)</h3>
+<div class="step grouping image-select cf"> 
+  <h3>Council/Affiliate Logo (optional)</h3>
 
   <div class="field upload"> 
     <input id="logo2" data-custom="image" name="data[ga_affiliate_logo]" type="radio" value="custom" />
