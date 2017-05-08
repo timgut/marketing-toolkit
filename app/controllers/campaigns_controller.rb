@@ -15,14 +15,14 @@ class CampaignsController < ApplicationController
   protected
 
   def assign_sidebar_vars
-    @campaigns = Campaign.includes(:templates).publish('title ASC')
+    @campaigns = Campaign.publish.roots.includes(:templates).publish('title ASC')
     @templates = Template.publish
 
     @sidebar_vars = @categories.inject([]) do |sidebar_vars, category|
       sidebar_vars << {
         category_id: category.id,
         title:       category.title,
-        items:       @templates.select{|template| template.category_id == category.id && template.campaign_id == nil}
+        items:       @templates.select{|template| template.category_id == category.id }
       }
     end
   end
