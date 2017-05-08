@@ -13,22 +13,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" /> 
 
     <!-- CSS -->
-    <style>
-    /* /theme/css/reset.css */
+<style type="text/css">
+/* reset.css */
 *,
 *:before,
 *:after {
-    -moz-box-sizing:    border-box; 
-    -webkit-box-sizing: border-box;
-    box-sizing:         border-box; 
-    transition:         all .25s ease-in-out;    
-    -webkit-transition: all .25s ease-in-out;  
-    -moz-transition:    all .25s ease-in-out;  
-    -o-transition:      all .25s ease-in-out;  
-    -ms-transition:     all .25s ease-in-out; 
-    }
-
-
+  -moz-box-sizing:    border-box; 
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box; 
+  transition:         all .25s ease-in-out;    
+  -webkit-transition: all .25s ease-in-out;  
+  -moz-transition:    all .25s ease-in-out;  
+  -o-transition:      all .25s ease-in-out;  
+  -ms-transition:     all .25s ease-in-out; 
+}
 html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 abbr, address, cite, code,
@@ -48,9 +46,6 @@ time, mark, audio, video {
   font-size: 100%;
   vertical-align: baseline;
   background: transparent; }
-
-body { line-height: 1; }
-
 article,
 aside,
 details,
@@ -62,96 +57,24 @@ hgroup,
 menu,
 nav,
 section,
-main { display: block; }
-
-nav ul { list-style: none; }
-
-blockquote, q { quotes: none; }
-
-blockquote:before,
-blockquote:after,
-q:before, q:after {
-  content: '';
-  content: none; }
-
-a {
-  margin: 0 auto;
-  padding: 0;
-  font-size: 100%;
-  vertical-align: baseline;
-  background: transparent; }
-
-ins {
-  background-color: #ff9;
-  color: #000;
-  text-decoration: none; }
-
-mark {
-  background-color: #ff9;
-  color: #000; 
-  font-style: italic;
-  font-weight: bold; }
-
-del { text-decoration: line-through; }
-
-abbr[title],
-dfn[title] {
-  border-bottom: 1px dotted;
-  cursor: help; }
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0; }
-
-hr {
+main {
   display: block;
-  height: 1px;
-  border: 0;   
-  border-top: 1px solid #cccccc;
-  margin: 1em 0;
-  padding: 0; 
-  }
-
-input, select { vertical-align: middle; }
-
-/* Clearfix */
-
-.clearfix:before,
-.clearfix:after {
-   content: "";
-   display: table; }
-.clearfix:after { clear: both; }
-.ie7 .clearfix { zoom: 1; }
-
+}
 .cf:before,
 .cf:after {
-   content: "";
-   display: table; }
-.cf:after { clear: both; }
-
-/* Hide */
-
-.hide {
-  position: absolute;
-  left: -999em;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden; }
-  
-
-/* Default behavior for background tiles */
-
+  content: "";
+  display: table;
+}
+.cf:after { 
+  clear: both; 
+}
 .background { 
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  }
-
-
-    /* /theme/css/poster.css */
+}
 body { 
-  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  font-family: 'Open Sans', Arial;
   font-weight: normal;
   font-weight: 300;
   text-align: center; 
@@ -159,59 +82,200 @@ body {
   line-height: 1.4; 
   font-size: 11pt;
   text-rendering: optimizelegibility;
-  }
-
-
+}
 .container {
   margin: auto;
   width: 8.5in;
-  height:14in;
+  height: 14in;
   background-repeat: no-repeat;
-  background-position: center top;
+  background-position: center 3in;
   background-size: contain;
+  background-image: url('https://toolkit-afscme.bytrilogy.com/print/img/afscme-stands-poster-photo.png');
   position: relative;
   overflow: hidden;
   text-align: left;
-  position: relative;
-  }
-
-.logo {
+  background-color: green;
+}
+.top-bar {
+  width: 100%;
+  height: .11in;
   position: absolute;
-  bottom: 1.2in;
-  left: 7.25in;  
+  top: 0;
+  left: 0;
+  z-index: 10000;  
+}
+.afscme .top-bar {
+  background-image: -webkit-linear-gradient(left, #0054a5 0%, #00ab4f 63.89%, #00ab4f 100%);
+  background-image: linear-gradient(left, #0054a5 0%, #00ab4f 63.89%, #00ab4f 100%);
+}
+.csea .top-bar {
+  background-image: -webkit-linear-gradient(right, #004785 0%, #e03a3e 100%);
+  background-image: linear-gradient(right, #004785 0%, #e03a3e 100%);
+}
+header {
+  position: relative;
+  height: 4.25in;
+  overflow: hidden;
+  z-index: 1000;
+}
+header .angle {
+  background: white;
+  position: absolute;
+  width: 110%;
+  height: 4.2in;
+  top: -.6in;
+  left: -5%;
+  z-index: 100;
+  -ms-transform: rotate(7.5deg); 
+  -webkit-transform: rotate(7.5deg); 
+  transform: rotate(7.5deg);
+}  
+header h1 {
+  position: absolute;
+  top: .65in;
+  left: .5in;
+  z-index: 10000;
+  width: 7.5in;
+  font-family:'Lato','Arial Black';
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 64pt;
+  line-height: 1.1;
+  text-align: right;
+}
+.afscme header h1 {
+  color: #23408f;
+}
+.csea header h1 {
+  color: #004785;
+}
+header h1 span {
+  display: block;
+  color: #40ae49;
+  font-weight: 300;
+  font-size: 32pt;
+}
+.afscme header h1 span {
+  color: #40ae49;
+}
+.csea header h1 span {
+  color: #e03a3e;
+}
+.body {
+  width: 3.8in;
+  color: white;
+  position: absolute;
+  bottom: 2.25in;
+  left: .5in;
+}
+.body h2 {
+  font-size: 15pt;
+  line-height: 1;
+  margin-bottom: .5em;
+}
+footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  border-bottom: .25in solid white;
+  height: 1.65in;
+  width: 100%;
+  overflow: hidden;
+  z-index: 9999;
+}
+footer .angle {
+  position: absolute;
+  left: -5%;
+  top: .32in;  
+  width: 110%;
+  height: 3in;
+  -ms-transform: rotate(4deg); 
+  -webkit-transform: rotate(4deg); 
+  transform: rotate(4deg);
+}
+.afscme footer .angle {
+  background-image: -webkit-linear-gradient(right, #009769 0%, #00a951 32.2%, #0158a3 100%);
+  background-image: linear-gradient(right, #009769 0%, #00a951 32.2%, #0158a3 100%);
+}
+.csea footer .angle {
+  background-image: -webkit-linear-gradient(right, #004785 0%, #e03a3e 100%);
+  background-image: linear-gradient(right, #004785 0%, #e03a3e 100%);
+}
+footer .url {
+  position: absolute;
+  right: 1.5in;
+  bottom: .3in;  
+  width: 4.5in;
+  height: .25in;
+  font-size: 1.25em;
+  color: white;
+  font-weight: 600;
+  line-height: 1;
+  overflow: hidden;
+  text-align: center;
+}
+footer .logo {
+  position: absolute;
+  bottom: .15in;  
   width: 1in;
-  height: .8in;
+  height: .5in;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
-  }
-  
-.poster1 .logo { left: .7in; }
-.poster2 .logo { right: .7in; }
-  
-.union-bug {
+  right: .15in; 
+}
+footer .nq-logo {
   position: absolute;
-  right: .1in;
-  bottom: .55in; 
+  left: .5in;
+  bottom: .25in;  
+  width: 1.7in;
+  height: .75in;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-image: url('http://neverquit.afscme.org//toolkit/never-quit-sector-specific-flyer-custom/nqlogo/nq-logo.png');
+  background-size: contain;
+}
+footer .union-bug {
+  position: absolute;
+  left: .1in;
+  bottom: .1in; 
   width: .6in;
   height: .2in;
   background: url('http://neverquit.afscme.org/theme/img/union-bug.png') no-repeat center center;
   background-size: contain;
-  }
-    </style>
+}
+</style>
 
     <script type="text/javascript" src="//fast.fonts.net/jsapi/596a83d8-daac-4f87-8267-fa96da6e6754.js"></script>
     <link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/596a83d8-daac-4f87-8267-fa96da6e6754.css"/>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
   </head>
 
-  <body id="wide" class="poster toolkit poster2">
-    <main class="container poster poster2" style="background-image: url('http://neverquit.afscme.org/toolkit/never-quit-poster-2/poster/printable-poster2.png');">
-      <% if @document.as_logo.present? %>
-        <div class="logo" style="background-image: url('<%= @document.as_logo %>');"></div>
-      <% end %>
+  <body class="<%= @document.as_branding %>">
+    <main class="container">
 
-      <div class="union-bug"></div>
+        <header>
+            <div class="angle"></div>
+            <div class="bar"></div>
+            <h1>AFSCME stands <span>with every person who never quits on their community.</span></h1>
+        </header>
+        
+        <article class="body">
+            <h2>A union is people working together for something better.</h2>
+            <p>A union is also each individual member – committed to your job, your family, your hometown. AFSCME is the union that shows every public service worker respect through action–fighting for better pay, better conditions, a better future. To those who never quit serving your community: your goals are AFSCME’s goals, and we will not rest until you reach them.</p>
+        </article>
+        <div class="new-page"></div>  
+        
+        <footer>
+            <div class="url"><%= @document.as_call_to_action.try(:html_safe) %></div>
+            <% if @document.logo.present? %>
+              <div class="logo" style="background-image: url('<%= @document.as_logo %>');"></div>
+            <% end %>
+            <div class="nq-logo"></div>
+            <div class="union-bug"></div>
+            <div class="angle"></div>
+        </footer>
+
     </main>      
   </body>
 </html>
