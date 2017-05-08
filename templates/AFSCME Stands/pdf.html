@@ -207,8 +207,8 @@ body {
 
   <body id="wide" class="poster toolkit poster2">
     <main class="container poster poster2" style="background-image: url('http://neverquit.afscme.org/toolkit/never-quit-poster-2/poster/printable-poster2.png');">
-      <% unless @document.logo.blank? %>
-        <div class="logo" style="background-image: url('<%= @document.logo %>');"></div>
+      <% if @document.as_logo.present? %>
+        <div class="logo" style="background-image: url('<%= @document.as_logo %>');"></div>
       <% end %>
 
       <div class="union-bug"></div>

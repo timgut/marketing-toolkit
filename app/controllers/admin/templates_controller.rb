@@ -75,7 +75,7 @@ class Admin::TemplatesController < AdminController
     params.require(:template).permit(
       :title, :description, :height, :width, :pdf_markup, :form_markup, :status, :thumbnail,
       :numbered_image, :blank_image, :customizable_options, :campaign_id, :category_id,
-      :customize, :static_pdf
+      :customize, :static_pdf, :orientation
     )
   end
 end

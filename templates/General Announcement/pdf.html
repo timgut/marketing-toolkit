@@ -345,7 +345,7 @@ input, select { vertical-align: middle; }
         <h1><%= @document.headline %></h1>
       </header>
       
-      <figure class="photo" style="background-image: url('<%= @document.photo %>');"></figure>
+      <figure class="photo" style="background-image: url('<%= @document.ga_photo %>');"></figure>
       
       <article>
         <div class="left">
@@ -362,8 +362,8 @@ input, select { vertical-align: middle; }
       <footer>
         <div class="angle"></div>
         
-        <% unless @document.announcement_affiliate_logo.blank? %>
-          <div class="affiliate-logo"><div style="background-image: url('<%= @document.announcement_affiliate_logo %>');"></div></div>
+        <% if @document.ga_affiliate_logo.present? %>
+          <div class="affiliate-logo"><div style="background-image: url('<%= @document.ga_affiliate_logo %>');"></div></div>
         <% end %>
 
         <div class="afscme-logo"></div>
