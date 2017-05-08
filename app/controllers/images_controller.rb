@@ -1,5 +1,7 @@
 class ImagesController < ApplicationController
-  before_action :assign_records, only: [:index, :recent, :shared]
+  include Trashable
+
+  before_action :assign_sidebar_vars, only: [:index, :recent, :shared, :trashed]
 
   # POST /images
   def create
@@ -28,19 +30,8 @@ class ImagesController < ApplicationController
 
   # GET /images/choose
   def choose
-    @images = User.current_user.images
+    @images = current_user.images
     render layout: false
-  end
-
-  # DELETE /images
-  def destroy
-    @image = Image.find(params[:id])
-
-    if @image.destroy
-      redirect_to images_path, notice: "Image deleted!"
-    else
-      redirect_back fallback_location: root_path, alert: "Cannot delete image. Please try again."
-    end
   end
 
   # GET /images/1/edit
@@ -51,7 +42,7 @@ class ImagesController < ApplicationController
   # GET /images
   def index
     if current_user
-      @images = current_user.images
+      @images = current_user.images.not_trashed
     else
       @images = @all
     end
@@ -110,10 +101,12 @@ class ImagesController < ApplicationController
 
   private
 
-  def assign_records
-    @all    = Image.all
-    @recent = Image.recent
-    @shared = Image.shared_with_me
+  def assign_sidebar_vars
+    @all       = current_user.images.all.not_trashed
+    @recent    = current_user.images.recent.not_trashed
+    @shared    = current_user.images.shared_with_me.not_trashed
+    @trashed   = current_user.images.trash
+    @documents = current_user.documents.not_trashed
   end
 
   def image_params

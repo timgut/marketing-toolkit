@@ -17,10 +17,14 @@ class Admin::TemplatesController < AdminController
   def destroy
     @template = Template.find(params[:id])
 
-    if @template.destroy
-      redirect_to :back, fallback_location: admin_templates_path, notice: "Template deleted!"
+    # We don't really ever want to destroy templates. Since Template includes Status, but
+    # Admin::TemplatesController does not include Trashable, then we can change the status
+    # to "trash" and it will appear deleted since there is no UI to show it. But we can 
+    # easily restore it if this deletion was a mistake. 
+    if @template.update_attributes(status: -2)
+      redirect_back fallback_location: admin_templates_path, notice: "Template destroyed!"
     else
-      redirect_to :back, fallback_location: admin_templates_path, alert: "Cannot delete template. Please try again."
+      redirect_back fallback_location: admin_templates_path, alert: "Cannot destroy template. Please try again."
     end
   end
 
@@ -31,7 +35,7 @@ class Admin::TemplatesController < AdminController
 
   # GET /admin/templates
   def index
-    @templates = Template.all
+    @templates = Template.not_trashed
   end
 
   # GET /admin/templates/new
@@ -71,7 +75,8 @@ class Admin::TemplatesController < AdminController
     params.require(:template).permit(
       :title, :description, :height, :width, :pdf_markup, :form_markup, :status, :thumbnail,
       :numbered_image, :blank_image, :customizable_options, :campaign_id, :category_id,
-      :crop_top, :crop_bottom, :blank_image_height, :blank_image_width, :orientation
+      :crop_top, :crop_bottom, :blank_image_height, :blank_image_width, :orientation,
+      :customize, :static_pdf
     )
   end
 end

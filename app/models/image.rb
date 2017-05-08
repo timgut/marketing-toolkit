@@ -1,4 +1,6 @@
 class Image < ApplicationRecord
+  include Status
+
   has_attached_file(
     :image,
     storage:        :s3,

@@ -1,44 +1,42 @@
-<div class="fieldset nqlogo cf"> 
-  <h3><strong>1</strong> Choose a Never Quit logo</h3>
+<div class="step grouping radio image-select cf"> 
+  <h3>Choose a Never Quit logo</h3>
 
-  <div class="field radio"> 
-    <input required id="nqlogo1" name="data[logo]" type="radio" value="http://neverquit.afscme.org/toolkit/never-quit-sector-specific-flyer-custom/nqlogo/nq-logo-afscme-color.png" />
+  <div class="field"> 
+    <input required id="nqlogo1" name="data[nqbs_logo]" type="radio" value="http://neverquit.afscme.org/toolkit/never-quit-sector-specific-flyer-custom/nqlogo/nq-logo-afscme-color.png" />
     <label for="nqlogo1">
         <em><img src="http://neverquit.afscme.org/theme/img/toolkit-nq-logo-afscme-color.png" alt="Never Quit with AFSCME"/></em>
     </label>
   </div>
     
-  <div class="field radio"> 
-    <input required id="nqlogo2" name="data[logo]" type="radio" value="http://neverquit.afscme.org/toolkit/never-quit-sector-specific-flyer-custom/nqlogo/nq-logo-color.png" />
+  <div class="field"> 
+    <input required id="nqlogo2" name="data[nqbs_logo]" type="radio" value="http://neverquit.afscme.org/toolkit/never-quit-sector-specific-flyer-custom/nqlogo/nq-logo-color.png" />
     <label for="nqlogo2">
       <em><img src="http://neverquit.afscme.org/theme/img/toolkit-nq-logo-color.png" alt="Never Quit without AFSCME"/></em>
     </label>
   </div>
 </div>
 
-<div class="fieldset photo three cf">
-  <h3><strong>1</strong> Council/Affiliate Logo</h3>
+<div class="step grouping image-select radio cf">
+  <h3>Council/Affiliate Logo</h3>
 
-  <div class="field radio"> 
-    <input id="logo2-custom" name="data[affiliate_logo]" data-custom="image" type="radio" value="" />
-    <label for="logo2-custom">
-      <em class="cf">
-        <a href="/image-picker" title="Add Photo" class="image-picker" data-target="logo2-custom">
-          <div class="positioner">
-            <span class="icons">C</span>
-            <strong>Add Logo</strong>
-          </div>
-        </a>
-      </em>
-    </label>
+  <div class="field upload"> 
+      <input id="logo2-custom" data-custom="image" name="data[nqbs_affiliate_logo]" type="radio" value="" />
+      <label for="logo2-custom">
+         <figure href="javascript:void(0);" title="Add Photo" class="image-picker" data-target="logo2-custom">
+             <div class="positioner">
+                 <span class="icons">C</span>
+                 Add Image
+             </div>
+         </figure>
+      </label>
   </div>
 </div><!--logo-->
 
-<div class="fieldset headline"> 
+<div class="step grouping">
   <h3><strong>3</strong> URL/Contact Info (optional)</h3>
   
   <div class="field radio wide cf"> 
-    <input id="contact" name="data[contact]" data-custom="text" type="radio" />
+    <input id="contact" name="data[nqbs_contact]" data-custom="text" type="radio" />
     <label for="contact-custom" class="cf">
       <em>
         <strong>CREATE YOUR OWN</strong><br/>

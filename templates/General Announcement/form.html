@@ -30,21 +30,20 @@
   </div>
 </div><!--headline-->
 
-<div class="fieldset photo three cf"> 
+<div class="fieldset photo cf"> 
   <h3><strong>2</strong> Photo</h3>
   <small>Please size your image to 8.5 inches by 3 inches</small>
 
-  <div class="field radio"> 
-    <input id="photo-custom" name="data[photo]" data-custom="image" type="radio" value="" />
-    <label for="photo-custom" class="photo">
-      <em class="cf">
-        <a href="/image-picker" title="Add Photo" class="image-picker" data-target="photo-custom">
-          <div class="positioner">
-            <span class="icons">C</span>
-            <strong>Add Photo</strong>
-          </div>
-        </a>
-      </em>
+  <div class="field upload"> 
+    <input id="photo-custom" data-custom="image" name="data[ga_photo]" type="radio" value="" />
+
+    <label for="photo-custom">
+       <figure href="javascript:void(0);" title="Add Photo" class="image-picker" data-target="photo-custom">
+           <div class="positioner">
+               <span class="icons">C</span>
+               Add Image
+           </div>
+       </figure>
     </label>
   </div>
 </div><!--photo-->
@@ -105,20 +104,19 @@
   </div>  
 </div><!--right body-->
 
-<div class="fieldset photo three cf"> 
+<div class="fieldset photo cf"> 
   <h3><strong>6</strong> Council/Affiliate Logo (optional)</h3>
 
-  <div class="field radio"> 
-    <input id="logo2" name="data[announcement_affiliate_logo]" data-custom="image" type="radio" value="custom" />
+  <div class="field upload"> 
+    <input id="logo2" data-custom="image" name="data[ga_affiliate_logo]" type="radio" value="custom" />
+
     <label for="logo2">
-      <em class="cf">
-        <a href="/image-picker" title="Add Photo" class="image-picker" data-target="logo2">
-          <div class="positioner">
-            <span class="icons">C</span>
-            <strong>Add Logo</strong>
-          </div>
-        </a>
-      </em>
+     <figure href="javascript:void(0);" title="Add Photo" class="image-picker" data-target="logo2">
+           <div class="positioner">
+               <span class="icons">C</span>
+               Add Image
+           </div>
+       </figure>
     </label>
   </div>
 </div><!--logo-->

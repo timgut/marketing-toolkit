@@ -39,25 +39,20 @@ window.Toolkit.Document.addImage = ->
 
   # Close the modal and assign the selected image to the target input
   $(document).on("click", "#add_image_button", ->
-    $target = $("##{$("#image-picker").attr("data-target")}")                # The field where the value is set
-    value   = $("#image-picker").find("figure.enabled img").attr("src")      # The value to set on the field
-    $em     = $("label[for='#{$("#image-picker").attr("data-target")}'] em") # The parent tag that controls the modal
-    $strong = $em.find("strong")                                             # The text that launches the modal
-    $a      = $em.find("a")                                                  # The link that launches the modal
+    $target     = $("##{$("#image-picker").attr("data-target")}")           # The field where the value is set
+    value       = $("#image-picker").find("figure.enabled img").attr("src") # The value to set on the field
+    dataTarget  = $("#image-picker").attr("data-target")                    #
+    $figure     = $("label[for='#{dataTarget}'] figure")                    #
+    $positioner = $figure.find(".positioner")                               # The container for the text that launched the modal
     
     # Assign the value to the input
     $target.val(value)
     $target.prop("checked", true)
     $target.trigger("change")
 
-    # Clean up any previously selected image
-    $em.find("img").remove()
-
     # Display the selected image
-    $em.addClass("cf")
-    $em.prepend("<figure><img src='#{value}' /></figure>")
-    $strong.text("Change Photo")
-    $a.addClass("loaded")
+    $figure.css({"background-image": "url('#{value}'"})
+    $positioner.html("<span class='icons'>C</span>Change Image")
 
     # Clean up the modal div
     $("#image-picker").popup("hide")
@@ -125,18 +120,15 @@ window.Toolkit.Document.fillForm = ->
             # Erase the custom text in case another field needs to use it.
             $("#custom-text").html("")
           when "image"
-            $em     = $("label[for='#{data.fieldID}'] em")
-            $strong = $em.find("strong")
-            $a      = $em.find("a")
+            $figure     = $("label[for='#{data.fieldID}'] figure")
+            $positioner = $figure.find(".positioner")
 
             # Set the value
             $field.val(data.value)
 
             # Display the selected image
-            $em.addClass("cf")
-            $em.prepend("<figure><img src='#{data.value}' /></figure>")
-            $strong.text("Change Photo")
-            $a.addClass("loaded")
+            $figure.css({"background-image": "url('#{data.value}'"})
+            $positioner.html("<span class='icons'>C</span>Change Image")
           else
             console.log("Don't know how to fill in #{$field.attr("data-custom")}")
   )

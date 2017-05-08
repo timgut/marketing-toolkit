@@ -5,9 +5,9 @@ class Admin::CampaignsController < AdminController
     if @new_campaign.save
       @campaign = Campaign.new
       @campaigns = Campaign.all
-      redirect_to admin_campaigns_path, notice: "Campaign created !"
+      redirect_to admin_campaigns_path, notice: "Campaign created!"
     else
-      render :new
+      redirect_to :back, fallback_location: authenticated_root_path
     end
   end
 
@@ -44,6 +44,6 @@ class Admin::CampaignsController < AdminController
   private
 
   def campaign_params
-    params.require(:campaign).permit(:title, :description, :status)
+    params.require(:campaign).permit(:title, :description, :status, :parent_id)
   end
 end

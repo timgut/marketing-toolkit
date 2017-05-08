@@ -279,7 +279,7 @@
     }
 
     footer .afscme-logo  {
-      background: url(http://toolkit.afscme.bytrilogy.com/print/img/afscme-reverse.png) no-repeat center center;
+      background: url(http://neverquit.afscme.org/theme/img/afscme-reverse.png) no-repeat center center;
       position: absolute;
       right: .15in;
       bottom: .1in;  
@@ -298,7 +298,7 @@
       bottom: .2in; 
       width: .6in;
       height: .2in;
-      background: url(http://toolkit.afscme.bytrilogy.com/print/img/union-bug.png) no-repeat center center;
+      background: url(http://neverquit.afscme.org/theme/img/union-bug.png) no-repeat center center;
       background-size: contain;
       z-index: 1002;
     }
@@ -366,8 +366,8 @@
       <footer>
           <div class="angle"></div>
 
-          <% unless @document.affiliate_logo.blank? %>
-            <div class="affiliate-logo"><div style="background-image: url('<%= @document.affiliate_logo %>');"></div></div>
+          <% if @document.ct_affiliate_logo.present? %>
+            <div class="affiliate-logo"><div style="background-image: url('<%= @document.ct_affiliate_logo %>');"></div></div>
           <% end %>
 
           <div class="afscme-logo"></div>

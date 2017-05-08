@@ -19,6 +19,11 @@ crumb :new_image do
   parent :index_images
 end
 
+crumb :trashed_images do
+  link "Trash", trashed_images_path
+  parent :index_images
+end
+
 crumb :edit_image do |image|
   link "Edit '#{image.image_file_name}'", edit_image_path(image)
   parent :index_images

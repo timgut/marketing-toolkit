@@ -1,7 +1,9 @@
 class DocumentsController < ApplicationController
+  include Trashable
+
   protect_from_forgery except: :create
 
-  before_action :assign_sidebar_vars, only: [:index, :recent, :shared, :trash]
+  before_action :assign_sidebar_vars, only: [:index, :recent, :shared, :trashed]
 
   # POST /documents
   def create
@@ -14,16 +16,6 @@ class DocumentsController < ApplicationController
       redirect_to documents_path, notice: "Document created!"
     else
       redirect_back fallback_location: documents_path
-    end
-  end
-
-  # DELETE /documents/1
-  def destroy
-    @document = Document.find(params[:id])
-    if @document.destroy
-      redirect_to documents_path, notice: "Document deleted!"
-    else
-      redirect_back fallback_location: documents_path, alert: "Document was not deleted. Please try again."
     end
   end
 
@@ -71,6 +63,7 @@ class DocumentsController < ApplicationController
       @filtered_documents = @documents.select{|document| document.template.category_id == params[:category_id].to_i}
     else
       @filtered_documents = @documents
+
     end
   end
 
@@ -106,12 +99,6 @@ class DocumentsController < ApplicationController
     render :index
   end
 
-  # GET /documents/trash
-  def trash
-    @filtered_documents = Document.includes(:template).trash
-    render :index
-  end
-
   # PATCH /documents/1
   def update
     @document = Document.find(params[:id])
@@ -132,12 +119,19 @@ class DocumentsController < ApplicationController
   protected
 
   def assign_sidebar_vars
-    @campaigns = Campaign.active
     if current_user
-      @documents = current_user.documents.includes(:template)
+      @documents = current_user.documents.includes(:template, :creator).not_trashed
+      @images = current_user.images.not_trashed
     else
-      @documents = Document.includes(:template).all
+      @documents = Document.includes(:template, :creator).not_trashed
+      @images = Image.not_trashed
     end
+
+    @recent = @documents.recent
+
+    @campaigns = Campaign.publish
+    @trashed   = current_user.documents.trash
+
 
     @sidebar_vars = @categories.inject([]) do |sidebar_vars, category|
       sidebar_vars << {

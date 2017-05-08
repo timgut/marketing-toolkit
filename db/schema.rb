@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20170424143607) do
+=======
+ActiveRecord::Schema.define(version: 20170501151458) do
+>>>>>>> redmine-1628
 
   create_table "affiliates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
@@ -27,6 +31,7 @@ ActiveRecord::Schema.define(version: 20170424143607) do
     t.integer  "status"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.integer  "parent_id"
   end
 
   create_table "campaigns_documents", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -139,14 +144,22 @@ ActiveRecord::Schema.define(version: 20170424143607) do
     t.integer  "status"
     t.integer  "campaign_id"
     t.text     "customizable_options",        limit: 65535
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
     t.integer  "category_id"
     t.string   "orientation"
     t.float    "blank_image_height",          limit: 24
     t.float    "blank_image_width",           limit: 24
     t.integer  "crop_top"
     t.integer  "crop_bottom"
+<<<<<<< HEAD
+=======
+    t.boolean  "customize",                                 default: true
+    t.string   "static_pdf_file_name"
+    t.string   "static_pdf_content_type"
+    t.integer  "static_pdf_file_size"
+    t.datetime "static_pdf_updated_at"
+>>>>>>> redmine-1628
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|

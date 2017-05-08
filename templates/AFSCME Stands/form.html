@@ -1,24 +1,58 @@
-<div class="fieldset photo three cf"> 
-  <h3><strong>1</strong> Choose a logo</h3>
+<div class="step grouping image-select radio cf"> 
+
+    <h3>Choose Flyer Color Palette</h3>
+
+    <div class="field logo"> 
+        <input id="branding-afscme" name="data[as_branding]" type="radio" value="afscme" />
+        <label for="branding-afscme">
+           <div class="radio-button"></div>
+           <figure style="background-image: url(http://toolkit-afscme.bytrilogy.com/theme/img/afscme-branding-thumb.png);"></figure>
+        </label>
+    </div>
+    
+    <div class="field logo"> 
+        <input id="branding-csea" name="data[as_branding]" type="radio" value="csea" />
+        <label for="branding-csea">
+           <div class="radio-button"></div>
+           <figure style="background-image: url(http://toolkit-afscme.bytrilogy.com/theme/img/csea-branding-thumb.png);"></figure>
+        </label>
+    </div>
+    
+</div><!--theme-->
+
+<div class="step grouping image-select radio cf"> 
+  <h3>Choose a logo</h3>
 
   <div class="field radio"> 
-    <input required id="logo1" name="data[logo]" type="radio" value="http://neverquit.afscme.org/theme/img/toolkit-afscme-logo.png" />
+    <input required id="logo1" name="data[as_logo]" type="radio" value="http://neverquit.afscme.org/theme/img/toolkit-afscme-logo.png" />
     <label for="logo1">
       <em><img src="http://neverquit.afscme.org/theme/img/toolkit-afscme-logo.png" alt="AFSCME"/></em>
     </label>
   </div>
-</div>
 
-<div class="fieldset photo three cf"> 
-  <input id="logo2-custom" name="data[logo]" data-custom="image" type="radio" value="" />
-  <label for="logo2-custom" class="photo">
-    <em class="cf">
-      <a href="/image-picker" title="Add Photo" class="image-picker" data-target="logo2-custom">
+  <div class="field upload"> 
+    <input id="logo2" data-custom="image" name="data[as_logo]" type="radio" value="custom" />
+
+    <label for="logo2">
+      <figure href="javascript:void(0);" title="Add Photo" class="image-picker" data-target="logo2">
         <div class="positioner">
           <span class="icons">C</span>
-          <strong>Add Photo</strong>
+          Add Image
         </div>
-      </a>
-    </em>
-  </label>
+      </figure>
+    </label>
+  </div>
 </div>
+
+<div class="step grouping cf"> 
+
+    <h3>Define a Call-to-Action</h3>
+
+    <div class="field wide"> 
+        <label for="headline">
+           <input type="text" placeholder="Define a Call-to-Action" name="data[as_call_to_action]" id="call-to-action-custom" data-custom="text" value="" maxlength="100" />
+           <small>Maximum of 100 characters. Please preview, since words may wrap unexpectedly and cutoff your headline.</small>
+        </label>
+    </div>
+
+</div><!--call to action-->

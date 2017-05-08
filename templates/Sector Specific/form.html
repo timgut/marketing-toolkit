@@ -1,0 +1,298 @@
+<script type="text/javascript">  
+  $(document).ready(function() {
+    // Custom Testimonial
+    $("form[data-document='true']").on("click", "#testimonial-custom, #attribution-custom", function(){
+      $("#testimonial7").prop("checked", true);
+    });
+    $("form[data-document='true']").on("change", "#testimonial-custom, #attribution-custom", function(){
+      $("#testimonial7").val("<h2>" + Toolkit.normalizeQuotes($("#testimonial-custom").val()) + "</h2><p class=\"attribution\">" + Toolkit.normalizeQuotes($("#attribution-custom").val()) + "</p>");
+    });
+
+    // Custom Body
+    $("form[data-document='true']").on("click", "#body3-headline-custom, #body-custom", function(){
+      $("#body3").prop("checked", true);
+    });
+    $("form[data-document='true']").on("change", "#body3-headline-custom, #body-custom", function(){
+      $("#body3").val("<h2>" + Toolkit.normalizeQuotes($("#body3-headline-custom").val()) + "</h2><p>" + Toolkit.normalizeQuotes($("#body-custom").val()) + "</p>");
+    });
+  });
+</script>
+
+<div class="step grouping image-select radio cf"> 
+
+    <h3>Choose Flyer Branding</h3>
+
+    <div class="field logo"> 
+        <input id="branding-afscme" name="data[ss_branding]" type="radio" value="afscme" />
+        <label for="branding-afscme">
+           <div class="radio-button"></div>
+           <figure style="background-image: url(http://toolkit-afscme.bytrilogy.com/theme/img/afscme-branding-thumb.png);"></figure>
+        </label>
+    </div>
+    
+    <div class="field logo"> 
+        <input id="branding-csea" name="data[ss_branding]" type="radio" value="csea" />
+        <label for="branding-csea">
+           <div class="radio-button"></div>
+           <figure style="background-image: url(http://toolkit-afscme.bytrilogy.com/theme/img/csea-branding-thumb.png);"></figure>
+        </label>
+    </div>
+    
+</div><!--theme-->
+
+<div class="step grouping radio columns three cf"> 
+
+  <h3>Choose a headline</h3>
+  
+  <div class="field"> 
+      <input id="headline1" class="required" name="data[headline]" type="radio" value="We never quit<span>on the people who depend on us.</span>" />
+      <label for="headline1">
+        <div class="radio-button"></div>
+        We never quit on the people who depend on us.
+      </label>
+  </div>
+      
+  <div class="field"> 
+      <input id="headline2" name="data[headline]" type="radio" value="You never quit.<span>That's why we never rest.</span>" />
+      <label for="headline2">
+        <div class="radio-button"></div>
+        You never quit. That’s why we never rest.
+      </label>
+  </div>
+      
+  <div class="field"> 
+      <input id="headline3" name="data[headline]" type="radio" value="<small>To those who never quit on your community, we're with you.<small>" />
+      <label for="headline3">
+        <div class="radio-button"></div>
+        To those who never quit on your community, we're with you.
+      </label>
+  </div>
+      
+  <div class="field wide"> 
+      <input id="headline4" data-custom="text" name="data[headline]" type="radio" />
+      <label for="headline4">
+        <div class="radio-button"></div>
+        <strong>CREATE YOUR OWN</strong><br/>
+        <small>Maximum of 100 characters. Please preview, since words may wrap unexpectedly and cutoff your headline.</small>
+        <input type="text" name="headline-custom" id="headline4-custom" data-target="headline4" value="" maxlength="100" />
+        <label for="headline-custom"></label>
+      </label>
+  </div>
+
+</div><!--headline-->
+
+<div class="step grouping image-select radio cf"> 
+
+    <h3>Choose a photo</h3>
+    
+    <div class="field"> 
+        <input id="photo1" name="data[photo]" type="radio" value="http://neverquit.afscme.org/theme/img/health-care.jpg" />
+        <label for="photo1">
+          <div class="radio-button"></div>
+          <figure><img src="http://neverquit.afscme.org/theme/img/health-care-thumb.jpg" alt="Health care worker"/></figure>
+        </label>
+    </div>
+        
+    <div class="field"> 
+        <input id="photo2" name="data[photo]" type="radio" value="http://neverquit.afscme.org/theme/img/corrections.jpg" />
+        <label for="photo2">
+          <div class="radio-button"></div>
+          <figure><img src="http://neverquit.afscme.org/theme/img/corrections-thumb.jpg" alt="Corrections"/></figure>
+        </label>
+    </div>
+        
+    <div class="field"> 
+        <input id="photo3" name="data[photo]" type="radio" value="http://neverquit.afscme.org/theme/img/tina.jpg" />
+        <label for="photo3">
+          <div class="radio-button"></div>
+          <figure><img src="http://neverquit.afscme.org/theme/img/tina-thumb.jpg" alt="Social services"/></figure>
+        </label>
+    </div>
+    
+    <div class="field"> 
+        <input id="photo4" name="data[photo]" type="radio" value="http://neverquit.afscme.org/theme/img/bus-driver.jpg" />
+        <label for="photo4">
+          <div class="radio-button"></div>
+          <figure><img src="http://neverquit.afscme.org/theme/img/bus-driver-thumb.jpg" alt="Transportation"/></figure>
+        </label>
+    </div>
+    
+    <div class="field"> 
+        <input id="photo5" name="data[photo]" type="radio" value="http://neverquit.afscme.org/theme/img/clerical.jpg" />
+        <label for="photo5">
+          <div class="radio-button"></div>
+          <figure><img src="http://neverquit.afscme.org/theme/img/clerical-thumb.jpg" alt="Clerical"/></figure>
+        </label>
+    </div>
+        
+    <div class="field"> 
+        <input id="photo7" data-custom="image" name="data[photo]" type="radio" />
+        <label for="photo7">
+          <div class="radio-button"></div>
+          <figure href="javascript:void(0);" title="Add Photo" class="image-picker" data-target="photo7" data-crop="true">
+               <div class="positioner">
+                   <span class="icons">C</span>
+                   Add Image
+               </div>
+          </figure>
+        </label>
+    </div>
+
+</div><!--photo-->
+
+
+<div class="step grouping columns two radio cf"> 
+
+    <h3>Choose a testimonial quote</h3>
+    
+    <div class="field"> 
+        <input id="testimonial1" name="data[testimonial]" type="radio" value="<h2>I take care of every patient like they're a member of my own family.</h2>" />
+        <label for="testimonial1">
+          <div class="radio-button"></div>
+          <strong>Health care:</strong>
+          "I take care of every patient like they're a member of my own family."
+        </label>
+    </div>
+        
+    <div class="field"> 
+        <input id="testimonial2" name="data[testimonial]" type="radio" value="<h2>My job is to keep the community, the staff, and the inmates safe. And my union is there for my safety and protection.</h2>" />
+        <label for="testimonial2">
+          <div class="radio-button"></div>
+          <strong>Corrections:</strong>
+          "My job is to keep the community, the staff, and the inmates safe. And my union is there for my safety and protection."
+        </label>
+    </div>
+        
+    <div class="field"> 
+        <input id="testimonial3" name="data[testimonial]" type="radio" value="<h2>When I help someone succeed, I feel good about it. I couldn't do it without my union.</h2>" />
+        <label for="testimonial3">
+          <div class="radio-button"></div>
+          <strong>Social services:</strong>
+          "When I help someone succeed, I feel good about it. I couldn't do it without my union."
+        </label>
+    </div>
+    
+    <div class="field"> 
+        <input id="testimonial4" name="data[testimonial]" type="radio" value="<h2>The work I do is important, even if it's not in the spotlight. I couldn't do it without my union.</h2>" />
+        <label for="testimonial4">
+          <div class="radio-button"></div>
+          <strong>Transportation:</strong>
+          "The work I do is important, even if it's not in the spotlight. I couldn't do it without my union."
+        </label>
+    </div>
+    
+    <div class="field"> 
+        <input id="testimonial5" name="data[testimonial]" type="radio" value="<h2>I'm proud of the work I do to make my community better. I couldn't do it without my union.</h2>" />
+        <label for="testimonial5">
+          <div class="radio-button"></div>
+          <strong>Clerical:</strong>
+          "I'm proud of the work I do to make my community better. I couldn't do it without my union."
+        </label>
+    </div>
+    
+    <div class="field"> 
+        <input id="testimonial6" name="data[testimonial]" type="radio" value="<h2>Every day when I see those kids, I realize how much my work matters. I couldn't do it without my union.</h2>" />
+        <label for="testimonial6">
+          <div class="radio-button"></div>
+          <strong>Schools:</strong>
+          "Every day when I see their those kids, I realize how much my work matters. I couldn't do it without my union."
+        </label>
+    </div>
+        
+    <div class="field wide"> 
+        <input id="testimonial7" data-custom="combine" name="data[testimonial]" type="radio" value="" />
+        <label for="testimonial7">
+          <div class="radio-button"></div>
+          <strong>CREATE YOUR OWN</strong><br/>
+          <small>Maximum 60 characters. Please preview, since words may wrap unexpectedly due to size limits.</small>
+          <textarea name="testimonial-custom" id="testimonial-custom" data-combine-tag="h2" placeholder="Your quote" maxlength="60"></textarea>
+          <input type="text" name="attribution-custom" id="attribution-custom" data-combine-tag="p" value="" placeholder="Quote attribution" maxlength="60" />
+        </label>
+    </div>
+
+</div><!--testimonial-->
+
+<div class="step grouping columns two radio cf">
+
+    <h3>Choose body text</h3>
+    
+    <div class="field"> 
+        <input id="body1" name="data[body]" type="radio" value="<h2>Public service isn't just a job. It's a calling.</h2><p>Whether the public sees us or not, we are proud of the work we do. Keeping our communities safe, healthy and strong means something to us - and we take it personally. We deserve respect for the work we do - from fair pay to good benefits to recognition when we go above and beyond. And coming together in a union is the best shot we have at winning that respect for ourselves, our families and the services we provide. Powerful people want to break our union. But we know that when you're called to public service, there's no quitting on the people who depend on you. And when you're part of AFSCME, we never quit on each other.</p>" />
+        <label for="body1">
+          <div class="radio-button"></div>
+          <strong>Public service isn't just a job. It's a calling.</strong>
+          <small>Whether the public sees us or not, we are proud of the work we do. Keeping our communities safe, healthy and strong means something to us - and we take it personally. We deserve respect for the work we do - from fair pay to good benefits to recognition when we go above and beyond. And coming together in a union is the best shot we have at winning that respect for ourselves, our families and the services we provide. Powerful people want to break our union. But we know that when you're called to public service, there's no quitting on the people who depend on you. And when you're part of AFSCME, we never quit on each other.</small>
+        </label>
+    </div>
+        
+    <div class="field"> 
+        <input id="body2" name="data[body]" type="radio" value="<h2>A union is people working together for something better.</h2><p>A union is also each individual member - committed to your job, your family, your hometown. AFSCME is the union that shows ever public service worker respect through action - fighting for better pay, better conditions and a better future. To those who never quit serving your community: your goals are AFSCME's goals. Together, we will not rest until we reach them.</p>" />
+        <label for="body2">
+          <div class="radio-button"></div>
+          <strong>A union is people working together for something better.</strong>
+          <small>A union is also each individual member - committed to your job, your family, your hometown. AFSCME is the union that shows ever public service worker respect through action - fighting for better pay, better conditions and a better future. To those who never quit serving your community: your goals are AFSCME's goals. Together, we will not rest until we reach them.</small>
+        </label>
+    </div>
+        
+    <div class="field wide"> 
+        <input id="body3" data-custom="combine" name="data[body]" type="radio" value="" />
+        <label for="body3">
+          <div class="radio-button"></div>
+          <strong>WRITE YOUR OWN</strong><br/>
+          <small>Maximum of 200 characters. Please preview, since words may wrap unexpectedly and cut off your headline.</small>
+          <input type="text" name="body3-headline-custom" id="body3-headline-custom" data-combine-tag="h2" value="" placeholder="Headline" maxlength="200" />
+          <textarea name="body3-custom" id="body-custom" data-combine-tag="p" placeholder="Your body text"></textarea>
+        </label>
+    </div>
+
+</div><!--bodytext-->
+
+<div class="step grouping cf"> 
+
+    <h3>Define a Call-to-Action</h3>
+
+    <div class="field wide"> 
+        <label for="headline">
+           <input type="text" placeholder="Define a Call-to-Action" name="data[ss_call_to_action]" id="call-to-action-custom" data-custom="text" value="" maxlength="100" />
+           <small>Maximum of 100 characters. Please preview, since words may wrap unexpectedly and cutoff your headline.</small>
+        </label>
+    </div>
+
+</div><!--call to action-->
+
+<div class="step grouping image-select cf"> 
+    <h3>Council/Affiliate Logo (optional)</h3>
+
+    <div class="field upload"> 
+        <input id="logo2" data-custom="image" name="data[ss_affiliate_logo]" type="radio" value="custom" />
+
+        <label for="logo2">
+           <figure href="javascript:void(0);" title="Add Photo" class="image-picker" data-target="logo2">
+               <div class="positioner">
+                   <span class="icons">C</span>
+                   Add Image
+               </div>
+           </figure>
+        </label>
+    </div>
+</div><!--nqlogo-->
+
+<div class="step grouping image-select cf"> 
+    <h3><strong>5</strong> Choose a Never Quit logo</h3>
+
+    <div class="field logo"> 
+        <input id="nqlogo1" name="data[logo]" type="radio" value="http://neverquit.afscme.org/toolkit/never-quit-sector-specific-flyer-custom/nqlogo/nq-logo-afscme.png" checked />
+        <label for="nqlogo1">
+          <div class="radio-button"></div>            
+          <figure style="background-image: url(http://neverquit.afscme.org/theme/img/toolkit-nq-logo-afscme.png);"/></figure>
+        </label>
+    </div>
+    
+    <div class="field logo"> 
+        <input id="nqlogo2" name="data[logo]" type="radio" value="http://neverquit.afscme.org/toolkit/never-quit-sector-specific-flyer-custom/nqlogo/nq-logo.png" />
+        <label for="nqlogo2">
+          <div class="radio-button"></div>
+          <figure style="background-image: url(http://neverquit.afscme.org/theme/img/toolkit-nq-logo.png);"/></figure>
+        </label>
+    </div>
+</div><!--logo-->

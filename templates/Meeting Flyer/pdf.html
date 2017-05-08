@@ -370,12 +370,12 @@ footer .union-bug {
       <footer>
         <div class="angle"></div>
     
-        <% unless @document.affiliate_logo.blank? %>
-          <div class="affiliate-logo"><div style="background-image: url('<%= @document.affiliate_logo %>');"></div></div>
+        <% if @document.affiliate_logo.present? %>
+          <div class="affiliate-logo"><div style="background-image: url('<%= @document.mf_affiliate_logo %>');"></div></div>
         <% end %>
 
-        <% unless @document.logo.blank? %>
-          <div class="nq-logo" style="background-image: url('<%= @document.logo %>');"></div>
+        <% if @document.logo.present? %>
+          <div class="nq-logo" style="background-image: url('<%= @document.mf_logo %>');"></div>
         <% end %>
 
         <div class="union-bug"></div>
