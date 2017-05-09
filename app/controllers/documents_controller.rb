@@ -34,6 +34,7 @@ class DocumentsController < ApplicationController
   def edit
     @document = Document.find(params[:id])
     @document.define_data_methods
+    @custom_branding = User.current_user.custom_branding?
     assign_records
   end
 
