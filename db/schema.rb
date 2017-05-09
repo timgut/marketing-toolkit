@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20170424143607) do
-=======
-ActiveRecord::Schema.define(version: 20170501151458) do
->>>>>>> redmine-1628
+ActiveRecord::Schema.define(version: 20170509192457) do
 
   create_table "affiliates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
@@ -107,9 +103,11 @@ ActiveRecord::Schema.define(version: 20170501151458) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
     t.integer  "creator_id"
+    t.integer  "status",                           default: 1, null: false
+    t.text     "crop_data",          limit: 65535
     t.index ["creator_id"], name: "index_images_on_creator_id", using: :btree
   end
 
@@ -152,14 +150,11 @@ ActiveRecord::Schema.define(version: 20170501151458) do
     t.float    "blank_image_width",           limit: 24
     t.integer  "crop_top"
     t.integer  "crop_bottom"
-<<<<<<< HEAD
-=======
     t.boolean  "customize",                                 default: true
     t.string   "static_pdf_file_name"
     t.string   "static_pdf_content_type"
     t.integer  "static_pdf_file_size"
     t.datetime "static_pdf_updated_at"
->>>>>>> redmine-1628
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|

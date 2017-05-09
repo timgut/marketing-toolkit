@@ -21,7 +21,9 @@ class Image < ApplicationRecord
   scope :recent, ->{ all.joins(:images_users).where("images_users.user_id = ? and images.created_at >= ?", User.current_user.id, DateTime.now - 1.month) }
   scope :shared_with_me, ->{ all.joins(:images_users).where("images_users.user_id = ? and images_users.user_id != ?", User.current_user.id, User.current_user.id) }
 
-  attr_accessor :pos_x, :pos_y, :context, :resize
+  serialize :crop_data, Hash
+
+  attr_accessor :pos_x, :pos_y, :context, :resize, :crop_cmd, :resize_cmd, :drag_data
 
   def cropping?
     context.present? && pos_x.present? && pos_y.present?
@@ -29,5 +31,17 @@ class Image < ApplicationRecord
 
   def resizing?
     resize.present?
+  end
+
+  def reset_crop_data
+    crop_data = {}
+  end
+
+  def set_crop_data!
+    update_attributes(crop_data: {
+      crop: self.crop_cmd,
+      resize: self.resize_cmd,
+      drag: {x: pos_x, y: pos_y}
+    })
   end
 end

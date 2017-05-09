@@ -18,7 +18,9 @@ module Paperclip
           new_size = (context_size[:width] * multiplier).ceil
         end
 
-        ["-resize", "#{new_size}x#{new_size}"]
+        command = ["-resize", "#{new_size}x#{new_size}"]
+        target.resize_cmd = command
+        command
       else
         super
       end

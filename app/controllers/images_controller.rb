@@ -96,6 +96,7 @@ class ImagesController < ApplicationController
 
       format.json do
         @image.update_attributes(image_params)
+        @image.set_crop_data!
         render json: {id: @image.id, url: @image.image.url, cropped_url: @image.image.url(:cropped), file_name: @image.image_file_name}
       end
     end

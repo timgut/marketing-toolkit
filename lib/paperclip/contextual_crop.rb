@@ -27,7 +27,9 @@ module Paperclip
         crop_y = Integer(Float(target.pos_y).abs) #Integer(Float(target.pos_y).abs - Float(context.crop_top)).abs
         # end
 
-        ["-crop", "#{crop_w}x#{crop_h}+#{crop_x}+#{crop_y}"]
+        command = ["-crop", "#{crop_w}x#{crop_h}+#{crop_x}+#{crop_y}"]
+        target.crop_cmd = command
+        command
       else
         super
       end
