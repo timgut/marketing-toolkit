@@ -18,8 +18,8 @@ class Image < ApplicationRecord
 
   has_many :image_users, class_name: "ImageUser"
 
-  scope :recent, ->{ all.joins(:images_users).where("user_id = ? and images.created_at >= ?", User.current_user.id, DateTime.now - 1.month) }
-  scope :shared_with_me, ->{ all.joins(:images_users).where("user_id = ? and images_users.user_id != ?", User.current_user.id, User.current_user.id) }
+  scope :recent, ->{ all.joins(:images_users).where("images_users.user_id = ? and images.created_at >= ?", User.current_user.id, DateTime.now - 1.month) }
+  scope :shared_with_me, ->{ all.joins(:images_users).where("images_users.user_id = ? and images_users.user_id != ?", User.current_user.id, User.current_user.id) }
 
   attr_accessor :pos_x, :pos_y, :context, :resize
 
