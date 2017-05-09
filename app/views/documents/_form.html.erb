@@ -46,7 +46,17 @@
       </ol>
     </aside>
         
-    <section class="workspace cf">
+    <section class="workspace cf <%= @custom_branding %>">
+
+      <% unless @custom_branding  %>
+      <script>
+      $(document).ready(function(){
+        var _branding_div = $('#branding');
+        if (_branding_div) { $(_branding_div).remove(); }
+      });
+      </script>
+      <% end %>
+
       <%= @template.form_markup.html_safe %>
 
       <div class="buttons small cf">

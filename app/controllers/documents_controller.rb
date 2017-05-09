@@ -71,6 +71,7 @@ class DocumentsController < ApplicationController
   def new
     @template = Template.find(params[:template_id])
     @document = Document.new(template_id: @template.id, title: @template.title, description: @template.description)
+    @custom_branding = User.current_user.custom_branding?
     assign_records
   end
 
