@@ -3,6 +3,12 @@ class ImagesController < ApplicationController
 
   before_action :assign_sidebar_vars, only: [:index, :recent, :shared, :trashed]
 
+  # GET /images/choose
+  def choose
+    @images = current_user.images
+    render layout: false
+  end
+
   # POST /images
   def create
     @image = Image.new(image_params)
@@ -28,10 +34,14 @@ class ImagesController < ApplicationController
     end
   end
 
-  # GET /images/choose
-  def choose
-    @images = current_user.images
-    render layout: false
+  # GET /images/1/crop
+  def crop
+    @image    = Image.find(params[:id])
+    @template = Template.find(params[:template_id])
+    set_resize_data
+    @image.image.reprocess!
+
+    render :crop_modal, layout: false
   end
 
   # GET /images/1/edit
@@ -57,14 +67,6 @@ class ImagesController < ApplicationController
   def recent
     @images = @recent
     render :index
-  end
-
-  # GET /images/1/crop
-  def crop
-    @image    = Image.find(params[:id])
-    @template = Template.find(params[:template_id])
-
-    render :crop_modal, layout: false
   end
 
   # GET /images/shared
@@ -115,9 +117,19 @@ class ImagesController < ApplicationController
     )
   end
 
+  def set_resize_data
+    @image.resize  = true
+    @image.context = @template
+  end
+
   def set_cropping_data
     @image.context = Template.find(params[:image].delete(:template_id))
     @image.pos_x = params[:image].delete(:pos_x)
     @image.pos_y = params[:image].delete(:pos_y)
+
+    # Paperclip processors run in order starting with the original image, so it needs to be resized again before cropping.
+    if @image.cropping?
+      @image.resize = true
+    end
   end
 end

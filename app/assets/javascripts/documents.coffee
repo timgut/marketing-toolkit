@@ -196,53 +196,78 @@ window.Toolkit.Document.disableDownloadButton = ->
           # Callback when the image is uploaded
           success: ((file, data) ->
             if $form.attr("data-crop-enabled") is "true" and window.Toolkit.Document.cropImages
-              # Get the image crop form
-              url = "/images/#{data.id}/crop?modal=true&template_id=#{$form.attr("data-template-id")}"
-              $.get(url, (data) =>
-                @.removeFile(file)
+              # Choose whether or not to crop this image
+              $("#image-picker .upload-image, #image-picker .select-image, #image-picker .upload-image").hide( ->
+                $("#image-picker .choose-crop").show()
+              )
 
-                $("#image-picker .upload-image, #image-picker .select-image").hide( ->
-                  $("#image-picker .crop-image").html(data).show(->
-                    $(".drag").draggable({
-                      stop: (event, ui) ->
-                        position = $(".drag").position()
-                        console.log(position)
-                        $("#image_pos_x").val(position.left)
-                        $("#image_pos_y").val(position.top)
-                    })
-                  )
+              # Do not crop image. Show image grid.
+              $(document).on("click", ".choose-crop button[data-crop='false']", ->
+                $("#image-picker .choose-crop").hide( ->
+                  $("#image-picker .image-grid").append("
+                    <figure>
+                      <img src='#{data.cropped_url}' alt='#{data.file_name}' />
+                      <figcaption>#{data.file_name}</figcaption>
+                    </figure>
+                  ")
 
-                  $(".edit_image").on("ajax:success", (e, data, status, xhr) ->
-                    e.preventDefault()
+                  $(".image-grid figure:last").click()
+                  $("#image-picker .select-image").show()
+                )
+              )
 
-                    # Clear out this image's data in case the user wants to crop another image
-                    $("#image-picker .crop-image").html("")
-                    
-                    $("#image-picker .crop-image").hide(->
-                      $("#image-picker .select-image").show()
+              # Crop image. Show the cropbox.
+              $(document).on("click", ".choose-crop button[data-crop='true']", =>
+                $("#image-picker .choose-crop").hide()
+                # Get the image crop form
+                $.get("/images/#{data.id}/crop?modal=true&template_id=#{$form.attr("data-template-id")}", (data) =>
+                  @.removeFile(file)
+
+                  $("#image-picker .upload-image, #image-picker .select-image").hide( ->
+                    $("#image-picker .crop-image").html(data).show(->
+                      $(".drag").draggable({
+                        stop: (event, ui) ->
+                          position = $(".drag").position()
+                          console.log(position)
+                          $("#image_pos_x").val(position.left)
+                          $("#image_pos_y").val(position.top)
+                      })
                     )
 
-                    # Add the image to the grid and select it
-                    $("#image-picker .crop-image").hide( ->
-                      $("#image-picker .image-grid").append("
-                        <figure>
-                          <img src='#{data.cropped_url}' alt='#{data.file_name}' />
-                          <figcaption>#{data.file_name}</figcaption>
-                        </figure>
-                      ")
+                    $(".edit_image").on("ajax:success", (e, data, status, xhr) ->
+                      e.preventDefault()
 
-                      $(".image-grid figure:last").click()
+                      # Clear out this image's data in case the user wants to crop another image
+                      $("#image-picker .crop-image").html("")
+                      
+                      $("#image-picker .crop-image").hide(->
+                        $("#image-picker .select-image").show()
+                      )
 
-                      # Remove the event listener so it doesn't fire multuple times
-                      $(".edit_image").off("ajax:success")
+                      # Add the image to the grid and select it
+                      $("#image-picker .crop-image").hide( ->
+                        $("#image-picker .image-grid").append("
+                          <figure>
+                            <img src='#{data.cropped_url}' alt='#{data.file_name}' />
+                            <figcaption>#{data.file_name}</figcaption>
+                          </figure>
+                        ")
+
+                        $(".image-grid figure:last").click()
+
+                        # Remove the event listener so it doesn't fire multuple times
+                        $(".edit_image").off("ajax:success")
+                      )
+
+                    # When the image cannot be cropped
+                    ).on("ajax:error", (e, xhr, status, error) ->
+                      $("#image-error").html("There was an error cropping your image. Please try again.")
                     )
-
-                  # When the image cannot be cropped
-                  ).on("ajax:error", (e, xhr, status, error) ->
-                    $("#image-error").html("There was an error cropping your image. Please try again.")
                   )
                 )
               )
+            
+            # Cropping is not enabled in this modal. Show the image grid.
             else
               $("#image-picker .crop-image").hide( ->
                 $("#image-picker .image-grid").append("

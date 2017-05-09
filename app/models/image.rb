@@ -21,8 +21,6 @@ class Image < ApplicationRecord
   scope :recent, ->{ all.joins(:images_users).where("user_id = ? and images.created_at >= ?", User.current_user.id, DateTime.now - 1.month) }
   scope :shared_with_me, ->{ all.joins(:images_users).where("user_id = ? and images_users.user_id != ?", User.current_user.id, User.current_user.id) }
 
-  before_create :resize_for_crop
-
   attr_accessor :pos_x, :pos_y, :context, :resize
 
   def cropping?
@@ -31,9 +29,5 @@ class Image < ApplicationRecord
 
   def resizing?
     resize.present?
-  end
-
-  def resize_for_crop
-    resize = true
   end
 end

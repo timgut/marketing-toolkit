@@ -35,13 +35,13 @@
 }
 
 #uploaded {
-  background-image:    url('<%= @image.image.url %>');
+  background-image:    url('<%= @image.image.url(:cropped) %>');
   background-repeat:   no-repeat;
   background-position: center center;
 
   z-index:  1;
-  height:   <%= @image.dimensions(:image)[:height] %>px;
-  width:    <%= @image.dimensions(:image)[:width] %>px;
+  height:   <%= @image.dimensions(:image, :cropped)[:height] %>px;
+  width:    <%= @image.dimensions(:image, :cropped)[:width] %>px;
   /*border:   dashed 1px #000;*/
   cursor:   grab;
 }
