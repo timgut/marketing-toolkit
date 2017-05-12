@@ -24,7 +24,7 @@ module Paperclip
         # if Float(target.pos_y) > Float(context.crop_top)
         #   crop_y = 0
         # else
-        crop_y = Integer(Float(target.pos_y).abs) - 150 #Integer(Float(target.pos_y).abs - Float(context.crop_top)).abs
+        crop_y = Integer(Float(target.pos_y).abs) #Integer(Float(target.pos_y).abs - Float(context.crop_top)).abs
         # end
 
         command = ["-crop", "#{crop_w}x#{crop_h}+#{crop_x}+#{crop_y}"]
