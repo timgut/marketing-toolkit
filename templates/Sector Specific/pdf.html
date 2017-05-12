@@ -1,3 +1,16 @@
+<% 
+  if @document.photo.present? and image = Image.find_by_url(@document.photo)
+    case image.orientation
+    when :portrait
+      container_bg_size = "auto 100%"
+    when :landscape
+      container_bg_size = "100% auto"
+    end
+  else
+    container_bg_size = "100% auto"
+  end
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,7 +94,7 @@ body {
   text-align: left;
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: cover;
+  background-size: <%= container_bg_size %>;
   position: relative;
 }
 .top-bar {

@@ -6,13 +6,11 @@ module Paperclip
 
     def transformation_command
       if target.resizing?
-        target_size   = {height: target.image.height,               width: target.image.width               }
+        target_size   = {height: target.image.height, width: target.image.width }
         context_size  = {height: target.context.blank_image.height, width: target.context.blank_image.width }
+        multiplier    = 1.2
 
-        multiplier  = 1.2
-        orientation = target_size[:width] > target_size[:height] ? :landscape : :portrait
-
-        case orientation
+        case target.orientation
         when :landscape
           new_height = (context_size[:height] * multiplier).ceil
           new_width  = ((target_size[:width] * new_height) / target_size[:height]).ceil
