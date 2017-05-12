@@ -16,6 +16,7 @@ window.Toolkit.Document.addImage = ->
   $(document).on("click", ".image-picker", ->
     $target = $("#image-picker .image-grid")
     window.Toolkit.Document.cropImages = $(@).attr("data-crop") is "true"
+    window.Toolkit.Document.cropOffset = $(@).attr("data-crop-offset")
 
     if $target.attr("data-loaded") is "false"
       $.get("/images/choose", (data) ->
@@ -208,7 +209,8 @@ window.Toolkit.Document.disableDownloadButton = ->
                         position = $(".drag").position()
                         console.log(position)
                         $("#image_pos_x").val(position.left)
-                        $("#image_pos_y").val(position.top)
+                        $("#image_pos_y").val(position.top - window.Toolkit.Document.cropOffset)
+                        console.log(window.Toolkit.Document.cropOffset)
                     })
                   )
 

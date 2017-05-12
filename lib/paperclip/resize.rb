@@ -13,12 +13,18 @@ module Paperclip
 
         case orientation
         when :landscape
-          new_size = (context_size[:height] * multiplier).ceil
+          new_height = (context_size[:height] * multiplier).ceil
+          new_width = ((target_size[:width] * new_height)/target_size[:height]).ceil
+          puts "\n\n\n\nLANDSCAPE ==> NEW HEIGHT IS @ #{new_height} and NEW WIDTH is #{new_width}\n\n\n\n"
         when :portrait
-          new_size = (context_size[:width] * multiplier).ceil
-        end
+          new_width = (context_size[:width] * multiplier).ceil
+          new_height = ((target_size[:height] * new_width)/target_size[:width]).ceil
 
-        command = ["-resize", "#{new_size}x#{new_size}"]
+          puts "\n\n\n\n\nPORTRAIT. NEW WIDTH IS @ #{new_width}\n\n\n\n\n\n\n"
+
+        end
+        #new_size = (target.context.crop_bottom - target.context.crop_top) * multiplier
+        command = ["-resize", "#{new_width}x#{new_height}^"]
         # command = ["-resize", "#{(context_size[:height] * context_size[:width]) * multiplier}@"]
         target.resize_cmd = command
         command

@@ -18,13 +18,13 @@ module Paperclip
         crop_h = Integer(context.blank_image_height)
         
         # The x position where the crop starts is pos_x.
-        crop_x = Float(target.pos_x).positive? ? 0 : Integer(Float(target.pos_x).abs)
+        crop_x = Integer(Float(target.pos_x).abs)
 
         # The y position where the crop starts is pos_y - crop_top.
         # if Float(target.pos_y) > Float(context.crop_top)
         #   crop_y = 0
         # else
-        crop_y = Integer(Float(target.pos_y).abs) #Integer(Float(target.pos_y).abs - Float(context.crop_top)).abs
+        crop_y = Integer(Float(target.pos_y).abs) - 150 #Integer(Float(target.pos_y).abs - Float(context.crop_top)).abs
         # end
 
         command = ["-crop", "#{crop_w}x#{crop_h}+#{crop_x}+#{crop_y}"]
