@@ -48,19 +48,6 @@
         <%= f.text_field :width %>
       </li>
 
-      <% if template.croppable? %>
-        <li>
-          <%= f.label :crop_top, "Top Left Crop Area" %>
-          <%= f.text_field :crop_top %>, 0
-        </li>
-        
-        <li>
-          <%= f.label :crop_bottom, "Bottom Right Crop Area" %>
-          <%= template.blank_image_width %>, <%= f.text_field :crop_bottom %>
-        </li>
-
-      <% end %>
-
       <li>
         <%= f.label :status %>
         <%= f.status_select %>

@@ -1,4 +1,4 @@
-<div id="croparea" data-height="<%= @image.dimensions(:image)[:height] %>" data-width="<%= @image.dimensions(:image)[:width] %>">
+<div id="croparea" data-height="<%= @image.image.height %>" data-width="<%= @image.image.width %>">
   <div class="drag">
     <div id="uploaded"></div>
   </div>
@@ -17,8 +17,8 @@
 
 <style>
 #croparea {
-  height:   <%= @template.blank_image_height %>px;
-  width:    <%= @template.blank_image_width %>px;
+  height:   <%= @template.blank_image.height %>px;
+  width:    <%= @template.blank_image.width %>px;
   border:   solid 2px #000;
   overflow: hidden;
   z-index:  3;
@@ -40,8 +40,8 @@
   background-position: center center;
 
   z-index:  1;
-  height:   <%= @image.dimensions(:image, :cropped)[:height] %>px;
-  width:    <%= @image.dimensions(:image, :cropped)[:width] %>px;
+  height:   <%= @image.image.height(:cropped) %>px;
+  width:    <%= @image.image.width(:cropped) %>px;
   /*border:   dashed 1px #000;*/
   cursor:   grab;
 }
