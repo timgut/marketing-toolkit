@@ -1,7 +1,7 @@
 class Image < ApplicationRecord
   include Status
 
-  has_attached_file :image, storage: :s3, s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) }
+  has_attached_file :image, storage: :s3, s3_protocol: "https", s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) }
   
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
   validates_uniqueness_of :image_file_name, scope: :creator_id

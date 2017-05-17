@@ -1,6 +1,8 @@
 class Template < ApplicationRecord
   include Status
 
+  ATTACHMENTS = [:thumbnail, :numbered_image, :blank_image, :static_pdf]
+
   belongs_to :campaign
 
   has_many :documents
@@ -11,12 +13,7 @@ class Template < ApplicationRecord
 
   scope :with_category, ->(category_id){ where(category_id: category_id) }
 
-  has_attached_file :thumbnail,      storage: :s3, s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) }
-  has_attached_file :numbered_image, storage: :s3, s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) }
-  has_attached_file :blank_image,    storage: :s3, s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) }
-  has_attached_file :static_pdf,     storage: :s3, s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) }
-
-  validates_attachment_content_type :thumbnail,      content_type: /\Aimage\/.*\z/
-  validates_attachment_content_type :numbered_image, content_type: /\Aimage\/.*\z/
-  validates_attachment_content_type :blank_image,    content_type: /\Aimage\/.*\z/
+  ATTACHMENTS.each do |attachment|
+    has_attached_file attachment, storage: :s3, s3_protocol: "https",  s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) }
+  end
 end
