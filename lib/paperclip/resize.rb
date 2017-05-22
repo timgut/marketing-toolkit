@@ -16,8 +16,8 @@ module Paperclip
           new_width  = ((target_size[:width] * new_height) / target_size[:height]).ceil
           #puts "\n\n\n\nLANDSCAPE ==> NEW HEIGHT IS @ #{new_height} and NEW WIDTH is #{new_width}\n\n\n\n"
         when :portrait
-          new_height = ((target_size[:height] * new_width) / target_size[:width]).ceil
           new_width  = (context_size[:width] * multiplier).ceil
+          new_height = ((target_size[:height] * new_width) / target_size[:width]).ceil
           #puts "\n\n\n\n\nPORTRAIT. NEW WIDTH IS @ #{new_width}\n\n\n\n\n\n\n"
         end
 
