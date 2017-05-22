@@ -207,10 +207,8 @@ window.Toolkit.Document.disableDownloadButton = ->
                     $(".drag").draggable({
                       stop: (event, ui) ->
                         position = $(".drag").position()
-                        console.log(position)
                         $("#image_pos_x").val(position.left)
                         $("#image_pos_y").val(position.top - window.Toolkit.Document.cropOffset)
-                        console.log(window.Toolkit.Document.cropOffset)
                     })
                   )
 

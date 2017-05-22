@@ -6,10 +6,8 @@ class Template < ApplicationRecord
   belongs_to :campaign
   belongs_to :category
 
-  validates :title, :description, :height, :width, :pdf_markup, :form_markup, :status, presence: true, if: Proc.new{|template| template.customize == true}
-  validates :height, :width, numericality: true, if: Proc.new{|template| template.customize?}
-
-  before_save :set_blank_image_dimensions
+  validates :title, :description, :height, :width, :pdf_markup, :form_markup, :status, presence: true, if: Proc.new{|t| t.customize?}
+  validates :height, :width, numericality: true, if: Proc.new{|t| t.customize?}
 
   scope :with_category, ->(category_id){ where(category_id: category_id) }
 
@@ -24,14 +22,5 @@ class Template < ApplicationRecord
 
   def croppable?
     blank_image.exists?
-  end
-
-  protected
-
-  def set_blank_image_dimensions
-    if blank_image.exists?
-      self.blank_image_height = sprintf("%0.02f", dimensions(:blank_image)[:height].to_f)
-      self.blank_image_width  = sprintf("%0.02f", dimensions(:blank_image)[:width].to_f)
-    end
   end
 end
