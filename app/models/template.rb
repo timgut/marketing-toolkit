@@ -1,13 +1,13 @@
 class Template < ApplicationRecord
   include Status
 
-  belongs_to :campaign
-
   has_many :documents
+
+  belongs_to :campaign
   belongs_to :category
 
-  validates :title, :description, :height, :width, :pdf_markup, :form_markup, :status, presence: true, if: Proc.new{|template| template.customize == true}
-  validates :height, :width, numericality: true, if: Proc.new{|template| template.customize?}
+  validates :title, :description, :height, :width, :pdf_markup, :form_markup, :status, presence: true, if: Proc.new{|t| t.customize?}
+  validates :height, :width, numericality: true, if: Proc.new{|t| t.customize?}
 
   scope :with_category, ->(category_id){ where(category_id: category_id) }
 
@@ -19,4 +19,8 @@ class Template < ApplicationRecord
   validates_attachment_content_type :thumbnail,      content_type: /\Aimage\/.*\z/
   validates_attachment_content_type :numbered_image, content_type: /\Aimage\/.*\z/
   validates_attachment_content_type :blank_image,    content_type: /\Aimage\/.*\z/
+
+  def croppable?
+    blank_image.exists?
+  end
 end

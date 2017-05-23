@@ -13,7 +13,6 @@ end
 Paperclip::Attachment.default_options[:use_timestamp] = false
 
 Paperclip.interpolates :dynamic_path do |attachment, style|
-  
   # TODO: DRY this up.
   if attachment.instance.is_a?(Image)
     file_type = "images"

@@ -25,7 +25,7 @@ FactoryGirl.define do
   end
 
   factory :image do
-
+    image { File.new("#{Rails.root}/spec/support/images/1260x573.jpg") }
   end
 
   factory :template do
@@ -36,6 +36,14 @@ FactoryGirl.define do
     pdf_markup "<html><body>Hello World</body></html>"
     form_markup "This is a placeholder for the form markup."
     status "publish"
+
+    blank_image { File.new("#{Rails.root}/templates/Industry Specific/blank-ss.png") }
+
+    blank_image_height 761
+    blank_image_width  600
+    
+    crop_top    148
+    crop_bottom 705
   end
 
   factory :user do

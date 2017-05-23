@@ -12,7 +12,7 @@
  *
  *= require codemirror
  *= require codemirror/themes/ambiance
- *= require croppie
+ *= require jquery-ui/draggable
  *= require dropzone/dropzone
  *= require_tree .
  *= require_self

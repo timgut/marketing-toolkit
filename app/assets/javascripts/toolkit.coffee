@@ -4,12 +4,17 @@ window.Toolkit ||= {}
 # want to initialize code more than once, use the init object to make
 # sure that code is only loaded once.
 window.Toolkit.init ||= {}
-window.Toolkit.init.optionsMenu = false
+
+window.Toolkit.init.optionsMenu        = false
+window.Toolkit.init.documentDataTarget = false
 
 Dropzone.autoDiscover = false
 
 window.Toolkit.isEditPage = ->
   location.href.indexOf("edit") isnt -1
+
+window.Toolkit.isDocumentPage = ->
+  location.href.indexOf("/documents") isnt -1
 
 window.Toolkit.resetDropzones = ->
   window.Toolkit.dropzones = []

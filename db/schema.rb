@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170509170903) do
+ActiveRecord::Schema.define(version: 20170512152356) do
 
   create_table "affiliates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
@@ -107,10 +107,12 @@ ActiveRecord::Schema.define(version: 20170509170903) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
     t.integer  "creator_id"
-    t.integer  "status",             default: 1
+    t.integer  "status",                           default: 1
+    t.text     "crop_data",          limit: 65535
+    t.text     "image_meta",         limit: 65535
     t.index ["creator_id"], name: "index_images_on_creator_id", using: :btree
   end
 
@@ -149,15 +151,12 @@ ActiveRecord::Schema.define(version: 20170509170903) do
     t.datetime "updated_at",                                               null: false
     t.integer  "category_id"
     t.string   "orientation"
-    t.float    "blank_image_height",          limit: 24
-    t.float    "blank_image_width",           limit: 24
-    t.integer  "crop_top"
-    t.integer  "crop_bottom"
     t.boolean  "customize",                                 default: true
     t.string   "static_pdf_file_name"
     t.string   "static_pdf_content_type"
     t.integer  "static_pdf_file_size"
     t.datetime "static_pdf_updated_at"
+    t.text     "blank_image_meta",            limit: 65535
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
