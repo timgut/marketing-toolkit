@@ -9,6 +9,7 @@
   }
 ) do |f| %>
   <%= f.hidden_field :template_id, value: @template.id %>
+  <%= f.hidden_field :status, value: 1 %>
   
   <% if @document.new_record? %>
     <%= f.hidden_field :creator_id, value: User.current_user.id %>
@@ -43,11 +44,6 @@
           <%= f.label :description %>
           <%= f.text_area :description %> 
         </li>
-
-        <li>
-          <%= f.label :status %>
-          <%= f.status_select %>
-        </li>
                 
         <li><strong class="metadata-label">Dimensions</strong><%= dimensions(@template) %></li>
         <li><strong class="metadata-label">Toolkit</strong><%= @campaign.title if @campaign %></li>
@@ -70,7 +66,7 @@
 
       <div class="buttons small cf">
         <% unless @document.new_record? %>
-          <%= link_to "Download".html_safe, download_link(@document), class: "preview action button", data: {download: true} %>
+          <%= link_to "Download".html_safe, download_link(@document), target: :blank, class: "preview action button", data: {download: true} %>
         <% end %>
         <%= f.button "Save", class: "button save active" %>
       </div>
