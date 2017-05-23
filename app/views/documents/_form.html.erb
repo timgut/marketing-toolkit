@@ -9,7 +9,7 @@
   }
 ) do |f| %>
   <%= f.hidden_field :template_id, value: @template.id %>
-  <%= f.hidden_field :status, value: 1 %>
+  <%= f.hidden_field :status, value: :publish %>
   
   <% if @document.new_record? %>
     <%= f.hidden_field :creator_id, value: User.current_user.id %>
