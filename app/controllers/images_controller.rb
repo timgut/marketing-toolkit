@@ -5,7 +5,7 @@ class ImagesController < ApplicationController
 
   # GET /images/choose
   def choose
-    @images = current_user.images
+    @images = current_user.images.publish
     render layout: false
   end
 
