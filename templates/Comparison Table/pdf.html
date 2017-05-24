@@ -260,6 +260,39 @@ footer .union-bug {
 
 </head>
 
+<%
+count = 0
+if @document.comp_1_title.present? and  @document.comp_1_col_1.present? and  @document.comp_1_col_2.present?
+  count += 1
+  row1 = true
+end
+
+if @document.comp_2_title.present? and  @document.comp_2_col_1.present? and  @document.comp_2_col_2.present?
+  count += 1
+  row2 = true
+end
+
+if @document.comp_3_title.present? and  @document.comp_3_col_1.present? and  @document.comp_3_col_2.present?
+  count += 1
+  row3 = true
+end
+
+if @document.comp_4_title.present? and  @document.comp_4_col_1.present? and  @document.comp_4_col_2.present?
+  count += 1
+  row4 = true
+end
+
+if @document.comp_5_title.present? and  @document.comp_5_col_1.present? and  @document.comp_5_col_2.present?
+  count += 1
+  row5 = true
+end
+
+if @document.comp_6_title.present? and  @document.comp_6_col_1.present? and  @document.comp_6_col_2.present?
+  count += 1
+  row6 = true
+end
+%>
+
   <body>
     <main class="container">
       <header>
@@ -271,50 +304,62 @@ footer .union-bug {
           </h1>
       </header>
 
-      <div class="table">        
-          <div class="row header cf">
-            <div class="cell">&nbsp;</div>            
-            <div class="cell"><strong><%= @document.option_a.try(:html_safe) %></strong></div>
-            <div class="cell"><strong><%= @document.option_b.try(:html_safe) %></strong></div>
-          </div>
-          
-          <div class="bar"></div>
+      <div class="table rows-<%= count %>">        
+        <div class="row header cf">
+          <div class="cell">&nbsp;</div>            
+          <div class="cell"><strong><%= @document.option_a.try(:html_safe) %></strong></div>
+          <div class="cell"><strong><%= @document.option_b.try(:html_safe) %></strong></div>
+        </div>
+        
+        <div class="bar"></div>
 
+        <% if row1 %>
           <div class="row cf">
             <div class="cell"><%= @document.comp_1_title.try(:html_safe) %></div>            
             <div class="cell"><%= @document.comp_1_col_1.try(:html_safe) %></div>
             <div class="cell"><%= @document.comp_1_col_2.try(:html_safe) %></div>
           </div>
-          
+        <% end %>
+
+        <% if row2 %>
           <div class="row cf">
             <div class="cell"><%= @document.comp_2_title.try(:html_safe) %></div>            
             <div class="cell"><%= @document.comp_2_col_1.try(:html_safe) %></div>
             <div class="cell"><%= @document.comp_2_col_2.try(:html_safe) %></div>
           </div>                 
-          
+        <% end %>
+
+        <% if row3 %>
           <div class="row cf">
             <div class="cell"><%= @document.comp_3_title.try(:html_safe) %></div>            
             <div class="cell"><%= @document.comp_3_col_1.try(:html_safe) %></div>
             <div class="cell"><%= @document.comp_3_col_2.try(:html_safe) %></div>
           </div>
-          
+        <% end %>
+
+        <% if row4 %>
           <div class="row cf">
             <div class="cell"><%= @document.comp_4_title.try(:html_safe) %></div>            
             <div class="cell"><%= @document.comp_4_col_1.try(:html_safe) %></div>
             <div class="cell"><%= @document.comp_4_col_2.try(:html_safe) %></div>
           </div>
-          
+        <% end %>
+
+        <% if row5 %>
           <div class="row cf">
             <div class="cell"><%= @document.comp_5_title.try(:html_safe) %></div>            
             <div class="cell"><%= @document.comp_5_col_1.try(:html_safe) %></div>
             <div class="cell"><%= @document.comp_5_col_2.try(:html_safe) %></div>
           </div>
-          
+        <% end %>
+
+        <% if row6 %>
           <div class="row cf">
             <div class="cell"><%= @document.comp_6_title.try(:html_safe) %></div>            
             <div class="cell"><%= @document.comp_6_col_1.try(:html_safe) %></div>
             <div class="cell"><%= @document.comp_6_col_2.try(:html_safe) %></div>
           </div>
+        <% end %>
       </div>
               
       <footer>

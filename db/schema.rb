@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170512152356) do
+ActiveRecord::Schema.define(version: 20170524192540) do
 
   create_table "affiliates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
@@ -30,17 +30,6 @@ ActiveRecord::Schema.define(version: 20170512152356) do
     t.integer  "parent_id"
   end
 
-  create_table "campaigns_documents", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.integer  "campaign_id"
-    t.integer  "document_id"
-    t.integer  "creator_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["campaign_id"], name: "index_campaigns_documents_on_campaign_id", using: :btree
-    t.index ["creator_id"], name: "index_campaigns_documents_on_creator_id", using: :btree
-    t.index ["document_id"], name: "index_campaigns_documents_on_document_id", using: :btree
-  end
-
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
     t.datetime "created_at", null: false
@@ -57,7 +46,7 @@ ActiveRecord::Schema.define(version: 20170512152356) do
     t.index ["document_id"], name: "index_data_on_document_id", using: :btree
   end
 
-  create_table "delayed_jobs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "delayed_jobs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "priority",                 default: 0, null: false
     t.integer  "attempts",                 default: 0, null: false
     t.text     "handler",    limit: 65535,             null: false
@@ -75,20 +64,16 @@ ActiveRecord::Schema.define(version: 20170512152356) do
   create_table "documents", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "template_id"
     t.string   "title"
-    t.text     "description",            limit: 65535
+    t.text     "description",      limit: 65535
     t.integer  "status"
     t.string   "pdf_file_name"
     t.string   "pdf_content_type"
     t.integer  "pdf_file_size"
     t.datetime "pdf_updated_at"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "tag_id"
     t.integer  "creator_id"
-    t.string   "thumbnail_file_name"
-    t.string   "thumbnail_content_type"
-    t.integer  "thumbnail_file_size"
-    t.datetime "thumbnail_updated_at"
     t.index ["creator_id"], name: "index_documents_on_creator_id", using: :btree
     t.index ["template_id"], name: "index_documents_on_template_id", using: :btree
   end
@@ -110,7 +95,7 @@ ActiveRecord::Schema.define(version: 20170512152356) do
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
     t.integer  "creator_id"
-    t.integer  "status",                           default: 1
+    t.integer  "status",                           default: 1, null: false
     t.text     "crop_data",          limit: 65535
     t.text     "image_meta",         limit: 65535
     t.index ["creator_id"], name: "index_images_on_creator_id", using: :btree
