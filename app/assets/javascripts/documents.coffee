@@ -165,16 +165,6 @@ window.Toolkit.Document.dataTarget = ->
       $target.val($(@).val())
     )
 
-window.Toolkit.Document.disableDownloadButton = ->
-  $(document).on("click", "a.disabled", (e) ->
-    e.preventDefault()
-    return false
-  )
-  $(document).on("change", "form[data-document='true']", ->
-    $("[data-download='true']").addClass("disabled")
-    $("[data-download='true']").prop("title", "This document must be saved before it can be downloaded.")
-  )
-
  window.Toolkit.Document.dropzone = ->
   $form = $("form[data-document='true']")
   window.Toolkit.dropzones = []
@@ -273,6 +263,5 @@ window.Toolkit.Document.ready = ->
     window.Toolkit.Document.saveIds()
     window.Toolkit.Document.fillForm()
     window.Toolkit.Document.dataTarget()
-    window.Toolkit.Document.disableDownloadButton()
 
 $(document).on('turbolinks:load', window.Toolkit.Document.ready)

@@ -10,16 +10,15 @@
     data:   {confirm: "Are you sure that you want to move this document to the trash?"} 
   ) %>
 </li>
-
+<li>
+  <%= link_to(
+    "<span class='icons'>S</span> Preview".html_safe,
+    preview_document_path(document),
+    title: "Preview PDF",
+    target: :_blank 
+  ) %>
+</li>
 <% if User.current_user.admin? %>
-  <li>
-    <%= link_to(
-      "<span class='icons'>S</span> Debug PDF".html_safe,
-      download_document_path(document, debug: true),
-      title: "Debug PDF",
-      target: :_blank 
-    ) %>
-  </li> 
   <li>
     <%= link_to(
       "<span class='icons'>F</span> Rebuild PDF".html_safe,
