@@ -76,7 +76,7 @@ class DocumentsController < ApplicationController
 
   # GET /documents/recent
   def recent
-    @filtered_documents = Document.includes(:template).recent
+    @filtered_documents = Document.includes(:template).recent.not_trashed.reverse
     render :index
   end
 
