@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def changed_document_message
+    "If you have made changes to this document, you must save it to see the changes."
+  end
+
   def dimensions(template)
     "#{template.width}\" x #{template.height}\""
   end

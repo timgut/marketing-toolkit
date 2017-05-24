@@ -23,11 +23,10 @@
             <label>
               <%= link_to(
                 "Launch full size preview",
-                @document.pdf.url,
-                name: "commit",
-                value: "Preview",
+                preview_document_path(@document),
                 class: "full-preview active",
-                target: :_blank 
+                target: :_blank,
+                title:  changed_document_message
               ) %>
               Preview
             </label>
@@ -66,7 +65,7 @@
 
       <div class="buttons small cf">
         <% unless @document.new_record? %>
-          <%= link_to "Download".html_safe, download_link(@document), target: :blank, class: "preview action button", data: {download: true} %>
+          <%= link_to "Download".html_safe, download_link(@document), target: :blank, class: "preview action button", title:  changed_document_message, data: {download: true} %>
         <% end %>
         <%= f.button "Save", class: "button save active" %>
       </div>
