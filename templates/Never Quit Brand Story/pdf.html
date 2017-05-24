@@ -235,9 +235,9 @@
     <main class="container poster poster" style="background-image: url('http://neverquit.afscme.org/toolkit/brand-story/poster/brand-story-poster-top.png');">
       <div class="logos">
         <div class="affiliate-logo" style="background-image: url('<%= @document.nqbs_affiliate_logo %>');"></div>
-        <div class="logo-line"></div>
         
         <% if @document.nqbs_logo.present? %>
+          <div class="logo-line"></div>
           <div class="logo" style="background-image: url('<%= @document.nqbs_logo %>');"></div>
         <% end %>
       </div>

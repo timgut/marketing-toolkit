@@ -32,8 +32,7 @@ class DocumentsController < ApplicationController
 
   # GET /documents/1/edit
   def edit
-    @document = Document.find(params[:id])
-    @document.define_data_methods
+    load_document
     @custom_branding = User.current_user.custom_branding?
     assign_records
   end
@@ -41,21 +40,15 @@ class DocumentsController < ApplicationController
   # GET /documents/1/download.pdf
   def download
     force_format(:pdf)
-    
-    @document = Document.find(params[:id])
-    @document.define_data_methods
+    load_document
 
-    if params[:debug]
-      render pdf_options
-    else
-      pdf = render pdf_options.merge(save_to_file: @document.local_pdf_path, save_only: true)
+    pdf = render pdf_options.merge(save_to_file: @document.local_pdf_path, save_only: true)
 
-      @document.pdf = File.open(@document.local_pdf_path)
-      @document.save
-      File.delete(@document.local_pdf_path)
+    @document.pdf = File.open(@document.local_pdf_path)
+    @document.save
+    File.delete(@document.local_pdf_path)
 
-      redirect_to @document.pdf.url
-    end
+    redirect_to @document.pdf.url
   end
 
   # GET /documents
@@ -76,9 +69,9 @@ class DocumentsController < ApplicationController
     assign_records
   end
 
-  # GET /documents/preview.pdf
+  # GET /documents/1/preview
   def preview
-    force_format(:pdf)
+    load_document
     render pdf_options
   end
 
@@ -146,16 +139,9 @@ class DocumentsController < ApplicationController
 
   private
 
-  def document_params
-    params.require(:document).permit(:title, :description, :status, :template_id, :creator_id)
-  end
-
-  def force_format(format)
-    params[:format] = format
-  end
-
-  def delete_data
-    @document.data.destroy_all
+  def assign_records
+    @template = @document.template
+    @campaign = @template.campaign
   end
 
   def create_data
@@ -164,6 +150,23 @@ class DocumentsController < ApplicationController
     params.delete(:data).each do |key, value|
       Datum.create!(document_id: @document.id, key: key, value: value, field_id: select_data[key])
     end
+  end
+
+  def delete_data
+    @document.data.destroy_all
+  end
+
+  def document_params
+    params.require(:document).permit(:title, :description, :status, :template_id, :creator_id)
+  end
+
+  def force_format(format)
+    params[:format] = format
+  end
+
+  def load_document
+    @document = Document.find(params[:id])
+    @document.define_data_methods
   end
 
   def pdf_options
@@ -175,7 +178,7 @@ class DocumentsController < ApplicationController
       grayscale:     false,
       lowquality:    false,
       image_quality: 94,
-      show_as_html:  params[:debug],
+      show_as_html:  params[:action] == "preview",
       page_height:   "#{@document.template.height}in",
       page_width:    "#{@document.template.width}in",
       zoom: 1,
@@ -186,10 +189,5 @@ class DocumentsController < ApplicationController
         right:  0
       }
     }
-  end
-
-  def assign_records
-    @template = @document.template
-    @campaign = @template.campaign
   end
 end
