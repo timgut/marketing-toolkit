@@ -365,56 +365,91 @@ header p {
         <div class="title"><%= @document.bs_improvement_title %></div>    
         <div class="twocol">
             <div class="col">
-                <div class="row">
-                    <div class="entry small"></div>
-                    <div class="label"><%= @document.bs_improvement_1 %></div>
-                </div>  
-                <div class="row">
-                    <div class="entry small"></div>
-                    <div class="label"><%= @document.bs_improvement_2 %></div>
-                </div>  
-                <div class="row">
-                    <div class="entry small"></div>
-                    <div class="label"><%= @document.bs_improvement_3 %></div>
-                </div> 
-               <div class="row">
-                    <div class="entry small"></div>
-                    <div class="label"><%= @document.bs_improvement_4 %></div>
-                </div>     
-                <div class="row">
-                    <div class="entry small"></div>
-                    <div class="label"><%= @document.bs_improvement_5 %></div>
-                </div>       
-                <div class="row">
-                    <div class="entry small"></div>
-                    <div class="label"><%= @document.bs_improvement_6 %></div>
-                </div>             
+                <% if @document.bs_improvement_1.present? %>
+                  <div class="row">
+                      <div class="entry small"></div>
+                      <div class="label"><%= @document.bs_improvement_1 %></div>
+                  </div>  
+                <% end %>
+
+                <% if @document.bs_improvement_2.present? %>
+                  <div class="row">
+                      <div class="entry small"></div>
+                      <div class="label"><%= @document.bs_improvement_2 %></div>
+                  </div>  
+                <% end %>
+
+                <% if @document.bs_improvement_3.present? %>
+                  <div class="row">
+                      <div class="entry small"></div>
+                      <div class="label"><%= @document.bs_improvement_3 %></div>
+                  </div>  
+                <% end %>
+
+                <% if @document.bs_improvement_4.present? %>
+                  <div class="row">
+                      <div class="entry small"></div>
+                      <div class="label"><%= @document.bs_improvement_4 %></div>
+                  </div>  
+                <% end %>    
+
+                <% if @document.bs_improvement_5.present? %>
+                  <div class="row">
+                      <div class="entry small"></div>
+                      <div class="label"><%= @document.bs_improvement_5 %></div>
+                  </div>  
+                <% end %>    
+
+                <% if @document.bs_improvement_6.present? %>
+                  <div class="row">
+                      <div class="entry small"></div>
+                      <div class="label"><%= @document.bs_improvement_6 %></div>
+                  </div>  
+                <% end %>            
             </div>      
             <div class="col">
-                <div class="row">
-                    <div class="entry small"></div>
-                    <div class="label"><%= @document.bs_improvement_7 %></div>
-                </div>  
-                <div class="row">
-                    <div class="entry small"></div>
-                    <div class="label"><%= @document.bs_improvement_8 %></div>
-                </div>  
-                <div class="row">
-                    <div class="entry small"></div>
-                    <div class="label"><%= @document.bs_improvement_9 %></div>
-                </div> 
-               <div class="row">
-                    <div class="entry small"></div>
-                    <div class="label"><%= @document.bs_improvement_10 %></div>
-                </div>     
-                <div class="row">
-                    <div class="entry small"></div>
-                    <div class="label"><%= @document.bs_improvement_11 %></div>
-                </div>       
-                <div class="row">
-                    <div class="entry small"></div>
-                    <div class="label"><%= @document.bs_improvement_12 %></div>
-                </div>            
+
+                <% if @document.bs_improvement_7.present? %>
+                  <div class="row">
+                      <div class="entry small"></div>
+                      <div class="label"><%= @document.bs_improvement_7 %></div>
+                  </div>  
+                <% end %> 
+
+                <% if @document.bs_improvement_8.present? %>
+                  <div class="row">
+                      <div class="entry small"></div>
+                      <div class="label"><%= @document.bs_improvement_8 %></div>
+                  </div>  
+                <% end %>
+
+                <% if @document.bs_improvement_9.present? %>
+                  <div class="row">
+                      <div class="entry small"></div>
+                      <div class="label"><%= @document.bs_improvement_9 %></div>
+                  </div>  
+                <% end %>
+
+                <% if @document.bs_improvement_10.present? %>
+                  <div class="row">
+                      <div class="entry small"></div>
+                      <div class="label"><%= @document.bs_improvement_10 %></div>
+                  </div>  
+                <% end %>     
+
+                <% if @document.bs_improvement_11.present? %>
+                  <div class="row">
+                      <div class="entry small"></div>
+                      <div class="label"><%= @document.bs_improvement_11 %></div>
+                  </div>  
+                <% end %>    
+
+                <% if @document.bs_improvement_12.present? %>
+                  <div class="row">
+                      <div class="entry small"></div>
+                      <div class="label"><%= @document.bs_improvement_12 %></div>
+                  </div>  
+                <% end %>           
             </div>
         </div>   
             
@@ -426,41 +461,53 @@ header p {
     </div>
     
     <div class="grouping">
+      <% if @document.bs_yes_no_1.present? %>
         <div class="row check multi">
           <div class="label"><%= @document.bs_yes_no_1 %></div>    
           <div class="checkbox yes"></div>
           <div class="label yes">Yes</div>
           <div class="checkbox no"></div>
           <div class="label no">No</div>
-        </div>    
+        </div>
+      <% end %>
+
+      <% if @document.bs_yes_no_2.present? %>
         <div class="row check multi">
           <div class="label"><%= @document.bs_yes_no_2 %></div>    
           <div class="checkbox yes"></div>
           <div class="label yes">Yes</div>
           <div class="checkbox no"></div>
           <div class="label no">No</div>
-        </div>    
+        </div>
+      <% end %>
+
+      <% if @document.bs_yes_no_3.present? %>
         <div class="row check multi">
           <div class="label"><%= @document.bs_yes_no_3 %></div>    
           <div class="checkbox yes"></div>
           <div class="label yes">Yes</div>
           <div class="checkbox no"></div>
           <div class="label no">No</div>
-        </div>    
+        </div> 
+      <% end %>
+      <% if @document.bs_yes_no_4.present? %>
         <div class="row check multi">
           <div class="label"><%= @document.bs_yes_no_4 %></div>    
           <div class="checkbox yes"></div>
           <div class="label yes">Yes</div>
           <div class="checkbox no"></div>
           <div class="label no">No</div>
-        </div>    
+        </div>
+      <% end %>
+      <% if @document.bs_yes_no_5.present? %>
         <div class="row check multi">
           <div class="label" style="display: inline"><%= @document.bs_yes_no_5 %></div>    
           <div class="checkbox yes"></div>
           <div class="label yes">Yes</div>
           <div class="checkbox no"></div>
           <div class="label no">No</div>
-        </div>    
+        </div>
+      <% end %>
     </div>
 
   </article>
@@ -481,30 +528,38 @@ header p {
       <p>PLEASE FILL OUT ALL YOUR INFORMATION</p>
     </header>
 
-    <div class="multi-line">
-      <div class="title"><%= @document.bs_long_1 %></div>
-      <div class="line"></div>
-      <div class="line"></div>
-      <div class="line"></div>
-      <div class="line"></div>
-      <div class="line"></div>      
-    </div>
-    <div class="multi-line">
-      <div class="title"><%= @document.bs_long_2 %></div>
-      <div class="line"></div>
-      <div class="line"></div>
-      <div class="line"></div>
-      <div class="line"></div>
-      <div class="line"></div>      
-    </div>    
-    <div class="multi-line">
-      <div class="title"><%= @document.bs_long_3 %></div>
-      <div class="line"></div>
-      <div class="line"></div>
-      <div class="line"></div>
-      <div class="line"></div>
-      <div class="line"></div>      
-    </div>    
+    <% if @document.bs_long_1.present? %>
+      <div class="multi-line">
+        <div class="title"><%= @document.bs_long_1 %></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>      
+      </div>
+    <% end %>
+
+    <% if @document.bs_long_2.present? %>
+      <div class="multi-line">
+        <div class="title"><%= @document.bs_long_2 %></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>      
+      </div>
+    <% end %>
+
+    <% if @document.bs_long_3.present? %> 
+      <div class="multi-line">
+        <div class="title"><%= @document.bs_long_3 %></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>      
+      </div>
+    <% end %>
     <footer>
       <div class="union-bug"></div>
       <div class="affiliate-logo"><div style="background-image: url(<%= @document.bs_affiliate_logo %>);"></div></div>
