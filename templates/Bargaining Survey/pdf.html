@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Lato:400,300,900' rel='stylesheet' type='text/css'>
+
+<style type="text/css">
+*,
+*:before,
+*:after {
+-moz-box-sizing:    border-box; 
+-webkit-box-sizing: border-box;
+box-sizing:         border-box; 
+}
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, main,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+  margin: 0 auto;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent; }
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+main { display: block; }
+
+blockquote, q { quotes: none; }
+
+blockquote:before,
+blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+/* Clearfix */
+
+.clearfix:before,
+.clearfix:after {
+   content: "";
+   display: table; 
+}
+.clearfix:after { 
+  clear: both; 
+}
+
+.cf:before,
+.cf:after {
+   content: "";
+   display: table; 
+}
+.cf:after { 
+  clear: both;
+}
+body { 
+  background-color: #666;
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  font-weight: 300;
+  text-align: center; 
+  color: #404040;
+  line-height: 1.4; 
+  font-size: 11pt;
+  margin: 0 auto;
+  text-rendering: optimizelegibility;
+}
+.container {
+  background-color: #fff;
+  margin: auto;
+  width: 8.5in;
+  height: 11in;
+  background-repeat: no-repeat;
+  background-position: center 1.8in;
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+  margin-bottom: .15in;
+} 
+.top-bar,
+.bot-bar {
+  background-image: -webkit-linear-gradient(left, #0054a5 0%, #00ab4f 63.89%, #00ab4f 100%);
+  background-image: linear-gradient(left, #0054a5 0%, #00ab4f 63.89%, #00ab4f 100%);
+  width: 100%;
+  height: .11in;
+  position: absolute;
+  left: 0;
+}
+.top-bar {
+  top: 0;
+}
+.bot-bar {
+  bottom: 0;
+}
+.csea .top-bar,
+.csea .bot-bar {
+  background-image: -webkit-linear-gradient(right, #004785 0%, #e03a3e 100%);
+  background-image: linear-gradient(right, #004785 0%, #e03a3e 100%);
+}
+
+article {
+  padding: .3in .3in;
+}
+header {
+  position: relative;
+  z-index: 9999;
+  padding: 0 0 .05in;
+  height: 1.8in;
+}
+header h1 {
+  width: 7.5in;
+  font-family:'Lato','Arial Black',san-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 36pt;
+  line-height: 1;
+  margin: 0 0 .1in;
+  color: #23408f;
+
+}
+.csea header h1 {
+  color: #004785;
+}
+header h1 small {
+  display: block;
+  font-size: 24pt;
+  margin-top: 10pt;
+}
+
+header p {
+  display: block;
+  font-weight: 700;        
+  font-size: 15pt;
+  margin-top: 8pt;
+  text-transform: none;
+  color: #40ae49;  
+}
+.csea header p {
+  color: #e03a3e;
+}
+.grouping {
+  margin-bottom: .1in;
+}
+
+.row {
+  width: 100%;
+  display: table; 
+  padding: .05in 0;
+}
+.row div  {
+  display: table-cell; 
+  color: #000;
+  vertical-align: top;
+}
+.row .label  {
+  padding: 0 .05in 0 0;
+  text-align: left;
+}
+.row .entry  {
+  width: 100%;
+  border-bottom: 1pt solid #000;
+}
+.row .entry.small  {
+  width: .4in;
+  border-bottom: 1pt solid #000;
+}
+.row .check-container  {
+  width: .18in;
+}
+.row .checkbox  {
+  width: .18in;
+  height: .18in;  
+  border: 1pt solid #000;
+}
+.row.check .label  {
+  padding-left: .08in;
+}
+
+.multi-option { 
+  display: inline-block;
+}
+.multi-option .option { 
+  display: inline-block; 
+}
+.multi-option .option .checkbox { 
+  display: inline-block; 
+  vertical-align: top;
+}
+.multi-option .option label { 
+  padding-right: .15in;
+  padding-left: .05in;
+  vertical-align: top;  
+}
+.twocol {
+  display: table;
+  width: 100%;
+}
+.twocol .col {
+  display: table-cell;
+  width: 50%;
+}
+
+.title {
+  display: block;
+  padding: .05in 0;
+}
+.title, .other {
+  display: block;
+  width: 100%;
+}
+.entry.small + .label { padding-left: .05in; }
+
+.other .multi-option {  }
+
+.multi-line {
+  margin-top: .2in;
+}
+.multi-line:first-of-type {
+  margin-top: 0;
+}
+
+.multi-line .line {
+  display: block;
+  width: 100%;
+  height: .38in;
+  border-bottom: 1pt solid #000; 
+}
+.multi-line .line:first-of-type {
+  height: .1in;
+}
+.multi.check > div {
+  display: inline-block;
+  width: auto;
+}
+.multi.check .checkbox {
+  width: .18in;
+  margin-left: .1in; 
+}
+.multi.check .label:first-of-type {
+  padding-left: 0 !important;
+}
+
+.new-page{page-break-before: always;}
+</style>
+
+</head>
+
+<body class="afscme">
+
+<main class="container page1">
+
+  <div class="top-bar"></div>
+  <div class="bot-bar"></div>
+
+  <article class="cf">
+    <header>
+      <h1>
+        <small><%= @document.bs_workplace %></small>
+        BARGAINING SURVEY
+      </h1>
+      <p>PLEASE FILL OUT ALL YOUR INFORMATION</p>
+    </header>
+    
+    <div class="grouping">
+        <div class="row">
+          <div class="label" style="width: 11%">First Name:</div>
+          <div class="entry" style="width: 37%">&nbsp;</div>
+          <div class="label" style="width: 11%">Last Name:</div>
+          <div class="entry"  style="width: 40%">&nbsp;</div>      
+        </div> 
+        
+        <div class="row">
+          <div class="label" style="width: 11%">Cell Phone:</div>
+          <div class="entry" style="width: 37%">&nbsp;</div>
+          <div class="label" style="width: 13%">Home Phone:</div>
+          <div class="entry"  style="width: 38%">&nbsp;</div>      
+        </div> 
+        
+        <div class="row check">
+          <div class="check-container"><div class="checkbox"></div></div>
+          <div class="label">Yes, I want to receive text updates (data & message reates may apply)</div>
+        </div>
+    </div>
+
+    <div class="grouping">
+        <div class="row">
+          <div class="label">Personal Email:</div>
+          <div class="entry" style="width: 85%"></div>
+        </div>
+    
+        <div class="row">
+          <div class="label">Home Address:</div>
+          <div class="entry" style="width: 85%"></div>
+        </div>
+        
+        
+        <div class="row">
+          <div class="label" style="width: 4%">City:</div>
+          <div class="entry" style="width: 30%">&nbsp;</div>
+          
+          <div class="label" style="width: 4%">State:</div>
+          <div class="entry"  style="width: 20%">&nbsp;</div>    
+          
+          <div class="label" style="width: 3%">Zip:</div>
+          <div class="entry"  style="width: 20%">&nbsp;</div>         
+        </div>     
+    </div>
+
+    <div class="grouping">
+        <div class="row">
+          <div class="label" style="width: 20%">What is your job title?</div>
+          <div class="entry" style="width: 85%"></div>
+        </div>
+        
+        <div class="row">
+          <div class="label" style="width: 37%">What is your current status? (check one)</div>
+          <div class="multi-option" style="width: 85%">      
+              <div class="option"><div class="checkbox"></div><label>Full Time</label></div>
+              <div class="option"><div class="checkbox"></div><label>Part Time</label></div>  
+              <div class="option"><div class="checkbox"></div><label>Temporary</label></div>              
+          </div>
+        </div>
+    </div>
+
+    <div class="grouping">
+    
+        <div class="row">
+          <div class="label" style="width: 20%">What is your worksite?</div>
+          <div class="entry" style="width: 78%"></div>
+        </div>   
+        
+        <div class="row">
+          <div class="label" style="width: 33%">How long have you been employed?</div>
+          <div class="entry" style="width: 67%"></div>
+        </div>   
+        
+        <div class="row">
+          <div class="label" style="width: 22%">What shift do you work?</div>
+          <div class="entry" style="width: 78%"></div>
+        </div>  
+    </div>
+
+    <div class="grouping">
+        <div class="title"><%= @document.bs_improvement_title %></div>    
+        <div class="twocol">
+            <div class="col">
+                <div class="row">
+                    <div class="entry small"></div>
+                    <div class="label"><%= @document.bs_improvement_1 %></div>
+                </div>  
+                <div class="row">
+                    <div class="entry small"></div>
+                    <div class="label"><%= @document.bs_improvement_2 %></div>
+                </div>  
+                <div class="row">
+                    <div class="entry small"></div>
+                    <div class="label"><%= @document.bs_improvement_3 %></div>
+                </div> 
+               <div class="row">
+                    <div class="entry small"></div>
+                    <div class="label"><%= @document.bs_improvement_4 %></div>
+                </div>     
+                <div class="row">
+                    <div class="entry small"></div>
+                    <div class="label"><%= @document.bs_improvement_5 %></div>
+                </div>       
+                <div class="row">
+                    <div class="entry small"></div>
+                    <div class="label"><%= @document.bs_improvement_6 %></div>
+                </div>             
+            </div>      
+            <div class="col">
+                <div class="row">
+                    <div class="entry small"></div>
+                    <div class="label"><%= @document.bs_improvement_7 %></div>
+                </div>  
+                <div class="row">
+                    <div class="entry small"></div>
+                    <div class="label"><%= @document.bs_improvement_8 %></div>
+                </div>  
+                <div class="row">
+                    <div class="entry small"></div>
+                    <div class="label"><%= @document.bs_improvement_9 %></div>
+                </div> 
+               <div class="row">
+                    <div class="entry small"></div>
+                    <div class="label"><%= @document.bs_improvement_10 %></div>
+                </div>     
+                <div class="row">
+                    <div class="entry small"></div>
+                    <div class="label"><%= @document.bs_improvement_11 %></div>
+                </div>       
+                <div class="row">
+                    <div class="entry small"></div>
+                    <div class="label"><%= @document.bs_improvement_12 %></div>
+                </div>            
+            </div>
+        </div>   
+            
+        <div class="row">
+            <div class="entry small"></div>
+            <div class="label" style="width: 27%; white-space: nowrap;">Other (Please list an example)</div>
+            <div class="entry" style="width: 68%"></div>
+        </div>      
+    </div>
+    
+    <div class="grouping">
+        <div class="row check multi">
+          <div class="label"><%= @document.bs_yes_no_1 %></div>    
+          <div class="checkbox yes"></div>
+          <div class="label yes">Yes</div>
+          <div class="checkbox no"></div>
+          <div class="label no">No</div>
+        </div>    
+        <div class="row check multi">
+          <div class="label"><%= @document.bs_yes_no_2 %></div>    
+          <div class="checkbox yes"></div>
+          <div class="label yes">Yes</div>
+          <div class="checkbox no"></div>
+          <div class="label no">No</div>
+        </div>    
+        <div class="row check multi">
+          <div class="label"><%= @document.bs_yes_no_3 %></div>    
+          <div class="checkbox yes"></div>
+          <div class="label yes">Yes</div>
+          <div class="checkbox no"></div>
+          <div class="label no">No</div>
+        </div>    
+        <div class="row check multi">
+          <div class="label"><%= @document.bs_yes_no_4 %></div>    
+          <div class="checkbox yes"></div>
+          <div class="label yes">Yes</div>
+          <div class="checkbox no"></div>
+          <div class="label no">No</div>
+        </div>    
+        <div class="row check multi">
+          <div class="label" style="display: inline"><%= @document.bs_yes_no_5 %></div>    
+          <div class="checkbox yes"></div>
+          <div class="label yes">Yes</div>
+          <div class="checkbox no"></div>
+          <div class="label no">No</div>
+        </div>    
+    </div>
+
+  </article>
+</main>
+
+<div class="new-page"></div>
+
+<main class="container page2">
+
+  <div class="top-bar"></div>
+
+  <article class="cf">
+    <header>
+      <h1>
+        <small><%= @document.bs_workplace %></small>
+        BARGAINING SURVEY
+      </h1>
+      <p>PLEASE FILL OUT ALL YOUR INFORMATION</p>
+    </header>
+
+    <div class="multi-line">
+      <div class="title"><%= @document.bs_long_1 %></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>      
+    </div>
+    <div class="multi-line">
+      <div class="title"><%= @document.bs_long_2 %></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>      
+    </div>    
+    <div class="multi-line">
+      <div class="title"><%= @document.bs_long_3 %></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>      
+    </div>    
+    <footer>
+      <div class="union-bug"></div>
+      <div class="affiliate-logo"><div style="background-image: url(<%= @document.bs_affiliate_logo %>);"></div></div>
+      <div class="main-logo"></div>
+      <div class="angle"></div>
+    </footer>  
+    
+  </article>
+  
+</main>
+
+<style>
+
+/* ------- Footer ------- */  
+
+footer {
+  height: 1.6in;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+  z-index: 9999;
+}
+footer .cta {
+  position: absolute;
+  left: .25in;
+  bottom: .5in;  
+  width: 50%;
+  color: #fff;
+  padding-right: .12in;
+  z-index: 1000;
+}
+
+footer .affiliate-logo {
+  position: absolute;
+  right: 1.3in;
+  bottom: .15in;  
+  width: 1.4in;
+  height: .45in;
+  border-right: 1pt solid white;
+  padding-right: .12in;
+  z-index: 1000;
+}
+
+footer .affiliate-logo div {
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: contain;
+}
+
+footer .main-logo  {
+  background-image: url(http://toolkit-afscme.bytrilogy.com/print/img/afscme-reverse.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  background-size: contain;
+  width: 1.1in;    
+  height: .75in;    
+  position: absolute;
+  right: .15in;
+  bottom: .1in;  
+  z-index: 1000;
+}
+.csea footer .main-logo  {
+  background-image: url(http://toolkit-afscme.bytrilogy.com/print/img/csea-inverted.png);
+  width: 1.2in;
+}
+footer .union-bug {
+  background: url(http://toolkit-afscme.bytrilogy.com/print/img/union-bug.png) no-repeat center center;
+  background-size: contain;
+  width: .6in;
+  height: .2in;
+  position: absolute;
+  left: .15in;
+  bottom: .1in; 
+  z-index: 1000;
+}
+footer .angle {
+  background-image: -webkit-linear-gradient(right, #009769 0%, #00a951 32.2%, #0158a3 100%);
+  background-image: linear-gradient(right, #009769 0%, #00a951 32.2%, #0158a3 100%);  
+  position: absolute;
+  left: -5%;
+  top: .9in;  
+  width: 110%;
+  height: 2in;
+  -ms-transform: rotate(-3.5deg); 
+  -webkit-transform: rotate(-3.5deg); 
+  transform: rotate(-3.5deg);
+}
+.csea footer .angle {
+  background-image: -webkit-linear-gradient(right, #004785 0%, #e03a3e 100%);
+  background-image: linear-gradient(right, #004785 0%, #e03a3e 100%);
+}
+</style>
+</body>
+</html>
