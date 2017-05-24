@@ -18,8 +18,8 @@
   <main class="clearfix">
     <aside class="preview">
       <ol>
-        <% if @document.pdf_file_name %>
-          <li>
+        <li>
+          <% unless @document.new_record? %>
             <label>
               <%= link_to(
                 "Launch full size preview",
@@ -30,10 +30,10 @@
               ) %>
               Preview
             </label>
+          <% end %>
 
-            <%= image_tag @template.numbered_image %>
-          </li>
-        <% end %>
+          <%= image_tag @template.numbered_image %>
+        </li>
         <li>
           <%= f.label :title %>
           <%= f.text_field :title %>
