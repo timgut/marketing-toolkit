@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :assign_categories
-  around_action :set_current_user
 
   layout :layout_by_resource
 
@@ -11,12 +10,6 @@ class ApplicationController < ActionController::Base
 
   def assign_categories
     @categories = Category.all
-  end
-
-  def set_current_user
-    User.current_user = current_user
-    yield
-    User.current_user = nil
   end
 
   private

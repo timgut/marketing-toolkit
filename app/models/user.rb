@@ -79,15 +79,4 @@ class User < ApplicationRecord
     User.approvers.select {|user| user.affiliate.region == region}
   end
   ## end of auth methods for devise
-
-  class << self
-    def current_user=(current_user)
-      Thread.current[:current_user] = current_user
-    end
-
-    def current_user
-      Thread.current[:current_user]
-    end
-  end
-
 end

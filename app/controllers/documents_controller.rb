@@ -23,7 +23,7 @@ class DocumentsController < ApplicationController
   def duplicate
     @original_document = Document.find(params[:id])
 
-    if @document = @original_document.duplicate!
+    if @document = @original_document.duplicate!(current_user)
       redirect_to edit_document_path(@document), notice: "#{@original_document.title} was duplicated and saved. You are editing the new document."
     else
       redirect_to edit_document_path(@original_document), notice: "Cannot duplicate this document. Please try again."
@@ -76,7 +76,7 @@ class DocumentsController < ApplicationController
 
   # GET /documents/recent
   def recent
-    @filtered_documents = Document.includes(:template).recent.not_trashed.reverse
+    @filtered_documents = Document.includes(:template).recent(current_user).not_trashed.reverse
     render :index
   end
 
@@ -121,7 +121,7 @@ class DocumentsController < ApplicationController
       @images = Image.not_trashed
     end
 
-    @recent = @documents.recent
+    @recent = @documents.recent(current_user)
 
     @campaigns = Campaign.publish
     @trashed   = current_user.documents.trash

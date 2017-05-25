@@ -106,8 +106,8 @@ class ImagesController < ApplicationController
 
   def assign_sidebar_vars
     @all       = current_user.images.all.not_trashed
-    @recent    = current_user.images.recent.not_trashed
-    @shared    = current_user.images.shared_with_me.not_trashed
+    @recent    = current_user.images.recent(current_user).not_trashed
+    @shared    = current_user.images.shared_with_me(current_user).not_trashed
     @trashed   = current_user.images.trash
     @documents = current_user.documents.not_trashed
   end
