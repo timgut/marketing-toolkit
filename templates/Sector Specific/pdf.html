@@ -2,7 +2,7 @@
   if @document.photo.present? and image = Image.find_by_url(@document.photo)
     case image.orientation
     when :portrait
-      container_bg_size = "auto 100%"
+      container_bg_size = "100% auto"
     when :landscape
       container_bg_size = "100% auto"
     end
@@ -14,6 +14,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Lato:400,900" rel="stylesheet">
+
 <style type="text/css">
 *,
 *:before,
@@ -21,13 +25,7 @@
   -moz-box-sizing:    border-box; 
   -webkit-box-sizing: border-box;
   box-sizing:         border-box; 
-  transition:         all .25s ease-in-out;    
-  -webkit-transition: all .25s ease-in-out;  
-  -moz-transition:    all .25s ease-in-out;  
-  -o-transition:      all .25s ease-in-out;  
-  -ms-transition:     all .25s ease-in-out; 
 }
-
 
 html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -92,22 +90,26 @@ body {
   height: 11in;
   overflow: hidden;
   text-align: left;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: <%= container_bg_size %>;
   position: relative;
 }
+.background-image {
+  width: 8.5in;
+  height: 7.9in;
+  background-size: <%= container_bg_size %>;
+  background-repeat: no-repeat;
+  background-position: center top;
+  position: absolute;
+  top: 2.1in;
+}
 .top-bar {
+  background-image: -webkit-linear-gradient(left, #0054a5 0%, #00ab4f 63.89%, #00ab4f 100%);
+  background-image: linear-gradient(left, #0054a5 0%, #00ab4f 63.89%, #00ab4f 100%);
   width: 100%;
   height: .11in;
   position: absolute;
   top: 0;
   left: 0;
   z-index: 20000;  
-}
-.afscme .top-bar {
-  background-image: -webkit-linear-gradient(left, #0054a5 0%, #00ab4f 63.89%, #00ab4f 100%);
-  background-image: linear-gradient(left, #0054a5 0%, #00ab4f 63.89%, #00ab4f 100%);
 }
 .csea .top-bar {
   background-image: -webkit-linear-gradient(right, #004785 0%, #e03a3e 100%);
@@ -138,12 +140,13 @@ header h1 {
   z-index: 1000;
   font-family:'Lato','Arial Black';
   font-weight: 900;
+  color: #23408f;  
   text-transform: uppercase;
   font-size: 44pt;
   line-height: .95;
 }
-.afscme header h1 {
-  color: #23408f;
+header h1 small {
+  font-size: 38pt;  
 }
 .csea header h1 {
   color: #004785;
@@ -151,9 +154,7 @@ header h1 {
 header h1 span {
   display: block;
   font-weight: 300;
-}
-.afscme header span {
-  color: #40ae49;
+  color: #40ae49;  
 }
 .csea header span {
   color: #e03a3e;
@@ -193,9 +194,7 @@ header h1 span {
   margin-bottom: .5em;
   font-family:'Lato','Arial Black';
   font-weight: 900;
-}
-.afscme .quote h2 {
-  color: #40ae49;
+  color: #40ae49;  
 }
 .csea .quote h2 {
   color: #e03a3e;
@@ -227,6 +226,8 @@ footer {
   z-index: 1000;
 }
 footer .angle {
+  background-image: -webkit-linear-gradient(right, #009769 0%, #00a951 32.2%, #0158a3 100%);
+  background-image: linear-gradient(right, #009769 0%, #00a951 32.2%, #0158a3 100%);  
   position: absolute;
   left: -5%;
   top: .32in;  
@@ -235,10 +236,6 @@ footer .angle {
   -ms-transform: rotate(-4deg); 
   -webkit-transform: rotate(-4deg); 
   transform: rotate(-4deg);
-}
-.afscme footer .angle {
-  background-image: -webkit-linear-gradient(right, #009769 0%, #00a951 32.2%, #0158a3 100%);
-  background-image: linear-gradient(right, #009769 0%, #00a951 32.2%, #0158a3 100%);
 }
 .csea footer .angle {
   background-image: -webkit-linear-gradient(right, #004785 0%, #e03a3e 100%);
@@ -251,8 +248,8 @@ footer .url {
   left: .25in;
   bottom: .3in;  
   z-index: 1000;
-  background: url('http://neverquit.afscme.org/theme/img/certificate-url.png') no-repeat center center;
-  background-size: contain;
+  color: #fff;
+  font-size: 16pt;
 }
 footer .affiliate-logo {
   position: absolute;
@@ -271,19 +268,17 @@ footer .affiliate-logo div {
   background-size: contain;
 }
 footer .main-logo  {
+  background-image: url(http://toolkit-afscme.bytrilogy.com/print/img/afscme-reverse.png);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
   background-size: contain;
+  width: 1.3in;    
   height: .75in;    
   position: absolute;
   right: .15in;
   bottom: .3in;  
   z-index: 10000;
-}
-.afscme footer .main-logo  {
-  background-image: url(http://toolkit-afscme.bytrilogy.com/print/img/afscme-reverse.png);
-  width: 1.3in;
 }
 .csea footer .main-logo  {
   background-image: url(http://toolkit-afscme.bytrilogy.com/print/img/csea-inverted.png);
@@ -300,18 +295,19 @@ footer .union-bug {
 }
 </style>
 
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Lato:400,900&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 </head>
 
 <body class="<%= @document.ss_branding %>">
-    <main class="container" style="background-image: url('<%= "#{@document.photo}" %>');">
+    <main class="container">
       <div class="top-bar"></div>
+
       <header>
         <div class="angle"></div>
         <div class="bar"></div>
         <h1><%= @document.headline.try(:html_safe) %></h1>
       </header>
+          
+      <figure class="background-image" style="background-image: url('<%= "#{@document.photo}" %>');"></figure>
 
       <article class="body"><%= @document.body.try(:html_safe) %></article>
       <aside class="quote"><%= @document.testimonial.try(:html_safe) %></aside>

@@ -1,5 +1,11 @@
 <script type="text/javascript">  
   $(document).ready(function() {
+    // Custom Headline
+    $("form[data-document='true']").on("click", "#headline6-custom, #headline7-custom", function(){
+      $("#headline6").prop("checked", true);
+      $("#headline6").trigger("change");
+    });
+
     // Custom Testimonial
     $("form[data-document='true']").on("click", "#testimonial-custom, #attribution-custom", function(){
       $("#testimonial7").prop("checked", true);
@@ -95,7 +101,7 @@
           <div class="radio-button"></div>
           <strong>CREATE YOUR OWN</strong>
           <small>Maximum of 100 characters. Please preview, since words may wrap unexpectedly and cutoff your headline.</small>
-          <input type="text" name="headline-custom" id="headline6-custom" data-target="headline6" value="" maxlength="100" />
+          <input placeholder="Headline" type="text" name="headline-custom" id="headline6-custom" data-target="headline6" value="" maxlength="100" />
           <input placeholder="Sub-headline" type="text" name="data[mbf_subheadline]" id="headline7-custom" value="" maxlength="100" data-custom="text" />
         </label>
     </div>

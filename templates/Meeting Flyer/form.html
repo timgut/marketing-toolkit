@@ -1,3 +1,13 @@
+<script type="text/javascript">  
+  $(document).ready(function() {
+    // Custom Headline
+    $("form[data-document='true']").on("click", "#headline4-custom", function(){
+      $("#headline4").prop("checked", true);
+      $("#headline4").trigger("change");
+    });
+  });
+</script>
+
 <div class="step grouping radio cf"> 
   <h3>Choose a Headline</h3>
   
