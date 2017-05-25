@@ -54,10 +54,9 @@ class DocumentsController < ApplicationController
   # GET /documents
   def index
     if params[:category_id]
-      @filtered_documents = @documents.select{|document| document.template.category_id == params[:category_id].to_i}
+      @filtered_documents = @documents.select{|document| document.template.category_id == params[:category_id].to_i}.reverse
     else
-      @filtered_documents = @documents
-
+      @filtered_documents = @documents.reverse
     end
   end
 
@@ -77,7 +76,7 @@ class DocumentsController < ApplicationController
 
   # GET /documents/recent
   def recent
-    @filtered_documents = Document.includes(:template).recent
+    @filtered_documents = Document.includes(:template).recent.not_trashed.reverse
     render :index
   end
 

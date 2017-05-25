@@ -53,11 +53,6 @@ FactoryGirl.define do
   end
 
   # JOIN TABLES
-  factory :campaign_document do
-    campaign
-    document
-  end
-
   factory :document_user do
     document
     user
