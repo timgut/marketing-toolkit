@@ -2,7 +2,7 @@
   <h3>Upload an Image</h3>
 
   <%= form_tag("#", id: "upload-photo-form", class: "dropzone", multipart: true) do %>
-    <%= hidden_field_tag "image[creator_id]", User.current_user.id %>
+    <%= hidden_field_tag "image[creator_id]", current_user.id %>
       <div class="fallback">
         <%= file_field_tag "image[image]" %>
       </div>

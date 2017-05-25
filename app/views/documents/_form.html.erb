@@ -12,7 +12,7 @@
   <%= f.hidden_field :status, value: :publish %>
   
   <% if @document.new_record? %>
-    <%= f.hidden_field :creator_id, value: User.current_user.id %>
+    <%= f.hidden_field :creator_id, value: current_user.id %>
   <% end %>
 
   <main class="clearfix">

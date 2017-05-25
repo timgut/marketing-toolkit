@@ -10,7 +10,7 @@ class DocumentsController < ApplicationController
     @document = Document.new(document_params)
 
     if @document.save
-      DocumentUser.create!(document_id: @document.id, user_id: User.current_user.id)
+      DocumentUser.create!(document_id: @document.id, user_id: current_user.id)
       create_data
 
       redirect_to documents_path, notice: "Document created!"
@@ -33,7 +33,7 @@ class DocumentsController < ApplicationController
   # GET /documents/1/edit
   def edit
     load_document
-    @custom_branding = User.current_user.custom_branding?
+    @custom_branding = current_user.custom_branding?
     assign_records
   end
 
@@ -64,7 +64,7 @@ class DocumentsController < ApplicationController
   def new
     @template = Template.find(params[:template_id])
     @document = Document.new(template_id: @template.id, title: @template.title, description: @template.description)
-    @custom_branding = User.current_user.custom_branding?
+    @custom_branding = current_user.custom_branding?
     assign_records
   end
 

@@ -16,7 +16,7 @@ class ImagesController < ApplicationController
     respond_to do |format|
       format.html do
         if @image.save
-          ImageUser.create!(image: @image, user: User.current_user)    
+          ImageUser.create!(image: @image, user: current_user)    
           redirect_to images_path(@image), notice: "Image created!"
         else
           render :new, alert: "Cannot create image."
@@ -25,7 +25,7 @@ class ImagesController < ApplicationController
 
       format.json do
         if @image.save
-          ImageUser.create!(image: @image, user: User.current_user)    
+          ImageUser.create!(image: @image, user: current_user)    
           render json: {id: @image.id, url: @image.image.url, cropped_url: @image.image.url(:cropped), file_name: @image.image_file_name}
         else
           render plain: @image.errors.full_messages.to_sentence, status: 403

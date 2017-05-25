@@ -18,7 +18,7 @@
     target: :_blank 
   ) %>
 </li>
-<% if User.current_user.admin? %>
+<% if current_user.admin? %>
   <li>
     <%= link_to(
       "<span class='icons'>F</span> Rebuild PDF".html_safe,

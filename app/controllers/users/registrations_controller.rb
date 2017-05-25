@@ -11,7 +11,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def edit
   	@body_class = 'toolkit profile'
   	@header_navigation = true
-    @user = User.current_user || current_user
+    @user = current_user
     @affiliates = Affiliate.all
   end
 
