@@ -9,8 +9,12 @@ class AdminMailer < ActionMailer::Base
 
   def notification_to_approvers(user, approvers)
   	@user = user
-  	emails = approvers.pluck(:email)
-  	mail(to: emails, subject: "Toolkit account request from #{user.name}")
+    if approvers.count > 0
+      emails = approvers.pluck(:email)
+    else
+      emails = 'chi-dev@trilogyinteractive.com'
+    end
+    mail(to: emails, subject: "Toolkit account request from #{user.name}")
   end
 
   def send_account_activation(user)
