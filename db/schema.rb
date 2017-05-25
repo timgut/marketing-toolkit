@@ -47,10 +47,10 @@ ActiveRecord::Schema.define(version: 20170524192540) do
   end
 
   create_table "delayed_jobs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.integer  "priority",                 default: 0, null: false
-    t.integer  "attempts",                 default: 0, null: false
-    t.text     "handler",    limit: 65535,             null: false
-    t.text     "last_error", limit: 65535
+    t.integer  "priority",                      default: 0
+    t.integer  "attempts",                      default: 0
+    t.text     "handler",    limit: 4294967295
+    t.text     "last_error", limit: 4294967295
     t.datetime "run_at"
     t.datetime "locked_at"
     t.datetime "failed_at"
@@ -64,16 +64,20 @@ ActiveRecord::Schema.define(version: 20170524192540) do
   create_table "documents", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "template_id"
     t.string   "title"
-    t.text     "description",      limit: 65535
+    t.text     "description",            limit: 65535
     t.integer  "status"
     t.string   "pdf_file_name"
     t.string   "pdf_content_type"
     t.integer  "pdf_file_size"
     t.datetime "pdf_updated_at"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.integer  "tag_id"
     t.integer  "creator_id"
+    t.string   "thumbnail_file_name"
+    t.string   "thumbnail_content_type"
+    t.integer  "thumbnail_file_size"
+    t.datetime "thumbnail_updated_at"
     t.index ["creator_id"], name: "index_documents_on_creator_id", using: :btree
     t.index ["template_id"], name: "index_documents_on_template_id", using: :btree
   end
@@ -95,7 +99,7 @@ ActiveRecord::Schema.define(version: 20170524192540) do
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
     t.integer  "creator_id"
-    t.integer  "status",                           default: 1, null: false
+    t.integer  "status",                           default: 1
     t.text     "crop_data",          limit: 65535
     t.text     "image_meta",         limit: 65535
     t.index ["creator_id"], name: "index_images_on_creator_id", using: :btree
