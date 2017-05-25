@@ -4,7 +4,6 @@ class Document < ApplicationRecord
   has_attached_file :pdf, storage: :s3, s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) }
   validates_attachment :pdf, content_type: {content_type: "application/pdf"}
 
-  has_and_belongs_to_many :campaigns
   has_and_belongs_to_many :users
   
   has_many :data

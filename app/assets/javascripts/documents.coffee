@@ -52,7 +52,7 @@ window.Toolkit.Document.addImage = ->
     $target.trigger("change")
 
     # Display the selected image
-    $figure.css({"background-image": "url('#{value}'"})
+    $figure.css({"background-image": "url('#{value}'"}).addClass("image-added")
     $positioner.html("<span class='icons'>C</span>Change Image")
 
     # Clean up the modal div
@@ -128,7 +128,7 @@ window.Toolkit.Document.fillForm = ->
             $field.val(data.value)
 
             # Display the selected image
-            $figure.css({"background-image": "url('#{data.value}'"})
+            $figure.css({"background-image": "url('#{data.value}'"}).addClass("image-added")
             $positioner.html("<span class='icons'>C</span>Change Image")
           else
             console.log("Don't know how to fill in #{$field.attr("data-custom")}")
