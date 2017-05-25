@@ -1,17 +1,6 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <meta charset='utf-8' />
-  <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
-  <meta content='en-us' http-equiv='Content-Language' />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" /> 
-
-  <link rel="stylesheet" href="/print/css/global.css" type="text/css" media="screen, projection, print"/>
-  <script type="text/javascript" src="//fast.fonts.net/jsapi/596a83d8-daac-4f87-8267-fa96da6e6754.js"></script>
-  <link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/596a83d8-daac-4f87-8267-fa96da6e6754.css"/>
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,300,900' rel='stylesheet' type='text/css'>
 
   <style>
     *,
@@ -20,11 +9,6 @@
         -moz-box-sizing:    border-box; 
         -webkit-box-sizing: border-box;
         box-sizing:         border-box; 
-        transition:         all .25s ease-in-out;    
-        -webkit-transition: all .25s ease-in-out;  
-        -moz-transition:    all .25s ease-in-out;  
-        -o-transition:      all .25s ease-in-out;  
-        -ms-transition:     all .25s ease-in-out; 
         }
 
 
@@ -113,19 +97,6 @@
       text-rendering: optimizelegibility;
       }
 
-    .container {
-      margin: auto;
-      width: 8.5in;
-      height: 11in;
-      background-repeat: no-repeat;
-      background-position: center 1.8in;
-      background-size: cover;
-      position: relative;
-      overflow: hidden;
-      text-align: left;
-      }
-
-
     header {
       position: relative;
       z-index: 9999;
@@ -146,7 +117,6 @@
       background-image: linear-gradient(left, #0054a5 0%, #00ab4f 63.89%, #00ab4f 100%); /* gradient overlay */
       -webkit-print-color-adjust: exact !important;
       }
-
       
     /* ------- Footer ------- */  
 
@@ -162,7 +132,7 @@
 
     /* 2-sided postcard css */
 body { 
-   font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
   font-weight: normal;
   font-weight: 300;
   text-align: center; 
@@ -173,8 +143,8 @@ body {
 
 .container {
   margin: auto;
-  width: 8.75in;
-  height: 5.75in;
+  width: 8.5in;
+  height: 5.5in;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -185,7 +155,7 @@ body {
 /* FRONT OF PDF */  
 header {
   width: 100%; 
-  height: 64pt;
+  height: 1in;
   position: relative;
   text-align: center;}
 
@@ -193,21 +163,21 @@ header figure {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: contain;
-    width: 1.8in;
-    height: .7in;
+    width: 1.1in;
+    height: .5in;
     display: inline-block;
-    vertical-align: top;
+    vertical-align: middle;
 }
 
   figure.affiliate-logo {
 }
 
-  .line {
+.line {
     display: inline-block;
     width: 1px;
     margin: 0 .25in;
-    height: .7in;
-    vertical-align: top;
+    height: .4in;
+    vertical-align: middle;
     background: #00953A;
 }
 
@@ -216,10 +186,11 @@ header figure {
 }
 
 main#front .body {
-   position: relative;
+    position: relative;
     top: 0.15in;
-    width: 7.25in;
-    padding: 0 .75in; }
+    width: 100%;
+    padding: 0 .75in;
+  }
 
   main#front .body h1 {
     font-size: 32pt;
@@ -229,7 +200,8 @@ main#front .body {
     text-transform:uppercase;
     text-align:center;
     margin: 0;
-    line-height: 32pt; }
+    line-height: 32pt;
+}
   
   main#front .body h2 {
     font-size: 20pt;
@@ -243,48 +215,61 @@ main#front .body {
   border-top: 1px #24408E solid;
   margin: .15in 0 0 0;
   text-align:center; 
-  vertical-align: top; }
+  vertical-align: top;
+  display: table; }
 
-  article.column {
-    width: 86pt;
-    margin: 10pt 5pt 0 5pt;
-    display: inline-block;
-    vertical-align: top; }
+article.column {
+  width: 33.33%;   
+  padding: .2in .1in 0;
+  display: table-cell;
+  vertical-align: top; 
+  text-align: center;
+}
+.row.three article.column {
+}
+.row.four article.column {
+    width: 25%; 
+}
+.row.five article.column {
+    width: 20%; 
+}
   
-    .row.three article.column {
-      width: 126pt; }
-    
-    .row.four article.column {
-      width: 106pt; }
+article.column figure {
+  width: 1.25in;
+  max-width: 100%;
+  height: 1.4in;
+  border: 1px black solid;
+  margin: 0 auto;
+  background-position: center top;
+  background-size: cover;
+  background-repeat: no-repeat; 
+}
+.row.five article.column figure {
+  width: auto;
+}
+
+article.column blockquote {
+  max-width: 1.25in;
+  font-size: 9pt;
+  color: #626366;
+  padding: .1in 0 .05in 0;
+  text-align: left; 
+}
   
-  article.column figure {
-    width: 86pt;
-    height: 98pt;
-    border: 1px black solid;
-    margin: 0 auto;
-    background-color:black;
-    background-position: center center;
-    background-size: auto 100%;
-    background-repeat: no-repeat; }
-  
-  article.column blockquote {
-    font-size: 9pt;
-    color: #626366;
-    margin: .1in 0 .05in 0;
-    text-align: left; }
-  
-  article.column p {
-    font-size: 7pt;
-    color: #626366;
-    margin: 0;
-    text-align: left;
-      position: relative; }
+article.column blockquote p {
+  font-size: 7pt;
+  color: #626366;
+  margin: 0;
+  text-align: left;
+  position: relative; 
+}
   
   article.column p:before {
     font-size: 7pt;
     color: #626366;
     content: "– ";
-    position: relative; }
+    position: relative; 
+}
 
 
 .background {
@@ -398,7 +383,7 @@ main#back .body {
       <header class="cf">
         <figure class="affiliate-logo" style="background-image: url(<%= @document.tsp_affiliate_logo %>)"></figure>
         <div class="line"></div>
-        <figure class="afscme-logo" style="background-image: url(http://toolkit.afscme.bytrilogy.com/print/img/2-sided-postcard/afscme-logo.png)"></figure>
+        <figure class="afscme-logo" style="background-image: url(https://toolkit-afscme.bytrilogy.com/print/img/2-sided-postcard/afscme-logo.png)"></figure>
       </header>
 
       <article class="body">
@@ -418,35 +403,45 @@ main#back .body {
           <div class="row <%= num_class %>"><!-- This number should be dynamic between 3-5 -->
             <article class="column">
               <figure style="background-image: url('<%= @document.headshot1 %>');"></figure>
-              <blockquote>"<%= @document.quote1 %>"</blockquote>
-              <p><%= @document.attribution1 %></p>
+              <blockquote>
+                "<%= @document.quote1 %>"
+                <p><%= @document.attribution1 %></p>
+              </blockquote>
             </article>
             
             <article class="column">
               <figure style="background-image: url('<%= @document.headshot2 %>');"></figure>
-              <blockquote>"<%= @document.quote2 %>"</blockquote>
-              <p><%= @document.attribution2 %></p>
+              <blockquote>
+                "<%= @document.quote2 %>"
+                <p><%= @document.attribution2 %></p>
+              </blockquote>
             </article>
 
             <article class="column">
               <figure style="background-image: url('<%= @document.headshot3 %>');"></figure>
-              <blockquote>"<%= @document.quote3 %>"</blockquote>
-              <p><%= @document.attribution3 %></p>
+              <blockquote>"
+                <%= @document.quote3 %>"
+                <p><%= @document.attribution3 %></p>
+              </blockquote>
             </article>
 
             <% unless @document.headshot4.blank? %>
               <article class="column">
                 <figure style="background-image: url('<%= @document.headshot4 %>');"></figure>
-                <blockquote>"<%= @document.quote4 %>"</blockquote>
-                <p><%= @document.attribution4 %></p>
+                <blockquote>
+                  "<%= @document.quote4 %>"
+                  <p><%= @document.attribution4 %></p>
+                </blockquote>
               </article>
             <% end %>
 
             <% unless @document.headshot5.blank? %>
               <article class="column">
                 <figure style="background-image: url('<%= @document.headshot5 %>');"></figure>
-                <blockquote>"<%= @document.quote5 %>"</blockquote>
-                <p><%= @document.attribution5 %></p>
+                <blockquote>
+                  "<%= @document.quote5 %>"
+                  <p><%= @document.attribution5 %></p>
+                </blockquote>
               </article>
             <% end %>
           </div>
@@ -456,7 +451,6 @@ main#back .body {
           
     </main>
     
-    <div class="new-page"></div>
 
     <main id="back" class="container" style="background-image: url('https://toolkit-afscme.bytrilogy.com/print/img/2-sided-postcard/Postcard-Mail-Template-Back-wCropMarks.png');">
       <div id="stamp"><%= @document.permit_number %></div>

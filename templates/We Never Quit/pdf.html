@@ -223,11 +223,38 @@ footer .union-bug {
 </head>
 
   <body class="<%= @document.wnq_branding %>">
-    <main class="container poster poster1" style="background-image: url('http://neverquit.afscme.org/toolkit/never-quit-poster-1/poster/printable-poster1.png');">
-      <% if @document.wnq_logo.present? %>
-        <div class="logo" style="background-image: url('<%= @document.wnq_logo %>');"></div>
-      <% end %>
-      <div class="union-bug"></div>
+
+    <main class="container">
+        <div class="top-bar"></div>
+
+        <header>
+            <div class="angle"></div>
+            <h1>We Never Quit <span>on the people who depend on us.</span></h1>
+        </header>
+
+        <article class="body">
+            <h2>A union is people working together for something better.</h2>
+            <p>A union is also each individual member – committed to your job, your family, your hometown. AFSCME is the union that shows every public service worker respect through action–fighting for better pay, better conditions, a better future. To those who never quit serving your community: your goals are AFSCME’s goals, and we will not rest until you reach them.</p>
+        </article>
+        <div class="new-page"></div>  
+
+        <footer>
+
+            <div class="angle"></div>
+
+            <div class="url"><%= @document.ss_call_to_action.try(:html_safe) %></div>
+
+            <% unless @document.wnq_logo.blank? %>
+              <div class="logo" style="background-image: url('<%= @document.wnq_logo %>');"></div>
+            <% end %>
+
+            <div class="nq-logo"></div>
+
+            <div class="union-bug"></div>
+
+        </footer>
+
     </main>
+        
   </body>
 </html>
