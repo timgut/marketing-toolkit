@@ -73,13 +73,6 @@ FactoryGirl.define do
     password_confirmation "12345678"
   end
 
-  # JOIN TABLES
-  factory :campaign_document do
-    campaign
-    document
-    creator
-  end
-
   factory :document_user do
     document
     user

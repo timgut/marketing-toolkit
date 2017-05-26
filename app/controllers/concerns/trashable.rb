@@ -59,6 +59,6 @@ module Trashable
 
   # All of these actions redirect similarly, so this cuts down on the repetition.
   def trashable_redirect(opts={})
-    redirect_back({fallback_location: authenticated_root_path}.merge(opts))
+    redirect_to documents_path(opts)
   end
 end

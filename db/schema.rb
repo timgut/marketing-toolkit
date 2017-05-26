@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170512152356) do
+ActiveRecord::Schema.define(version: 20170524192540) do
 
   create_table "affiliates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
@@ -30,17 +30,6 @@ ActiveRecord::Schema.define(version: 20170512152356) do
     t.integer  "parent_id"
   end
 
-  create_table "campaigns_documents", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.integer  "campaign_id"
-    t.integer  "document_id"
-    t.integer  "creator_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["campaign_id"], name: "index_campaigns_documents_on_campaign_id", using: :btree
-    t.index ["creator_id"], name: "index_campaigns_documents_on_creator_id", using: :btree
-    t.index ["document_id"], name: "index_campaigns_documents_on_document_id", using: :btree
-  end
-
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
     t.datetime "created_at", null: false
@@ -57,11 +46,11 @@ ActiveRecord::Schema.define(version: 20170512152356) do
     t.index ["document_id"], name: "index_data_on_document_id", using: :btree
   end
 
-  create_table "delayed_jobs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "priority",                 default: 0, null: false
-    t.integer  "attempts",                 default: 0, null: false
-    t.text     "handler",    limit: 65535,             null: false
-    t.text     "last_error", limit: 65535
+  create_table "delayed_jobs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.integer  "priority",                      default: 0
+    t.integer  "attempts",                      default: 0
+    t.text     "handler",    limit: 4294967295
+    t.text     "last_error", limit: 4294967295
     t.datetime "run_at"
     t.datetime "locked_at"
     t.datetime "failed_at"
