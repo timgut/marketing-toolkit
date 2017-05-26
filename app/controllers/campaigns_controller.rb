@@ -9,7 +9,7 @@ class CampaignsController < ApplicationController
   # GET /campaigns/1
   def show
     @campaign = Campaign.includes(:templates, :children).find(params[:id])
-    @filtered_templates = @campaign.templates
+    @filtered_templates = @campaign.templates.publish
   end
 
   protected

@@ -5,9 +5,9 @@
   <%= render partial: "templates/sidebar_nav" %>
 </aside>
 
-<% if @campaign.templates.count > 0 || @campaign.children.count > 0 %>
+<% if @campaign.templates.publish.count > 0 || @campaign.children.count > 0 %>
   <section class="workspace cf">
-    <%= render @campaign.children %>
+    <%= render @campaign.children.publish %>
     <%= render @filtered_templates %>
   </section>
 <% else %>
