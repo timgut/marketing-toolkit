@@ -19,6 +19,7 @@ class Template < ApplicationRecord
   validates_attachment_content_type :thumbnail,      content_type: /\Aimage\/.*\z/
   validates_attachment_content_type :numbered_image, content_type: /\Aimage\/.*\z/
   validates_attachment_content_type :blank_image,    content_type: /\Aimage\/.*\z/
+  validates_attachment_content_type :static_pdf,     content_type: "application/pdf"
 
   def croppable?
     blank_image.exists?

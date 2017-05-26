@@ -14,10 +14,10 @@ RSpec.describe Affiliate, type: :model do
 
   describe "Validations" do
     it "validates the presence of title, region, state, and slug" do
-      expect { invalid = Affiliate.create!(title: nil,  region: "N/A", slug: "IU", region: "N/A") }.to raise_error(ActiveRecord::RecordInvalid)
-      expect { invalid = Affiliate.create!(title: "IU", region: nil,   slug: "IU", region: "N/A") }.to raise_error(ActiveRecord::RecordInvalid)
-      expect { invalid = Affiliate.create!(title: "IU", region: "N/A", slug: nil,  region: "N/A") }.to raise_error(ActiveRecord::RecordInvalid)
-      expect { invalid = Affiliate.create!(title: "IU", region: "N/A", slug: "IU", region: nil)   }.to raise_error(ActiveRecord::RecordInvalid)
+      expect { invalid = Affiliate.create!(title: nil,  region: "1", slug: "IU", region: "N/A") }.to raise_error(ActiveRecord::RecordInvalid)
+      expect { invalid = Affiliate.create!(title: "IU", region: nil, slug: "IU", region: "N/A") }.to raise_error(ActiveRecord::RecordInvalid)
+      expect { invalid = Affiliate.create!(title: "IU", region: "3", slug: nil,  region: "N/A") }.to raise_error(ActiveRecord::RecordInvalid)
+      expect { invalid = Affiliate.create!(title: "IU", region: "4", slug: "IU", region: nil)   }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
 

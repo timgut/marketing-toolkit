@@ -26,6 +26,10 @@ RSpec.describe Campaign, type: :model do
     it_behaves_like "Status" do
       let!(:record) { campaign }
     end
+    
+    it_behaves_like "Tree" do
+      let!(:record) { campaign }
+    end
   end
 
   describe "Class Methods" do

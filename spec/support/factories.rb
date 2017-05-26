@@ -16,6 +16,7 @@ FactoryGirl.define do
     title "Never Quit"
     description "This is the Never Quit campaign"
     status "publish"
+    parent_id nil
   end
 
   factory :category do
@@ -47,7 +48,7 @@ FactoryGirl.define do
   end
 
   factory :image do
-    image { File.new("#{Rails.root}/spec/support/images/1260x573.jpg") }
+    image { File.new("#{Rails.root}/spec/support/images/landscape.jpg") }
     creator
   end
 

@@ -14,6 +14,20 @@ RSpec.describe Document, type: :model do
 
   before(:each){ document.reload }
 
+  describe "Paperclip" do
+    describe "pdf" do
+      it "has an attachment" do
+        expect(Document).to have_attached_file(:pdf)
+      end
+
+      it "validates the content_type is a PDF" do
+        expect(Document).to validate_attachment_content_type(:pdf).
+          rejecting("image/png", "image/gif", "image/jpg", "image/jpeg").
+          allowing("application/pdf")
+      end
+    end
+  end
+
   describe "Associations" do
     it "has_and_belongs_to_many users" do
       expect(document).to respond_to(:users)

@@ -33,7 +33,7 @@ module Tree
   #
   #  campaign.path # => "/Campaign 1/Fall/Get Out The Vote"
   def path
-    (ancestors.reverse << self).collect{|c| "/#{c.title}"}.sort{|a,b| a <=> b}.join
+    (ancestors.reverse << self).collect{|c| "/#{c.title}"}.join
   end
 
   # Returns the root node of the tree.
