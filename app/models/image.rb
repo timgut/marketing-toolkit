@@ -18,7 +18,7 @@ class Image < ApplicationRecord
 
   has_many :image_users, class_name: "ImageUser"
 
-  scope :recent, ->{ all.joins(:images_users).where("images_users.user_id = ? and images.created_at >= ?", User.current_user.id, DateTime.now - 1.month) }
+  scope :recent, ->{ where("creator_id = ? and created_at >= ?", User.current_user.id, DateTime.now - 2.weeks) }
   scope :shared_with_me, ->{ all.joins(:images_users).where("images_users.user_id = ? and images_users.user_id != ?", User.current_user.id, User.current_user.id) }
 
   serialize :crop_data, Hash
