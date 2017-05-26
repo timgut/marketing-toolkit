@@ -3,8 +3,8 @@ class Template < ApplicationRecord
 
   has_many :documents
 
-  belongs_to :campaign
-  belongs_to :category
+  belongs_to :campaign, optional: true
+  belongs_to :category, optional: true
 
   validates :title, :description, :height, :width, :pdf_markup, :form_markup, :status, presence: true, if: Proc.new{|t| t.customize?}
   validates :height, :width, numericality: true, if: Proc.new{|t| t.customize?}

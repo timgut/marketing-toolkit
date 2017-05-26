@@ -84,4 +84,15 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
   config.action_mailer.default_url_options = { :host => 'toolkit.afscme.org' }
+
+  config.action_mailer.smtp_settings = {
+    :address   => "smtp.mandrillapp.com",
+    :port      => 587, # port 2525 is also supported with STARTTLS
+    :enable_starttls_auto => true, # detects and uses STARTTLS
+    :user_name => "mandrill@trilogyinteractive.com",
+    :password  => "OPreGdAKhDL5fyUPp8M9cw", # SMTP password is any valid API key
+    :authentication => 'plain', # Mandrill supports 'plain' or 'login'
+    :domain => 'toolkit.afscme.org', # your domain to identify your server when connecting
+  }
+
 end

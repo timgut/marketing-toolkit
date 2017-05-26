@@ -20,7 +20,7 @@
 
       <li>
         <%= f.label :campaign %>
-        <%= f.select(:campaign_id, options_from_collection_for_select(@campaigns, 'id', 'title', @template.campaign_id ? @template.campaign_id : ''), include_blank: true) %>
+        <%= f.select(:campaign_id, options_from_collection_for_select(@campaigns, 'id', 'title', @template.campaign_id ? @template.campaign_id : ''), include_blank: 'NULL') %>
       </li>
 
       <li>
