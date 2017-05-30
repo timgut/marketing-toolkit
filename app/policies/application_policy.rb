@@ -29,8 +29,16 @@ class ApplicationPolicy
     current_user_is_admin? || @record.creator_id == @current_user.id
   end
 
+  def current_user_is_admin_or_vetter?
+    current_user_is_admin? || current_user_is_vetter?
+  end
+
   def current_user_is_admin?
     @current_user.admin?
+  end
+
+  def current_user_is_vetter?
+    @current_user.vetter?
   end
 
   def record_is_current_user?

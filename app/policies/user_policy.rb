@@ -10,7 +10,7 @@ class UserPolicy < ApplicationPolicy
 
   ADMIN_METHODS.each do |action|
     define_method action do
-      current_user_is_admin?
+      current_user_is_admin_or_vetter?
     end
   end
 end
