@@ -1,15 +1,8 @@
 class Admin::UsersController < AdminController
-  skip_before_action :require_admin, raise: false
-  before_action :require_admin, except: [:update]
-
-  def home
-    ## this is just /admin index
-  end
-
   # POST /users
   def create
     @user = User.new(user_params)
-
+    authorize @user
     ## we could do the following to set an initial, hidden password -- which avoids some password confirmation issues later
     ## new_password = Devise.friendly_token(length = 50)
     ## @user.password = new_password
@@ -27,12 +20,12 @@ class Admin::UsersController < AdminController
 
   # DELETE /users
   def destroy
-    @user = User.find(params[:id])
+    load_user
   end
 
   # GET /users/1/edit
   def edit
-    @user = User.includes(:affiliate).find(params[:id])
+    load_user
     @body_class = 'toolkit USER'
     @header_navigation = true
     @affiliates = Affiliate.all
@@ -43,23 +36,25 @@ class Admin::UsersController < AdminController
     @approved = User.includes(:affiliate).approved
     @unapproved = User.includes(:affiliate).unapproved
     @rejected = User.includes(:affiliate).rejected
+    authorize @approved
   end
 
   # GET /users/new
   def new
     @user = User.new
+    authorize @user
     @affiliates = Affiliate.all
   end
 
   # GET /users/1
   def show
-    @user = User.find(params[:id])
+    load_user
     @affiliates = Affiliate.all
   end
 
   # PATCH /users/1
   def update
-    @user = User.find(params[:id])
+    load_user
 
     if current_user.admin?
       ## THIS WORKS, BUT IS A LITTLE CLUNKY. TRIED TO USE ACTIVEMODEL::DIRTY, BUT IT WASN'T WORKING FOR ME
@@ -95,6 +90,11 @@ class Admin::UsersController < AdminController
   end
 
   private
+
+  def load_user
+    @user = User.includes(:affiliate).find(params[:id])
+    authorize @user
+  end
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email, :approved, :rejected, :zip_code, :affiliate_id, :department, :local_number, :title, :cell_phone, :receive_alerts, :role, :custom_branding)

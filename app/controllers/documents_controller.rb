@@ -22,6 +22,7 @@ class DocumentsController < ApplicationController
   # GET /documents/1/duplicate
   def duplicate
     @original_document = Document.find(params[:id])
+    authorize @original_document
 
     if @document = @original_document.duplicate!(current_user)
       redirect_to edit_document_path(@document), notice: "#{@original_document.title} was duplicated and saved. You are editing the new document."
@@ -165,6 +166,7 @@ class DocumentsController < ApplicationController
 
   def load_document
     @document = Document.find(params[:id])
+    authorize @document
     @document.define_data_methods
   end
 
