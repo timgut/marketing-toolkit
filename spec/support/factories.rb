@@ -72,6 +72,16 @@ FactoryGirl.define do
     affiliate
     password "12345678"
     password_confirmation "12345678"
+    approved true
+  end
+
+  factory :admin, class: User do
+    email
+    affiliate
+    password "12345678"
+    password_confirmation "12345678"
+    approved true
+    role "Administrator"
   end
 
   factory :document_user do
