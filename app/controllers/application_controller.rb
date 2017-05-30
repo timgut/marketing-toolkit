@@ -46,9 +46,9 @@ class ApplicationController < ActionController::Base
   def user_not_authorized
     flash[:alert] = "
       You cannot
-      #{params[:action].singularize.sub('show', 'view')}
+      #{params[:action].singularize.sub('show', 'view').sub('home', 'view')}
       this
-      #{params[:controller].split('/').first.singularize}.
+      #{params[:controller].split('/').first.singularize.sub('admin', 'page')}.
     "
 
     redirect_back fallback_location: authenticated_root_path
