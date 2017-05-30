@@ -49,11 +49,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def load_user
     @user = current_user
-    authorize @user
+    authorize @user, pundit_policy
   end
 
   def password_params
     params.require(:user).permit(:password, :password_confirmation)
+  end
+
+  # UserPolicy has policies for both this controller and Admin::UsersController.
+  # Some of the actions overlap, so to differentiate the two, devise_ is prepended
+  # for policies in this controller.
+  def pundit_policy
+    "devise_#{params[:action]}?"
   end
 
 end

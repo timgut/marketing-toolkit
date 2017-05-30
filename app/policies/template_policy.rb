@@ -1,6 +1,6 @@
 class TemplatePolicy < ApplicationPolicy
   METHODS = [:show?]
-  ADMIN_METHODS = [:create?, :destroy?, :edit?, :index?, :show?, :update?]
+  ADMIN_METHODS = [:create?, :destroy?, :edit?, :index?, :update?]
 
   METHODS.each do |action|
     define_method action do

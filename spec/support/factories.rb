@@ -5,6 +5,13 @@ FactoryGirl.define do
   end
 
   # MODELS
+  factory :affiliate do
+    title  "International Union"
+    slug   "IU"
+    state  "N/A"
+    region "N/A"
+  end
+
   factory :campaign do
     title "Never Quit"
     description "This is the Never Quit campaign"
@@ -19,6 +26,7 @@ FactoryGirl.define do
 
   factory :document do
     template
+    creator
     title "My Custom Document"
     description "My description for this document"
     status "publish"
@@ -37,18 +45,42 @@ FactoryGirl.define do
     form_markup "This is a placeholder for the form markup."
     status "publish"
 
-    blank_image { File.new("#{Rails.root}/templates/Industry Specific/blank-ss.png") }
-
-    blank_image_height 761
-    blank_image_width  600
-    
-    crop_top    148
-    crop_bottom 705
+    blank_image { File.new("#{Rails.root}/templates/Sector Specific/blank-ss.png") }
   end
 
+  # USERS
   factory :user do
     email
+    affiliate
     password "12345678"
+    password_confirmation "12345678"
+    approved true
+    role "User"
+  end
+
+  factory :admin, class: User do
+    email
+    affiliate
+    password "12345678"
+    password_confirmation "12345678"
+    approved true
+    role "Administrator"
+  end
+
+  factory :vetter, class: User do
+    email
+    affiliate
+    password "12345678"
+    password_confirmation "12345678"
+    approved true
+    role "Vetter"
+  end
+
+  factory :creator, class: User do
+    email
+    affiliate
+    
+    password              "12345678"
     password_confirmation "12345678"
   end
 

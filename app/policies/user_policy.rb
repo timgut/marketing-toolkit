@@ -1,5 +1,5 @@
 class UserPolicy < ApplicationPolicy
-  METHODS = [:edit?, :password?, :update_password?]
+  METHODS = [:devise_edit?, :devise_password?, :devise_update_password?]
   ADMIN_METHODS = [:create?, :destroy?, :edit?, :index?, :show?, :update?]
 
   METHODS.each do |action|
