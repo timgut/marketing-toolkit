@@ -37,11 +37,13 @@ class Admin::TemplatesController < AdminController
   # GET /admin/templates
   def index
     @templates = Template.not_trashed
+    authorize @templates
   end
 
   # GET /admin/templates/new
   def new
     @template = Template.new(campaign_id: params[:campaign_id])
+    authorize @template
     @campaign = @template.campaign
   end
 
