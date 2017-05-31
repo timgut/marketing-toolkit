@@ -50,17 +50,13 @@ RSpec.describe Image, type: :model do
   end
 
   describe "Scopes" do
-    before(:each) do
-      allow(User).to receive(:current_user).and_return(user)
-    end
-
     describe ".recent" do
       it "displays images from the last 2 weeks" do
         image.update_attributes!(created_at: DateTime.now - 1.month)
-        expect(Image.recent).not_to include image
+        expect(Image.recent(user)).not_to include image
 
         image.update_attributes!(created_at: DateTime.now - 1.week)
-        expect(Image.recent).to include image
+        expect(Image.recent(user)).to include image
       end
     end
   end
@@ -101,7 +97,8 @@ RSpec.describe Image, type: :model do
 
     describe "#orientation" do
       it "returns landscape" do
-        expect(image.orientation).to eq :landscape
+        image2 = create(:image, image: File.new("#{Rails.root}/spec/support/images/landscape.jpg"))
+        expect(image2.orientation).to eq :landscape
       end
       
       it "returns portrait" do

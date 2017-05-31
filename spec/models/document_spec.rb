@@ -51,17 +51,13 @@ RSpec.describe Document, type: :model do
   end
 
   describe "Scopes" do
-    before(:each) do
-      allow(User).to receive(:current_user).and_return(user)
-    end
-
     describe ".recent" do
       it "displays documents from the last 2 weeks" do
         old_doc = create(:document, creator: user, created_at: DateTime.now - 1.month)
         new_doc = create(:document, creator: user, created_at: DateTime.now - 1.week)
 
-        expect(Document.recent).to include new_doc
-        expect(Document.recent).not_to include old_doc
+        expect(Document.recent(user)).to include new_doc
+        expect(Document.recent(user)).not_to include old_doc
       end
     end
   end
@@ -99,22 +95,18 @@ RSpec.describe Document, type: :model do
     end
 
     describe "#duplicate!" do
-      before(:each) do
-        allow(User).to receive(:current_user).and_return(user)
-      end
-
       it "creates a new Document and DocumentUser" do
-        expect { document.duplicate! }.to change(Document,     :count).by(1)
-        expect { document.duplicate! }.to change(DocumentUser, :count).by(1)
+        expect { document.duplicate!(user) }.to change(Document,     :count).by(1)
+        expect { document.duplicate!(user) }.to change(DocumentUser, :count).by(1)
       end
 
       it "erases the PDF for the duplicated document" do
-        document.duplicate!
+        document.duplicate!(user)
         expect(Document.last.pdf_file_name).to eq nil
       end
 
       it "duplicates data records" do
-        document.duplicate!
+        document.duplicate!(user)
         new_document = Document.last
 
         expect(new_document.headline).to eq document.headline
@@ -123,12 +115,17 @@ RSpec.describe Document, type: :model do
       end
 
       it "returns the new document when successful" do
-        expect(document.duplicate!).to eq Document.last
+        expect(document.duplicate!(user)).to eq Document.last
       end
 
       it "rescues errors and returns false" do
-        allow(User).to receive(:current_user).and_return(nil)
-        expect(document.duplicate!).to eq false
+        expect(document.duplicate!(nil)).to eq false
+      end
+    end
+
+    describe "#method_missing" do
+      it "assumes a Datum record was called and returns an empty string" do
+        expect(document.my_fake_method).to eq ""
       end
     end
   end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Paperclip::ContextualCrop, type: :class do
-  let!(:image)     { create(:image) }
+  let!(:image)     { create(:image, image: File.new("#{Rails.root}/spec/support/images/landscape.jpg")) }
   let!(:template)  { create(:template) }
   let!(:file)      { File.new("#{Rails.root}/spec/support/images/landscape.jpg") }
   let!(:processor) { Paperclip::ContextualCrop.new(file, {}, image.image) }

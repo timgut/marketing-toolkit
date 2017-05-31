@@ -22,21 +22,21 @@ class User < ApplicationRecord
   DEPARTMENTS = ['IU-Communications', 'IU-Organizing', 'IU-Political', 'Council-Communications','Council-Organizing', 'Council-Political', 'Local-President']
 
   def send_admin_emails
-    AdminMailer.new_user_waiting_for_approval(self).deliver
+    AdminMailer.new_user_waiting_for_approval(self).deliver_now
     unless self.admin?
-      AdminMailer.notification_to_approvers(self, self.regional_approvers).deliver
+      AdminMailer.notification_to_approvers(self, self.regional_approvers).deliver_now
     end
   end
 
   def send_account_notification(status)
     case status
     when 'approved'
-        AdminMailer.send_account_activation(self).deliver
+        AdminMailer.send_account_activation(self).deliver_now
         self.send_reset_password_instructions
     when 'rejected'
-        AdminMailer.send_account_rejection(self).deliver
+        AdminMailer.send_account_rejection(self).deliver_now
     when 'unapproved'
-        AdminMailer.send_account_suspension(self).deliver
+        AdminMailer.send_account_suspension(self).deliver_now
     end
   end
 

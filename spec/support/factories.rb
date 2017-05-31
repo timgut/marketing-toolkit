@@ -48,7 +48,7 @@ FactoryGirl.define do
   end
 
   factory :image do
-    image { File.new("#{Rails.root}/spec/support/images/landscape.jpg") }
+    image { File.new("#{Rails.root}/spec/support/images/blank.png") }
     creator
   end
 
