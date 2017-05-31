@@ -5,7 +5,7 @@ class ImagesController < ApplicationController
 
   # GET /images/choose
   def choose
-    @images = current_user.images.publish
+    @images = current_user.images.publish.reverse
     render layout: false
   end
 
@@ -16,7 +16,7 @@ class ImagesController < ApplicationController
     respond_to do |format|
       format.html do
         if @image.save
-          ImageUser.create!(image: @image, user: User.current_user)    
+          ImageUser.create!(image: @image, user: current_user)    
           redirect_to images_path(@image), notice: "Image created!"
         else
           render :new, alert: "Cannot create image."
@@ -25,7 +25,7 @@ class ImagesController < ApplicationController
 
       format.json do
         if @image.save
-          ImageUser.create!(image: @image, user: User.current_user)    
+          ImageUser.create!(image: @image, user: current_user)    
           render json: {id: @image.id, url: @image.image.url, cropped_url: @image.image.url(:cropped), file_name: @image.image_file_name}
         else
           render plain: @image.errors.full_messages.to_sentence, status: 403
@@ -52,7 +52,7 @@ class ImagesController < ApplicationController
   # GET /images
   def index
     if current_user
-      @images = current_user.images.not_trashed
+      @images = current_user.images.not_trashed.reverse
     else
       @images = @all
     end
@@ -106,8 +106,8 @@ class ImagesController < ApplicationController
 
   def assign_sidebar_vars
     @all       = current_user.images.all.not_trashed
-    @recent    = current_user.images.recent.not_trashed
-    @shared    = current_user.images.shared_with_me.not_trashed
+    @recent    = current_user.images.recent(current_user).not_trashed
+    @shared    = current_user.images.shared_with_me(current_user).not_trashed
     @trashed   = current_user.images.trash
     @documents = current_user.documents.not_trashed
   end

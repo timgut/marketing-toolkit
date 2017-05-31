@@ -10,7 +10,7 @@ class DocumentsController < ApplicationController
     @document = Document.new(document_params)
 
     if @document.save
-      DocumentUser.create!(document_id: @document.id, user_id: User.current_user.id)
+      DocumentUser.create!(document_id: @document.id, user_id: current_user.id)
       create_data
 
       redirect_to documents_path, notice: "Document created!"
@@ -23,7 +23,7 @@ class DocumentsController < ApplicationController
   def duplicate
     @original_document = Document.find(params[:id])
 
-    if @document = @original_document.duplicate!
+    if @document = @original_document.duplicate!(current_user)
       redirect_to edit_document_path(@document), notice: "#{@original_document.title} was duplicated and saved. You are editing the new document."
     else
       redirect_to edit_document_path(@original_document), notice: "Cannot duplicate this document. Please try again."
@@ -33,7 +33,7 @@ class DocumentsController < ApplicationController
   # GET /documents/1/edit
   def edit
     load_document
-    @custom_branding = User.current_user.custom_branding?
+    @custom_branding = current_user.custom_branding?
     assign_records
   end
 
@@ -64,7 +64,7 @@ class DocumentsController < ApplicationController
   def new
     @template = Template.find(params[:template_id])
     @document = Document.new(template_id: @template.id, title: @template.title, description: @template.description)
-    @custom_branding = User.current_user.custom_branding?
+    @custom_branding = current_user.custom_branding?
     assign_records
   end
 
@@ -76,7 +76,7 @@ class DocumentsController < ApplicationController
 
   # GET /documents/recent
   def recent
-    @filtered_documents = Document.includes(:template).recent.not_trashed.reverse
+    @filtered_documents = Document.includes(:template).recent(current_user).not_trashed.reverse
     render :index
   end
 
@@ -121,7 +121,7 @@ class DocumentsController < ApplicationController
       @images = Image.not_trashed
     end
 
-    @recent = @documents.recent
+    @recent = @documents.recent(current_user)
 
     @campaigns = Campaign.publish
     @trashed   = current_user.documents.trash

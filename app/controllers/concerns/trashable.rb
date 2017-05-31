@@ -59,6 +59,10 @@ module Trashable
 
   # All of these actions redirect similarly, so this cuts down on the repetition.
   def trashable_redirect(opts={})
-    redirect_to documents_path(opts)
+    if @record.is_a?(Document)
+      redirect_to documents_path(opts)
+    elsif @record.is_a?(Image)
+      redirect_to images_path(opts)
+    end
   end
 end

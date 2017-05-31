@@ -35,14 +35,14 @@ class Document < ApplicationRecord
     ""
   end
 
-  def duplicate!
+  def duplicate!(user)
     begin
       # Duplicate and save the document
       new_self = self.dup
       new_self.save!
       
       # Create the join record and remove the PDF.
-      DocumentUser.create!(document_id: new_self.id, user_id: User.current_user.id)
+      DocumentUser.create!(document_id: new_self.id, user_id: user.id)
       new_self.assign_attributes(pdf: nil)
       new_self.save!
 

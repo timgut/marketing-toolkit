@@ -19,6 +19,27 @@ window.Toolkit.isDocumentPage = ->
 window.Toolkit.resetDropzones = ->
   window.Toolkit.dropzones = []
 
+window.Toolkit.mobileMenu = ->
+  $(document).on("click", ".menu-trigger", ->
+    $(".mobile.menu.main").slideToggle()
+    
+    if $(".mobile.menu.user").is(":visible")
+      $(".mobile.menu.user").slideToggle()
+      $("body").toggleClass("expanded-user-menu")
+
+    $("body").toggleClass("expanded-menu")
+  )
+
+  $(document).on("click", ".user-trigger", ->
+    $(".mobile.menu.user").slideToggle()
+
+    if $(".mobile.menu.main").is(":visible")
+      $(".mobile.menu.main").slideToggle()
+      $("body").toggleClass("expanded-menu")
+
+    $("body").toggleClass("expanded-user-menu")
+  )
+
 window.Toolkit.optionsMenu = ->
   if window.Toolkit.init.optionsMenu is false
     window.Toolkit.init.optionsMenu = true
@@ -38,5 +59,7 @@ window.Toolkit.normalizeQuotes = (str) ->
 
 window.Toolkit.cleanup = ->
   window.Toolkit.Document.savedData = {}
+
+window.Toolkit.mobileMenu()
 
 $(document).on('turbolinks:click', window.Toolkit.cleanup)

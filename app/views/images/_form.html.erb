@@ -1,6 +1,6 @@
 <%= form_for image, html: { id: "image-form", class: 'dropzone profile-form edit-form split cf', multipart: true } do |f| %>
   <% if image.new_record? %>
-    <%= f.hidden_field :creator_id, value: User.current_user.id %>
+    <%= f.hidden_field :creator_id, value: current_user.id %>
   <% end %>
 
   <%= render partial: "/shared/errors", locals: {record: image} %>
