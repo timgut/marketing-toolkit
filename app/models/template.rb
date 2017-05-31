@@ -16,4 +16,8 @@ class Template < ApplicationRecord
   ATTACHMENTS.each do |attachment|
     has_attached_file attachment, storage: :s3, s3_protocol: "https",  s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) }
   end
+
+  validates_attachment_content_type :thumbnail,      content_type: /\Aimage\/.*\z/
+  validates_attachment_content_type :numbered_image, content_type: /\Aimage\/.*\z/
+  validates_attachment_content_type :blank_image,    content_type: /\Aimage\/.*\z/
 end
