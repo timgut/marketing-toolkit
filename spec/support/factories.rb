@@ -84,6 +84,24 @@ FactoryGirl.define do
     role "Administrator"
   end
 
+  factory :vetter, class: User do
+    email
+    affiliate
+    password "12345678"
+    password_confirmation "12345678"
+    approved true
+    role "Vetter"
+  end
+
+  factory :local_president, class: User do
+    email
+    affiliate
+    password "12345678"
+    password_confirmation "12345678"
+    approved true
+    role "Local President"
+  end
+
   factory :document_user do
     document
     user

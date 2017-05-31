@@ -44,4 +44,5 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
 
   config.add_setting :redirect_html, default: "<html><body>You are being <a href=\"http://test.host/users/sign_in\">redirected</a>.</body></html>"
+  config.add_setting :user_roles, default: [:user, :admin, :vetter, :local_president]
 end

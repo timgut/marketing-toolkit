@@ -10,13 +10,15 @@ RSpec.describe MiscController, type: :controller do
       end
     end
 
-    context "signed in as a User" do
-      controller_user_sign_in
+    RSpec.configuration.user_roles.each do |role|
+      context "signed in as: #{role}" do
+        __send__("controller_#{role}_sign_in".to_sym)
 
-      it "renders the intro template" do
-        get :intro
-        expect(response).to have_http_status(200)
-        expect(response).to render_template("intro")
+        it "renders the intro template" do
+          get :intro
+          expect(response).to have_http_status(200)
+          expect(response).to render_template("intro")
+        end
       end
     end
   end
