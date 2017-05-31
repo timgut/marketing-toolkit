@@ -1,4 +1,4 @@
 require 'rails_helper'
 
-RSpec.describe AffiliateController, type: :controller do
+RSpec.describe Admin::AffiliatesController, type: :controller do
 end

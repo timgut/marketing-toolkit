@@ -23,14 +23,6 @@ FactoryGirl.define do
     title "Flyer"
   end
 
-  factory :creator, class: User do
-    email
-    affiliate
-    
-    password              "12345678"
-    password_confirmation "12345678"
-  end
-
   factory :datum do
     document
 
@@ -116,15 +108,6 @@ FactoryGirl.define do
     last_name  "Local President"
   end
 
-  factory :vetter, class: User do
-    email
-    affiliate
-    password "12345678"
-    password_confirmation "12345678"
-    approved true
-    role "Vetter"
-  end
-
   factory :creator, class: User do
     email
     affiliate
@@ -133,6 +116,7 @@ FactoryGirl.define do
     password_confirmation "12345678"
   end
 
+  # JOIN TABLES
   factory :document_user do
     document
     user

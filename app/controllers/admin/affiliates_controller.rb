@@ -1,2 +1,2 @@
-class AffiliatesController < AdminController
+class Admin::AffiliatesController < AdminController
 end
