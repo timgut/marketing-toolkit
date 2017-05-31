@@ -73,6 +73,8 @@ FactoryGirl.define do
     password "12345678"
     password_confirmation "12345678"
     approved true
+    first_name "Test"
+    last_name  "User"
   end
 
   factory :admin, class: User do
@@ -82,6 +84,8 @@ FactoryGirl.define do
     password_confirmation "12345678"
     approved true
     role "Administrator"
+    first_name "Test"
+    last_name  "Admin"
   end
 
   factory :vetter, class: User do
@@ -91,6 +95,8 @@ FactoryGirl.define do
     password_confirmation "12345678"
     approved true
     role "Vetter"
+    first_name "Test"
+    last_name  "Vetter"
   end
 
   factory :local_president, class: User do
@@ -100,6 +106,8 @@ FactoryGirl.define do
     password_confirmation "12345678"
     approved true
     role "Local President"
+    first_name "Test"
+    last_name  "Local President"
   end
 
   factory :document_user do
