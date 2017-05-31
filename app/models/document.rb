@@ -1,7 +1,7 @@
 class Document < ApplicationRecord
   include Status
 
-  has_attached_file :pdf, storage: :s3, s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) }
+  has_attached_file :pdf, storage: :s3, s3_protocol: "https", s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) }
   validates_attachment :pdf, content_type: {content_type: "application/pdf"}
 
   has_and_belongs_to_many :users
