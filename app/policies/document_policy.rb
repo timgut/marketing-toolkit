@@ -1,5 +1,5 @@
 class DocumentPolicy < ApplicationPolicy
-  METHODS = [:destroy?, :download?, :duplicate?, :edit?, :restore?, :trash?, :update?]
+  METHODS = [:destroy?, :download?, :duplicate?, :edit?, :restore?, :trash?, :update?, :preview?]
 
   METHODS.each do |action|
     define_method action do
