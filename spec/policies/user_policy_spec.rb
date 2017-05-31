@@ -9,7 +9,7 @@ describe UserPolicy, type: :class do
   # @user = current_user is set in Users::RegistrationsController, so these
   # specs won't test anything of value anyway. If the way users are loaded
   # changes in that controller, then these specs should be made to pass.
-  UserPolicy::METHODS.each do |action|
+  UserPolicy::USER_METHODS.each do |action|
     permissions action do
       it "denies access if @user is not current_user" do
         [user, vetter, admin].each do |role|
@@ -34,6 +34,21 @@ describe UserPolicy, type: :class do
       it "grants access if the user is an admin or vetter" do
         expect(policy).to permit(admin, admin)
         expect(policy).to permit(vetter, vetter)
+      end
+    end
+  end
+
+  UserPolicy::ACCESSIBLE_METHODS.each do |action|
+    permissions action do
+      it "denies access if @user has role=user AND is not current_user" do
+        user2 = create(:user)
+        expect(policy).not_to permit(user2, user)
+      end
+
+      it "grants access if @user is current_user, an admin, or a vetter" do
+        [user, vetter, admin].each do |role|
+          expect(policy).to permit(role, role)
+        end
       end
     end
   end
