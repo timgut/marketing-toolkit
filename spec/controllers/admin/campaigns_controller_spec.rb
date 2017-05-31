@@ -1,7 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Admin::CampaignsController, type: :controller do
-    describe "GET #index" do
+  let!(:campaign)   { create(:campaign) }
+  let!(:non_admins) { RSpec.configuration.user_roles - [:user] }
+
+  describe "GET #index" do
     context "not signed in" do
       it "redirects to the sign in page" do
         get :index
