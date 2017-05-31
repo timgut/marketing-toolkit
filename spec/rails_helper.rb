@@ -2,6 +2,7 @@ ENV['RAILS_ENV'] ||= 'test'
 require 'simplecov'
 SimpleCov.start "rails" do
   add_group "Classes", ["app/classes"]
+  add_group "Paperclip", ["lib/paperclip"]
 end
 
 require File.expand_path('../../config/environment', __FILE__)

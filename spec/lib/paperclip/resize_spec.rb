@@ -25,6 +25,10 @@ RSpec.describe Paperclip::Resize, type: :class do
     image.resize  = true
   end
 
+  def set_context
+    image.context = template
+  end
+
   it "sets target" do
     expect(processor.target).to eq image
   end
@@ -53,20 +57,27 @@ RSpec.describe Paperclip::Resize, type: :class do
 
       context "portrait" do
         it "calculates the ImageMagick resize command" do
-          processor = Paperclip::Resize.new(portrait_file, {}, create(:image, image: portrait_file))
+          portrait = create(:image, image: portrait_file)
+          portrait.resize = true
+          portrait.context = template
+
+          processor = Paperclip::Resize.new(portrait_file, {}, portrait.image)
           result    = processor.transformation_command
 
-          expect(result).to eq []
+          expect(result).to eq  ["-resize", "720x1082^"]
 
-          expect(processor.new_width).to eq  2009
+          # 600 * 1.2
+          expect(processor.new_width).to eq  720
 
-          expect(processor.new_height).to eq 914
+          # ( 720 * 720 ) / 479
+          expect(processor.new_height).to eq 1082
         end
       end  
     end
 
     context "without resizing data" do
       it "does not crop" do
+        image.resize = false
         expect(processor.transformation_command).to eq ["-auto-orient"]
       end
     end

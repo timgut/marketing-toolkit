@@ -2,7 +2,10 @@ require 'rails_helper'
 
 RSpec.describe Admin::CampaignsController, type: :controller do
   let!(:campaign)   { create(:campaign) }
-  let!(:non_admins) { RSpec.configuration.user_roles - [:user] }
+  
+  def non_admins
+    @non_admins ||= RSpec.configuration.user_roles - [:admin]
+  end
 
   describe "GET #index" do
     context "not signed in" do
@@ -13,23 +16,24 @@ RSpec.describe Admin::CampaignsController, type: :controller do
       end
     end
 
-    context "signed in as a User" do
-      controller_user_sign_in
+    context "signed in as: admin" do
+      controller_admin_sign_in
 
-      it "redirects to the sign in page" do
+      it "renders the index template" do
         get :index
-        expect(response).to have_http_status(302)
-        expect(response.body).to eq RSpec.configuration.redirect_html
+        expect(response).to have_http_status(200)
+        expect(response.body).to render_template("index")
       end
     end
 
-    context "signed in as an Admin" do
-      controller_admin_sign_in
+    (RSpec.configuration.user_roles - [:admin]).each do |role|
+      context "signed in as: #{role}" do
+        __send__("controller_#{role}_sign_in".to_sym)
 
-      it "renders the intro template" do
-        get :index
-        expect(response).to have_http_status(200)
-        expect(response).to render_template("index")
+        it "redirects" do
+          get :index
+          expect(response).to have_http_status(302)
+        end
       end
     end
   end
