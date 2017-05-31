@@ -62,14 +62,13 @@ Rails.application.routes.draw do
   end
 
   namespace :admin, path: '/admin' do
-    root to: "users#home"
+    root to: "misc#home"
+
     resources :campaigns, except: [:new, :show]
-    resources :users do
-    end
+    resources :users
     resources :categories, except: [:new]
     resources :templates, except: [:show]
-    resources :affiliates do
-    end
+    resources :affiliates
   end
   
 end

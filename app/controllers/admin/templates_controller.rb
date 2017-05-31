@@ -4,6 +4,7 @@ class Admin::TemplatesController < AdminController
   # POST /admin/templates
   def create
     @template = Template.new(template_params)
+    authorize @template
 
     if @template.save
       redirect_to edit_admin_template_path(@template), notice: "Template created! You can now add images."
@@ -15,7 +16,7 @@ class Admin::TemplatesController < AdminController
 
   # DELETE /admin/templates/1
   def destroy
-    @template = Template.find(params[:id])
+    load_template
 
     # We don't really ever want to destroy templates. Since Template includes Status, but
     # Admin::TemplatesController does not include Trashable, then we can change the status
@@ -30,23 +31,25 @@ class Admin::TemplatesController < AdminController
 
   # GET /admin/templates/1/edit
   def edit
-    @template = Template.includes(:campaign).find(params[:id])
+    load_template
   end
 
   # GET /admin/templates
   def index
     @templates = Template.not_trashed
+    authorize @templates
   end
 
   # GET /admin/templates/new
   def new
     @template = Template.new(campaign_id: params[:campaign_id])
+    authorize @template
     @campaign = @template.campaign
   end
 
   # PATCH /admin/templates/1
   def update
-    @template = Template.includes(:campaign).find(params[:id])
+    load_template
 
     respond_to do |format|
       format.html do
@@ -69,6 +72,11 @@ class Admin::TemplatesController < AdminController
   def assign_form_vars
     @campaigns = Campaign.all
     @categories = Category.all
+  end
+
+  def load_template
+    @template = Template.includes(:campaign).find(params[:id])
+    authorize @template
   end
 
   def template_params

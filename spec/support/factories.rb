@@ -67,19 +67,23 @@ FactoryGirl.define do
     category
   end
 
+  # USERS
   factory :user do
     email
     affiliate
+
     password "12345678"
     password_confirmation "12345678"
     approved true
     first_name "Test"
     last_name  "User"
+    role "User"
   end
 
   factory :admin, class: User do
     email
     affiliate
+
     password "12345678"
     password_confirmation "12345678"
     approved true
@@ -91,6 +95,7 @@ FactoryGirl.define do
   factory :vetter, class: User do
     email
     affiliate
+
     password "12345678"
     password_confirmation "12345678"
     approved true
@@ -102,12 +107,30 @@ FactoryGirl.define do
   factory :local_president, class: User do
     email
     affiliate
+
     password "12345678"
     password_confirmation "12345678"
     approved true
     role "Local President"
     first_name "Test"
     last_name  "Local President"
+  end
+
+  factory :vetter, class: User do
+    email
+    affiliate
+    password "12345678"
+    password_confirmation "12345678"
+    approved true
+    role "Vetter"
+  end
+
+  factory :creator, class: User do
+    email
+    affiliate
+    
+    password "12345678"
+    password_confirmation "12345678"
   end
 
   factory :document_user do

@@ -1,7 +1,9 @@
 class Admin::CategoriesController < AdminController
-  # POST /users
+  # POST /categories
   def create
     @new_category = Category.new(category_params)
+    authorize @new_category
+
     if @new_category.save
       @category = Category.new
       @categoryies = Category.all
@@ -11,31 +13,34 @@ class Admin::CategoriesController < AdminController
     end
   end
 
-  # DELETE /users
+  # DELETE /admin/categories/1
   def destroy
-    @category = Category.find(params[:id])
+    load_category
+    @category.destroy
+    redirect_to admin_categories_path, notice: "Category deleted!"
   end
 
-  # GET /users/1/edit
+  # GET /categories/1/edit
   def edit
-    @category = Category.find(params[:id])
+    load_category
     @body_class = 'toolkit category'
     @header_navigation = true
   end
 
-  # GET /users
+  # GET /categories
   def index
     @categories = Category.all
+    authorize @categories
   end
 
-  # GET /users/1
+  # GET /categories/1
   def show
-    @category = Category.find(params[:id])
+    load_category
   end
 
-  # PATCH /admin/categorys/1
+  # PATCH /admin/categories/1
   def update
-    @category = Category.find(params[:id])
+    load_category
 
     if @category.update_attributes(category_params)
       redirect_to edit_admin_category_path(@category), notice: "Category updated!"
@@ -44,16 +49,14 @@ class Admin::CategoriesController < AdminController
     end
   end
 
-  # DELETE /adminc/ampaigns/1
-  def destroy
-    @category = Category.find(params[:id])
-    @category.destroy
-    redirect_to admin_categories_path, notice: "Category deleted!"
-  end
-
   private
 
   def category_params
     params.require(:category).permit(:title, :description, :status)
+  end
+
+  def load_category
+    @category = Category.find(params[:id])
+    authorize @category
   end
 end

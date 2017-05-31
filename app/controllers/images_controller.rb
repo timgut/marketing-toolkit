@@ -36,7 +36,7 @@ class ImagesController < ApplicationController
 
   # GET /images/1/crop
   def crop
-    @image    = Image.find(params[:id])
+    load_image
     @template = Template.find(params[:template_id])
     set_resize_data
     @image.image.reprocess!
@@ -46,7 +46,7 @@ class ImagesController < ApplicationController
 
   # GET /images/1/edit
   def edit
-    @image = Image.find(params[:id])
+    load_image
   end
 
   # GET /images
@@ -77,12 +77,12 @@ class ImagesController < ApplicationController
 
   # GET /images/1
   def show
-    @image = Image.find(params[:id])
+    load_image
   end
 
   # PATCH /images/1
   def update
-    @image = Image.find(params[:id])
+    load_image
     set_cropping_data
 
     respond_to do |format|
@@ -116,6 +116,11 @@ class ImagesController < ApplicationController
     params.require(:image).permit(
       :image, :creator_id, :pos_x, :pos_y, :template_id
     )
+  end
+
+  def load_image
+    @image = Image.find(params[:id])
+    authorize @image
   end
 
   def set_resize_data

@@ -1,5 +1,4 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-
   def show
   	## just show the view
   end
@@ -9,19 +8,19 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def edit
+    load_user
   	@body_class = 'toolkit profile'
   	@header_navigation = true
-    @user = current_user
     @affiliates = Affiliate.all
   end
 
   def password
-    @user = current_user
+    load_user
   end
 
   def update_password
-    @user = current_user
-    puts "\n\n\n#{params['user'].inspect}\n\n\n"
+    load_user
+    # puts "\n\n\n#{params['user'].inspect}\n\n\n"
     if params['user']['password'] == params['user']['password_confirmation']
       @user.password = params['user']['password']
       @user.password_confirmation = params['user']['password_confirmation']
@@ -48,8 +47,20 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   private
 
+  def load_user
+    @user = current_user
+    authorize @user, pundit_policy
+  end
+
   def password_params
     params.require(:user).permit(:password, :password_confirmation)
+  end
+
+  # UserPolicy has policies for both this controller and Admin::UsersController.
+  # Some of the actions overlap, so to differentiate the two, devise_ is prepended
+  # for policies in this controller.
+  def pundit_policy
+    "devise_#{params[:action]}?"
   end
 
 end

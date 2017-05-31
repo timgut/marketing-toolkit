@@ -58,7 +58,11 @@ class User < ApplicationRecord
   end
 
   def admin?
-    self.role == 'Administrator' or self.role == 'Vetter'
+    self.role == 'Administrator'
+  end
+
+  def vetter?
+    self.role == 'Vetter'
   end
 
   ## auth methods for devise

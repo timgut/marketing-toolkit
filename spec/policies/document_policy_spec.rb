@@ -1,0 +1,23 @@
+require 'rails_helper'
+
+describe DocumentPolicy, type: :class do
+  let!(:policy)   { described_class }
+  let!(:document) { create(:document, creator: user) }
+
+  let!(:user)   { create(:user)   }
+  let!(:vetter) { create(:vetter) }
+  let!(:admin)  { create(:admin)  }
+
+  DocumentPolicy::METHODS.each do |action|
+    permissions action do
+      it "denies access if the user is not an admin or does not own the document" do
+        expect(policy).not_to permit(vetter, document)
+      end
+
+      it "grants access if the user is an admin or owns the document" do
+        expect(policy).to permit(admin, document)
+        expect(policy).to permit(user, document)
+      end
+    end
+  end
+end

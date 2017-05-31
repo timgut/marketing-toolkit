@@ -3,6 +3,7 @@ require 'simplecov'
 SimpleCov.start "rails" do
   add_group "Classes", ["app/classes"]
   add_group "Paperclip", ["lib/paperclip"]
+  add_group "Policies", ["app/policies"]
 end
 
 require File.expand_path('../../config/environment', __FILE__)
@@ -12,6 +13,7 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'paperclip/matchers'
 require "#{Rails.root}/spec/support/controller_macros.rb"
+require 'pundit/rspec'
 
 ActiveRecord::Migration.maintain_test_schema!
 

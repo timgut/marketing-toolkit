@@ -1,0 +1,23 @@
+require 'rails_helper'
+
+describe CategoryPolicy, type: :class do
+  let!(:policy)   { described_class   }
+  let!(:campaign) { create(:campaign) }
+
+  let!(:user)   { create(:user)   }
+  let!(:vetter) { create(:vetter) }
+  let!(:admin)  { create(:admin)  }
+
+  CategoryPolicy::ADMIN_METHODS.each do |action|
+    permissions action do
+      it "denies access if the user is not an admin" do
+        expect(policy).not_to permit(user, campaign)
+        expect(policy).not_to permit(vetter, campaign)
+      end
+
+      it "grants access if the user is an admin" do
+        expect(policy).to permit(admin, campaign)
+      end
+    end
+  end
+end

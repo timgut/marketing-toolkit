@@ -53,8 +53,11 @@ module Trashable
   end
 
   # Helper that sets @record for easy access.
+  # authorize calls the policy corresponding to the controller,
+  # such as DocumentPolicy#trash? or ImagePolicy#restore?.
   def set_record
     @record = instance_variable_set("@#{model_var}".to_sym, model.find(params[:id]))
+    authorize @record
   end
 
   # All of these actions redirect similarly, so this cuts down on the repetition.
