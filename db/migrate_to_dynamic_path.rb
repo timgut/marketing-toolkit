@@ -3,7 +3,7 @@
 require 'net/http'
 
 BASE_URL = "s3.amazonaws.com"
-DIR      = "/Users/jarred/Desktop/toolkit/" # CHANGE THIS! ADD A TRAILING SLASH!
+DIR      = "/Users/timgut/Desktop/TK/redmine-1584/" # CHANGE THIS! ADD A TRAILING SLASH!
 
 Image.find_each do |image|
   puts "\nImage ##{image.id}\n---------\n"
@@ -76,7 +76,7 @@ Template.find_each do |template|
           id_with_zeros = template.id
         end
 
-        request_path = "/toolkit.afscme.org/templates/thumbnails/000/000/#{id_with_zeros}/original/#{attachment_file_name}"
+        request_path = "/toolkit.afscme.org/templates/#{attachment.to_s.pluralize}/000/000/#{id_with_zeros}/original/#{attachment_file_name}"
         response     = http.get(request_path)
         
         # Save the original file locally if it exists at S3.
