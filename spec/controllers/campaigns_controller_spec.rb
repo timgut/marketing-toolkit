@@ -18,8 +18,8 @@ RSpec.describe CampaignsController, type: :controller do
 
         it "renders the index template" do
           get :index
-          expect(response).to have_http_status(200)
-          expect(response).to render_template("index")
+          expect(response).to have_http_status 200
+          expect(response).to render_template "index"
         end
       end
     end
@@ -29,7 +29,7 @@ RSpec.describe CampaignsController, type: :controller do
     context "not signed in" do
       it "redirects to the sign in page" do
         get :show, params: {id: campaign.id}
-        expect(response).to have_http_status(302)
+        expect(response).to have_http_status 302
         expect(response.body).to eq RSpec.configuration.redirect_html
       end
     end
@@ -40,8 +40,8 @@ RSpec.describe CampaignsController, type: :controller do
 
         it "renders the show template" do
           get :show, params: {id: campaign.id}
-          expect(response).to have_http_status(200)
-          expect(response).to render_template("show")
+          expect(response).to have_http_status 200
+          expect(response).to render_template "show"
         end
       end
     end
