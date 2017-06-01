@@ -27,6 +27,11 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include Paperclip::Shoulda::Matchers
 
+  config.add_setting :redirect_html, default: "<html><body>You are being <a href=\"http://test.host/users/sign_in\">redirected</a>.</body></html>"
+  config.add_setting :user_roles,    default: [:user, :admin, :vetter, :local_president]
+  config.add_setting :non_admins,    default: [:user, :vetter, :local_president]
+  config.add_setting :http_referer,  default: "http://toolkit.afscme.org"
+
   config.before(:suite) do
     Warden.test_mode!
     DatabaseCleaner.strategy = :transaction
@@ -35,6 +40,7 @@ RSpec.configure do |config|
 
   config.before(:each) do
     DatabaseCleaner.start
+    request.env['HTTP_REFERER'] = config.http_referer
   end
 
   config.after(:each) do
@@ -45,7 +51,4 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
-
-  config.add_setting :redirect_html, default: "<html><body>You are being <a href=\"http://test.host/users/sign_in\">redirected</a>.</body></html>"
-  config.add_setting :user_roles, default: [:user, :admin, :vetter, :local_president]
 end
