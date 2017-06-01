@@ -20,7 +20,7 @@
       <ol>
         <% if template.customize? %>
           <li><%= link_to "<span class='icons'>S</span> View".html_safe, template_path(template), title: "View" %></li>
-          <% if User.current_user.admin? %>
+          <% if current_user.admin? %>
             <li><%= link_to "<span class='icons'>e</span> Edit".html_safe, edit_admin_template_path(template), title: "Edit" %></li>
           <% end %>
         <% else %>

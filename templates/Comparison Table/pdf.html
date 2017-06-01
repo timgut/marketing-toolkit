@@ -132,9 +132,8 @@ header h1 small {
 }
 .table .row .cell {
   width: 33.33%;
-  height: .95in;
   display: table-cell;
-  border-right: 1px solid #000; 
+  border-right: 1px solid rgba(255,255,255,0); 
   padding: .45em;
   text-align: center;
   font-size: 13pt;
@@ -149,11 +148,41 @@ header h1 small {
   color: #4daf4f;
   text-transform: uppercase;        
 }
-.table .row .cell:nth-child(2) {
-  background: #edf6ef;
+
+.table.rows {
+  position: relative;
+  z-index: 1000;
 }
 
-.table .row .cell:last-child {
+.table.rows.rows-1 .row {
+  height: 6.8in;
+}
+.table.rows.rows-2 .row {
+  height: 3.4in;
+}
+.table.rows.rows-3 .row {
+  height: 2.266in;
+}
+.table.rows.rows-4 .row {
+  height: 1.7in;
+}
+.table.rows.rows-5 .row {
+  height: 1.36in;
+}
+.table.rows.rows-6 .row {
+  height: 1.133in;
+}
+.table.background .row {
+  position: absolute;
+  height: 7.3in;
+}
+.table.background .row .cell {
+  border-right: 1px solid #000; 
+}
+.table.background .row .cell:nth-child(2) {
+  background: #edf6ef;
+}
+.table.background .row .cell:last-child {
   border-right: none;      
 }      
 
@@ -260,6 +289,39 @@ footer .union-bug {
 
 </head>
 
+<%
+count = 0
+if @document.comp_1_title.present? and  @document.comp_1_col_1.present? and  @document.comp_1_col_2.present?
+  count += 1
+  row1 = true
+end
+
+if @document.comp_2_title.present? and  @document.comp_2_col_1.present? and  @document.comp_2_col_2.present?
+  count += 1
+  row2 = true
+end
+
+if @document.comp_3_title.present? and  @document.comp_3_col_1.present? and  @document.comp_3_col_2.present?
+  count += 1
+  row3 = true
+end
+
+if @document.comp_4_title.present? and  @document.comp_4_col_1.present? and  @document.comp_4_col_2.present?
+  count += 1
+  row4 = true
+end
+
+if @document.comp_5_title.present? and  @document.comp_5_col_1.present? and  @document.comp_5_col_2.present?
+  count += 1
+  row5 = true
+end
+
+if @document.comp_6_title.present? and  @document.comp_6_col_1.present? and  @document.comp_6_col_2.present?
+  count += 1
+  row6 = true
+end
+%>
+
   <body>
     <main class="container">
       <header>
@@ -271,52 +333,75 @@ footer .union-bug {
           </h1>
       </header>
 
-      <div class="table">        
-          <div class="row header cf">
-            <div class="cell">&nbsp;</div>            
-            <div class="cell"><strong><%= @document.option_a.try(:html_safe) %></strong></div>
-            <div class="cell"><strong><%= @document.option_b.try(:html_safe) %></strong></div>
-          </div>
-          
-          <div class="bar"></div>
+      <div class="table header">        
+        <div class="row header cf">
+          <div class="cell">&nbsp;</div>            
+          <div class="cell"><strong><%= @document.option_a.try(:html_safe) %></strong></div>
+          <div class="cell"><strong><%= @document.option_b.try(:html_safe) %></strong></div>
+        </div>
+        <div class="bar"></div>
+      </div>
 
+      <div class="table background">  
+          <div class="row cf">
+            <div class="cell"></div>            
+            <div class="cell"></div>
+            <div class="cell"></div>
+          </div>            
+      </div>
+
+      <div class="table rows rows-<%= count %>">  
+            
+        <% if row1 %>
           <div class="row cf">
             <div class="cell"><%= @document.comp_1_title.try(:html_safe) %></div>            
             <div class="cell"><%= @document.comp_1_col_1.try(:html_safe) %></div>
             <div class="cell"><%= @document.comp_1_col_2.try(:html_safe) %></div>
           </div>
-          
+        <% end %>
+
+        <% if row2 %>
           <div class="row cf">
             <div class="cell"><%= @document.comp_2_title.try(:html_safe) %></div>            
             <div class="cell"><%= @document.comp_2_col_1.try(:html_safe) %></div>
             <div class="cell"><%= @document.comp_2_col_2.try(:html_safe) %></div>
           </div>                 
-          
+        <% end %>
+
+        <% if row3 %>
           <div class="row cf">
             <div class="cell"><%= @document.comp_3_title.try(:html_safe) %></div>            
             <div class="cell"><%= @document.comp_3_col_1.try(:html_safe) %></div>
             <div class="cell"><%= @document.comp_3_col_2.try(:html_safe) %></div>
           </div>
-          
+        <% end %>
+
+        <% if row4 %>
           <div class="row cf">
             <div class="cell"><%= @document.comp_4_title.try(:html_safe) %></div>            
             <div class="cell"><%= @document.comp_4_col_1.try(:html_safe) %></div>
             <div class="cell"><%= @document.comp_4_col_2.try(:html_safe) %></div>
           </div>
-          
+        <% end %>
+
+        <% if row5 %>
           <div class="row cf">
             <div class="cell"><%= @document.comp_5_title.try(:html_safe) %></div>            
             <div class="cell"><%= @document.comp_5_col_1.try(:html_safe) %></div>
             <div class="cell"><%= @document.comp_5_col_2.try(:html_safe) %></div>
           </div>
-          
+        <% end %>
+
+        <% if row6 %>
           <div class="row cf">
             <div class="cell"><%= @document.comp_6_title.try(:html_safe) %></div>            
             <div class="cell"><%= @document.comp_6_col_1.try(:html_safe) %></div>
             <div class="cell"><%= @document.comp_6_col_2.try(:html_safe) %></div>
           </div>
+        <% end %>
+            
       </div>
-              
+                          
       <footer>
           <div class="angle"></div>
 

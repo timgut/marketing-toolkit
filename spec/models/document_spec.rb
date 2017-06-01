@@ -5,7 +5,6 @@ RSpec.describe Document, type: :model do
   let!(:campaign)       { create(:campaign) }
   let!(:template)       { create(:template) }
   let!(:document)          { create(:document, template: template, folder: user.root_document_folder) }
-  let!(:campaign_document) { create(:campaign_document, campaign: campaign, document: document) }
   let!(:data)           {[
     create(:datum, document: document, key: "headline", value: "You never quit. That's why we never rest."),
     create(:datum, document: document, key: "quote", value: "\"I'm proud of the work I do to make my community better. I couldn't do it without my union.\""),

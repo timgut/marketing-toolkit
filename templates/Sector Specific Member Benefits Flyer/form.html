@@ -1,0 +1,177 @@
+<script type="text/javascript">  
+  $(document).ready(function() {
+    // Custom Headline
+    $("form[data-document='true']").on("click", "#headline6-custom, #headline7-custom", function(){
+      $("#headline6").prop("checked", true);
+      $("#headline6").trigger("change");
+    });
+
+    // Custom Testimonial
+    $("form[data-document='true']").on("click", "#testimonial-custom, #attribution-custom", function(){
+      $("#testimonial7").prop("checked", true);
+      $("#testimonial7").trigger("change");
+    });
+    $("form[data-document='true']").on("change", "#testimonial-custom, #attribution-custom", function(){
+      $("#testimonial7").val("<h2>" + Toolkit.normalizeQuotes($("#testimonial-custom").val()) + "</h2><p class=\"attribution\">" + Toolkit.normalizeQuotes($("#attribution-custom").val()) + "</p>");
+      $("#testimonial7").trigger("change");
+    });
+
+    // Custom Body
+    $("form[data-document='true']").on("click", "#body3-headline-custom, #body-custom", function(){
+      $("#body3").prop("checked", true);
+      $("#body3").trigger("change");
+    });
+    $("form[data-document='true']").on("change", "#body3-headline-custom, #body-custom", function(){
+      $("#body3").val("<h2>" + Toolkit.normalizeQuotes($("#body3-headline-custom").val()) + "</h2><p>" + Toolkit.normalizeQuotes($("#body-custom").val()) + "</p>");
+      $("#body3").trigger("change");
+    });
+  });
+</script>
+
+<div id="branding" class="grouping branding image-select radio cf"> 
+
+    <h3>Choose Flyer Branding</h3>
+
+    <div class="field logo"> 
+        <input id="branding-afscme" name="data[mbf_branding]" type="radio" value="afscme" />
+        <label for="branding-afscme">
+           <div class="radio-button"></div>
+           <figure style="background-image: url(http://toolkit-afscme.bytrilogy.com/theme/img/afscme-branding-thumb.png);"></figure>
+        </label>
+    </div>
+    
+    <div class="field logo"> 
+        <input id="branding-csea" name="data[mbf_branding]" type="radio" value="csea" />
+        <label for="branding-csea">
+           <div class="radio-button"></div>
+           <figure style="background-image: url(http://toolkit-afscme.bytrilogy.com/theme/img/csea-branding-thumb.png);"></figure>
+        </label>
+    </div>
+    
+</div><!--theme-->
+
+<div class="step grouping columns five radio cf"> 
+
+    <h3>Choose a headline</h3>
+
+    <div class="field"> 
+        <input id="headline1" class="required" name="data[mbf_headline]" type="radio" value="Building Power To <span>Make Real Change</span>" />
+        <label for="headline1">
+            <div class="radio-button"></div>
+            Building Power To Make Real Change 
+         </label>
+    </div>
+        
+    <div class="field"> 
+        <input id="headline2" name="data[mbf_headline]" type="radio" value="Political Strength <span>Matters</span>" />
+        <label for="headline2">
+           <div class="radio-button"></div>
+           Political Strength Matters
+         </label>
+    </div>
+        
+    <div class="field"> 
+        <input id="headline3" name="data[mbf_headline]" type="radio" value="Our Jobs. Our Union. <span>Our Future.</span>" />
+        <label for="headline3">
+           <div class="radio-button"></div>
+           Our Jobs. Our Union. Our Future.
+        </label>
+    </div>
+
+    <div class="field"> 
+        <input id="headline4" name="data[mbf_headline]" type="radio" value="AFSCME: The Union for <span>Public Services</span>" />
+        <label for="headline4">
+           <div class="radio-button"></div>
+           AFSCME: The Union for Public Services
+        </label>
+    </div>
+
+    <div class="field"> 
+        <input id="headline5" name="data[mbf_headline]" type="radio" value="We Are Voting Yes" />
+        <label for="headline5">
+           <div class="radio-button"></div>
+           We Are Voting Yes
+        </label>
+    </div>
+
+    <div class="field wide"> 
+        <input id="headline6" data-custom="text" name="data[mbf_headline]" type="radio" />
+        
+        <label for="headline6">
+          <div class="radio-button"></div>
+          <strong>CREATE YOUR OWN</strong>
+          <small>Maximum of 100 characters. Please preview, since words may wrap unexpectedly and cutoff your headline.</small>
+          <input placeholder="Headline" type="text" name="headline-custom" id="headline6-custom" data-target="headline6" value="" maxlength="100" />
+          <input placeholder="Sub-headline" type="text" name="data[mbf_subheadline]" id="headline7-custom" value="" maxlength="100" data-custom="text" />
+        </label>
+    </div>
+
+</div><!--headline-->
+<div class="step grouping image-select cf"> 
+
+    <h3>Add a photo</h3>
+         
+    <div class="field upload"> 
+        <input id="photo7" data-custom="image" name="data[mbf_photo]" type="radio" />
+        <label for="photo7">
+           <figure href="javascript:void(0);" title="Add Photo" class="image-picker" data-target="photo7" data-crop="true" data-crop-offset="150">
+               <div class="positioner">
+                   <span class="icons">C</span>
+                   Add Image
+               </div>
+           </figure>
+        </label>
+    </div>
+
+</div><!--photo-->
+
+<div class="step grouping columns two cf"> 
+
+    <h3>Add a testimonial quote</h3>
+           
+    <div class="field radio wide"> 
+        <input id="testimonial7" data-custom="combine" name="data[mbf_testimonial]" type="radio" value="" />
+        <label for="testimonial7">
+            <textarea name="testimonial-custom" id="testimonial-custom" data-combine-tag="h2" placeholder="Your quote" maxlength="60"></textarea>
+            <small>Maximum 60 characters. Please preview, since words may wrap unexpectedly due to size limits.</small>
+            <input type="text" name="attribution-custom" id="attribution-custom" data-combine-tag="p" value="" placeholder="Quote attribution" maxlength="60" />
+        </label>
+
+    </div>
+
+</div><!--testimonial-->
+
+<div class="step grouping columns two cf"> 
+
+    <h3 data-name="data[body]">Add body text</h3>
+        <div class="field wide"> 
+        <input id="body3" data-custom="combine" name="data[mbf_body]" type="radio" value="" />
+        <label for="body3">
+            <input type="text" name="body3-headline-custom" id="body3-headline-custom" data-combine-tag="h2" value="" placeholder="Headline" maxlength="200" />
+            <small>Maximum of 200 characters. Please preview, since words may wrap unexpectedly and cut off your headline.</small>
+            <textarea name="body3-custom" id="body-custom" data-combine-tag="p" placeholder="Your body text"></textarea>
+        </label>
+    </div>
+
+</div><!--bodytext-->
+
+
+<div class="step grouping image-select cf"> 
+
+    <h3>Council/Affiliate Logo (optional)</h3>
+
+    <div class="field upload"> 
+        <input id="logo2" data-custom="image" name="data[mbf_affiliate_logo]" type="radio" value="custom" />
+
+        <label for="logo2">
+           <figure href="javascript:void(0);" title="Add Photo" class="image-picker" data-target="logo2">
+               <div class="positioner">
+                   <span class="icons">C</span>
+                   Add Image
+               </div>
+           </figure>
+        </label>
+
+    </div>
+
+</div><!--logo-->

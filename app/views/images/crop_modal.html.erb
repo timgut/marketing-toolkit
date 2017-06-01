@@ -1,0 +1,48 @@
+<div id="croparea" data-height="<%= @image.image.height %>" data-width="<%= @image.image.width %>">
+  <div class="drag">
+    <div id="uploaded"></div>
+  </div>
+
+  <img id="context" src="<%= @template.blank_image %>" />
+</div>
+
+<%= form_for(@image, remote: true) do |f| %>
+  <%= hidden_field_tag :format, :json %>
+  <%= f.hidden_field :pos_x, value: "" %>
+  <%= f.hidden_field :pos_y, value: "" %>
+  <%= f.hidden_field :template_id, value: @template.id %>
+  <%= f.hidden_field :image %>
+  <%= f.submit "Crop Image", class: "save button active" %>
+<% end %>
+
+<style>
+#croparea {
+  height:   <%= @template.blank_image.height %>px;
+  width:    <%= @template.blank_image.width %>px;
+  border:   solid 2px #000;
+  overflow: hidden;
+  z-index:  3;
+  position: relative;
+}
+
+#context {
+  position: absolute;
+  top:      0;
+  left:     0;
+  z-index:  2;
+
+  pointer-events: none;
+}
+
+#uploaded {
+  background-image:    url('<%= @image.image.url(:cropped) %>');
+  background-repeat:   no-repeat;
+  background-position: center center;
+
+  z-index:  1;
+  height:   <%= @image.image.height(:cropped) %>px;
+  width:    <%= @image.image.width(:cropped) %>px;
+  /*border:   dashed 1px #000;*/
+  cursor:   grab;
+}
+</style>

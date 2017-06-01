@@ -36,7 +36,6 @@ Rails.application.routes.draw do
 
   resources :documents, except: [:show], concerns: [:trashable] do
     collection do
-      get :preview
       get :recent
       get :shared
     end
@@ -44,6 +43,7 @@ Rails.application.routes.draw do
     member do
       get :duplicate
       get :download
+      get :preview
       get :share
     end
   end
@@ -56,20 +56,19 @@ Rails.application.routes.draw do
     end
 
     member do
-      get :resize
+      get :crop
       get :share
     end
   end
 
   namespace :admin, path: '/admin' do
-    root to: "users#home"
+    root to: "misc#home"
+
     resources :campaigns, except: [:new, :show]
-    resources :users do
-    end
+    resources :users
     resources :categories, except: [:new]
     resources :templates, except: [:show]
-    resources :affiliates do
-    end
+    resources :affiliates
   end
   
 end

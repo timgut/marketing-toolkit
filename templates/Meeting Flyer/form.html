@@ -1,3 +1,13 @@
+<script type="text/javascript">  
+  $(document).ready(function() {
+    // Custom Headline
+    $("form[data-document='true']").on("click", "#headline4-custom", function(){
+      $("#headline4").prop("checked", true);
+      $("#headline4").trigger("change");
+    });
+  });
+</script>
+
 <div class="step grouping radio cf"> 
   <h3>Choose a Headline</h3>
   
@@ -82,10 +92,10 @@
 <div class="step grouping image-select cf"> 
   <h3>Council/Affiliate Logo (optional)</h3>
     <div class="field upload"> 
-        <input id="logo2" data-custom="image" name="data[mf_affiliate_logo]" type="radio" value="custom" />
+        <input id="affiliate-logo" data-custom="image" name="data[mf_affiliate_logo]" type="radio" value="custom" />
 
-        <label for="logo2">
-           <figure href="javascript:void(0);" title="Add Photo" class="image-picker" data-target="logo2">
+        <label for="affiliate-logo">
+           <figure href="javascript:void(0);" title="Add Photo" class="image-picker" data-target="affiliate-logo">
                <div class="positioner">
                    <span class="icons">C</span>
                    Add Image

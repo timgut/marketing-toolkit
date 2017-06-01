@@ -5,6 +5,13 @@ FactoryGirl.define do
   end
 
   # MODELS
+  factory :affiliate do
+    title  "International Union"
+    slug   "IU"
+    state  "N/A"
+    region "N/A"
+  end
+
   factory :campaign do
     title "Never Quit"
     description "This is the Never Quit campaign"
@@ -19,13 +26,14 @@ FactoryGirl.define do
 
   factory :document do
     template
+    creator
     title "My Custom Document"
     description "My description for this document"
     status "publish"
   end
 
   factory :image do
-
+    image { File.new("#{Rails.root}/spec/support/images/1260x573.jpg") }
   end
 
   factory :template do
@@ -36,20 +44,47 @@ FactoryGirl.define do
     pdf_markup "<html><body>Hello World</body></html>"
     form_markup "This is a placeholder for the form markup."
     status "publish"
+
+    blank_image { File.new("#{Rails.root}/templates/Sector Specific/blank-ss.png") }
   end
 
+  # USERS
   factory :user do
     email
+    affiliate
     password "12345678"
+    password_confirmation "12345678"
+    approved true
+    role "User"
+  end
+
+  factory :admin, class: User do
+    email
+    affiliate
+    password "12345678"
+    password_confirmation "12345678"
+    approved true
+    role "Administrator"
+  end
+
+  factory :vetter, class: User do
+    email
+    affiliate
+    password "12345678"
+    password_confirmation "12345678"
+    approved true
+    role "Vetter"
+  end
+
+  factory :creator, class: User do
+    email
+    affiliate
+    
+    password              "12345678"
     password_confirmation "12345678"
   end
 
   # JOIN TABLES
-  factory :campaign_document do
-    campaign
-    document
-  end
-
   factory :document_user do
     document
     user

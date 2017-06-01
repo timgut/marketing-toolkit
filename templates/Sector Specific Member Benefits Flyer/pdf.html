@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Lato:400,300,900' rel='stylesheet' type='text/css'>
+
+<style type="text/css">
+*,
+*:before,
+*:after {
+  -moz-box-sizing:    border-box; 
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box; 
+  transition:         all .25s ease-in-out;    
+  -webkit-transition: all .25s ease-in-out;  
+  -moz-transition:    all .25s ease-in-out;  
+  -o-transition:      all .25s ease-in-out;  
+  -ms-transition:     all .25s ease-in-out; 
+}
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, main,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+  margin: 0 auto;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent; 
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+main { 
+  display: block;
+}
+.cf:before,
+.cf:after {
+  content: "";
+  display: table; 
+}
+.cf:after { 
+  clear: both; 
+}
+.background { 
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+body { 
+  font-family: 'Open Sans', Arial;
+  font-weight: normal;
+  font-weight: 300;
+  text-align: center; 
+  color: #404040;
+  line-height: 1.4; 
+  font-size: 11pt;
+  text-rendering: optimizelegibility;
+}
+.container {
+  margin: auto;
+  width: 8.5in;
+  height: 11in;
+  background-repeat: no-repeat;
+  background-position: center 1.8in;
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+}
+.top-bar {
+  background-image: -webkit-linear-gradient(left, #0054a5 0%, #00ab4f 63.89%, #00ab4f 100%);
+  background-image: linear-gradient(left, #0054a5 0%, #00ab4f 63.89%, #00ab4f 100%);  
+  width: 100%;
+  height: .11in;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10000;  
+}
+.csea .top-bar {
+  background-image: -webkit-linear-gradient(right, #004785 0%, #e03a3e 100%);
+  background-image: linear-gradient(right, #004785 0%, #e03a3e 100%);
+}
+header {
+  position: relative;
+  height: 3.25in;
+  overflow: hidden;
+  z-index: 9999;
+}
+header .angle {
+  background: white;
+  position: absolute;
+  width: 110%;
+  height: 3.25in;
+  z-index: 100;
+  top: -.6in;
+  left: -5%;
+  -ms-transform: rotate(-7.5deg); 
+  -webkit-transform: rotate(-7.5deg); 
+  transform: rotate(-7.5deg);
+}  
+header h1 {
+  position: absolute;
+  top: .5in;
+  left: .5in;
+  width: 7.5in;
+  z-index: 1000;
+  font-family:'Lato','Arial Black';
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 44pt;
+  line-height: .95;
+  color: #23408f;  
+}
+.csea header h1 {
+  color: #004785;
+}
+header h1 span {
+  display: block;
+  font-weight: 300;
+  color: #40ae49;  
+}
+.csea header span {
+  color: #e03a3e;
+}
+header h1 small {
+  font-size: 36pt;
+}
+.body {
+  width: 3.8in;
+  width: 4.5in;
+  color: white;
+  position: absolute;
+  bottom: 1.75in;
+  bottom: 1in;
+  left: .75in;
+  left: 0;
+  padding: .25in .25in .5in .25in;
+  background: rgba(0,0,0,.5);
+}
+.body h2 {
+  font-size: 15pt;
+  line-height: 1;
+  margin-bottom: .5em;
+}
+.quote {
+  width: 2.25in;
+  width: 2.5in;
+  color: white;
+  position: absolute;
+  top: 3in;
+  top: 1.8in;
+  right: .5in;
+  right: 0;
+  padding: .75in .25in .25in .25in;
+  background: rgba(0,0,0,.7);
+}
+.quote h2 {
+  font-size: 24pt;
+  line-height: 1;
+  margin-bottom: .5em;
+  font-family:'Lato','Arial Black';
+  font-weight: 900;
+  color: #40ae49;  
+}
+.csea .quote h2 {
+  color: #e03a3e;
+}
+.quote .attribution {
+  padding-left: 1em;
+  position: relative;
+}  
+.quote .attribution::before {
+  content:'-';
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.quote h2:before {
+  content: open-quote;
+}
+.quote h2:after {
+  content: close-quote;
+}
+footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  border-bottom: .25in solid white;
+  height: 1.65in;
+  width: 100%;
+  overflow: hidden;
+  z-index: 9999;
+}
+footer .angle {
+  background-image: -webkit-linear-gradient(right, #009769 0%, #00a951 32.2%, #0158a3 100%);
+  background-image: linear-gradient(right, #009769 0%, #00a951 32.2%, #0158a3 100%);  
+  position: absolute;
+  left: -5%;
+  top: .32in;  
+  width: 110%;
+  height: 3in;
+  -ms-transform: rotate(-4deg); 
+  -webkit-transform: rotate(-4deg); 
+  transform: rotate(-4deg);
+}
+.csea footer .angle {
+  background-image: -webkit-linear-gradient(right, #004785 0%, #e03a3e 100%);
+  background-image: linear-gradient(right, #004785 0%, #e03a3e 100%);
+}
+footer .url {
+  position: absolute;
+  left: .5in;
+  bottom: .3in;  
+  width: 2.5in;
+  height: .25in;
+  background: url('http://neverquit.afscme.org/theme/img/certificate-url.png') no-repeat center center;
+  background-size: contain;
+}
+footer .affiliate-logo {
+  position: absolute;
+  right: 1.65in;
+  bottom: .3in;  
+  width: 1.6in;
+  height: .7in;
+  border-right: 1px solid white;
+  padding-right: .12in;
+}
+footer .affiliate-logo div {
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+}
+footer .main-logo  {
+  background-image: url(http://toolkit-afscme.bytrilogy.com/print/img/afscme-reverse.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  background-size: contain;
+  width: 1.3in;    
+  height: .75in;    
+  position: absolute;
+  right: .15in;
+  bottom: .3in;  
+  z-index: 1000;
+}
+.csea footer .main-logo  {
+  background-image: url(http://toolkit-afscme.bytrilogy.com/print/img/csea-inverted.png);
+  width: 1.2in;
+}
+footer .union-bug {
+  position: absolute;
+  left: .2in;
+  bottom: .27in; 
+  width: .6in;
+  height: .2in;
+  background: url('http://neverquit.afscme.org/theme/img/union-bug.png') no-repeat center center;
+  background-size: contain;
+}
+</style>
+
+</head>
+
+<body class="<%= @document.mbf_branding %>">
+
+    <main class="container" style="background-image: url('<%= "#{@document.mbf_photo}" %>');">
+
+      <div class="top-bar"></div>
+
+      <header>
+        <div class="angle"></div>
+        <h1>
+          <%= @document.mbf_headline.try(:html_safe) %>
+          <span><%= @document.mbf_subheadline.try(:html_safe) %></span>
+        </h1>
+      </header>
+
+      <article class="body"><%= @document.mbf_body.try(:html_safe) %></article>
+      <aside class="quote"><%= @document.mbf_testimonial.try(:html_safe) %></aside>
+      <div class="new-page"></div>
+      <footer>
+        <div class="angle"></div>
+        <% unless @document.mbf_affiliate_logo.blank? %>
+          <div class="affiliate-logo">
+            <div style="background-image: url('<%= "#{@document.mbf_affiliate_logo}" %>');"></div>
+          </div>
+        <% end %>
+        <div class="main-logo"></div>
+        <div class="union-bug"></div>
+      </footer>
+    </main>
+  </body>
+</html>

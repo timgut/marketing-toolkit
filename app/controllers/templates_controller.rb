@@ -13,7 +13,7 @@ class TemplatesController < ApplicationController
 
   # GET /templates/1
   def show
-    @template = Template.includes(:campaign).find(params[:id])
+    load_template
     @campaign = @template.campaign
   end
 
@@ -30,6 +30,11 @@ class TemplatesController < ApplicationController
         items:       @templates.select{|template| template.category_id == category.id }
       }
     end
+  end
+
+  def load_template
+    @template = Template.includes(:campaign).find(params[:id])
+    authorize @template
   end
 
   def template_params

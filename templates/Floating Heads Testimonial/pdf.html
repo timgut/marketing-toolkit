@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Lato:400,300,900' rel='stylesheet' type='text/css'>
+
+<style type="text/css">
+*,
+*:before,
+*:after {
+-moz-box-sizing:    border-box; 
+-webkit-box-sizing: border-box;
+box-sizing:         border-box; 
+}
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, main,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+  margin: 0 auto;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent; }
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+main { display: block; }
+
+blockquote, q { quotes: none; }
+
+blockquote:before,
+blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+/* Clearfix */
+
+.clearfix:before,
+.clearfix:after {
+   content: "";
+   display: table; 
+}
+.clearfix:after { 
+  clear: both; 
+}
+
+.cf:before,
+.cf:after {
+   content: "";
+   display: table; 
+}
+.cf:after { 
+  clear: both;
+}
+body { 
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  font-weight: 300;
+  text-align: center; 
+  color: #404040;
+  line-height: 1.4; 
+  font-size: 11pt;
+  margin: 0 auto;
+  text-rendering: optimizelegibility;
+}
+.container {
+  margin: auto;
+  width: 8.5in;
+  height: 11in;
+  background-repeat: no-repeat;
+  background-position: center 1.8in;
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+} 
+.top-bar {
+  background-image: -webkit-linear-gradient(left, #0054a5 0%, #00ab4f 63.89%, #00ab4f 100%);
+  background-image: linear-gradient(left, #0054a5 0%, #00ab4f 63.89%, #00ab4f 100%);
+  width: 100%;
+  height: .11in;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.csea .top-bar {
+  background-image: -webkit-linear-gradient(right, #004785 0%, #e03a3e 100%);
+  background-image: linear-gradient(right, #004785 0%, #e03a3e 100%);
+}
+article {
+  padding: .7in .6in;
+}
+header {
+  position: relative;
+  z-index: 9999;
+  padding: 0 0 .25in;
+  height: 2.33in;
+}
+header h1 {
+  width: 7.5in;
+  font-family:'Lato','Arial Black',san-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 38pt;
+  line-height: 1;
+  margin: 0 0 .25in;
+  color: #23408f;
+
+}
+.csea header h1 {
+  color: #004785;
+}
+header h1 small {
+  display: block;
+  font-weight: 300;        
+  font-size: 21pt;
+  margin-top: 8pt;
+  text-transform: none;
+  color: #40ae49;  
+}
+.csea header small {
+  color: #e03a3e;
+}
+.testimonial {
+  width: 65%;
+  padding: .15in 0;
+}
+.testimonial.left {
+  padding-left: .5in;
+}
+.testimonial.right {
+  padding-right: .5in;
+}
+.testimonial .headshot {
+  width: 1.5in;
+  height: 1.75in;
+  border: 1px solid #4c4d4f;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;  
+}
+.testimonial.left,
+.testimonial.left .headshot {
+  float: left;
+}
+.testimonial.left .headshot {
+  margin-right: .2in;
+}
+.testimonial.right,
+.testimonial.right .headshot {
+  float: right;
+}
+.testimonial.right .headshot {
+  margin-left: .2in;
+}
+.testimonial blockquote {
+  font-weight: 600;
+  font-size: 13pt;
+  display: block;
+  font-style: normal;
+  text-align: left;
+  padding: .25in;
+  line-height: 1.1;
+}
+.testimonial cite {
+  display: block;
+  font-style: normal;
+  font-size: 10pt;
+  font-weight: normal;
+  text-align: right;
+  margin-top: .1in;
+}  
+/* ------- Footer ------- */  
+
+footer {
+  height: 1.6in;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+  z-index: 9999;
+}
+footer .cta {
+  position: absolute;
+  left: .25in;
+  bottom: .5in;  
+  width: 50%;
+  color: #fff;
+  padding-right: .12in;
+  z-index: 1000;
+}
+
+footer .affiliate-logo {
+  position: absolute;
+  right: 1.5in;
+  bottom: .3in;  
+  width: 1.6in;
+  height: .65in;
+  border-right: 1px solid white;
+  padding-right: .12in;
+  z-index: 1000;
+}
+
+footer .affiliate-logo div {
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: contain;
+}
+
+footer .main-logo  {
+  background-image: url(http://toolkit-afscme.bytrilogy.com/print/img/afscme-reverse.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  background-size: contain;
+  width: 1.3in;    
+  height: .75in;    
+  position: absolute;
+  right: .15in;
+  bottom: .3in;  
+  z-index: 1000;
+}
+.csea footer .main-logo  {
+  background-image: url(http://toolkit-afscme.bytrilogy.com/print/img/csea-inverted.png);
+  width: 1.2in;
+}
+footer .union-bug {
+  background: url(http://toolkit-afscme.bytrilogy.com/print/img/union-bug.png) no-repeat center center;
+  background-size: contain;
+  width: .6in;
+  height: .2in;
+  position: absolute;
+  left: .25in;
+  bottom: .1in; 
+  z-index: 1000;
+}
+footer .angle {
+  background-image: -webkit-linear-gradient(right, #009769 0%, #00a951 32.2%, #0158a3 100%);
+  background-image: linear-gradient(right, #009769 0%, #00a951 32.2%, #0158a3 100%);  
+  position: absolute;
+  left: -5%;
+  top: .32in;  
+  width: 110%;
+  height: 4in;
+  -ms-transform: rotate(-3.5deg); 
+  -webkit-transform: rotate(-3.5deg); 
+  transform: rotate(-3.5deg);
+}
+.csea footer .angle {
+  background-image: -webkit-linear-gradient(right, #004785 0%, #e03a3e 100%);
+  background-image: linear-gradient(right, #004785 0%, #e03a3e 100%);
+}
+</style>
+
+</head>
+
+<body class="<%= @document.fh_branding %>">
+
+<main class="container">
+
+  <div class="top-bar"></div>
+  
+  <article class="cf">
+    <header>
+  
+        <h1>
+          <%= @document.fh_headline %>
+          <small><%= @document.fh_sub_headline %></small>
+        </h1>
+        <p>
+          <%= @document.fh_description %>
+        </p>
+        
+    </header>
+    
+    <div class="testimonial left one cf">
+      <div class="headshot" style="background-image: url(<%= @document.fh_photo1 %>);"></div>
+      <blockquote>      
+        "<%= @document.fh_testimonial1_quote %>"
+        <cite>
+          - <%= @document.fh_testimonial1_name %></br>
+          <%= @document.fh_testimonial1_location %>
+        </cite>
+      </blockquote>      
+    </div>
+    
+    
+    <div class="testimonial right two cf">
+      <div class="headshot" style="background-image: url(<%= @document.fh_photo2 %>);"></div>
+      <blockquote>      
+      "<%= @document.fh_testimonial2_quote %>"
+      <cite>
+        - <%= @document.fh_testimonial2_name %></br>
+        <%= @document.fh_testimonial2_location %>
+      </cite>
+      </blockquote>
+    </div>
+    
+    <div class="testimonial left three cf">
+      <div class="headshot" style="background-image: url(<%= @document.fh_photo3 %>);"></div>
+      <blockquote>
+        "<%= @document.fh_testimonial3_quote %>"
+        <cite>
+        - <%= @document.fh_testimonial3_name %></br>
+        <%= @document.fh_testimonial3_location %></cite>
+      </blockquote>
+    </div>    
+    
+    </article>
+    
+    <footer>
+        <div class="cta"><%= @document.fh_call_to_action %></div>
+        <% if @document.fh_affiliate_logo.present? %>
+          <div class="affiliate-logo"><div style="background-image: url(<%= @document.fh_affiliate_logo %>);"></div></div>
+        <% end %>
+        <div class="main-logo"></div>
+        <div class="union-bug"></div>
+        <div class="angle"></div>
+    </footer>
+
+</main>
+
+</body>
+</html>

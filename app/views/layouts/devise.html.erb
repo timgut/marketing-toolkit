@@ -9,17 +9,23 @@
   <%= render partial: "layouts/shared/devise_head" %>
 
   <body class="<%= @body_class ? @body_class : 'login'%> <%= params[:action] %>">
-  	<% if @header_navigation %>
-  	<%= render partial: "layouts/shared/header" %>
-  	<% end %>
+    <% if @header_navigation %>
+      <%= render partial: "layouts/shared/header" %>
+    <% end %>
+    
     <p id="notice"><%= notice %></p>
+    
     <% unless @header_navigation %>
-    <div id="logo">
-  		<img src="https://toolkit-afscme.bytrilogy.com/theme/img/toolkit-logo.svg" alt="AFSCME Toolkit" itemprop="logo"/>
-		</div>
-		<% end %>
+      <div id="logo">
+        <img src="https://toolkit-afscme.bytrilogy.com/theme/img/toolkit-logo.svg" alt="AFSCME Toolkit" itemprop="logo"/>
+    </div>
+    <% end %>
+
     <%= render partial: "layouts/shared/breadcrumbs" %>
+    <%= render partial: "layouts/shared/flash" %>
+
     <%= yield %>
+
     <%= render partial: "layouts/shared/footer" %>
   </body>
 </html>

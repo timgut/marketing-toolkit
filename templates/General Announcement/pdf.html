@@ -210,7 +210,7 @@ input, select { vertical-align: middle; }
 
       article {
          display: block;
-         padding: 0 .25in;
+         padding: .5in .25in 0;
       }
 
       article .left {
@@ -329,7 +329,7 @@ input, select { vertical-align: middle; }
       
       <figure class="photo" style="background-image: url('<%= @document.ga_photo %>');"></figure>
       
-      <article>
+      <article class="cf">
         <div class="left">
            <h2><%= @document.subheadline %></h2>
            <%= @document.body_left %>
