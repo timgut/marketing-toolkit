@@ -4,10 +4,6 @@ RSpec.describe Campaign, type: :model do
   let!(:campaign) { create(:campaign) }
 
   describe "Associations" do
-    it "has_and_belongs_to_many documents" do
-      expect(campaign).to respond_to(:documents)
-    end
-
     it "has_many templates" do
       expect(campaign).to respond_to(:templates)
     end

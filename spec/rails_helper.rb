@@ -40,7 +40,12 @@ RSpec.configure do |config|
 
   config.before(:each) do
     DatabaseCleaner.start
-    request.env['HTTP_REFERER'] = config.http_referer
+
+    # Only do this in controller specs. Only controller and helper specs define request.
+    # However, helper specs will set request to nil.
+    if defined?(request) && !request.nil?
+      request.env['HTTP_REFERER'] = config.http_referer
+    end
   end
 
   config.after(:each) do

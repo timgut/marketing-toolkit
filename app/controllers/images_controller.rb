@@ -12,12 +12,13 @@ class ImagesController < ApplicationController
   # POST /images
   def create
     @image = Image.new(image_params)
+    authorize @image
 
     respond_to do |format|
       format.html do
         if @image.save
-          ImageUser.create!(image: @image, user: current_user)    
-          redirect_to images_path(@image), notice: "Image created!"
+          ImageUser.create(image: @image, user: current_user)    
+          redirect_to image_path(@image), notice: "Image created!"
         else
           render :new, alert: "Cannot create image."
         end
@@ -51,11 +52,7 @@ class ImagesController < ApplicationController
 
   # GET /images
   def index
-    if current_user
-      @images = current_user.images.not_trashed.reverse
-    else
-      @images = @all
-    end
+    @images = current_user.images.not_trashed.reverse
   end
 
   # GET /images/new
@@ -95,9 +92,12 @@ class ImagesController < ApplicationController
       end
 
       format.json do
-        @image.update_attributes(image_params)
-        @image.set_crop_data!
-        render json: {id: @image.id, url: @image.image.url, cropped_url: @image.image.url(:cropped), file_name: @image.image_file_name}
+        if @image.update_attributes(image_params)
+          @image.set_crop_data!
+          render json: {id: @image.id, url: @image.image.url, cropped_url: @image.image.url(:cropped), file_name: @image.image_file_name}
+        else
+          render plain: @image.errors.full_messages.to_sentence, status: 403
+        end
       end
     end
   end

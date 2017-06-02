@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-# These specs were written when this was called "DocumentsController". They probably won't pass until they are cleaned up.
 RSpec.describe DocumentsController, type: :controller do
   let(:template)  { create(:template) }
   let!(:document) { create(:document) }
@@ -51,6 +50,12 @@ RSpec.describe DocumentsController, type: :controller do
 
   def own_document
     document.update_attributes!(creator_id: current_user.id)
+  end
+
+  describe "Concerns" do
+    it_behaves_like "Trashable" do
+      let!(:record) { document }
+    end
   end
 
   describe "POST create" do
@@ -286,68 +291,5 @@ RSpec.describe DocumentsController, type: :controller do
         end
       end
     end
-  end
-
-  describe "Trashable concern" do
-    describe "DELETE #destroy" do
-      context "not signed in" do
-        it "redirects to the sign in page" do
-          delete :destroy, params: destroy_params
-
-          expect(response).to have_http_status 302
-          expect(response).to redirect_to RSpec.configuration.http_referer
-        end
-      end
-
-      RSpec.configuration.user_roles.each do |role|
-        __send__("controller_#{role}_sign_in".to_sym)
-
-        context "signed in as: #{role}" do
-          context "when the document is in the trash" do
-            context "when successful" do
-              it "redirects to the documents index" do
-                own_document
-                document.update_attributes(status: -2)
-                delete :destroy, params: destroy_params
-
-                expect(response).to have_http_status 302
-                expect(response).to redirect_to "#{documents_path}?notice=Document+destroyed%21"
-              end
-            end
-
-            context "when failure" do
-              it "redirects to the documents index" do
-                own_document
-                document.update_attributes(status: -2)
-                mock_failure(:destroy)
-                delete :destroy, params: destroy_params
-
-                expect(response).to have_http_status 302
-                expect(response).to redirect_to "#{documents_path}?alert=Cannot+destroy+document.+Please+try+again."
-              end
-            end
-          end
-        end
-
-        context "when the document is NOT in the trash" do
-          it "redirects to the documents index" do
-            own_document
-            delete :destroy, params: destroy_params
-
-            expect(response).to have_http_status 302
-            expect(response).to redirect_to "#{documents_path}?alert=This+document+must+be+placed+in+the+trash+before+it+can+be+destroyed."
-          end
-        end
-      end
-    end
-
-    describe "PATCH #restore" do
-
-    end
-
-    describe "PATCH #trash" do
-
-    end
-
   end
 end
