@@ -129,13 +129,15 @@ class ImagesController < ApplicationController
   end
 
   def set_cropping_data
-    @image.context = Template.find(params[:image].delete(:template_id))
-    @image.pos_x = params[:image].delete(:pos_x)
-    @image.pos_y = params[:image].delete(:pos_y)
+    if template_id = params[:image].delete(:template_id)
+      @image.context = Template.find(template_id)
+      @image.pos_x = params[:image].delete(:pos_x)
+      @image.pos_y = params[:image].delete(:pos_y)
 
-    # Paperclip processors run in order starting with the original image, so it needs to be resized again before cropping.
-    if @image.cropping?
-      @image.resize = true
+      # Paperclip processors run in order starting with the original image, so it needs to be resized again before cropping.
+      if @image.cropping?
+        @image.resize = true
+      end
     end
   end
 end
