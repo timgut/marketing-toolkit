@@ -16,9 +16,18 @@ Image.find_each do |image|
     filename = "#{DIR}#{image.image_file_name}"
 
     Net::HTTP.start(BASE_URL) do |http|
-      original_file_name = "/toolkit.afscme.org/images/images/000/000/#{image.id}/original/#{image.image_file_name}"
+      case image.id.to_s.length
+      when 1
+        id_with_zeros = "00#{image.id}"
+      when 2
+        id_with_zeros = "0#{image.id}"
+      else
+        id_with_zeros = image.id
+      end
+
+      original_file_name = "/toolkit.afscme.org/images/images/000/000/#{id_with_zeros}/original/#{image.image_file_name}"
       original           = http.get original_file_name
-      cropped_file_name  = "/toolkit.afscme.org/images/images/000/000/#{image.id}/cropped/#{image.image_file_name}"
+      cropped_file_name  = "/toolkit.afscme.org/images/images/000/000/#{id_with_zeros}/cropped/#{image.image_file_name}"
       cropped            = http.get cropped_file_name
       
       # Save the original file locally if it exists at S3.
@@ -67,7 +76,7 @@ Template.find_each do |template|
           id_with_zeros = template.id
         end
 
-        request_path = "/toolkit.afscme.org/templates/thumbnails/000/000/#{id_with_zeros}/original/#{attachment_file_name}"
+        request_path = "/toolkit.afscme.org/templates/#{attachment.to_s.pluralize}/000/000/#{id_with_zeros}/original/#{attachment_file_name}"
         response     = http.get(request_path)
         
         # Save the original file locally if it exists at S3.
