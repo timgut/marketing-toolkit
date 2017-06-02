@@ -1,6 +1,8 @@
 <% content_for :title {"New User"} %>
 <%= render partial: "users/registrations/validation" %>
 
+<%= devise_error_messages! %>
+
 <div class="errorTxt"></div>
 
 <main class="account-application">
