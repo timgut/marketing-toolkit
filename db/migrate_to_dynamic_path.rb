@@ -3,7 +3,7 @@
 require 'net/http'
 
 BASE_URL = "s3.amazonaws.com"
-DIR      = "/Users/timgut/Desktop/TK/redmine-1584/" # CHANGE THIS! ADD A TRAILING SLASH!
+DIR      = "/home/app-afscme-tk/migration_temp/" # CHANGE THIS! ADD A TRAILING SLASH!
 
 Image.find_each do |image|
   puts "\nImage ##{image.id}\n---------\n"
