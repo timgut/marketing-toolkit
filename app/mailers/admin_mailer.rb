@@ -34,4 +34,14 @@ class AdminMailer < ActionMailer::Base
     mail(to: @user.email, subject: "Your AFSCME Toolkit account has been suspended")
   end
 
+  def send_account_nag_emails
+    approvers = User.approvers
+    @unapproved = User.unapproved
+    if approvers
+      emails = approvers.pluck(:email)
+    else 
+      emails = 'chi-dev@trilogyinteractive.com'
+    end
+    mail(to: emails, subject: "Toolkit account application(s) waiting for approval")
+  end
 end
