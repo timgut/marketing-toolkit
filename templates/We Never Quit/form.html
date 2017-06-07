@@ -1,25 +1,61 @@
-<div class="fieldset logo"> 
-  <h3><strong>1</strong> Choose a logo</h3>
+<div id="branding" class="grouping branding image-select radio cf"> 
 
-  <div class="fieldset sub-headline cf">
-    <input required id="logo1" name="data[logo]" data-custom="image" type="radio" value="http://neverquit.afscme.org/theme/img/toolkit-afscme-logo.png" />
-    <label for="logo1">
-      <em><img src="http://neverquit.afscme.org/theme/img/toolkit-afscme-logo.png" alt="AFSCME"/></em>
-    </label>
-  </div>
+    <h3>Choose Flyer Branding</h3>
 
-  <div class="fieldset photo three cf">
-    <div class="field radio"> 
-        <input id="logo2" name="data[logo]" data-custom="image" type="radio" value="custom" />
-        <label for="logo2">
-            <em class="cf">
-                <a href="/image-picker" title="Add Photo" class="image-picker" data-target="logo2">
-                  <div class="positioner">
-                    <span class="icons">C</span>
-                    <strong>Add Logo</strong>
-                  </div>
-                </a>
-            </em>
+    <div class="field logo"> 
+        <input id="branding-afscme" name="data[wnq_branding]" type="radio" value="afscme" />
+        <label for="branding-afscme">
+           <div class="radio-button"></div>
+           <figure style="background-image: url(http://toolkit-afscme.bytrilogy.com/theme/img/afscme-branding-thumb.png);"></figure>
+        </label>
+    </div>
+    
+    <div class="field logo"> 
+        <input id="branding-csea" name="data[wnq_branding]" type="radio" value="csea" />
+        <label for="branding-csea">
+           <div class="radio-button"></div>
+           <figure style="background-image: url(http://toolkit-afscme.bytrilogy.com/theme/img/csea-branding-thumb.png);"></figure>
+        </label>
+    </div>
+    
+</div><!--theme-->
+
+<div class="step grouping cf"> 
+
+    <h3>Define a Call-to-Action</h3>
+
+    <div class="field wide"> 
+        <label for="headline">
+           <input type="text" placeholder="Define a Call-to-Action" name="data[ss_call_to_action]" id="call-to-action-custom" data-custom="text" value="" maxlength="100" />
+           <small>Maximum of 100 characters. Please preview, since words may wrap unexpectedly and cutoff your headline.</small>
+        </label>
+    </div>
+
+</div><!--call to action-->
+
+<div class="step grouping image-select radio cf"> 
+  <h3>Choose a logo</h3>
+
+    <div class="field logo"> 
+      <input id="logo1" name="data[wnq_logo]" type="radio" value="https://toolkit-afscme.bytrilogy.com/print/img/afscme-reverse.png" checked />
+      <label for="logo1">
+        <div class="radio-button"></div>            
+        <figure style="background-image: url(https://toolkit-afscme.bytrilogy.com/print/img/afscme-reverse.png);"/></figure>
       </label>
     </div>
-  </div><!--logo-->
+
+    <div class="field upload"> 
+        <input id="logo2" data-custom="image" name="data[wnq_logo]" type="radio" value="custom" />
+
+        <label for="logo2">
+           <div class="radio-button"></div>            
+           <figure href="javascript:void(0);" title="Add Photo" class="image-picker" data-target="logo2">
+               <div class="positioner">
+                   <span class="icons">C</span>
+                   Add Image
+               </div>
+           </figure>
+        </label>
+    </div>
+
+</div>

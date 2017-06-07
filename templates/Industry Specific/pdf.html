@@ -153,14 +153,13 @@
         margin: auto;
         width: 8.5in;
         height: 11in;
-        background-repeat: no-repeat;
-        background-position: center 1.8in;
-        background-size: cover;
-        position: relative;
         overflow: hidden;
         text-align: left;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        position: relative;
         }
-
 
       header {
         position: relative;
@@ -380,9 +379,9 @@
       <footer>
         <div class="angle"></div>
         <div class="url"></div>
-        <% unless @document.affiliate_logo.blank? %>
+        <% unless @document.ss_affiliate_logo.blank? %>
           <div class="affiliate-logo">
-            <div style="background-image: url('<%= "#{@document.affiliate_logo}" %>');"></div>
+            <div style="background-image: url('<%= "#{@document.ss_affiliate_logo}" %>');"></div>
           </div>
         <% end %>
         <div class="nq-logo" style="background-image: url('<%= "#{@document.logo}" %>');"></div>

@@ -14,13 +14,18 @@
       </li>
 
       <li>
+        <%= f.label :customize, "Customizable?" %>
+        <%= f.select(:customize, [["Yes", true], ["No", false]]) %>
+      </li>
+
+      <li>
         <%= f.label :campaign %>
-        <%= f.select(:campaign_id, options_from_collection_for_select(@campaigns, 'id', 'title', @template.campaign_id ? @template.campaign_id : ''), include_blank: true) %>
+        <%= f.select(:campaign_id, options_from_collection_for_select(@campaigns, 'id', 'title', @template.campaign_id ? @template.campaign_id : ''), include_blank: 'NULL') %>
       </li>
 
       <li>
         <%= f.label :category %>
-        <%= f.select(:category_id, options_from_collection_for_select(@categories, 'id', 'title', @template.category_id)) %>
+        <%= f.select(:category_id, options_from_collection_for_select(@categories, 'id', 'title', @template.category_id), include_blank: 'NULL') %>
       </li>
 
       <li id="customizable-options">
@@ -71,6 +76,24 @@
 
 <% unless @template.new_record? %>
   <div class="image-upload cf">
+    <% unless @template.customize? %>
+      <%= form_for([:admin, template], html: {class: "dropzone", multipart: true, id: "template-static-pdf-form"}) do |f| %>
+        <div class="label">
+          <%= f.label :static_pdf %>
+        </div>
+        
+        <% if @template.static_pdf_file_name %>
+          <div class="current-image">
+            <%= link_to "View PDF", @template.static_pdf.url, target: :_blank %>
+          </div>
+        <% end %>
+
+        <div class="fallback">
+          <%= f.file_field :static_pdf %>
+        </div>
+      <% end %>
+    <% end %>
+
     <%= form_for([:admin, template], html: {class: "dropzone", multipart: true, id: "template-thumbnail-form"}) do |f| %>
       <div class="label">
         <%= f.label :thumbnail %>

@@ -1,30 +1,39 @@
-<%= form_for(@document, html: {novalidate: "novalidate", data: {document: true}}) do |f| %>
+<%= form_for(@document,
+  html: {
+    novalidate: "novalidate", 
+    data: {
+      "document"       => true,
+      "crop-enabled"   => @template.croppable?,
+      "template-id"    => @template.id
+    }
+  }
+) do |f| %>
   <%= f.hidden_field :template_id, value: @template.id %>
+  <%= f.hidden_field :status, value: :publish %>
   
   <% if @document.new_record? %>
-    <%= f.hidden_field :creator_id, value: User.current_user.id %>
+    <%= f.hidden_field :creator_id, value: current_user.id %>
   <% end %>
 
   <main class="clearfix">
     <aside class="preview">
       <ol>
-        <% if @document.pdf_file_name %>
-          <li>
+        <li>
+          <% unless @document.new_record? %>
             <label>
               <%= link_to(
                 "Launch full size preview",
-                @document.pdf.url,
-                name: "commit",
-                value: "Preview",
+                preview_document_path(@document),
                 class: "full-preview active",
-                target: :_blank 
+                target: :_blank,
+                title:  changed_document_message
               ) %>
               Preview
             </label>
+          <% end %>
 
-            <%= image_tag @template.numbered_image %>
-          </li>
-        <% end %>
+          <%= image_tag @template.numbered_image %>
+        </li>
         <li>
           <%= f.label :title %>
           <%= f.text_field :title %>
@@ -34,11 +43,6 @@
           <%= f.label :description %>
           <%= f.text_area :description %> 
         </li>
-
-        <li>
-          <%= f.label :status %>
-          <%= f.status_select %>
-        </li>
                 
         <li><strong class="metadata-label">Dimensions</strong><%= dimensions(@template) %></li>
         <li><strong class="metadata-label">Toolkit</strong><%= @campaign.title if @campaign %></li>
@@ -47,11 +51,21 @@
     </aside>
         
     <section class="workspace cf">
+
+      <% unless @custom_branding  %>
+      <script>
+      $(document).ready(function(){
+        var _branding_div = $('#branding');
+        if (_branding_div) { $(_branding_div).remove(); }
+      });
+      </script>
+      <% end %>
+
       <%= @template.form_markup.html_safe %>
 
       <div class="buttons small cf">
         <% unless @document.new_record? %>
-          <%= link_to "Download".html_safe, download_link(@document), class: "preview action button", data: {download: true} %>
+          <%= link_to "Download".html_safe, download_link(@document), target: :blank, class: "preview action button", title:  changed_document_message, data: {download: true} %>
         <% end %>
         <%= f.button "Save", class: "button save active" %>
       </div>

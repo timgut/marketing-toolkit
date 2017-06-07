@@ -1,13 +1,27 @@
 Rails.application.routes.draw do
+  concern :trashable do
+    collection do
+      get :trashed
+    end
+
+    member do
+      patch  :trash
+      patch  :restore
+    end
+  end
+
+  get 'intro', to: 'misc#intro', as: :intro
+
   devise_for :users, controllers: {registrations: "users/registrations"}
 
   devise_scope :user do
-    get 'password', to: 'users/registrations#password'
+    get 'password',        to: 'users/registrations#password'
     put 'update_password', to: 'users/registrations#update_password'
-    get 'confirmation', to: 'users/registrations#confirmation'
-    get 'applications', to: 'users/registrations#applications'
+    get 'confirmation',    to: 'users/registrations#confirmation'
+    get 'applications',    to: 'users/registrations#applications'
+
     authenticated :user do
-      root 'campaigns#index', as: :authenticated_root
+      root 'misc#intro', as: :authenticated_root
     end
 
     unauthenticated do
@@ -20,22 +34,21 @@ Rails.application.routes.draw do
   resources :campaigns, only: [:index, :show]
   resources :templates, only: [:index, :show]
 
-  resources :documents, except: [:show] do
+  resources :documents, except: [:show], concerns: [:trashable] do
     collection do
-      get :preview
       get :recent
       get :shared
-      get :trash
     end
 
     member do
       get :duplicate
       get :download
+      get :preview
       get :share
     end
   end
   
-  resources :images do
+  resources :images, concerns: [:trashable] do
     collection do
       get :choose
       get :recent
@@ -43,20 +56,19 @@ Rails.application.routes.draw do
     end
 
     member do
-      get :resize
+      get :crop
       get :share
     end
   end
 
   namespace :admin, path: '/admin' do
-    root to: "users#home"
+    root to: "misc#home"
+
     resources :campaigns, except: [:new, :show]
-    resources :users do
-    end
+    resources :users
     resources :categories, except: [:new]
     resources :templates, except: [:show]
-    resources :affiliates do
-    end
+    resources :affiliates
   end
   
 end

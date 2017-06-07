@@ -1,0 +1,16 @@
+<% content_for :title {"Trashed Documents"} %>
+<% breadcrumb :trashed_documents %>
+
+<aside>
+  <%= render partial: "documents/sidebar_nav" %>  
+</aside>
+
+<section class="workspace cf">
+  <section class="image-grid cf">
+    <% if @trashed.count > 0 %>
+      <%= render @trashed %>
+    <% else %>
+      <p class="no-results">There are no documents in the trash.</p>
+    <% end %>
+  </section>
+</section>

@@ -1,28 +1,41 @@
-<<div class="fieldset headline three cf">
-  <h3><strong>1</strong> Choose a Headline</h3>
+<script type="text/javascript">  
+  $(document).ready(function() {
+    // Custom Headline
+    $("form[data-document='true']").on("click", "#headline4-custom", function(){
+      $("#headline4").prop("checked", true);
+      $("#headline4").trigger("change");
+    });
+  });
+</script>
+
+<div class="step grouping radio cf"> 
+  <h3>Choose a Headline</h3>
   
-  <div class="field radio"> 
+  <div class="field"> 
       <input id="headline1" name="data[headline]" type="radio" value="YOUR VOICE MATTERS" />
-      <label for="headline1"><em>YOUR VOICE MATTERS</em></label>
+      <label for="headline1">
+        <div class="radio-button"></div>
+        <strong>YOUR VOICE MATTERS</strong>
+      </label>
   </div>
 
-  <div class="field radio wide"> 
+  <div class="field"> 
     <input id="headline4" data-custom="text" name="data[headline]" type="radio" />
     <label for="headline4">
-      <em>
+        <div class="radio-button"></div>
         <strong>CREATE YOUR OWN</strong><br/>
         <small>Maximum of 100 characters. Please preview, since words may wrap unexpectedly and cutoff your headline.</small>
         <input type="text" name="headline-custom" id="headline4-custom" value="" maxlength="100" data-target="headline4" />
         <label for="headline-custom"></label>
-      </em>
     </label>
   </div>
+
 </div>
 
-<div class="fieldset cf bodytext"> 
-  <h3><strong>2</strong> Set Body Text</h3>
+<div class="step grouping cf"> 
+  <h3>Set Body Text</h3>
         
-  <div class="field group full"> 
+  <div class="field"> 
     <label for="body3" class="hide">Set Body Text</label>
     <small>Maximum of 200 characters. Please preview, since words may wrap unexpectedly and cut off your headline.</small>
     <input class="bold" type="text" name="data[body_title]" data-custom="text" id="body-headline-custom" value="" placeholder="Headline" maxlength="200" />
@@ -30,10 +43,10 @@
   </div>
 </div>
 
-<div class="fieldset cf datetime"> 
-  <h3><strong>3</strong> Set Meeting Date &amp; Time</h3>
+<div class="step grouping cf"> 
+  <h3>Set Meeting Date &amp; Time</h3>
       
-  <div class="field group full"> 
+  <div class="field"> 
       <input id="meeting-time" name="meeting-time" type="radio" value="" />
       <label for="meeting-time"></label>
       <input type="text" name="data[meeting_day]" data-custom="text" id="meeting-time-day-custom" value="" placeholder="Meeting Day of Week" maxlength="200" class="required" />
@@ -42,10 +55,9 @@
   </div>
 </div>
 
-<div class="fieldset cf contactinfo"> 
-  <h3><strong>4</strong> Set Contact Information</h3>
-      
-  <div class="field group full"> 
+<div class="step grouping radio cf"> 
+  <h3>Set Contact Information</h3>
+  <div class="field"> 
     <input id="contact-info" name="contact-info" type="radio" value="" />
     <label for="contact-info"></label>
     <input type="text" name="data[contact_headline]" data-custom="text" class="bold" id="contact-info-headline-custom" value="" placeholder="Contact Headline" maxlength="200" />                          
@@ -55,37 +67,40 @@
   </div>
 </div>              
 
-<div class="fieldset nqlogo cf"> 
-  <h3><strong>5</strong> Choose a Never Quit logo</h3>
+<div class="step grouping image-select cf"> 
+    <h3>Choose a Never Quit logo</h3>
 
-  <div class="field radio"> 
-    <input required id="nqlogo1" name="data[logo]" type="radio" value="http://neverquit.afscme.org/toolkit/never-quit-sector-specific-flyer-custom/nqlogo/nq-logo-afscme.png" checked />
-    <label for="nqlogo1">
-        <em><img src="http://neverquit.afscme.org/theme/img/toolkit-nq-logo-afscme.png" alt="Never Quit with AFSCME"/></em>
-    </label>
-  </div>
-  
-  <div class="field radio"> 
-    <input required id="nqlogo2" name="data[logo]" type="radio" value="http://neverquit.afscme.org/toolkit/never-quit-sector-specific-flyer-custom/nqlogo/nq-logo.png" />
-    <label for="nqlogo2">
-        <em><img src="http://neverquit.afscme.org/theme/img/toolkit-nq-logo.png" alt="Never Quit without AFSCME"/></em>
-    </label>
-  </div>
+    <div class="field logo"> 
+        <input id="nqlogo1" name="data[mf_logo]" type="radio" value="http://neverquit.afscme.org/toolkit/never-quit-sector-specific-flyer-custom/nqlogo/nq-logo-afscme.png" checked />
+        <label for="nqlogo1">
+          <div class="radio-button"></div>            
+          <figure style="background-image: url(http://neverquit.afscme.org/theme/img/toolkit-nq-logo-afscme.png);"/></figure>
+        </label>
+    </div>
+    
+    <div class="field logo"> 
+        <input id="nqlogo2" name="data[mf_logo]" type="radio" value="http://neverquit.afscme.org/toolkit/never-quit-sector-specific-flyer-custom/nqlogo/nq-logo.png" />
+        <label for="nqlogo2">
+          <div class="radio-button"></div>
+          <figure style="background-image: url(http://neverquit.afscme.org/theme/img/toolkit-nq-logo.png);"/></figure>
+        </label>
+    </div>
+
+
 </div>
 
-<div class="fieldset photo three cf"> 
-  <h3><strong>6</strong> Council/Affiliate Logo (optional)</h3>
-  <div class="field radio"> 
-      <input id="logo2-custom" data-custom="image" name="data[affiliate_logo]" type="radio" value="custom" />
-      <label for="logo2-custom">
-          <em class="cf">
-              <a href="/image-picker" title="Add Logo" class="image-picker" data-target="logo2-custom">
-                <div class="positioner">
-                  <span class="icons">C</span>
-                  <strong>Add Logo</strong>
-                </div>
-              </a>
-          </em>
-    </label>
-  </div>
+<div class="step grouping image-select cf"> 
+  <h3>Council/Affiliate Logo (optional)</h3>
+    <div class="field upload"> 
+        <input id="affiliate-logo" data-custom="image" name="data[mf_affiliate_logo]" type="radio" value="custom" />
+
+        <label for="affiliate-logo">
+           <figure href="javascript:void(0);" title="Add Photo" class="image-picker" data-target="affiliate-logo">
+               <div class="positioner">
+                   <span class="icons">C</span>
+                   Add Image
+               </div>
+           </figure>
+        </label>
+    </div>
 </div>

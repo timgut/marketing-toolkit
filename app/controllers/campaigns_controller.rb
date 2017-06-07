@@ -3,26 +3,26 @@ class CampaignsController < ApplicationController
 
   # GET /campaigns
   def index
-    @campaigns = Campaign.active
+    @campaigns = Campaign.publish.roots
   end
 
   # GET /campaigns/1
   def show
-    @campaign = Campaign.includes(:templates).find(params[:id])
-    @filtered_templates = Template.where(campaign_id: @campaign.id)
+    @campaign = Campaign.includes(:templates, :children).find(params[:id])
+    @filtered_templates = @campaign.templates.publish
   end
 
   protected
 
   def assign_sidebar_vars
-    @campaigns = Campaign.includes(:templates).active('title ASC')
-    @templates = Template.all
+    @campaigns = Campaign.publish.roots.includes(:templates).publish('title ASC')
+    @templates = Template.publish
 
     @sidebar_vars = @categories.inject([]) do |sidebar_vars, category|
       sidebar_vars << {
         category_id: category.id,
         title:       category.title,
-        items:       @templates.select{|template| template.category_id == category.id && template.campaign_id == nil}
+        items:       @templates.select{|template| template.category_id == category.id }
       }
     end
   end

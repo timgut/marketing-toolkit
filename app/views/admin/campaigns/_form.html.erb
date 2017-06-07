@@ -14,6 +14,11 @@
     </li>
 
     <li>
+      <%= f.label :parent %>
+      <%= f.select(:parent_id, options_from_collection_for_select(Campaign.where("id != ?", campaign.id).reorder(:title), "id", "path", campaign.parent_id), include_blank: "NULL") %>
+    </li>
+
+    <li>
       <%= f.label :status %>
       <%= f.status_select %>
     </li>

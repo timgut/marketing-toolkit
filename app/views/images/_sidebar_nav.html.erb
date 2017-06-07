@@ -1,0 +1,26 @@
+<ul>      
+  <li <% if params[:controller] == 'documents' && params[:action] == 'index' %>class="active"<% end %>>
+    <%= link_to "My Designs", documents_path, title: "My Designs" %>
+    <div class="contents-counter"><%= @documents.count %></div>
+  </li>
+  <li <% if params[:action] == 'recent' %>class="active"<% end %>>
+    <%= link_to "Recent", recent_images_path, title: "Recent" %>
+    <div class="contents-counter"><%= @recent.count %></div>
+  </li>
+  <% if false %>
+  <li>
+    <%= link_to "Shared with Me", shared_images_path, title: "Shared with Me" %>
+    <div class="contents-counter"><%= @shared.count %></div>
+  </li>
+  <% end %>
+  
+  <li <% if params[:controller] == 'images' && params[:action] == 'index' %>class="active"<% end %>>
+    <%= link_to "My Images", images_path, title: "My Images" %>
+    <div class="contents-counter"><%= @all.count %></div>
+  </li>
+
+  <li <% if params[:action] == 'trashed' %>class="active"<% end %>>
+    <%= link_to "Trash", trashed_images_path, title: "Trash" %>
+    <div class="contents-counter"><%= @trashed.count %></div>
+  </li>
+</ul>

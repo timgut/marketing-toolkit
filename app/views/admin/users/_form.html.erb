@@ -43,12 +43,17 @@
 	        <%= f.label :cell_phone %><br />
 	        <%= f.text_field :cell_phone, autofocus: true %>              
 	      </li>
+
+	      <li class="checkbox clearfix">
+	        <%= f.check_box :custom_branding %>  
+	        <%= f.label :custom_branding, 'User will see custom branding options in templates (e.g., CSEA)' %></label>
+	      </li>
 	        
 	      <li class="checkbox clearfix">
 	        <%= f.check_box :receive_alerts %>  
 	        <%= f.label :receive_alerts, 'By providing my cell phone number, I agree to receive text, autodialed and/or prerecorded messages at the cell number provided above on any subject from AFSCME and affiliated labor, political, or charitable organizations. Message and data rates may apply.' %></label>
 	      </li>
-	        
+
 	    </ol> 
 
 			<ol>

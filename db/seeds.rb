@@ -78,14 +78,8 @@ User.create(
 )
 
 users = [ 
-  {name: 'Michelle Sforza', email: 'msforza@testg.org' },
-  {name: 'Megan Eierman', email: 'meierman@testg.org' },
-  {name: 'Joe Guzynshki', email: 'jguzynski@testg.org' },
-  {name: 'Brian Weeks', email: 'bweeks@testg.org' },
-  {name: 'Doug Brunett', email: 'dburnett@testg.org' },
-  {name: 'Roni Beavins ', email: 'rbeavin@testg.org' },
-  {name: 'Dalia Thornton', email: 'dthornton@testg.org' },
-  {name: 'Stacey Bashara', email: 'sbashara@testg.org' },
+  {name: 'Ann Widger', email: 'awidger@afscme.org' },
+  {name: 'Ben Hodapp ', email: 'bhodapp@afscme.org' }
 ]
 
 users.each do |user|
@@ -95,7 +89,7 @@ users.each do |user|
     last_name: user[:name].split(' ')[1], 
     email: user[:email],
     affiliate_id: 6,
-    role: 'Administrator',
+    role: 'User',
     department: 'IU-Communications',
     approved: true,
     receive_alerts: false,

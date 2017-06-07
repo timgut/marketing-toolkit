@@ -1,5 +1,13 @@
 class ImagesController < ApplicationController
-  before_action :assign_records, only: [:index, :recent, :shared]
+  include Trashable
+
+  before_action :assign_sidebar_vars, only: [:index, :recent, :shared, :trashed]
+
+  # GET /images/choose
+  def choose
+    @images = current_user.images.publish.reverse
+    render layout: false
+  end
 
   # POST /images
   def create
@@ -8,8 +16,8 @@ class ImagesController < ApplicationController
     respond_to do |format|
       format.html do
         if @image.save
-          ImageUser.create!(image: @image, user: User.current_user)    
-          redirect_to image_path(@image), notice: "Image created!"
+          ImageUser.create!(image: @image, user: current_user)    
+          redirect_to images_path(@image), notice: "Image created!"
         else
           render :new, alert: "Cannot create image."
         end
@@ -17,42 +25,34 @@ class ImagesController < ApplicationController
 
       format.json do
         if @image.save
-          ImageUser.create!(image: @image, user: User.current_user)    
-          render json: {url: @image.image.url}
+          ImageUser.create!(image: @image, user: current_user)    
+          render json: {id: @image.id, url: @image.image.url, cropped_url: @image.image.url(:cropped), file_name: @image.image_file_name}
         else
-          Rails.logger.info @image.errors.full_messages.to_sentence.inspect
           render plain: @image.errors.full_messages.to_sentence, status: 403
         end
       end
     end
   end
 
-  # GET /images/choose
-  def choose
-    @images = User.current_user.images
-    render layout: false
-  end
+  # GET /images/1/crop
+  def crop
+    load_image
+    @template = Template.find(params[:template_id])
+    set_resize_data
+    @image.image.reprocess!
 
-  # DELETE /images
-  def destroy
-    @image = Image.find(params[:id])
-
-    if @image.destroy
-      redirect_to images_path, notice: "Image deleted!"
-    else
-      redirect_back fallback_location: root_path, alert: "Cannot delete image. Please try again."
-    end
+    render :crop_modal, layout: false
   end
 
   # GET /images/1/edit
   def edit
-    @image = Image.find(params[:id])
+    load_image
   end
 
   # GET /images
   def index
     if current_user
-      @images = current_user.images
+      @images = current_user.images.not_trashed.reverse
     else
       @images = @all
     end
@@ -69,11 +69,6 @@ class ImagesController < ApplicationController
     render :index
   end
 
-  # GET /images/1/resize
-  def resize
-    @image = Image.find(params[:id])
-  end
-
   # GET /images/shared
   def shared
     @images = @shared
@@ -82,17 +77,18 @@ class ImagesController < ApplicationController
 
   # GET /images/1
   def show
-    @image = Image.find(params[:id])
+    load_image
   end
 
   # PATCH /images/1
   def update
-    @image = Image.find(params[:id])
+    load_image
+    set_cropping_data
 
     respond_to do |format|
       format.html do
         if @image.update_attributes(image_params)
-          redirect_to image_path(@image), notice: "Image updated!"
+          redirect_to images_path, notice: "Image saved!"
         else
           render :edit, alert: "Cannot update image!"
         end
@@ -100,20 +96,46 @@ class ImagesController < ApplicationController
 
       format.json do
         @image.update_attributes(image_params)
-        head :no_content
+        @image.set_crop_data!
+        render json: {id: @image.id, url: @image.image.url, cropped_url: @image.image.url(:cropped), file_name: @image.image_file_name}
       end
     end
   end
 
   private
 
-  def assign_records
-    @all    = Image.all
-    @recent = Image.recent
-    @shared = Image.shared_with_me
+  def assign_sidebar_vars
+    @all       = current_user.images.all.not_trashed
+    @recent    = current_user.images.recent(current_user).not_trashed
+    @shared    = current_user.images.shared_with_me(current_user).not_trashed
+    @trashed   = current_user.images.trash
+    @documents = current_user.documents.not_trashed
   end
 
   def image_params
-    params.require(:image).permit(:image, :creator_id)
+    params.require(:image).permit(
+      :image, :creator_id, :pos_x, :pos_y, :template_id
+    )
+  end
+
+  def load_image
+    @image = Image.find(params[:id])
+    authorize @image
+  end
+
+  def set_resize_data
+    @image.resize  = true
+    @image.context = @template
+  end
+
+  def set_cropping_data
+    @image.context = Template.find(params[:image].delete(:template_id))
+    @image.pos_x = params[:image].delete(:pos_x)
+    @image.pos_y = params[:image].delete(:pos_y)
+
+    # Paperclip processors run in order starting with the original image, so it needs to be resized again before cropping.
+    if @image.cropping?
+      @image.resize = true
+    end
   end
 end

@@ -1,10 +1,13 @@
-<section class="breadcrumbs">
-  <%= breadcrumbs(
-    class:         :crumbs,
-    current_class: :active,
-    style:         :inline,
-    separator:     ""
-  ) %>
+<% unless params[:controller].split("/").last == "misc" %>
+  <section class="breadcrumbs branding">
+    <div class="gradient-mask"></div>
+    <%= breadcrumbs(
+      class:         :crumbs,
+      current_class: :active,
+      style:         :inline,
+      separator:     ""
+    ) %>
 
-  <%= content_for(:breadcrumb_extras) %>
-</section>
+    <%= content_for(:breadcrumb_extras) %>
+  </section>
+<% end %>

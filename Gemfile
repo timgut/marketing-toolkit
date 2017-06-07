@@ -17,8 +17,11 @@ gem 'devise', '~> 4.2'
 gem 'dropzonejs-rails'
 gem 'gretel'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'jquery-validation-rails'
 gem 'paperclip', '~> 5.0.0'
+gem 'paperclip-meta'
+gem 'pundit'
 gem 'sass-rails', '~> 5.0'
 gem 'therubyracer'
 gem 'turbolinks', '~> 5'
@@ -44,4 +47,8 @@ group :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'simplecov', '0.13', require: false
+end
+
+group :development, :test do
+  gem 'byebug'
 end

@@ -4,8 +4,24 @@
     <% unless @document.new_record? %>
       <li><%= link_to "<span class='icons'>c</span> Duplicate".html_safe, duplicate_document_path(@document), title: "Duplicate" %></li>
       <li style="display:none;"><%= link_to "<span class='icons'>s</span> Share".html_safe, share_document_path(@document), title: "Share" %></li>
-      <li><%= link_to "<span class='icons'>d</span> Download".html_safe, download_link(@document), data: {download: true} %></li>
-      <li><%= link_to "<span class='icons'>x</span> Delete".html_safe, document_path(@document), method: :delete, data: {confirm: "Are you sure that you want to DELETE this document? This cannot be undone!"} %></li>
+      <li>
+        <%= link_to(
+          "<span class='icons'>d</span> Download".html_safe,
+          download_link(@document),
+          target: :blank,
+          title:  changed_document_message,
+          data: {download: true}
+        ) %>
+      </li>
+			<li>
+			  <%= link_to(
+			    "<span class='icons'>x</span> Delete".html_safe,
+			    trash_document_path(@document),
+			    title:  "Delete",
+			    method: :patch,
+			    data:   {confirm: "Are you sure that you want to move this document to the trash?"} 
+			  ) %>
+			</li>
     <% end %>
   </ol>
 <% end %>

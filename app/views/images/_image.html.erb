@@ -2,13 +2,13 @@
 
 <% if no_link == true %>
   <figure>
-    <img src="<%= image.image.url %>" alt="<%= image.image_file_name %>" />
+    <img src="<%= image.image.url(:cropped) %>" alt="<%= image.image_file_name %>" />
     <figcaption><%= image.image_file_name %></figcaption>
   </figure>
 <% else %>
   <figure>
     <%= link_to edit_image_path(image) do %>
-      <img src="<%= image.image.url %>" alt="<%= image.image_file_name %>" />
+      <img src="<%= image.image.url(:cropped) %>" alt="<%= image.image_file_name %>" />
       <figcaption><%= image.image_file_name %></figcaption>
     <% end %>
 
@@ -16,12 +16,12 @@
       <li>
         <a href="javascript:void(0);" title="Options" class="icons">+</a>
         <ol>
-          <li><%= link_to "<span class='icons'>e</span> Edit".html_safe, edit_image_path(image), title: "Edit" %></li>
-          <% if false %>
-          <li><%= link_to "<span class='icons'>s</span> Share".html_safe, share_image_path(image), title: "Share" %></li>
+          <% case image.status %>
+          <% when "trash" %>
+            <%= render partial: "images/menus/trash", locals: {image: image} %>
+          <% else %>
+            <%= render partial: "images/menus/publish", locals: {image: image} %>
           <% end %>
-          <li><%= link_to "<span class='icons'>d</span> Download".html_safe, image.image.url, title: "Download", target: :blank %></li>
-          <li><%= link_to "<span class='icons'>x</span> Delete".html_safe, image_path(image), method: :delete, data: {confirm: "Are you sure that you want to DELETE this image? This cannot be undone!"} %></li> 
         </ol>
       </li>
     </ul>

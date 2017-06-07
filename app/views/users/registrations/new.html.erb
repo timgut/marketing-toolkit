@@ -1,4 +1,10 @@
 <% content_for :title {"New User"} %>
+<%= render partial: "users/registrations/validation" %>
+
+<%= devise_error_messages! %>
+
+<div class="errorTxt"></div>
+
 <main class="account-application">
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <h1>Request Access</h1> 
@@ -17,7 +23,7 @@
       </li>      
       <li>
         <%= f.select(:affiliate_id) do %>
-          <option>Affiliate/Council*</option>
+          <%= content_tag(:option, "Affiliate/Council*", value: '') %>
           <% Affiliate.all.each do |aff| -%>
             <%= content_tag(:option, aff.to_s, value: aff.id) %>
           <% end %>

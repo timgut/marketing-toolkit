@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
@@ -58,7 +59,11 @@ class User < ApplicationRecord
   end
 
   def admin?
-    self.role == 'Administrator' or self.role == 'Vetter'
+    self.role == 'Administrator'
+  end
+
+  def vetter?
+    self.role == 'Vetter'
   end
 
   ## auth methods for devise
@@ -79,15 +84,4 @@ class User < ApplicationRecord
     User.approvers.select {|user| user.affiliate.region == region}
   end
   ## end of auth methods for devise
-
-  class << self
-    def current_user=(current_user)
-      Thread.current[:current_user] = current_user
-    end
-
-    def current_user
-      Thread.current[:current_user]
-    end
-  end
-
 end

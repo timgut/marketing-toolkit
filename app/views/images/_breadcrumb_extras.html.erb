@@ -3,10 +3,17 @@
     <ol class="options cf">
       <li>
         <%= link_to(
-          "<span class='icons'>x</span> Delete".html_safe, image_path(@image),
-          method: :delete,
-          class: "button",
-          data: {confirm: "Are you sure that you want to DELETE this image? This cannot be undone!"}
+          "<span class='icons'>x</span> Delete".html_safe, 
+          trash_image_path(@image),
+          method: :patch, 
+          data: {confirm: "Are you sure that you want to move this image to the trash?"}
+        ) %>
+      </li>
+      <li>
+        <%= link_to(
+          "<span class='icons'>d</span> Download".html_safe,
+          @image.image.url,
+          target: :blank
         ) %>
       </li>
     </ol>
