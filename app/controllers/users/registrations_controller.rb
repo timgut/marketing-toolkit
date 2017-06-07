@@ -1,10 +1,5 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  def show
-  	## just show the view
-  end
-
   def confirmation
-    ## just show the view
   end
 
   def edit

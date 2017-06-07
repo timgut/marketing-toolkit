@@ -16,71 +16,103 @@ FactoryGirl.define do
     title "Never Quit"
     description "This is the Never Quit campaign"
     status "publish"
+    parent_id nil
+  end
+
+  factory :category do
+    title "Flyer"
   end
 
   factory :datum do
     document
-    key "headline"
+
+    key   "headline"
     value "We never quit on the people who depend on us."
   end
 
   factory :document do
     template
     creator
-    title "My Custom Document"
+
+    title       "My Custom Document"
     description "My description for this document"
-    status "publish"
+    status      "publish"
   end
 
   factory :image do
-    image { File.new("#{Rails.root}/spec/support/images/1260x573.jpg") }
+    image { File.new("#{Rails.root}/spec/support/images/blank.png") }
+    creator
   end
 
   factory :template do
-    title "Industry-Specific Document"
+    title       "Industry-Specific Document"
     description "A document for each industry AFSCME represents"
-    height 11
-    width 8.5
-    pdf_markup "<html><body>Hello World</body></html>"
+    height      11.0
+    width       8.5
+    pdf_markup  "<html><body>Hello World</body></html>"
     form_markup "This is a placeholder for the form markup."
-    status "publish"
+    status      "publish"
 
     blank_image { File.new("#{Rails.root}/templates/Sector Specific/blank-ss.png") }
+
+    campaign
+    category
   end
 
   # USERS
   factory :user do
     email
     affiliate
+
     password "12345678"
     password_confirmation "12345678"
     approved true
+    first_name "Test"
+    last_name  "User"
     role "User"
   end
 
   factory :admin, class: User do
     email
     affiliate
+
     password "12345678"
     password_confirmation "12345678"
     approved true
     role "Administrator"
+    first_name "Test"
+    last_name  "Admin"
   end
 
   factory :vetter, class: User do
     email
     affiliate
+
     password "12345678"
     password_confirmation "12345678"
     approved true
     role "Vetter"
+    first_name "Test"
+    last_name  "Vetter"
+  end
+
+  factory :local_president, class: User do
+    email
+    affiliate
+
+    password "12345678"
+    password_confirmation "12345678"
+    approved true
+    role "Local President"
+    first_name "Test"
+    last_name  "Local President"
   end
 
   factory :creator, class: User do
     email
     affiliate
     
-    password              "12345678"
+    password "12345678"
     password_confirmation "12345678"
   end
 

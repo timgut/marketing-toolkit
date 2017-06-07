@@ -64,11 +64,10 @@ Rails.application.routes.draw do
   namespace :admin, path: '/admin' do
     root to: "misc#home"
 
-    resources :campaigns, except: [:new, :show]
-    resources :users
-    resources :categories, except: [:new]
-    resources :templates, except: [:show]
-    resources :affiliates
+    resources :campaigns,  except: [:new, :show]
+    resources :users,      except: [:destroy, :show]
+    resources :categories, except: [:new, :show]
+    resources :templates,  except: [:show]
+    resources :affiliates, only:   []
   end
-  
 end

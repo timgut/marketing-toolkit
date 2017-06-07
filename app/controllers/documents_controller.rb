@@ -89,7 +89,7 @@ class DocumentsController < ApplicationController
 
   # GET /documents/shared
   def shared
-    @filtered_documents = Document.includes(:template).shared_with_me
+    @filtered_documents = Document.includes(:template).shared_with_me(current_user)
     @shared = true
     render :index
   end
@@ -107,7 +107,7 @@ class DocumentsController < ApplicationController
 
       redirect_to edit_document_path(@document), notice: "Your changes have been saved."
     else
-      redirect_back fallback_location: documents_path
+      redirect_back fallback_location: documents_path, error: alert_message
     end
   end
 

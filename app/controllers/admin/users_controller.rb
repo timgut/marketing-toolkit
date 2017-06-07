@@ -20,11 +20,6 @@ class Admin::UsersController < AdminController
     end
   end
 
-  # DELETE /users
-  def destroy
-    load_user
-  end
-
   # GET /users/1/edit
   def edit
     load_user
@@ -48,18 +43,12 @@ class Admin::UsersController < AdminController
     @affiliates = Affiliate.all
   end
 
-  # GET /users/1
-  def show
-    load_user
-    @affiliates = Affiliate.all
-  end
-
   # PATCH /users/1
   def update
     load_user
     account_status = set_account_status
 
-    if @user.update_attributes!(user_params)
+    if @user.update_attributes(user_params)
       unless account_status == 'same'
         @user.send_account_notification(account_status)
       end

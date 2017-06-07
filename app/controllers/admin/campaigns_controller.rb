@@ -3,20 +3,25 @@ class Admin::CampaignsController < AdminController
   def create
     @new_campaign = Campaign.new(campaign_params)
     authorize @new_campaign
+
     if @new_campaign.save
       @campaign = Campaign.new
       @campaigns = Campaign.all
       redirect_to admin_campaigns_path, notice: "Campaign created!"
     else
-      redirect_to :back, fallback_location: authenticated_root_path
+      redirect_back fallback_location: authenticated_root_path, alert: alert_message
     end
   end
 
   # DELETE /admin/campaigns
   def destroy
     load_campaign
-    @campaign.destroy
-    redirect_to admin_campaigns_path, notice: "Campaign deleted!"
+    
+    if @campaign.destroy
+      redirect_to admin_campaigns_path, notice: "Campaign deleted!"
+    else
+      redirect_back fallback_location: authenticated_root_path, alert: alert_message
+    end
   end
 
   # GET /admin/campaigns/1/edit
@@ -40,6 +45,8 @@ class Admin::CampaignsController < AdminController
       redirect_to edit_admin_campaign_path(@campaign), notice: "Campaign updated!"
     else
       render :edit, alert: "Cannot update campaign!"
+      @body_class = 'toolkit campaign'
+      @header_navigation = true
     end
   end
 

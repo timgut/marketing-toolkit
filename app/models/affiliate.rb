@@ -3,15 +3,14 @@ class Affiliate < ApplicationRecord
   validates_presence_of :title, :region, :state, :slug
 
   def to_s
-  	if self.state_abbr
-  		"#{self.state_abbr} - #{self.title}"
+  	if state_abbr
+  		"#{state_abbr} - #{title}"
   	else
-  		self.title
+  		title
   	end
   end
 
   def state_abbr
-  	AfscmeToolkit::STATE_NAME_TO_ABBR[self.state] 
+  	AfscmeToolkit::STATE_NAME_TO_ABBR[state] 
   end
-
 end
