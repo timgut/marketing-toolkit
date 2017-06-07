@@ -5,7 +5,7 @@
       $("#headline6").prop("checked", true);
       $("#headline6").trigger("change");
     });
-
+    
     // Custom Testimonial
     $("form[data-document='true']").on("click", "#testimonial-custom, #attribution-custom", function(){
       $("#testimonial7").prop("checked", true);
@@ -55,7 +55,7 @@
     <h3>Choose a headline</h3>
 
     <div class="field"> 
-        <input id="headline1" class="required" name="data[mbf_headline]" type="radio" value="Building Power To <span>Make Real Change</span>" />
+        <input id="headline1" class="required" name="data[mbf_headline]" type="radio" value="Building Power To <strong>Make Real Change</strong>" />
         <label for="headline1">
             <div class="radio-button"></div>
             Building Power To Make Real Change 
@@ -63,7 +63,7 @@
     </div>
         
     <div class="field"> 
-        <input id="headline2" name="data[mbf_headline]" type="radio" value="Political Strength <span>Matters</span>" />
+        <input id="headline2" name="data[mbf_headline]" type="radio" value="Political Strength <strong>Matters</strong>" />
         <label for="headline2">
            <div class="radio-button"></div>
            Political Strength Matters
@@ -71,7 +71,7 @@
     </div>
         
     <div class="field"> 
-        <input id="headline3" name="data[mbf_headline]" type="radio" value="Our Jobs. Our Union. <span>Our Future.</span>" />
+        <input id="headline3" name="data[mbf_headline]" type="radio" value="Our Jobs. Our Union. <strong>Our Future.</strong>" />
         <label for="headline3">
            <div class="radio-button"></div>
            Our Jobs. Our Union. Our Future.
@@ -79,7 +79,7 @@
     </div>
 
     <div class="field"> 
-        <input id="headline4" name="data[mbf_headline]" type="radio" value="AFSCME: The Union for <span>Public Services</span>" />
+        <input id="headline4" name="data[mbf_headline]" type="radio" value="AFSCME: The Union for <strong>Public Services</strong>" />
         <label for="headline4">
            <div class="radio-button"></div>
            AFSCME: The Union for Public Services
@@ -132,9 +132,9 @@
     <div class="field radio wide"> 
         <input id="testimonial7" data-custom="combine" name="data[mbf_testimonial]" type="radio" value="" />
         <label for="testimonial7">
-            <textarea name="testimonial-custom" id="testimonial-custom" data-combine-tag="h2" placeholder="Your quote" maxlength="60"></textarea>
-            <small>Maximum 60 characters. Please preview, since words may wrap unexpectedly due to size limits.</small>
-            <input type="text" name="attribution-custom" id="attribution-custom" data-combine-tag="p" value="" placeholder="Quote attribution" maxlength="60" />
+            <textarea name="testimonial-custom" id="testimonial-custom" data-combine-tag="h2" placeholder="Your quote" maxlength="120"></textarea>
+            <small>Maximum 120 characters. Please preview, since words may wrap unexpectedly due to size limits.</small>
+            <input type="text" name="attribution-custom" id="attribution-custom" data-combine-tag="p" value="" placeholder="Quote attribution" maxlength="100" />
         </label>
 
     </div>
@@ -164,7 +164,7 @@
         <input id="logo2" data-custom="image" name="data[mbf_affiliate_logo]" type="radio" value="custom" />
 
         <label for="logo2">
-           <figure href="javascript:void(0);" title="Add Photo" class="image-picker" data-target="logo2">
+           <figure href="javascript:void(0);" title="Add Photo" class="image-picker logo" data-target="logo2">
                <div class="positioner">
                    <span class="icons">C</span>
                    Add Image
