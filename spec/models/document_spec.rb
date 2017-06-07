@@ -123,6 +123,24 @@ RSpec.describe Document, type: :model do
         expect(document.respond_to?(:attribution)).to eq true
         expect(document.attribution).to eq "Clerical"
       end
+
+      context "when a data method does not exist" do
+        it "does not fallback to another datum record with the same key" do
+          data[0].update_attributes!(value: "Headline for Document 1")
+          document2 = create(:document, template: template)
+
+          document.define_data_methods
+          document2.define_data_methods
+
+          headline1 = document.headline
+          headline2 = document2.headline
+          document2.create_debugger_rows!
+
+
+          expect(headline1).to eq "Headline for Document 1"
+          expect(headline2).to eq ""
+        end
+      end
     end
 
     describe "#duplicate!" do
