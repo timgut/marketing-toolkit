@@ -17,6 +17,10 @@ class ApplicationController < ActionController::Base
     @categories = Category.all
   end
 
+  def alert_message
+    "There was a problem. Please try again."
+  end
+
   private
 
   def after_sign_out_path_for(resource_or_scope)

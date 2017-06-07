@@ -14,8 +14,8 @@ class Document < ApplicationRecord
 
   validates_presence_of :template, :title, :description, :status
 
-  scope :recent,         ->(user){ all.joins(:documents_users).where("creator_id = ? and documents_users.created_at >= ?", user.id, DateTime.now - 2.weeks) }
-  scope :shared_with_me, ->(user){ all.joins(:documents_users).where("user_id = ? and documents_users.user_id != ?", user.id, user.id) }
+  scope :recent,         ->(user) { where("documents.creator_id = ? AND documents.created_at >= ?", user.id, DateTime.now - 2.weeks) }
+  scope :shared_with_me, ->(user) { all.joins(:documents_users).where("user_id = ? and documents_users.user_id != ?", user.id, user.id) }
 
   attr_accessor :defined_data_methods
 

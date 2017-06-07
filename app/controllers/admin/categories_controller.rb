@@ -9,15 +9,19 @@ class Admin::CategoriesController < AdminController
       @categoryies = Category.all
       redirect_to admin_categories_path, notice: "Category created!"
     else
-      render :new
+      redirect_back fallback_location: authenticated_root_path, alert: alert_message
     end
   end
 
   # DELETE /admin/categories/1
   def destroy
     load_category
-    @category.destroy
-    redirect_to admin_categories_path, notice: "Category deleted!"
+    
+    if @category.destroy
+      redirect_to admin_categories_path, notice: "Category deleted!"
+    else
+      redirect_back fallback_location: authenticated_root_path, alert: alert_message
+    end
   end
 
   # GET /categories/1/edit
@@ -31,11 +35,6 @@ class Admin::CategoriesController < AdminController
   def index
     @categories = Category.all
     authorize @categories
-  end
-
-  # GET /categories/1
-  def show
-    load_category
   end
 
   # PATCH /admin/categories/1
@@ -52,7 +51,7 @@ class Admin::CategoriesController < AdminController
   private
 
   def category_params
-    params.require(:category).permit(:title, :description, :status)
+    params.require(:category).permit(:title)
   end
 
   def load_category
