@@ -106,6 +106,10 @@ RSpec.describe Document, type: :model do
     end
 
     describe "#method_missing" do
+      it "returns associated datum values" do
+        expect(document.headline).to eq "You never quit. That's why we never rest."
+      end
+
       it "assumes a Datum record was called and returns an empty string" do
         expect(document.my_fake_method).to eq ""
       end

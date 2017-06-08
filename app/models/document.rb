@@ -20,11 +20,7 @@ class Document < ApplicationRecord
   before_destroy   ->{ self.pdf = nil }
 
   def method_missing(meth, *args, &block)
-    if datum = data.find{|d| d.key == meth.to_s}
-      datum.value
-    else
-      ""
-    end
+    data.find{|d| d.key == meth.to_s}&.value || ""
   end
 
   def duplicate!(user)
