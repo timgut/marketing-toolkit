@@ -18,8 +18,7 @@ class Document < ApplicationRecord
   scope :recent,         ->(user) { where("documents.creator_id = ? AND documents.created_at >= ?", user.id, DateTime.now - 2.weeks) }
   scope :shared_with_me, ->(user) { all.joins(:documents_users).where("user_id = ? and documents_users.user_id != ?", user.id, user.id) }
 
-  attr_accessor :defined_data_methods, # Toggles to true after #define_data_methods is called
-                :called_data_methods,  # Keeps track of every method called from #method_missing and #define_data_methods
+  attr_accessor :called_data_methods,  # Keeps track of every method called from #method_missing and #define_data_methods
                 :current_user          # The signed in user
 
   after_initialize :set_attr_accessor_defaults
@@ -38,11 +37,12 @@ class Document < ApplicationRecord
 
     Rails.logger.info "*"*60
     Rails.logger.info "Missing method: #{meth}"
-    Rails.logger.info "Make sure you called #define_data_methods on this document."
-    Rails.logger.info "Returning an empty string"
-    Rails.logger.info "*"*60
 
-    ""
+    if datum = data.find{|d| d.key == meth.to_s}
+      datum.value
+    else
+      ""
+    end
   end
 
   def duplicate!(user)
@@ -77,24 +77,6 @@ class Document < ApplicationRecord
     Rails.root.join("public", "pdfs", filename).to_s
   end
 
-  def define_data_methods
-    self.defined_data_methods = true
-
-    data.each do |datum|
-      self.class.__send__(:define_method, datum.key) do
-        self.called_data_methods << {
-          method:      datum.key.to_sym,
-          method_type: :data_method,
-          user_id:     self.current_user&.id,
-          document_id: self.id,
-          datum_id:    datum.id
-        }
-
-        datum.value.try(:html_safe)
-      end
-    end
-  end
-
   def create_debugger_rows!
     ActiveRecord::Base.transaction do
       self.called_data_methods.each do |debug_data|
@@ -108,7 +90,6 @@ class Document < ApplicationRecord
   private
 
   def set_attr_accessor_defaults
-    self.defined_data_methods = false
     self.called_data_methods = []
   end
 end

@@ -94,55 +94,10 @@ RSpec.describe Document, type: :model do
           user_id:     document.current_user.id
         }]
       end
-      
-      it "keeps track of data methods that are called" do
-        document.headline
-
-        expect(document.called_data_methods).to eq [{
-          method:      :headline,
-          method_type: :method_missing,
-          document_id: document.id,
-          user_id:     document.current_user.id
-        }]
-      end
-
     end
   end
 
   describe "Instance Methods" do
-    describe "#define_data_methods" do
-      it "creates methods for each datum" do
-        document.define_data_methods
-
-        expect(document.respond_to?(:headline)).to eq true
-        expect(document.headline).to eq "You never quit. That's why we never rest."
-
-        expect(document.respond_to?(:quote)).to eq true
-        expect(document.quote).to eq "\"I'm proud of the work I do to make my community better. I couldn't do it without my union.\""
-
-        expect(document.respond_to?(:attribution)).to eq true
-        expect(document.attribution).to eq "Clerical"
-      end
-
-      context "when a data method does not exist" do
-        it "does not fallback to another datum record with the same key" do
-          data[0].update_attributes!(value: "Headline for Document 1")
-          document2 = create(:document, template: template)
-
-          document.define_data_methods
-          document2.define_data_methods
-
-          headline1 = document.headline
-          headline2 = document2.headline
-          document2.create_debugger_rows!
-
-
-          expect(headline1).to eq "Headline for Document 1"
-          expect(headline2).to eq ""
-        end
-      end
-    end
-
     describe "#duplicate!" do
       it "creates a new Document and DocumentUser" do
         expect { document.duplicate!(user) }.to change(Document,     :count).by(1)
@@ -184,7 +139,6 @@ RSpec.describe Document, type: :model do
       end
 
       it "creates a new Debugger for each called_data_methods" do
-        document.fake_method1
         document.headline
 
         expect { document.create_debugger_rows! }.to change(Debugger, :count).by(1)

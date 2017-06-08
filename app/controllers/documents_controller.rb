@@ -169,7 +169,6 @@ class DocumentsController < ApplicationController
   def load_document
     @document = Document.find(params[:id])
     authorize @document
-    @document.define_data_methods
   end
 
   def pdf_options
