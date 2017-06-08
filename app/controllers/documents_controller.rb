@@ -42,7 +42,6 @@ class DocumentsController < ApplicationController
   def download
     force_format(:pdf)
     load_document
-    @document.current_user = current_user
 
     pdf = render pdf_options.merge(save_to_file: @document.local_pdf_path, save_only: true)
 
@@ -73,7 +72,6 @@ class DocumentsController < ApplicationController
   # GET /documents/1/preview
   def preview
     load_document
-    @document.current_user = current_user
     render pdf_options
   end
 

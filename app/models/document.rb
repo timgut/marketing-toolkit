@@ -8,7 +8,6 @@ class Document < ApplicationRecord
   
   has_many :data
   has_many :document_users, class_name: "DocumentUser"
-  has_many :debuggers
 
   belongs_to :creator, class_name: "User", foreign_key: :creator_id
   belongs_to :template
@@ -18,26 +17,9 @@ class Document < ApplicationRecord
   scope :recent,         ->(user) { where("documents.creator_id = ? AND documents.created_at >= ?", user.id, DateTime.now - 2.weeks) }
   scope :shared_with_me, ->(user) { all.joins(:documents_users).where("user_id = ? and documents_users.user_id != ?", user.id, user.id) }
 
-  attr_accessor :called_data_methods,  # Keeps track of every method called from #method_missing and #define_data_methods
-                :current_user          # The signed in user
-
-  after_initialize :set_attr_accessor_defaults
   before_destroy   ->{ self.pdf = nil }
 
-  # If a Datum record doesn't exist for this document, don't raise an error.
-  # But log something annoying so we know the data doesn't exist.
-  # And return a String because that's the kind of data we're expecting.
   def method_missing(meth, *args, &block)
-    self.called_data_methods << {
-      method:      meth.to_sym,
-      method_type: :method_missing,
-      document_id: self.id,
-      user_id:     self.current_user&.id
-    }
-
-    Rails.logger.info "*"*60
-    Rails.logger.info "Missing method: #{meth}"
-
     if datum = data.find{|d| d.key == meth.to_s}
       datum.value
     else
@@ -75,21 +57,5 @@ class Document < ApplicationRecord
 
   def local_pdf_path
     Rails.root.join("public", "pdfs", filename).to_s
-  end
-
-  def create_debugger_rows!
-    ActiveRecord::Base.transaction do
-      self.called_data_methods.each do |debug_data|
-        Debugger.create!(debug_data)
-      end
-    end
-  rescue => e
-    Debugger.create(notes: e.message)
-  end
-
-  private
-
-  def set_attr_accessor_defaults
-    self.called_data_methods = []
   end
 end

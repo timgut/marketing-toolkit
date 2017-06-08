@@ -10,8 +10,6 @@ class User < ApplicationRecord
 
   belongs_to :affiliate
 
-  has_many :debuggers
-
   scope :approved, -> { where(approved: 1) }
   scope :unapproved, -> { where(approved: 0, rejected: 0) }
   scope :rejected, -> { where(rejected: 1) }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170607153419) do
+ActiveRecord::Schema.define(version: 20170524192540) do
 
   create_table "affiliates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
@@ -44,17 +44,6 @@ ActiveRecord::Schema.define(version: 20170607153419) do
     t.datetime "updated_at",                null: false
     t.string   "field_id"
     t.index ["document_id"], name: "index_data_on_document_id", using: :btree
-  end
-
-  create_table "debuggers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "method"
-    t.string   "method_type"
-    t.integer  "user_id"
-    t.integer  "document_id"
-    t.integer  "datum_id"
-    t.text     "notes",       limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
   end
 
   create_table "delayed_jobs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|

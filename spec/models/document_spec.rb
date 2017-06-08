@@ -75,28 +75,6 @@ RSpec.describe Document, type: :model do
     end
   end
 
-  describe "Class Methods" do
-  end
-
-  describe "attr_accessor" do
-    before(:each) do
-      document.current_user = user
-    end
-
-    describe "self.called_data_methods" do
-      it "keeps track of methods delegated to #method_missing" do
-        document.fake_method1
-
-        expect(document.called_data_methods).to eq [{
-          method:      :fake_method1,
-          method_type: :method_missing,
-          document_id: document.id,
-          user_id:     document.current_user.id
-        }]
-      end
-    end
-  end
-
   describe "Instance Methods" do
     describe "#duplicate!" do
       it "creates a new Document and DocumentUser" do
@@ -130,28 +108,6 @@ RSpec.describe Document, type: :model do
     describe "#method_missing" do
       it "assumes a Datum record was called and returns an empty string" do
         expect(document.my_fake_method).to eq ""
-      end
-    end
-
-    describe "#create_debugger_rows!" do
-      before(:each) do
-        document.current_user = user
-      end
-
-      it "creates a new Debugger for each called_data_methods" do
-        document.headline
-
-        expect { document.create_debugger_rows! }.to change(Debugger, :count).by(1)
-      end
-
-      it "records the error when one is raised" do
-        message = "Something went wrong."
-        allow(Debugger).to receive(:create!).and_raise(message)
-
-        document.fake_method1
-        document.create_debugger_rows!
-
-        expect(Debugger.last.notes).to eq message
       end
     end
   end
