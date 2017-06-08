@@ -12,6 +12,8 @@ class User < ApplicationRecord
 
   scope :approved, -> { where(approved: 1) }
   scope :unapproved, -> { where(approved: 0, rejected: 0) }
+  scope :unapproved_and_needs_reminder, -> { where(approved: 0, rejected: 0).where('approval_reminder_sent IS NULL or approval_reminder_sent < ?', DateTime.now - 2.days) }
+
   scope :rejected, -> { where(rejected: 1) }
 
   #scope :approvers, -> { where(role: ['Administrator','Vetter']) }
