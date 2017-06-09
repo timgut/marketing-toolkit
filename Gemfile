@@ -29,6 +29,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'unicorn'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary-edge', '~> 0.12.3.0'
+gem 'rufus-scheduler'
 
 # moved outside of :development because of unknown error on remote migrations during deploy
 gem 'listen', '~> 3.0.5'

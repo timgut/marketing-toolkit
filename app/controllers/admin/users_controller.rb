@@ -85,7 +85,7 @@ class Admin::UsersController < AdminController
   def user_params
     params.require(:user).permit(
       :first_name, :last_name, :email, :approved, :rejected, :zip_code, :affiliate_id, :department,
-      :local_number, :title, :cell_phone, :receive_alerts, :role, :custom_branding
+      :local_number, :title, :cell_phone, :receive_alerts, :role, :custom_branding, :vetter_region
     )
   end
 end

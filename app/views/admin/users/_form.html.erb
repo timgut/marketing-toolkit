@@ -1,3 +1,22 @@
+<script>
+$(document).ready(function(){
+
+	if ($('#user_role').val() != 'Vetter'){
+		$('#user_vetter_region').prop('disabled',true);
+	}
+
+	$('#user_role').change(function(){
+		if ( $(this).val() != 'Vetter' ) {
+			$('#user_vetter_region').val('').prop('disabled',true);
+		}
+		else {
+			$('#user_vetter_region').val('').prop('disabled',false);
+		}
+	})
+});
+
+</script>
+
     <div class="cf">     
 	    <ol>
 	      <li>
@@ -62,6 +81,14 @@
 					 <%= f.select(:role) do %>
 	         <%= options_for_select( User::ROLES, @user.role) %>
 	        <% end %>
+	      </li>
+
+	      <li>
+	      	<%= f.label :vetter_region%></br>
+					<%= f.select(:vetter_region) do %>
+	         <%= options_for_select( ['','Central','Eastern','Southern','Western'], @user.vetter_region) %>
+	        <% end %>
+
 	      </li>
 
 
