@@ -83,7 +83,7 @@ class User < ApplicationRecord
 
   def regional_approvers
     region = self.affiliate.region
-    User.approvers.select {|user| user.affiliate.region == region}
+    User.approvers.select {|user| user.vetter_region == region}
   end
   ## end of auth methods for devise
 end
