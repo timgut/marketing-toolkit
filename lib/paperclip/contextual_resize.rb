@@ -1,5 +1,5 @@
 module Paperclip
-  class Resize < Thumbnail
+  class ContextualResize < Thumbnail
     attr_accessor :new_height, :new_width
 
     MULTIPLIER = 1.2
@@ -13,7 +13,9 @@ module Paperclip
     end
 
     def transformation_command
-      if target.resizing?
+      if target.strategy == :contextual_crop
+        puts "*"*60
+        puts "ContextualResize"
         target_size   = {height: target.image.height, width: target.image.width }
         context_size  = {height: context.blank_image.height, width: context.blank_image.width }
 

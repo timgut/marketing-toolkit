@@ -1,0 +1,17 @@
+<script type="text/javascript">
+  $(document).ready(function(){
+    init_papercrop();
+  });
+</script>
+
+<%= form_for(@image, remote: true) do |f| %>
+  <%= hidden_field_tag :format, :json %>
+
+  <%= f.hidden_field :resize_height, value: @image.resize_height %>
+  <%= f.hidden_field :resize_width,  value: @image.resize_width %>
+  <%= f.hidden_field :strategy,      value: :papercrop %>
+  <%= f.hidden_field :image %>
+
+  <%= f.cropbox :image %>
+  <%= f.submit "Crop Image", class: "save button active" %>
+<% end %>

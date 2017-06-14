@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe Paperclip::Resize, type: :class do
+RSpec.describe Paperclip::ContextualResize, type: :class do
   let!(:image)     { create(:image, image: landscape_file) }
   let!(:template)  { create(:template, blank_image: blank_file) }
-  let!(:processor) { Paperclip::Resize.new(landscape_file, {}, image.image) }
+  let!(:processor) { Paperclip::ContextualResize.new(landscape_file, {}, image.image) }
 
   # 1260x573
   def landscape_file
@@ -22,7 +22,7 @@ RSpec.describe Paperclip::Resize, type: :class do
 
   def setup_resize
     image.context = template
-    image.resize  = true
+    image.contextual_resize  = true
   end
 
   def set_context
@@ -58,10 +58,10 @@ RSpec.describe Paperclip::Resize, type: :class do
       context "portrait" do
         it "calculates the ImageMagick resize command" do
           portrait = create(:image, image: portrait_file)
-          portrait.resize = true
+          portrait.contextual_resize = true
           portrait.context = template
 
-          processor = Paperclip::Resize.new(portrait_file, {}, portrait.image)
+          processor = Paperclip::ContextualResize.new(portrait_file, {}, portrait.image)
           result    = processor.transformation_command
 
           expect(result).to eq  ["-resize", "720x1082^"]
@@ -77,7 +77,7 @@ RSpec.describe Paperclip::Resize, type: :class do
 
     context "without resizing data" do
       it "does not crop" do
-        image.resize = false
+        image.contextual_resize = false
         expect(processor.transformation_command).to eq ["-auto-orient"]
       end
     end

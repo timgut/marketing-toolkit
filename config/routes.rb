@@ -56,7 +56,8 @@ Rails.application.routes.draw do
     end
 
     member do
-      get :crop
+      get :contextual_crop
+      get :papercrop
       get :share
     end
   end
