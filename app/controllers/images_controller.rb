@@ -136,6 +136,7 @@ class ImagesController < ApplicationController
 
     case @image.strategy
     when :papercrop
+      params[:image].delete(:template_id)
       set_papercrop_resize_data
     when :contextual_crop
       @template      = Template.find(params[:image].delete(:template_id))

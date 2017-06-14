@@ -20,9 +20,9 @@ RSpec.describe Paperclip::ContextualResize, type: :class do
     File.new("#{Rails.root}/spec/support/images/blank.jpg")
   end
 
-  def setup_resize
-    image.context = template
-    image.contextual_resize  = true
+  def setup
+    image.strategy = :contextual_crop
+    image.context  = template
   end
 
   def set_context
@@ -39,9 +39,9 @@ RSpec.describe Paperclip::ContextualResize, type: :class do
   end
 
   describe "#transformation_command" do
-    before(:each) { setup_resize }
-
     context "with resizing data" do
+      before(:each) { setup }
+
       context "landscape" do
         it "calculates the ImageMagick resize command" do
           result = processor.transformation_command
@@ -58,7 +58,7 @@ RSpec.describe Paperclip::ContextualResize, type: :class do
       context "portrait" do
         it "calculates the ImageMagick resize command" do
           portrait = create(:image, image: portrait_file)
-          portrait.contextual_resize = true
+          portrait.strategy = :contextual_crop
           portrait.context = template
 
           processor = Paperclip::ContextualResize.new(portrait_file, {}, portrait.image)
@@ -77,7 +77,6 @@ RSpec.describe Paperclip::ContextualResize, type: :class do
 
     context "without resizing data" do
       it "does not crop" do
-        image.contextual_resize = false
         expect(processor.transformation_command).to eq ["-auto-orient"]
       end
     end

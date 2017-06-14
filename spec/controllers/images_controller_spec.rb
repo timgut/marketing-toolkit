@@ -21,18 +21,37 @@ RSpec.describe ImagesController, type: :controller do
     { template_id: template.id }
   end
 
-  def update_params
+  def update_params(format:, strategy:)
     { 
       id: image.id,
+      format: format,
       image: {
         crop_data:   "crop data",
-        template_id: template.id
+        template_id: template.id,
+        strategy:    strategy
       }
     }
   end
 
-  def crop_params
-    { id: image.id, template_id: template.id }
+  def contextual_crop_params
+    { 
+      id: image.id,
+      image: {
+        template_id: template.id,
+        strategy:    :contextual_crop
+      }
+    }
+  end
+
+  def papercrop_params
+    {
+      id: image.id, 
+      resize_height: 75, 
+      resize_width: 100,
+      image: {
+        strategy: :papercrop
+      }
+    }
   end
 
   def mock_failure(method)
@@ -159,10 +178,10 @@ RSpec.describe ImagesController, type: :controller do
     end
   end
 
-  describe "GET #crop" do
+  describe "GET #contextual_crop" do
     context "not signed in" do
       it "redirects to the sign in page" do
-        get :crop, params: crop_params
+        get :contextual_crop, params: contextual_crop_params
         expect(response).to have_http_status 302
         expect(response).to redirect_to new_user_session_path
       end
@@ -174,10 +193,34 @@ RSpec.describe ImagesController, type: :controller do
 
         it "renders the choose template" do
           own_image
-          get :crop, params: crop_params
+          get :contextual_crop, params: contextual_crop_params
 
           expect(response).to have_http_status 200
-          expect(response).to render_template "crop_modal"
+          expect(response).to render_template "contextual_crop"
+        end
+      end
+    end
+  end
+
+  describe "GET #papercrop" do
+    context "not signed in" do
+      it "redirects to the sign in page" do
+        get :papercrop, params: papercrop_params
+        expect(response).to have_http_status 302
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    RSpec.configuration.user_roles.each do |role|
+      context "signed in as: #{role}" do
+        __send__("controller_#{role}_sign_in".to_sym)
+
+        it "renders the choose template" do
+          own_image
+          get :papercrop, params: papercrop_params
+
+          expect(response).to have_http_status 200
+          expect(response).to render_template "papercrop"
         end
       end
     end
@@ -294,50 +337,54 @@ RSpec.describe ImagesController, type: :controller do
       context "signed in as: #{role}" do
         __send__("controller_#{role}_sign_in".to_sym)
 
-        context "html" do
-          context "when successful" do
-            it "updates the image and redirects to the images index" do
-              own_image
-              patch :update, params: update_params.merge({format: :html})
+        [:papercrop, :contextual_crop].each do |strategy|
+          context "with #{strategy} strategy" do
+            context "html" do
+              context "when successful" do
+                it "updates the image and redirects to the images index" do
+                  own_image
+                  patch :update, params: update_params(format: :html, strategy: strategy)
 
-              expect(response).to have_http_status 302
-              expect(response).to redirect_to images_path
-            end
-          end
-          
-          context "when failure" do
-            it "renders the edit template" do
-              own_image
-              mock_failure(:update_attributes)
-              patch :update, params: update_params.merge({format: :html})
-
-              expect(response).to have_http_status 200
-              expect(response).to render_template "edit"
-            end
-          end
-        end
-
-        context "json" do
-          context "when successful" do
-            it "updates the image and renders JSON" do
-              own_image
-              patch :update, params: update_params.merge({format: :json})
+                  expect(response).to have_http_status 302
+                  expect(response).to redirect_to images_path
+                end
+              end
               
-              expect(response).to have_http_status 200
-              ["id", "url", "cropped_url", "file_name"].each do |key|
-                expect(JSON.parse(response.body).keys).to include key
+              context "when failure" do
+                it "renders the edit template" do
+                  own_image
+                  mock_failure(:update_attributes)
+                  patch :update, params: update_params(format: :html, strategy: strategy)
+
+                  expect(response).to have_http_status 200
+                  expect(response).to render_template "edit"
+                end
               end
             end
-          end
-          
-          context "when failure" do
-            it "renders the error" do
-              own_image
-              mock_failure(:update_attributes)
-              patch :update, params: update_params.merge({format: :json})
 
-              expect(response).to have_http_status 403
-              expect(response.body).to eq image.errors.full_messages.to_sentence
+            context "json" do
+              context "when successful" do
+                it "updates the image and renders JSON" do
+                  own_image
+                  patch :update, params: update_params(format: :json, strategy: strategy)
+                  
+                  expect(response).to have_http_status 200
+                  ["id", "url", "cropped_url", "file_name"].each do |key|
+                    expect(JSON.parse(response.body).keys).to include key
+                  end
+                end
+              end
+              
+              context "when failure" do
+                it "renders the error" do
+                  own_image
+                  mock_failure(:update_attributes)
+                  patch :update, params: update_params(format: :json, strategy: strategy)
+
+                  expect(response).to have_http_status 403
+                  expect(response.body).to eq image.errors.full_messages.to_sentence
+                end
+              end
             end
           end
         end

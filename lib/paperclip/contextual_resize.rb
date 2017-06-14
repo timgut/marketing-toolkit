@@ -14,8 +14,8 @@ module Paperclip
 
     def transformation_command
       if target.strategy == :contextual_crop
-        puts "*"*60
-        puts "ContextualResize"
+        # puts "*"*60
+        # puts "ContextualResize"
         target_size   = {height: target.image.height, width: target.image.width }
         context_size  = {height: context.blank_image.height, width: context.blank_image.width }
 

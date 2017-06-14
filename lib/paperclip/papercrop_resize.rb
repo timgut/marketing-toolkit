@@ -8,8 +8,8 @@ module Paperclip
 
     def transformation_command
       if target.strategy == :papercrop
-        puts "*"*60
-        puts "PapercropResize"
+        # puts "*"*60
+        # puts "PapercropResize"
         self.resize_height = target.resize_height
         self.resize_width  = target.resize_width
 

@@ -47,10 +47,6 @@ class Image < ApplicationRecord
     end
   end
 
-  def contextual_cropping?
-    context.present? && pos_x.present? && pos_y.present?
-  end
-
   def orientation
     image.width > image.height ? :landscape : :portrait
   end

@@ -48,6 +48,10 @@ RSpec.describe DocumentsController, type: :controller do
     allow_any_instance_of(Document).to receive(method).and_return(false)
   end
 
+  def mock_raise(method)
+    allow_any_instance_of(Document).to receive(method).and_raise("Mocked raise!")
+  end
+
   def own_document
     document.update_attributes!(creator_id: current_user.id)
   end
@@ -118,7 +122,7 @@ RSpec.describe DocumentsController, type: :controller do
         context "when failure" do
           it "creates new records and redirects to the documents index" do
             own_document
-            mock_failure(:save!)
+            mock_raise(:save!)
 
             expect { get :duplicate, params: destroy_params }.to change(Document, :count).by(0)
             expect { get :duplicate, params: destroy_params }.to change(DocumentUser, :count).by(0)
