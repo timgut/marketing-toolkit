@@ -2,7 +2,7 @@ require 'rufus-scheduler'
 
 s = Rufus::Scheduler.singleton
 
-unless defined?(Rails::Console) || File.split($0).last == 'rake'
+unless defined?(Rails::Console) || File.split($0).last == 'rake' || Rails.env != 'production'
   # only schedule when not running from the Ruby on Rails console
   # or from a rake task
 	s.cron '0 6 * * *' do
