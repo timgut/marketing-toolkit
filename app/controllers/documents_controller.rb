@@ -43,11 +43,13 @@ class DocumentsController < ApplicationController
     force_format(:pdf)
     load_document
 
-    pdf = render pdf_options.merge(save_to_file: @document.local_pdf_path, save_only: true)
+    @document.generate_pdf
+    DocumentThumbnailJob.perform_later(@document)
+    # pdf = render pdf_options.merge(save_to_file: @document.local_pdf_path, save_only: true)
 
-    @document.pdf = File.open(@document.local_pdf_path)
-    @document.save
-    File.delete(@document.local_pdf_path)
+    # @document.pdf = File.open(@document.local_pdf_path)
+    # @document.save
+    # File.delete(@document.local_pdf_path)
 
     redirect_to @document.pdf.url
   end
@@ -72,6 +74,7 @@ class DocumentsController < ApplicationController
   # GET /documents/1/preview
   def preview
     load_document
+    @document.debug_pdf = true
     render pdf_options
   end
 
