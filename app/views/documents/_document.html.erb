@@ -4,7 +4,10 @@
     edit_document_path(document),
     class: "document-thumbnail",
     title: document.title,
-    style: "background-image: url('#{document.thumbnail&.url || document.template.thumbnail&.url}');"
+    style: "background-image: url('#{document.thumbnail&.url || document.template.thumbnail&.url}');",
+    data: {
+      behavior: "download"
+    }
   ) %>
 
   <%= link_to(

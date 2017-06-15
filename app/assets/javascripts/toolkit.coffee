@@ -8,6 +8,19 @@ window.Toolkit.init ||= {}
 window.Toolkit.init.optionsMenu        = false
 window.Toolkit.init.documentDataTarget = false
 
+# Uncomment to add UI feedback from a delayed job
+#
+# window.Toolkit.init.delayedJob = ->
+#   window.Toolkit.jobs = []
+
+#   $(document).on("ajax:complete", "a[data-behavior='download']", (e, data, status, xhr) ->
+#     $el = $(e.currentTarget)
+#     console.log(e)
+#     console.log(data)
+#     console.log(status)
+#     console.log(xhr)
+#   )
+
 Dropzone.autoDiscover = false
 
 window.Toolkit.isEditPage = ->

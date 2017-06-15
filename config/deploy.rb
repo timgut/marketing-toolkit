@@ -18,7 +18,11 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', '
 
 set :migration_role, :db
 
+set :delayed_job_server_role, :worker
+set :delayed_job_args, "-n 2"
+
 after :deploy, "unicorn:restart"
+after :deploy, "delayed_job:restart"
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
