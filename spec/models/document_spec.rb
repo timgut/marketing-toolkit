@@ -114,5 +114,26 @@ RSpec.describe Document, type: :model do
         expect(document.my_fake_method).to eq ""
       end
     end
+
+    describe "#generate_pdf" do
+      before(:each) do
+        # Speed up processing time by stubbing a blank PDF.
+        allow(document).to receive(:local_pdf_path).and_return(Rails.root.join("spec", "support", "images", "blank.pdf").to_s)
+      end
+
+      it "renders documents/build.pdf.erb" do
+        expect_any_instance_of(ActionView::Base).to receive(:render).with(
+          template: "documents/build.pdf.erb",
+          locals:   {document: document}
+        )
+        
+        document.generate_pdf
+      end
+
+      it "creates a PDF for the document" do
+        document.generate_pdf
+        expect(document.reload.pdf_file_name).not_to eq nil
+      end
+    end
   end
 end

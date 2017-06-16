@@ -70,7 +70,7 @@ class DocumentsController < ApplicationController
   def preview
     load_document
     @document.debug_pdf = true
-    render pdf_options
+    render @document.pdf_options
   end
 
   # GET /documents/recent
@@ -165,27 +165,5 @@ class DocumentsController < ApplicationController
   def load_document
     @document = Document.find(params[:id])
     authorize @document
-  end
-
-  def pdf_options
-    {
-      pdf:           @document.title,
-      template:      "documents/build.pdf.erb",
-      disposition:   :inline,
-      orientation:   @document.template.orientation,
-      grayscale:     false,
-      lowquality:    false,
-      image_quality: 94,
-      show_as_html:  params[:action] == "preview",
-      page_height:   "#{@document.template.height}in",
-      page_width:    "#{@document.template.width}in",
-      zoom: 1,
-      margin:  {
-        top:    0,
-        bottom: 0,
-        left:   0,
-        right:  0
-      }
-    }
   end
 end

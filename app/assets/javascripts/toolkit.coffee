@@ -10,16 +10,25 @@ window.Toolkit.init.documentDataTarget = false
 
 # Uncomment to add UI feedback from a delayed job
 #
-# window.Toolkit.init.delayedJob = ->
-#   window.Toolkit.jobs = []
+window.Toolkit.init.delayedJob = ->
+  window.Toolkit.jobs = []
 
-#   $(document).on("ajax:complete", "a[data-behavior='download']", (e, data, status, xhr) ->
-#     $el = $(e.currentTarget)
-#     console.log(e)
-#     console.log(data)
-#     console.log(status)
-#     console.log(xhr)
-#   )
+  $(document).on("click", "a[data-job]", (e, data, status, xhr) ->
+    # $el = $(e.currentTarget)
+    # console.log(e)
+    # console.log(data)
+    # console.log(status)
+    # console.log(xhr)
+
+    job = $(@).attr("data-job")
+    id  = $(@).attr("id")
+
+    switch job
+      when "generateThumbnail"
+        # Do something after the thumbnail has been generated
+      else
+        console.log("Unknown job: #{job}")
+  )
 
 Dropzone.autoDiscover = false
 

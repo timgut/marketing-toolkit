@@ -52,14 +52,10 @@ class Document < ApplicationRecord
     end
   end
 
-  def filename
-    "#{id}.pdf"
-  end
-
   def generate_pdf
     av = ActionView::Base.new
     av.view_paths = ActionController::Base.view_paths
-    pdf_html = av.render template: "documents/build.pdf.erb", locals: {document: self}
+    pdf_html = av.render(template: "documents/build.pdf.erb", locals: {document: self})
     pdf = WickedPdf.new.pdf_from_string(pdf_html, pdf_options)
 
     File.open(local_pdf_path, 'wb') {|file| file << pdf}
@@ -85,14 +81,12 @@ class Document < ApplicationRecord
   end
 
   def local_pdf_path
-    Rails.root.join("public", "pdfs", filename).to_s
+    Rails.root.join("public", "pdfs", "#{id}.pdf").to_s
   end
 
   def local_thumbnail_path
     Rails.root.join("public", "pdfs", "#{id}.png").to_s
   end
-
-  private
 
   def pdf_options
     {
@@ -103,7 +97,7 @@ class Document < ApplicationRecord
       grayscale:     false,
       lowquality:    false,
       image_quality: 94,
-      show_as_html:  self.debug_pdf,
+      show_as_html:  debug_pdf,
       page_height:   "#{template.height}in",
       page_width:    "#{template.width}in",
       zoom: 1,
