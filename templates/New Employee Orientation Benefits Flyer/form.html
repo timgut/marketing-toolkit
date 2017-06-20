@@ -1,0 +1,133 @@
+<script type="text/javascript">  
+  $(document).ready(function() {
+    // Custom Testimonial
+    $("form[data-document='true']").on("click", "#testimonial-custom, #attribution-custom", function(){
+      $("#testimonial7").prop("checked", true);
+      $("#testimonial7").trigger("change");
+    });
+    $("form[data-document='true']").on("change", "#testimonial-custom, #attribution-custom", function(){
+      $("#testimonial7").val("<h2>" + Toolkit.normalizeQuotes($("#testimonial-custom").val()) + "</h2><p class=\"attribution\">" + Toolkit.normalizeQuotes($("#attribution-custom").val()) + "</p>");
+      $("#testimonial7").trigger("change");
+    });
+
+    // Custom Body
+    $("form[data-document='true']").on("click", "#body3-headline-custom, #body-custom", function(){
+      $("#body3").prop("checked", true);
+      $("#body3").trigger("change");
+    });
+    $("form[data-document='true']").on("change", "#body3-headline-custom, #body-custom", function(){
+      $("#body3").val("<h2>" + Toolkit.normalizeQuotes($("#body3-headline-custom").val()) + "</h2><p>" + Toolkit.normalizeQuotes($("#body-custom").val()) + "</p>");
+      $("#body3").trigger("change");
+    });
+  });
+</script>
+
+<div id="branding" class="grouping branding image-select radio cf"> 
+
+    <h3>Choose Flyer Branding</h3>
+
+    <div class="field logo"> 
+        <input id="branding-afscme" name="data[neobf_branding]" type="radio" value="afscme" />
+        <label for="branding-afscme">
+           <div class="radio-button"></div>
+           <figure style="background-image: url(http://toolkit-afscme.bytrilogy.com/theme/img/afscme-branding-thumb.png);"></figure>
+        </label>
+    </div>
+    
+    <div class="field logo"> 
+        <input id="branding-csea" name="data[neobf_branding]" type="radio" value="csea" />
+        <label for="branding-csea">
+           <div class="radio-button"></div>
+           <figure style="background-image: url(http://toolkit-afscme.bytrilogy.com/theme/img/csea-branding-thumb.png);"></figure>
+        </label>
+    </div>
+    
+</div><!--theme-->
+
+<div class="step grouping cf"> 
+    <h3>Create a headline</h3>
+                                
+    <div class="field radio wide"> 
+        <label for="headline">
+            <input type="text" name="data[neobf_headline]" data-custom="text" id="headline-custom" value="" maxlength="30" placeholder="Headline" />
+            <label for="headline-custom"></label>
+            <small>Maximum of 30 characters. Please preview, since words may wrap unexpectedly and cutoff your headline.</small>
+        </label>
+        
+        <label for="sub-headline">
+            <input type="text" name="data[neobf_subheadline]" data-custom="text" id="subheadline-custom" value="" maxlength="45" placeholder="Sub-headline" />
+            <label for="subheadline-custom"></label>
+            <small>Maximum of 45 characters. Please preview, since words may wrap unexpectedly and cutoff your sub-headline.</small>
+        </label>                            
+    </div>
+  
+</div><!--headline-->
+
+<div class="step grouping image-select cf"> 
+
+    <h3>Add a photo</h3>
+         
+    <div class="field upload"> 
+        <input id="photo7" data-custom="image" name="data[neobf_photo]" type="radio" />
+        <label for="photo7">
+           <figure href="javascript:void(0);" title="Add Photo" class="image-picker" data-target="photo7" data-crop="true" data-crop-offset="150">
+               <div class="positioner">
+                   <span class="icons">C</span>
+                   Add Image
+               </div>
+           </figure>
+        </label>
+    </div>
+
+</div><!--photo-->
+
+<div class="step grouping columns two cf"> 
+
+    <h3>Add a testimonial quote</h3>
+           
+    <div class="field radio wide"> 
+        <input id="testimonial7" data-custom="combine" name="data[neobf_testimonial]" type="radio" value="" />
+        <label for="testimonial7">
+            <textarea name="testimonial-custom" id="testimonial-custom" data-combine-tag="h2" placeholder="Your quote" maxlength="120"></textarea>
+            <small>Maximum 120 characters. Please preview, since words may wrap unexpectedly due to size limits.</small>
+            <input type="text" name="attribution-custom" id="attribution-custom" data-combine-tag="p" value="" placeholder="Quote attribution" maxlength="100" />
+        </label>
+
+    </div>
+
+</div><!--testimonial-->
+
+<div class="step grouping columns two cf"> 
+
+    <h3>Add body text</h3>
+        <div class="field wide"> 
+        <input id="body3" data-custom="combine" name="data[neobf_body]" type="radio" value="" />
+        <label for="body3">
+            <input type="text" name="body3-headline-custom" id="body3-headline-custom" data-combine-tag="h2" value="" placeholder="Headline" maxlength="200" />
+            <small>Maximum of 200 characters. Please preview, since words may wrap unexpectedly and cut off your headline.</small>
+            <textarea name="body3-custom" id="body-custom" data-combine-tag="p" placeholder="Your body text"></textarea>
+        </label>
+    </div>
+
+</div><!--bodytext-->
+
+
+<div class="step grouping image-select cf"> 
+
+    <h3>Council/Affiliate Logo (optional)</h3>
+
+    <div class="field upload"> 
+        <input id="logo2" data-custom="image" name="data[neobf_affiliate_logo]" type="radio" value="custom" />
+
+        <label for="logo2">
+           <figure href="javascript:void(0);" title="Add Photo" class="image-picker logo" data-target="logo2">
+               <div class="positioner">
+                   <span class="icons">C</span>
+                   Add Image
+               </div>
+           </figure>
+        </label>
+
+    </div>
+
+</div><!--logo-->
