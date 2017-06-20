@@ -34,7 +34,6 @@ class DocumentsController < ApplicationController
   # GET /documents/1/edit
   def edit
     load_document
-    @custom_branding = current_user.custom_branding?
     assign_records
   end
 
@@ -65,7 +64,6 @@ class DocumentsController < ApplicationController
   def new
     @template = Template.find(params[:template_id])
     @document = Document.new(template_id: @template.id, title: @template.title, description: @template.description)
-    @custom_branding = current_user.custom_branding?
     assign_records
   end
 
@@ -84,7 +82,6 @@ class DocumentsController < ApplicationController
   # GET /documents/1/share
   def share
     @document = Document.includes(:template).find(params[:id])
-    assign_records
   end
 
   # GET /documents/shared
@@ -142,6 +139,7 @@ class DocumentsController < ApplicationController
   def assign_records
     @template = @document.template
     @campaign = @template.campaign
+    @custom_branding = current_user.custom_branding?
   end
 
   def create_data
