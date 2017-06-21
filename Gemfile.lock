@@ -66,6 +66,9 @@ GEM
     capistrano-rails (1.2.2)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
+    capistrano3-delayed-job (1.7.3)
+      capistrano (~> 3.0, >= 3.0.0)
+      daemons (~> 1.2.4)
     climate_control (0.1.0)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
@@ -80,8 +83,14 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.4)
     croppie_rails (2.4.0)
+    daemons (1.2.4)
     database_cleaner (1.5.3)
     debug_inspector (0.0.2)
+    delayed_job (4.1.2)
+      activesupport (>= 3.0, < 5.1)
+    delayed_job_active_record (4.1.1)
+      activerecord (>= 3.0, < 5.1)
+      delayed_job (>= 3.0, < 5)
     devise (4.2.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -130,6 +139,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
     mimemagic (0.3.2)
+    mini_magick (4.6.0)
     mini_portile2 (2.1.0)
     minitest (5.10.1)
     mysql2 (0.4.5)
@@ -273,10 +283,13 @@ DEPENDENCIES
   byebug
   capistrano (~> 3.7)
   capistrano-rails
+  capistrano3-delayed-job (~> 1.0)
   codemirror-rails
   coffee-rails (~> 4.2)
   croppie_rails
+  daemons
   database_cleaner
+  delayed_job_active_record
   devise (~> 4.2)
   dropzonejs-rails
   factory_girl_rails
@@ -285,6 +298,7 @@ DEPENDENCIES
   jquery-ui-rails
   jquery-validation-rails
   listen (~> 3.0.5)
+  mini_magick
   mysql2
   paperclip (~> 5.0.0)
   paperclip-meta

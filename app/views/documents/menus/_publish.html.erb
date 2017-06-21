@@ -23,7 +23,8 @@
       "<span class='icons'>F</span> Rebuild PDF".html_safe,
       download_document_path(document),
       title: "Rebuild PDF",
-      target: :_blank 
+      target: :_blank,
+      data: {id: document.id, job: "generateThumbnail"} 
     ) %>
   </li> 
 <% end %>

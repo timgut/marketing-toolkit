@@ -13,12 +13,14 @@ gem 'aws-sdk', '~> 2.7.0'
 gem 'codemirror-rails'
 gem 'coffee-rails', '~> 4.2'
 gem 'croppie_rails'
+gem 'delayed_job_active_record'
 gem 'devise', '~> 4.2'
 gem 'dropzonejs-rails'
 gem 'gretel'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-validation-rails'
+gem 'mini_magick'
 gem 'paperclip', '~> 5.0.0'
 gem 'paperclip-meta'
 gem 'pundit'
@@ -41,6 +43,8 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'capistrano', '~> 3.7', require: false
   gem 'capistrano-rails', require: false
+  gem 'capistrano3-delayed-job', '~> 1.0'
+  gem 'daemons'
 end
 
 group :test do

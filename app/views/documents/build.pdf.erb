@@ -1,1 +1,2 @@
+<% @document ||= document %>
 <%= ERB.new(@document.template.pdf_markup).result(binding).html_safe %>
