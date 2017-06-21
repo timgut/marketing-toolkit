@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+*,
+*:before,
+*:after {
+  -moz-box-sizing:    border-box; 
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box; 
+  transition:         all .25s ease-in-out;    
+  -webkit-transition: all .25s ease-in-out;  
+  -moz-transition:    all .25s ease-in-out;  
+  -o-transition:      all .25s ease-in-out;  
+  -ms-transition:     all .25s ease-in-out; 
+}
+
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, main,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+  margin: 0 auto;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent; }
+
+body { line-height: 1; }
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+main { display: block; }
+
+.cf:before,
+.cf:after {
+  content: "";
+  display: table; }
+.cf:after { clear: both; }
+
+body { 
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  font-weight: 300;
+  text-align: center; 
+  color: #404040;
+  line-height: 1.4; 
+  font-size: 11pt;
+  margin: 0 auto;
+  text-rendering: optimizelegibility;
+}
+
+.container {
+  margin: auto;
+  width: 8.5in;
+  height: 11in;
+  background-repeat: no-repeat;
+  background-position: center 1.8in;
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+}
+
+header {
+  z-index: 9999;
+  position: relative;
+  z-index: 9999;
+  padding: .25in;
+  height: 2.33in;
+}
+
+.top-bar {
+  background-image: -webkit-linear-gradient(left, #0054a5 0%, #00ab4f 63.89%, #00ab4f 100%);
+  background-image: linear-gradient(left, #0054a5 0%, #00ab4f 63.89%, #00ab4f 100%);
+  width: 100%;
+  height: .11in;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 20000;  
+}
+.csea .top-bar {
+  background-image: -webkit-linear-gradient(right, #004785 0%, #e03a3e 100%);
+  background-image: linear-gradient(right, #004785 0%, #e03a3e 100%);
+}
+
+header h1 {
+  width: 7.5in;
+  font-family:'Lato','Arial Black',san-serif;
+  font-weight: 900;
+  color: #23408f;
+  text-transform: uppercase;
+  font-size: 34pt;
+  line-height: 1;
+}
+.csea header h1 {
+  color: #004785;
+}
+
+header h1 small {
+  display: block;
+  color: #40ae49;
+  font-weight: 300;        
+  font-size: 21pt;
+  margin-top: 8pt;
+}
+.csea header h1 small {
+  color: #e03a3e;
+}
+
+.table .row {
+  border-bottom: 1px solid #000; 
+  display: table;
+  width: 100%;
+}
+.table .row:last-child {
+  border-bottom: none; 
+}
+.table .row .cell {
+  width: 33.33%;
+  display: table-cell;
+  border-right: 1px solid rgba(255,255,255,0); 
+  padding: .45em;
+  text-align: center;
+  font-size: 13pt;
+  font-weight: 500;
+  line-height: 1;
+}
+.table .row:last-child .cell {
+  height: 1.6in;
+}
+
+.table .row .cell:first-child {
+  color: #4daf4f;
+  text-transform: uppercase;        
+}
+.csea .table .row .cell:first-child {
+  color: #de3a3f;
+}
+.table.rows {
+  position: relative;
+  z-index: 1000;
+}
+
+.table.rows.rows-1 .row {
+  height: 6.8in;
+}
+.table.rows.rows-2 .row {
+  height: 3.4in;
+}
+.table.rows.rows-3 .row {
+  height: 2.266in;
+}
+.table.rows.rows-4 .row {
+  height: 1.7in;
+}
+.table.rows.rows-5 .row {
+  height: 1.36in;
+}
+.table.rows.rows-6 .row {
+  height: 1.133in;
+}
+.table.background .row {
+  position: absolute;
+  height: 7.3in;
+}
+.table.background .row .cell {
+  border-right: 1px solid #000; 
+}
+.table.background .row .cell:nth-child(2) {
+  background: #edf6ef;
+}
+.csea .table.background .row .cell:nth-child(2) {
+  background: #d0e1f0;
+}
+.table.background .row .cell:last-child {
+  border-right: none;      
+}      
+
+.table .header.row {   
+  border-bottom: none;
+}
+
+.table .header.row .cell {
+  background: transparent !important;
+  border-right: 0;
+  padding: 0;
+  height: auto;
+}
+
+.table .header.row .cell strong {
+  background: #4daf4f;     
+  width: 80%;
+  display: inline-block;
+  padding: .2em;
+  color: #fff;
+}    
+
+.csea .table .header.row .cell strong {
+  background: #004785;     
+}   
+
+.table .bar {
+  background-image: -webkit-linear-gradient(left, #0054a5 0%, #00ab4f 63.89%, #00ab4f 100%);
+  background-image: linear-gradient(left, #0054a5 0%, #00ab4f 63.89%, #00ab4f 100%);  
+  width: 100%;
+  display: block;
+  height: .065in;
+  background-color: #0054a6;
+}  
+.csea .table .bar {
+  background-image: -webkit-linear-gradient(right, #004785 0%, #e03a3e 100%);
+  background-image: linear-gradient(right, #004785 0%, #e03a3e 100%);
+}
+
+footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1.65in;
+  width: 100%;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+footer .angle {
+  background-image: -webkit-linear-gradient(right, #009769 0%, #00a951 32.2%, #0158a3 100%);
+  background-image: linear-gradient(right, #009769 0%, #00a951 32.2%, #0158a3 100%);    
+  position: absolute;
+  left: -5%;
+  top: .32in;  
+  width: 110%;
+  height: 3in;
+  -ms-transform: rotate(-4deg); 
+  -webkit-transform: rotate(-4deg); 
+  transform: rotate(-4deg);
+}
+.csea footer .angle {
+  background-image: -webkit-linear-gradient(right, #004785 0%, #e03a3e 100%);
+  background-image: linear-gradient(right, #004785 0%, #e03a3e 100%);
+}
+
+footer .affiliate-logo {
+  position: absolute;
+  right: 1.5in;
+  bottom: .1in;  
+  width: 1.6in;
+  height: .65in;
+  border-right: 1px solid white;
+  padding-right: .12in;
+}
+
+footer .affiliate-logo div {
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: contain;
+}
+
+footer .main-logo  {
+  background-image: url(http://neverquit.afscme.org/theme/img/afscme-reverse.png);
+  position: absolute;
+  right: .15in;
+  bottom: .1in;  
+  width: 1.2in;
+  height: .75in;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  background-size: contain;
+  z-index: 1003;  
+}
+.csea footer .main-logo  {
+  background-image: url(http://toolkit-afscme.bytrilogy.com/print/img/csea-inverted.png);
+  right: .15in;
+  bottom: .1in;  
+  width: 1.2in;
+  height: .75in;
+}
+
+footer .union-bug {
+  position: absolute;
+  left: .15in;
+  bottom: .2in; 
+  width: .6in;
+  height: .2in;
+  background: url(http://neverquit.afscme.org/theme/img/union-bug.png) no-repeat center center;
+  background-size: contain;
+  z-index: 1002;
+}
+</style>
+
+</head>
+
+<%
+count = 0
+if @document.ccf_comp_1_title.present? and @document.ccf_comp_1_col_1.present? and @document.ccf_comp_1_col_2.present?
+  count += 1
+  row1 = true
+end
+
+if @document.ccf_comp_2_title.present? and @document.ccf_comp_2_col_1.present? and @document.ccf_comp_2_col_2.present?
+  count += 1
+  row2 = true
+end
+
+if @document.ccf_comp_3_title.present? and @document.ccf_comp_3_col_1.present? and @document.ccf_comp_3_col_2.present?
+  count += 1
+  row3 = true
+end
+
+if @document.ccf_comp_4_title.present? and @document.ccf_comp_4_col_1.present? and @document.ccf_comp_4_col_2.present?
+  count += 1
+  row4 = true
+end
+
+if @document.ccf_comp_5_title.present? and @document.ccf_comp_5_col_1.present? and @document.ccf_comp_5_col_2.present?
+  count += 1
+  row5 = true
+end
+
+if @document.ccf_comp_6_title.present? and @document.ccf_comp_6_col_1.present? and @document.ccf_comp_6_col_2.present?
+  count += 1
+  row6 = true
+end
+%>
+
+  <body class="<%= @document.ccf_branding %>">
+    <main class="container">
+      <header>
+          <div class="bar"></div>
+    
+          <h1>
+            <%= @document.ccf_headline.try(:html_safe) %>
+            <small><%= @document.ccf_subheadline.try(:html_safe) %></small>
+          </h1>
+      </header>
+
+      <div class="table header">        
+        <div class="row header cf">
+          <div class="cell">&nbsp;</div>            
+          <div class="cell"><strong><%= @document.ccf_option_a.try(:html_safe) %></strong></div>
+          <div class="cell"><strong><%= @document.ccf_option_b.try(:html_safe) %></strong></div>
+        </div>
+        <div class="bar"></div>
+      </div>
+
+      <div class="table background">  
+          <div class="row cf">
+            <div class="cell"></div>            
+            <div class="cell"></div>
+            <div class="cell"></div>
+          </div>            
+      </div>
+
+      <div class="table rows rows-<%= count %>">  
+            
+        <% if row1 %>
+          <div class="row cf">
+            <div class="cell"><%= @document.ccf_comp_1_title.try(:html_safe) %></div>            
+            <div class="cell"><%= @document.ccf_comp_1_col_1.try(:html_safe) %></div>
+            <div class="cell"><%= @document.ccf_comp_1_col_2.try(:html_safe) %></div>
+          </div>
+        <% end %>
+
+        <% if row2 %>
+          <div class="row cf">
+            <div class="cell"><%= @document.ccf_comp_2_title.try(:html_safe) %></div>            
+            <div class="cell"><%= @document.ccf_comp_2_col_1.try(:html_safe) %></div>
+            <div class="cell"><%= @document.ccf_comp_2_col_2.try(:html_safe) %></div>
+          </div>                 
+        <% end %>
+
+        <% if row3 %>
+          <div class="row cf">
+            <div class="cell"><%= @document.ccf_comp_3_title.try(:html_safe) %></div>            
+            <div class="cell"><%= @document.ccf_comp_3_col_1.try(:html_safe) %></div>
+            <div class="cell"><%= @document.ccf_comp_3_col_2.try(:html_safe) %></div>
+          </div>
+        <% end %>
+
+        <% if row4 %>
+          <div class="row cf">
+            <div class="cell"><%= @document.ccf_comp_4_title.try(:html_safe) %></div>            
+            <div class="cell"><%= @document.ccf_comp_4_col_1.try(:html_safe) %></div>
+            <div class="cell"><%= @document.ccf_comp_4_col_2.try(:html_safe) %></div>
+          </div>
+        <% end %>
+
+        <% if row5 %>
+          <div class="row cf">
+            <div class="cell"><%= @document.ccf_comp_5_title.try(:html_safe) %></div>            
+            <div class="cell"><%= @document.ccf_comp_5_col_1.try(:html_safe) %></div>
+            <div class="cell"><%= @document.ccf_comp_5_col_2.try(:html_safe) %></div>
+          </div>
+        <% end %>
+
+        <% if row6 %>
+          <div class="row cf">
+            <div class="cell"><%= @document.ccf_comp_6_title.try(:html_safe) %></div>            
+            <div class="cell"><%= @document.ccf_comp_6_col_1.try(:html_safe) %></div>
+            <div class="cell"><%= @document.ccf_comp_6_col_2.try(:html_safe) %></div>
+          </div>
+        <% end %>
+            
+      </div>
+                          
+      <footer>
+          <div class="angle"></div>
+
+          <% if @document.ccf_affiliate_logo.present? %>
+            <div class="affiliate-logo"><div style="background-image: url('<%= @document.ccf_affiliate_logo %>');"></div></div>
+          <% end %>
+
+          <div class="main-logo"></div>
+          <div class="union-bug"></div>
+      </footer>
+    </main>
+  </body>
+</html>
