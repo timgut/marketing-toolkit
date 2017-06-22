@@ -30,18 +30,15 @@ namespace :sucker_punch do
   task :check_jobs do
     on roles(:all) do
       last_release = capture(:ls, "-xt", releases_path).split("\t").first
-      last_release_path = releases_path.join(last_release)
+      release_path = releases_path.join(last_release)
+      lock_file    = "#{release_path}/sucker_punch.lock"
+      file_exists  = capture("if [ -e '#{lock_file}' ]; then echo -n 'true'; fi") == "true"
 
-      if remote_file_exists?("#{last_release_path}/sucker_punch.lock")
+      if file_exists
         abort("cap aborted!\nsucker_punch.lock exists on remote server!")
       end
-      puts "all good"
     end
   end
-end
-
-def remote_file_exists?(path)  
-  capture("if [ -e '#{path}' ]; then echo -n 'true'; fi") == "true"
 end
 
 # Default value for default_env is {}
