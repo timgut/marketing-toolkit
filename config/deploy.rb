@@ -23,7 +23,7 @@ set :delayed_job_args, "-n 2"
 
 after :deploy, "unicorn:restart"
 
-before "deploy:starting", "sucker_punch:check_jobs"
+before "git:wrapper", "sucker_punch:check_jobs"
 
 namespace :sucker_punch do
   task :check_jobs do

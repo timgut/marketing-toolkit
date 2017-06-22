@@ -14,6 +14,7 @@ require 'rspec/rails'
 require 'paperclip/matchers'
 require "#{Rails.root}/spec/support/controller_macros.rb"
 require 'pundit/rspec'
+require 'sucker_punch/testing/inline'
 
 ActiveRecord::Migration.maintain_test_schema!
 
@@ -32,10 +33,14 @@ RSpec.configure do |config|
   config.add_setting :non_admins,    default: [:user, :vetter, :local_president]
   config.add_setting :http_referer,  default: "http://toolkit.afscme.org"
 
+  # Clean up all jobs specs with truncation
+  config.before(:each, type: :job) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
   config.before(:suite) do
     Warden.test_mode!
     DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with(:truncation)
   end
 
   config.before(:each) do
