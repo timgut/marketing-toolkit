@@ -6,7 +6,17 @@
       $("#testimonial7").trigger("change");
     });
     $("form[data-document='true']").on("change", "#testimonial-custom, #attribution-custom", function(){
-      $("#testimonial7").val("<h2>" + Toolkit.normalizeQuotes($("#testimonial-custom").val()) + "</h2><p class=\"attribution\">" + Toolkit.normalizeQuotes($("#attribution-custom").val()) + "</p>");
+      val = "";
+
+      if($("#testimonial-custom").val() !== ""){
+        val += "<h2>" + Toolkit.normalizeQuotes($("#testimonial-custom").val()) + "</h2>";
+      }
+
+      if($("#attribution-custom").val() !== ""){
+        val += "<p class=\"attribution\">" + Toolkit.normalizeQuotes($("#attribution-custom").val()) + "</p>";
+      }
+
+      $("#testimonial7").val(val);
       $("#testimonial7").trigger("change");
     });
 
@@ -16,7 +26,16 @@
       $("#body3").trigger("change");
     });
     $("form[data-document='true']").on("change", "#body3-headline-custom, #body-custom", function(){
-      $("#body3").val("<h2>" + Toolkit.normalizeQuotes($("#body3-headline-custom").val()) + "</h2><p>" + Toolkit.normalizeQuotes($("#body-custom").val()) + "</p>");
+      val = "";
+
+      if($("#body3-headline-custom").val() !== ""){
+        val += "<h2>" + Toolkit.normalizeQuotes($("#body3-headline-custom").val()) + "</h2>";
+      }
+
+      if($("#body-custom").val() !== ""){
+        val += "<p>" + Toolkit.normalizeQuotes($("#body-custom").val()) + "</p>"
+      }
+      $("#body3").val(val);
       $("#body3").trigger("change");
     });
   });
