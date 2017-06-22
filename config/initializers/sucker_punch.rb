@@ -11,5 +11,5 @@ module SuckerPunch
     end
   end
 end
-# byebug
+
 SuckerPunch.lock_file = Rails.root.join("sucker_punch.lock")
