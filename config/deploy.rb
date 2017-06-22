@@ -24,5 +24,25 @@ set :delayed_job_args, "-n 2"
 after :deploy, "unicorn:restart"
 after :deploy, "delayed_job:restart"
 
+before "deploy:starting", "sucker_punch:check_jobs"
+
+namespace :sucker_punch do
+  task :check_jobs do
+    on roles(:all) do
+      if remote_file_exists?("/data/afscme-tk-dev/current/sucker_punch.lock")
+        abort("cap aborted!\nsucker_punch.lock exists on remote server!")
+      end
+    end
+  end
+end
+
+def remote_file_exists?(path)
+  result = execute("if [ -e '#{path}' ]; then echo -n 'true'; fi") do |ch, stream, out|
+    out
+  end
+
+  result == true
+end
+
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
