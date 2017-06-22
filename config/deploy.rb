@@ -22,7 +22,6 @@ set :delayed_job_server_role, :worker
 set :delayed_job_args, "-n 2"
 
 after :deploy, "unicorn:restart"
-after :deploy, "delayed_job:restart"
 
 before "deploy:starting", "sucker_punch:check_jobs"
 
