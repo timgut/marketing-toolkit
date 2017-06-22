@@ -29,19 +29,19 @@ before "deploy:starting", "sucker_punch:check_jobs"
 namespace :sucker_punch do
   task :check_jobs do
     on roles(:all) do
-      if remote_file_exists?("/data/afscme-tk-dev/current/sucker_punch.lock")
+      last_release = capture(:ls, "-xt", releases_path).split("\t").first
+      last_release_path = releases_path.join(last_release)
+
+      if remote_file_exists?("#{last_release_path}/sucker_punch.lock")
         abort("cap aborted!\nsucker_punch.lock exists on remote server!")
       end
+      puts "all good"
     end
   end
 end
 
-def remote_file_exists?(path)
-  result = execute("if [ -e '#{path}' ]; then echo -n 'true'; fi") do |ch, stream, out|
-    out
-  end
-
-  result == true
+def remote_file_exists?(path)  
+  capture("if [ -e '#{path}' ]; then echo -n 'true'; fi") == "true"
 end
 
 # Default value for default_env is {}
