@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+
+.trim {
+  position: absolute;
+  z-index: 10000;
+  width: .3in;
+  height: .3in;
+  display: block;
+}
+.print-marks:before { 
+  background: #000;
+  position: absolute;
+  background: black;
+  width: 3px;  
+  border-right: 1px solid white;
+  border-left: 1px solid white;  
+  height: 80%;  
+  content:"";
+  z-index: 10000;
+}
+.print-marks:after  { 
+  background: #000;  
+  position: absolute;  
+  width: 80%;  
+  height: 3px;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;    
+  content:""; 
+  z-index: 10000;  
+}
+.trim.top.left:before {
+  left: 100%;
+  top: 0;  
+}
+.trim.top.left:after {
+  left: 0;
+  top: 100%;  
+}
+.bleed {
+  position: absolute;
+  z-index: 10000;
+  width: .43in;
+  height: .43in;
+  display: block;
+}
+.bleed.top.left:before {
+  left: 100%;
+  top: 0;  
+}
+.bleed.top.left:after {
+  left: 0;
+  top: 100%;  
+}
+
+*,
+*:before,
+*:after {
+  -moz-box-sizing:    border-box; 
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box; 
+}
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, main,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+  margin: 0 auto;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent; 
+}
+
+body { line-height: 1; }
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+main { 
+  display: block; 
+}
+
+/* Clearfix */
+.cf:before,
+.cf:after {
+  content: "";
+  display: table; 
+}
+.cf:after { 
+  clear: both; 
+}
+body { 
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  font-weight: 300;
+  text-align: center; 
+  color: #404040;
+  line-height: 1.4; 
+  font-size: 11pt;
+  margin: 0 auto;
+  text-rendering: optimizelegibility;
+}
+  
+body { 
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  font-weight: 300;
+  text-align: center; 
+  color: #404040;
+  line-height: 1.4; 
+  font-size: 11pt;
+  text-rendering: optimizelegibility; 
+}
+.container {
+  background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 60%,rgba(136,203,151,1) 100%); 
+  background: linear-gradient(to bottom,  rgba(255,255,255,1) 60%,rgba(136,203,151,1) 100%);   
+  width: 8.5in;
+  height: 5.5in;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+  text-align: left; 
+}
+.csea .container {
+  background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 60%,rgba(178,199,218,1) 100%); 
+  background: linear-gradient(to bottom,  rgba(255,255,255,1) 60%,rgba(178,199,218,1) 100%);   
+}
+.top-bar {
+  background-image: -webkit-linear-gradient(left, #0054a5 0%, #00ab4f 63.89%, #00ab4f 100%);
+  background-image: linear-gradient(left, #0054a5 0%, #00ab4f 63.89%, #00ab4f 100%);
+  width: 100%;
+  height: .55in;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;  
+}
+.csea .top-bar {
+  background-image: -webkit-linear-gradient(right, #004785 0%, #e03a3e 100%);
+  background-image: linear-gradient(right, #004785 0%, #e03a3e 100%);
+} 
+header {
+  width: 100%; 
+  height: 1in;
+  padding-top: .55in;  
+  position: relative;
+  text-align: center;
+  z-index: 9999;  
+}
+header figure {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  width: 1.1in;
+  height: .5in;
+  display: inline-block;
+  vertical-align: middle;
+}
+.line {
+  display: inline-block;
+  width: 1px;
+  margin: 0 .25in;
+  height: .4in;
+  vertical-align: middle;
+  background: #00953A;
+}
+.front .body {
+    position: relative;
+    top: 0.15in;
+    width: 100%;
+    padding: 0 .75in;
+  }
+.front .body h1 {
+    font-size: 32pt;
+    font-family:'Lato','Arial Black',san-serif;
+    font-weight: 900;
+    color: #24408E;
+    text-transform:uppercase;
+    text-align:center;
+    margin: 0;
+    line-height: 32pt;
+}
+.front .body h2 {
+    font-size: 20pt;
+    font-weight: 300;
+    color: #00953A;
+    text-align:center;
+    margin: 0; 
+}
+.row {
+  width: 100%;
+  border-top: 1px #24408E solid;
+  margin: .15in 0 0 0;
+  text-align:center; 
+  vertical-align: top;
+  display: table; }
+
+article.column {
+  width: 33.33%;   
+  padding: .2in .1in 0;
+  display: table-cell;
+  vertical-align: top; 
+  text-align: center;
+}
+.row.three article.column {
+}
+.row.four article.column {
+  width: 25%; 
+}
+.row.five article.column {
+  width: 20%; 
+}  
+article.column figure {
+  width: 1.25in;
+  max-width: 100%;
+  height: 1.4in;
+  border: 1px black solid;
+  margin: 0 auto;
+  background-position: center top;
+  background-size: cover;
+  background-repeat: no-repeat; 
+}
+.row.five article.column figure {
+  width: auto;
+}
+article.column blockquote {
+  max-width: 1.25in;
+  font-size: 9pt;
+  color: #626366;
+  padding: .1in 0 .05in 0;
+  text-align: left; 
+}
+article.column blockquote p {
+  font-size: 7pt;
+  color: #626366;
+  margin: 0;
+  text-align: left;
+  position: relative; 
+}
+article.column p:before {
+  font-size: 7pt;
+  color: #626366;
+  content: "– ";
+  position: relative; 
+}
+.background {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  display: block;
+}
+.stamp {
+  float: right;
+  position: relative;
+  top: .75in;
+  right: .75in;
+  padding: .25in;
+  width: 1in;
+  height: 1in;
+  background: white;
+  border: 1px black solid;
+  text-align: center;
+  color: black;
+  font-size: 8pt;
+}
+  
+#act {
+  position: relative;
+  float: right;
+  top: 2.15in;
+  right: 0;
+  text-align: center;
+  width: 2.5in;
+  font-size: 14pt;
+  font-weight: 300;
+  color: #00953A;
+  margin: 0;
+  line-height: 16pt;
+} 
+  
+.legalmarks {
+  position: absolute;
+  bottom: .25in;
+  left: .25in;
+  width: .5in; 
+}  
+.legalmarks img {
+  width: 100%; 
+  height: auto;
+}
+.back .body {
+  position: relative;
+  float: left;
+  top: .9in;
+  left: .75in;
+  width: 50%;
+  text-align: left;
+}
+.back .body h1 {
+  font-size: 24pt;
+  font-family:'Lato','Arial Black',san-serif;
+  font-weight: 900;
+  color: #24408E;
+  text-transform:uppercase;
+  margin: 0 0 5pt 0;
+  line-height: 24pt; 
+}
+.csea .back .body h1 {
+  color: #e03a3e;
+}
+.back .body h2 {
+  font-size: 16pt;
+  font-weight: 300;
+  color: #00953A;
+  margin: 0;
+  line-height: 16pt;
+}
+.csea .back .body h2 {
+  color: #024784;  
+}
+.back .body .bodytext {
+  display: block;
+  width: 90%;
+  margin-top: 20pt;
+  font-size: 10pt;
+  color: #676767; 
+}
+    
+#mail-info {
+  background: white;
+  position: relative;
+  float: right;
+  top: 2.85in;
+  right: .26in;
+  width: 3.3in;
+  height: 1.6in;
+  padding: .1in;
+  font-size: 6pt;
+  border-top: 1px #888 solid;
+  border-left: 1px #888 solid;
+  z-index: 1; 
+}
+#mail-info span {
+  display: block;
+}      
+footer {
+  -webkit-print-color-adjust: exact !important;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+
+
+</style>
+</head>
+
+<body class="<%= @document.ss_branding %>">
+
+    <main class="front container">
+
+    <div class="print-marks trim top left"></div>
+    <div class="print-marks bleed top left"></div>
+
+    <div class="top-bar"></div>
+
+    <header class="cf">
+      <figure class="affiliate-logo" style="background-image: url(<%= @document.tsp_affiliate_logo %>)"></figure>
+      <div class="line"></div>
+      <figure class="afscme-logo" style="background-image: url(https://toolkit-afscme.bytrilogy.com/print/img/2-sided-postcard/afscme-logo.png)"></figure>
+    </header>
+
+    <article class="body">
+        <h1><%= @document.headline %></h1>
+        <h2><%= @document.subheadline %></h2>
+
+        <% # Determine which class to append to the div 
+          if !@document.headshot5.blank?
+            num_class = "five"
+          elsif !@document.headshot4.blank?
+            num_class = "four"
+          else
+            num_class = "three"
+          end
+        %>
+
+          <div class="row <%= num_class %>"><!-- This number should be dynamic between 3-5 -->
+            <article class="column">
+              <figure style="background-image: url('<%= @document.headshot1 %>');"></figure>
+              <blockquote>
+                "<%= @document.quote1 %>"
+                <p><%= @document.attribution1 %></p>
+              </blockquote>
+            </article>
+            
+            <article class="column">
+              <figure style="background-image: url('<%= @document.headshot2 %>');"></figure>
+              <blockquote>
+                "<%= @document.quote2 %>"
+                <p><%= @document.attribution2 %></p>
+              </blockquote>
+            </article>
+
+            <article class="column">
+              <figure style="background-image: url('<%= @document.headshot3 %>');"></figure>
+              <blockquote>"
+                <%= @document.quote3 %>"
+                <p><%= @document.attribution3 %></p>
+              </blockquote>
+            </article>
+
+            <% unless @document.headshot4.blank? %>
+              <article class="column">
+                <figure style="background-image: url('<%= @document.headshot4 %>');"></figure>
+                <blockquote>
+                  "<%= @document.quote4 %>"
+                  <p><%= @document.attribution4 %></p>
+                </blockquote>
+              </article>
+            <% end %>
+
+            <% unless @document.headshot5.blank? %>
+              <article class="column">
+                <figure style="background-image: url('<%= @document.headshot5 %>');"></figure>
+                <blockquote>
+                  "<%= @document.quote5 %>"
+                  <p><%= @document.attribution5 %></p>
+                </blockquote>
+              </article>
+            <% end %>
+          </div>
+      </article>
+                    
+    </main>
+    
+    <main class="back container">
+      <div class="top-bar"></div>
+      <div class="stamp"><%= @document.permit_number %></div>
+
+      <div id="act"><%= @document.call_to_action %></div>
+
+      <div class="legalmarks">
+        <img src="https://toolkit-afscme.bytrilogy.com/print/img/2-sided-postcard/legalmarks.png" alt="Legal Marks" />
+      </div>
+
+      <article class="body">
+        <h1><%= @document.body_headline %></h1>
+        <h2><%= @document.body_subheadline %></h2>
+        <span class="bodytext"><%= @document.body_text %></span>
+      </article>
+          
+      <div id="mail-info">
+        <span><%= @document.union_title %></span>
+        <span><%= @document.address %></span>
+        <span><%= @document.city_state_zip %></span>
+      </div>
+    </main>
+  </body>
+</html>
