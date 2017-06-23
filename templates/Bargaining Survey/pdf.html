@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<meta charset="utf-8">
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Lato:400,300,900' rel='stylesheet' type='text/css'>
 
@@ -265,7 +265,7 @@ header p {
 
 </head>
 
-<body class="afscme">
+<body class="<%= @document.mbf_branding %>">
 
 <main class="container page1">
 
@@ -595,7 +595,7 @@ footer .cta {
 
 footer .affiliate-logo {
   position: absolute;
-  right: 1.3in;
+  right: 1.4in;
   bottom: .15in;  
   width: 1.4in;
   height: .45in;
@@ -627,7 +627,8 @@ footer .main-logo  {
 }
 .csea footer .main-logo  {
   background-image: url(http://toolkit-afscme.bytrilogy.com/print/img/csea-inverted.png);
-  width: 1.2in;
+  width: 1in;
+  height: .65in;      
 }
 footer .union-bug {
   background: url(http://toolkit-afscme.bytrilogy.com/print/img/union-bug.png) no-repeat center center;
