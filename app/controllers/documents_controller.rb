@@ -42,11 +42,8 @@ class DocumentsController < ApplicationController
     force_format(:pdf)
     load_document
 
-    pdf = render pdf_options.merge(save_to_file: @document.local_pdf_path, save_only: true)
-
-    @document.pdf = File.open(@document.local_pdf_path)
-    @document.save
-    File.delete(@document.local_pdf_path)
+    @document.generate_pdf
+    DocumentThumbnailJob.perform_later(@document)
 
     redirect_to @document.pdf.url
   end
@@ -70,7 +67,8 @@ class DocumentsController < ApplicationController
   # GET /documents/1/preview
   def preview
     load_document
-    render pdf_options
+    @document.debug_pdf = true
+    render @document.pdf_options
   end
 
   # GET /documents/recent
@@ -165,27 +163,5 @@ class DocumentsController < ApplicationController
   def load_document
     @document = Document.find(params[:id])
     authorize @document
-  end
-
-  def pdf_options
-    {
-      pdf:           @document.title,
-      template:      "documents/build.pdf.erb",
-      disposition:   :inline,
-      orientation:   @document.template.orientation,
-      grayscale:     false,
-      lowquality:    false,
-      image_quality: 94,
-      show_as_html:  params[:action] == "preview",
-      page_height:   "#{@document.template.height}in",
-      page_width:    "#{@document.template.width}in",
-      zoom: 1,
-      margin:  {
-        top:    0,
-        bottom: 0,
-        left:   0,
-        right:  0
-      }
-    }
   end
 end

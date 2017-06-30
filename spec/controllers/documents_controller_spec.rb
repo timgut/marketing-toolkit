@@ -48,6 +48,10 @@ RSpec.describe DocumentsController, type: :controller do
     allow_any_instance_of(Document).to receive(method).and_return(false)
   end
 
+  def mock_raise(method)
+    allow_any_instance_of(Document).to receive(method).and_raise("Mocked raise!")
+  end
+
   def own_document
     document.update_attributes!(creator_id: current_user.id)
   end
@@ -118,7 +122,7 @@ RSpec.describe DocumentsController, type: :controller do
         context "when failure" do
           it "creates new records and redirects to the documents index" do
             own_document
-            mock_failure(:save!)
+            mock_raise(:save!)
 
             expect { get :duplicate, params: destroy_params }.to change(Document, :count).by(0)
             expect { get :duplicate, params: destroy_params }.to change(DocumentUser, :count).by(0)
@@ -170,13 +174,19 @@ RSpec.describe DocumentsController, type: :controller do
 
     RSpec.configuration.user_roles.each do |role|
       context "signed in as: #{role}" do
+        before(:each) do
+          # Speed up processing time by stubbing a blank PDF.
+          allow(document).to receive(:local_pdf_path).and_return(Rails.root.join("spec", "support", "images", "blank.pdf").to_s)
+        end
         __send__("controller_#{role}_sign_in".to_sym)
 
-        it "downloads the PDF" do
+        it "redirects to the PDF" do
           own_document
-          get :edit, params: destroy_params
+          get :download, params: destroy_params
 
-          expect(response).to have_http_status 200
+          # Rspec handles redirects to PDFs a bit strangely
+          expect(response.headers["Location"]).to include "#{document.id}.pdf"
+          expect(response).to have_http_status 302
         end
       end
     end
