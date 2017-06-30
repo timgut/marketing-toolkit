@@ -5,8 +5,62 @@
       $("#headline4").prop("checked", true);
       $("#headline4").trigger("change");
     });
+    
+    if(window.Toolkit.Document.savedData.hasOwnProperty("ss_branding")){
+      var branding = window.Toolkit.Document.savedData.ss_branding.value;
+
+      if (branding === 'csea') { 
+          console.log("in csea branding");
+          $("#afscme-logo").hide();
+          $("#csea-logo").show();
+          $('#ng-logo1').prop('checked',false);
+          $('#ng-logo2').prop('checked',true);
+          console.log($('#ng-logo2').attr('checked'));
+      }
+      else if (branding === 'afscme') {
+          console.log("in afscme branding");
+          $('#ng-logo1').prop('checked',true);
+          $('#ng-logo2').prop('checked',false);
+        console.log($('#ng-logo1').attr('checked'));
+      }
+    }
+    
+    // Toggle between AFSCME and CSEA affiliate logos
+    $("form[data-document='true']").on("click", "[name='data[ss_branding]']", function(){
+      if($(this).val() === "afscme"){
+        $("#afscme-logo").show();
+        $("#csea-logo").hide();
+      } else if($(this).val() === "csea"){
+        $("#afscme-logo").hide();
+        $("#csea-logo").show();
+      } else {
+        console.log($(this).val());
+      }
+    });
   });
 </script>
+
+<div id="branding" class="grouping branding image-select radio cf"> 
+
+    <h3>Choose Flyer Branding</h3>
+
+    <div class="field logo"> 
+        <input id="branding-afscme" name="data[ss_branding]" type="radio" value="afscme" />
+        <label for="branding-afscme">
+           <div class="radio-button"></div>
+           <figure style="background-image: url(http://toolkit-afscme.bytrilogy.com/theme/img/afscme-branding-thumb.png);"></figure>
+        </label>
+    </div>
+    
+    <div class="field logo"> 
+        <input id="branding-csea" name="data[ss_branding]" type="radio" value="csea" />
+        <label for="branding-csea">
+           <div class="radio-button"></div>
+           <figure style="background-image: url(http://toolkit-afscme.bytrilogy.com/theme/img/csea-branding-thumb.png);"></figure>
+        </label>
+    </div>
+    
+</div><!--theme-->
 
 <div class="step grouping radio cf"> 
   <h3>Choose a Headline</h3>
@@ -68,25 +122,31 @@
 </div>              
 
 <div class="step grouping image-select cf"> 
-    <h3>Choose a Never Quit logo</h3>
+    <h3>Choose a Never Quit logo!</h3>
 
-    <div class="field logo"> 
-        <input id="nqlogo1" name="data[mf_logo]" type="radio" value="http://neverquit.afscme.org/toolkit/never-quit-sector-specific-flyer-custom/nqlogo/nq-logo-afscme.png" checked />
+    <div id="afscme-logo" class="field logo green"> 
+        <input id="nqlogo1" name="data[mf_logo]" type="radio" value="http://toolkit-afscme.bytrilogy.com/print/img/afscme-neverquit-logo.svg" checked />
         <label for="nqlogo1">
           <div class="radio-button"></div>            
-          <figure style="background-image: url(http://neverquit.afscme.org/theme/img/toolkit-nq-logo-afscme.png);"/></figure>
+          <figure style="background-image: url(http://toolkit-afscme.bytrilogy.com/print/img/afscme-neverquit-logo.svg);"/></figure>
         </label>
     </div>
-    
-    <div class="field logo"> 
-        <input id="nqlogo2" name="data[mf_logo]" type="radio" value="http://neverquit.afscme.org/toolkit/never-quit-sector-specific-flyer-custom/nqlogo/nq-logo.png" />
+
+    <div id="csea-logo" class="field logo green" style="display:none;"> 
+        <input id="nqlogo2" name="data[mf_logo]" type="radio" value="http://toolkit-afscme.bytrilogy.com/print/img/csea-neverquit-logo.svg" />
         <label for="nqlogo2">
           <div class="radio-button"></div>
-          <figure style="background-image: url(http://neverquit.afscme.org/theme/img/toolkit-nq-logo.png);"/></figure>
+          <figure style="background-image: url(http://toolkit-afscme.bytrilogy.com/print/img/csea-neverquit-logo.svg);"/></figure>
         </label>
     </div>
 
-
+    <div class="field logo green"> 
+        <input id="nqlogo3" name="data[mf_logo]" type="radio" value="http://toolkit-afscme.bytrilogy.com/print/img/neverquit-logo.svg" />
+        <label for="nqlogo3">
+          <div class="radio-button"></div>
+          <figure style="background-image: url(http://toolkit-afscme.bytrilogy.com/print/img/neverquit-logo.svg);"/></figure>
+        </label>
+    </div>
 </div>
 
 <div class="step grouping image-select cf"> 
