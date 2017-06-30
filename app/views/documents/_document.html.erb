@@ -1,10 +1,18 @@
+<%
+  if document.thumbnail.nil?
+    thumbnail = document.template.thumbnail&.url
+  else
+    thumbnail = document.thumbnail&.url
+  end
+%>
+
 <div class="document">
   <%= link_to(
     "", 
     edit_document_path(document),
     class: "document-thumbnail",
     title: document.title,
-    style: "background-image: url('#{document.thumbnail&.url || document.template.thumbnail&.url}');",
+    style: "background-image: url('#{thumbnail}');",
     data: {
       behavior: "download"
     }
