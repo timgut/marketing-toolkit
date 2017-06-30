@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170608201137) do
+ActiveRecord::Schema.define(version: 20170622180459) do
 
   create_table "affiliates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
@@ -44,21 +44,6 @@ ActiveRecord::Schema.define(version: 20170608201137) do
     t.datetime "updated_at",                null: false
     t.string   "field_id"
     t.index ["document_id"], name: "index_data_on_document_id", using: :btree
-  end
-
-  create_table "delayed_jobs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.integer  "priority",                      default: 0
-    t.integer  "attempts",                      default: 0
-    t.text     "handler",    limit: 4294967295
-    t.text     "last_error", limit: 4294967295
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string   "locked_by"
-    t.string   "queue"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
   end
 
   create_table "documents", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
