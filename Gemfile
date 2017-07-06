@@ -19,10 +19,12 @@ gem 'gretel'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-validation-rails'
+gem 'mini_magick'
 gem 'paperclip', '~> 5.0.0'
 gem 'paperclip-meta'
 gem 'pundit'
 gem 'sass-rails', '~> 5.0'
+gem 'sucker_punch', '~> 2.0'
 gem 'therubyracer'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
@@ -41,6 +43,8 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'capistrano', '~> 3.7', require: false
   gem 'capistrano-rails', require: false
+  gem 'capistrano3-delayed-job', '~> 1.0'
+  gem 'daemons'
 end
 
 group :test do

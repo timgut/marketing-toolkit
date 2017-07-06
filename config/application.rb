@@ -16,6 +16,7 @@ module AfscmeToolkit
     end
 
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
+    config.active_job.queue_adapter = :sucker_punch
 
     # Uncomment to see backtraces of ActiveRecord queries
     # ActiveRecordQueryTrace.enabled = true
