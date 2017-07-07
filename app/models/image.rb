@@ -10,7 +10,7 @@ class Image < ApplicationRecord
     processors:     [:papercrop, :papercrop_resize, :contextual_resize, :contextual_crop]
   )
 
-  crop_attached_file :image, aspect: false
+  crop_attached_file :image
   
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
   validates_uniqueness_of :image_file_name, scope: :creator_id
