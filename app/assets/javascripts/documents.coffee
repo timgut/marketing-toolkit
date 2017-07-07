@@ -171,147 +171,155 @@ window.Toolkit.Document.dataTarget = ->
     )
 
 window.Toolkit.Document.dropzone = ->
-$form = $("form[data-document='true']")
-window.Toolkit.dropzones = []
+  $form = $("form[data-document='true']")
+  window.Toolkit.dropzones = []
 
-if $("#upload-photo-form").length isnt 0
-  try
-    window.Toolkit.dropzones.push(
-      # Initialize Dropzone
-      $("#upload-photo-form").dropzone({
-        paramName: "image[image]",
-        url: "/images",
-        dictDefaultMessage: "<h4>DROP IMAGE HERE TO UPLOAD</h4><p class='or'>or</p><div class='button'>Select File</div>",
-        
-        # Callback when the image cannot be uploaded
-        error: ((errorMessage) ->
-          $("#image-error").html(errorMessage.xhr.responseText)
-          @.removeAllFiles()
-        ),
-        
-        # Callback when the image is uploaded
-        success: ((file, data) ->
-          $(document).on("ajax:success", ".edit_image", (e, data, status, xhr) ->
-            $("#image-picker .crop-image").html(window.Toolkit.loadingBox())
-          )
+  if $("#upload-photo-form").length isnt 0
+    try
+      window.Toolkit.dropzones.push(
+        # Initialize Dropzone
+        $("#upload-photo-form").dropzone({
+          paramName: "image[image]",
+          url: "/images",
+          dictDefaultMessage: "<h4>DROP IMAGE HERE TO UPLOAD</h4><p class='or'>or</p><div class='button'>Select File</div>",
           
-          # Contextual Crop is enabled for this image field
-          if $form.attr("data-crop-enabled") is "true" and window.Toolkit.Document.contextualCrop
-            $("#image-picker .choose-crop").hide()
-            # Get the image crop form
-            $.get("/images/#{data.id}/contextual_crop?image[template_id]=#{$form.attr("data-template-id")}&image[strategy]=contextual_crop", (data) =>
-              @.removeFile(file)
+          sending: ((file, xhr, formData) ->
+            $("#image-picker .upload-image, #image-picker .select-image").hide( ->
+              $("#image-picker #loading").show()
+            )
+          )
 
-              $("#image-picker .upload-image, #image-picker .select-image").hide( ->
-                $("#image-picker .crop-image").html(data).show(->
-                  $(".drag").draggable({
-                    stop: (event, ui) ->
-                      position = $(".drag").position()
-                      $("#image_pos_x").val(position.left)
-                      $("#image_pos_y").val(position.top - window.Toolkit.Document.cropOffset)
-                  })
-                )
-                
-                $(".edit_image").on("ajax:success", (e, data, status, xhr) ->
-                  e.preventDefault()
-
-                  # Clear out this image's data in case the user wants to crop another image
-                  $("#image-picker .crop-image").html("")
-                  
-                  $("#image-picker .crop-image").hide(->
-                    $("#image-picker .select-image").show()
-                  )
-
-                  # Add the image to the grid and select it
-                  $("#image-picker .crop-image").hide( ->
-                    $("#image-picker .image-grid").append("
-                      <figure>
-                        <img src='#{data.cropped_url}' alt='#{data.file_name}' />
-                        <figcaption>#{data.file_name}</figcaption>
-                      </figure>
-                    ")
-
-                    $(".image-grid figure:last").click()
-
-                    # Remove the event listener so it doesn't fire multuple times
-                    $(".edit_image").off("ajax:success")
-                  )
-
-                # When the image cannot be cropped
-                ).on("ajax:error", (e, xhr, status, error) ->
-                  $("#image-error").html("There was an error cropping your image. Please try again.")
-                )
+          # Callback when the image cannot be uploaded
+          error: ((errorMessage) ->
+            $("#image-error").html(errorMessage.xhr.responseText)
+            @.removeAllFiles()
+          ),
+          
+          # Callback when the image is uploaded
+          success: ((file, data) ->
+            $(document).on("submit", ".edit_image", ->
+              $(".edit_image").hide( ->
+                $("#image-picker #loading").show()
               )
             )
 
-          # Default Crop is enabled for this image field
-          else if window.Toolkit.Document.papercrop?
-            $("#image-picker .choose-crop").hide()
-            # Get the image crop form
-            $.get("/images/#{data.id}/papercrop?image[resize_height]=#{window.Toolkit.Document.resizeHeight}&image[resize_width]=#{window.Toolkit.Document.resizeWidth}&image[strategy]=papercrop", (data) =>
-              @.removeFile(file)
+            # Contextual Crop is enabled for this image field
+            if $form.attr("data-crop-enabled") is "true" and window.Toolkit.Document.contextualCrop
+              $("#image-picker .choose-crop").hide()
+              # Get the image crop form
+              $.get("/images/#{data.id}/contextual_crop?image[template_id]=#{$form.attr("data-template-id")}&image[strategy]=contextual_crop", (data) =>
+                @.removeFile(file)
 
-              $("#image-picker .upload-image, #image-picker .select-image").hide( ->
-                $("#image-picker .crop-image").html(data).show(->
-                  $(".drag").draggable({
-                    stop: (event, ui) ->
-                      position = $(".drag").position()
-                      $("#image_pos_x").val(position.left)
-                      $("#image_pos_y").val(position.top - window.Toolkit.Document.cropOffset)
-                  })
-                )
-
-                $(".edit_image").on("ajax:success", (e, data, status, xhr) ->
-                  e.preventDefault()
-
-                  # Clear out this image's data in case the user wants to crop another image
-                  $("#image-picker .crop-image").html("")
+                $("#image-picker #loading").hide( ->
+                  $("#image-picker .crop-image").html(data).show(->
+                    $(".drag").draggable({
+                      stop: (event, ui) ->
+                        position = $(".drag").position()
+                        $("#image_pos_x").val(position.left)
+                        $("#image_pos_y").val(position.top - window.Toolkit.Document.cropOffset)
+                    })
+                  )
                   
-                  $("#image-picker .crop-image").hide(->
-                    $("#image-picker .select-image").show()
+                  $(".edit_image").on("ajax:success", (e, data, status, xhr) ->
+                    e.preventDefault()
+
+                    # Clear out this image's data in case the user wants to crop another image
+                    $("#image-picker .crop-image").html("")
+                    
+                    $("#image-picker #loading").hide(->
+                      $("#image-picker .select-image").show()
+                    )
+
+                    # Add the image to the grid and select it
+                    $("#image-picker .crop-image").hide( ->
+                      $("#image-picker .image-grid").append("
+                        <figure>
+                          <img src='#{data.cropped_url}' alt='#{data.file_name}' />
+                          <figcaption>#{data.file_name}</figcaption>
+                        </figure>
+                      ")
+
+                      $(".image-grid figure:last").click()
+
+                      # Remove the event listener so it doesn't fire multuple times
+                      $(".edit_image").off("ajax:success")
+                    )
+
+                  # When the image cannot be cropped
+                  ).on("ajax:error", (e, xhr, status, error) ->
+                    $("#image-error").html("There was an error cropping your image. Please try again.")
                   )
-
-                  # Add the image to the grid and select it
-                  $("#image-picker .crop-image").hide( ->
-                    $("#image-picker .image-grid").append("
-                      <figure>
-                        <img src='#{data.cropped_url}' alt='#{data.file_name}' />
-                        <figcaption>#{data.file_name}</figcaption>
-                      </figure>
-                    ")
-
-                    $(".image-grid figure:last").click()
-
-                    # Remove the event listener so it doesn't fire multuple times
-                    $(".edit_image").off("ajax:success")
-                  )
-
-                # When the image cannot be cropped
-                ).on("ajax:error", (e, xhr, status, error) ->
-                  $("#image-error").html("There was an error cropping your image. Please try again.")
                 )
               )
-            )
 
-          # Cropping is not enabled in this modal. Show the image grid.
-          else
-            $("#image-picker .crop-image").hide( ->
-              $("#image-picker .image-grid").append("
-                <figure>
-                  <img src='#{data.cropped_url}' alt='#{data.file_name}' />
-                  <figcaption>#{data.file_name}</figcaption>
-                </figure>
-              ")
+            # Default Crop is enabled for this image field
+            else if window.Toolkit.Document.papercrop?
+              $("#image-picker .choose-crop").hide()
+              # Get the image crop form
+              $.get("/images/#{data.id}/papercrop?image[resize_height]=#{window.Toolkit.Document.resizeHeight}&image[resize_width]=#{window.Toolkit.Document.resizeWidth}&image[strategy]=papercrop", (data) =>
+                @.removeFile(file)
 
-              $(".image-grid figure:last").click()
-            )
-        )
-      });
-    )
-  catch
-    # Dropzone will throw an error if it's being initialized multiple times.
-    # This shouldn't cause a problem, but you never know.
-    # console.log "Dropzone already attached"
+                $("#image-picker #loading").hide( ->
+                  $("#image-picker .crop-image").html(data).show(->
+                    $(".drag").draggable({
+                      stop: (event, ui) ->
+                        position = $(".drag").position()
+                        $("#image_pos_x").val(position.left)
+                        $("#image_pos_y").val(position.top - window.Toolkit.Document.cropOffset)
+                    })
+                  )
+
+                  $(".edit_image").on("ajax:success", (e, data, status, xhr) ->
+                    e.preventDefault()
+
+                    # Clear out this image's data in case the user wants to crop another image
+                    $("#image-picker .crop-image").html("")
+                    
+                    $("#image-picker #loading").hide(->
+                      $("#image-picker .select-image").show()
+                    )
+
+                    # Add the image to the grid and select it
+                    $("#image-picker .crop-image").hide( ->
+                      $("#image-picker .image-grid").append("
+                        <figure>
+                          <img src='#{data.cropped_url}' alt='#{data.file_name}' />
+                          <figcaption>#{data.file_name}</figcaption>
+                        </figure>
+                      ")
+
+                      $(".image-grid figure:last").click()
+
+                      # Remove the event listener so it doesn't fire multuple times
+                      $(".edit_image").off("ajax:success")
+                    )
+
+                  # When the image cannot be cropped
+                  ).on("ajax:error", (e, xhr, status, error) ->
+                    $("#image-error").html("There was an error cropping your image. Please try again.")
+                  )
+                )
+              )
+
+            # Cropping is not enabled in this modal. Show the image grid.
+            else
+              $("#image-picker .crop-image").hide( ->
+                $("#image-picker .image-grid").append("
+                  <figure>
+                    <img src='#{data.cropped_url}' alt='#{data.file_name}' />
+                    <figcaption>#{data.file_name}</figcaption>
+                  </figure>
+                ")
+
+                $(".image-grid figure:last").click()
+              )
+          )
+        });
+      )
+    catch
+      # Dropzone will throw an error if it's being initialized multiple times.
+      # This shouldn't cause a problem, but you never know.
+      # console.log "Dropzone already attached"
 
 window.Toolkit.Document.ready = ->
   if window.Toolkit.isDocumentPage()
