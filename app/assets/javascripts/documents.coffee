@@ -21,7 +21,7 @@ window.Toolkit.Document.addImage = ->
 
     window.Toolkit.Document.resizeWidth  = $(@).attr("data-resize-width")
     window.Toolkit.Document.resizeHeight = $(@).attr("data-resize-height")
-    window.Toolkit.Document.papercrop    = window.Toolkit.Document.cropWidth? and window.Toolkit.Document.cropHeight?
+    window.Toolkit.Document.papercrop    = window.Toolkit.Document.resizeWidth? and window.Toolkit.Document.resizeHeight?
 
     if $target.attr("data-loaded") is "false"
       $.get("/images/choose", (data) ->
@@ -255,6 +255,7 @@ window.Toolkit.Document.dropzone = ->
             # Default Crop is enabled for this image field
             else if window.Toolkit.Document.papercrop?
               $("#image-picker .choose-crop").hide()
+              
               # Get the image crop form
               $.get("/images/#{data.id}/papercrop?image[resize_height]=#{window.Toolkit.Document.resizeHeight}&image[resize_width]=#{window.Toolkit.Document.resizeWidth}&image[strategy]=papercrop", (data) =>
                 @.removeFile(file)
