@@ -16,7 +16,9 @@
   background-position: center center;
   background-size: cover;
 }
+
 .container {
+  background-image: url(http://neverquit.afscme.org/toolkit/brand-story/poster/brand-story-poster-top.png);
   margin: auto;
   width: 8.5in;
   height:11in;
@@ -27,6 +29,9 @@
   overflow: hidden;
   text-align: left;
   position: relative;
+}
+.csea .container {
+  background-image: url(http://toolkit-afscme.bytrilogy.com/print/img/csea-brand-story-poster-top.png);
 }
 .logos {
   display: inline-block;
@@ -80,13 +85,19 @@
   color: #00a94f;
   font-size: 12pt;
   z-index: 10000;
+  font-family:'Lato','Arial Black',san-serif;
+  font-weight: 700;
 }
+.csea .bottom-left-text {
+  color: #e2383f;
+}
+
 </style>
 
 </head>
 
-  <body id="wide" class="brand-story-poster toolkit poster">
-    <main class="container poster poster" style="background-image: url('http://neverquit.afscme.org/toolkit/brand-story/poster/brand-story-poster-top.png');">
+  <body class="<%= @document.nqbs_branding %>">
+    <main class="container poster">
       <div class="logos">
         <div class="affiliate-logo" style="background-image: url('<%= @document.nqbs_affiliate_logo %>');"></div>
         <div class="logo-line"></div>
