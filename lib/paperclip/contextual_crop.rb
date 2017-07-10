@@ -30,7 +30,7 @@ module Paperclip
         # end
 
         command = ["-crop", "#{crop_w}x#{crop_h}+#{crop_x}+#{crop_y}"]
-        target.crop_cmd = command
+        target.commands << command
         command
       else
         super

@@ -31,7 +31,7 @@ module Paperclip
         end
 
         command = ["-resize", "#{new_width}x#{new_height}^"]
-        target.resize_cmd = command
+        target.commands << command
         command
       else
         super

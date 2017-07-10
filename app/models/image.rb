@@ -1,13 +1,23 @@
 class Image < ApplicationRecord
   include Status
 
+  PROCESSORS = [
+
+  ]
+
   has_attached_file(
     :image,
     storage:        :s3,
     s3_protocol:    "https",
     s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials)},
     styles:         {cropped: ""},
-    processors:     [:papercrop, :papercrop_resize, :contextual_resize, :contextual_crop]
+    processors:     [
+      :papercrop_normalize, # 
+      :papercrop,           # 
+      :papercrop_resize,    # 
+      :contextual_resize,   # 
+      :contextual_crop      # 
+    ]
   )
 
   crop_attached_file :image
@@ -29,12 +39,11 @@ class Image < ApplicationRecord
   attr_accessor :pos_x,         # contextual_crop setting: the X position of the image within the context image.
                 :pos_y,         # contextual_crop setting: the Y position of the image within the context image.
                 :context,       # The Template record to use for contextual cropping.
-                :crop_cmd,      # The crop command sent to ImageMagick
-                :resize_cmd,    # The resize command sent to ImagMagick
+                :commands,      # An array of commands sent to ImagMagick
                 :resize_height, # The target height to for images cropped with Papercrop
                 :resize_width,  # The target width to for images cropped with Papercrop
                 :strategy,      # Set to :papercrop or :contextual_crop to enable the processors
-
+                :paperclip_resize
 
   class << self
     def find_by_url(url)
@@ -55,11 +64,14 @@ class Image < ApplicationRecord
     self.crop_data = {}
   end
 
+  def reset_commands
+    self.commands = []
+  end
+
   def set_crop_data!
     update_attributes(crop_data: {
-      crop:   self.crop_cmd,
-      resize: self.resize_cmd,
-      drag:   {x: self.pos_x, y: self.pos_y}
+      commands: self.commands,
+      drag:     {x: self.pos_x, y: self.pos_y}
     })
   end
 end

@@ -184,15 +184,22 @@ window.Toolkit.Document.dropzone = ->
           dictDefaultMessage: "<h4>DROP IMAGE HERE TO UPLOAD</h4><p class='or'>or</p><div class='button'>Select File</div>",
           
           sending: ((file, xhr, formData) ->
-            $("#image-picker .upload-image, #image-picker .select-image").hide( ->
+            $("#image-picker .upload-image, #image-picker .select-image, #image-picker #image-error").hide( ->
               $("#image-picker #loading").show()
             )
           )
 
           # Callback when the image cannot be uploaded
-          error: ((errorMessage) ->
-            $("#image-error").html(errorMessage.xhr.responseText)
-            @.removeAllFiles()
+          error: ((file, message, xhr) ->
+            console.log(file)
+            console.log(message)
+            console.log(xhr)
+            @.removeFile(file)
+            $("#image-picker #loading").hide( ->
+              $("#image-error").html(xhr.responseText).show()
+              $("#image-picker .upload-image, #image-picker .select-image").show()
+            )
+            
           ),
           
           # Callback when the image is uploaded
@@ -258,6 +265,7 @@ window.Toolkit.Document.dropzone = ->
               
               # Get the image crop form
               $.get("/images/#{data.id}/papercrop?image[resize_height]=#{window.Toolkit.Document.resizeHeight}&image[resize_width]=#{window.Toolkit.Document.resizeWidth}&image[strategy]=papercrop", (data) =>
+                console.log @
                 @.removeFile(file)
 
                 $("#image-picker #loading").hide( ->

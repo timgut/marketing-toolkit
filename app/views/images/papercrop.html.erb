@@ -6,7 +6,7 @@
   <%= f.hidden_field :strategy,      value: :papercrop %>
   <%= f.hidden_field :image %>
 
-  <%= f.cropbox :image %>
+  <%= f.cropbox :image, :cropped %>
   <%= f.submit "Crop Image", class: "save button active" %>
 <% end %>
 

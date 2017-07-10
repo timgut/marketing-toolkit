@@ -39,7 +39,6 @@ class ImagesController < ApplicationController
   def contextual_crop
     load_image
     set_cropping_data
-    @image.image.reprocess!
 
     render layout: false
   end
@@ -47,7 +46,8 @@ class ImagesController < ApplicationController
   # GET /images/1/papercrop
   def papercrop
     load_image
-    set_papercrop_resize_data
+    set_cropping_data
+
     render layout: false
   end
 
@@ -87,6 +87,7 @@ class ImagesController < ApplicationController
   def update
     load_image
     set_cropping_data
+    @image.paperclip_resize = true
 
     respond_to do |format|
       format.html do
@@ -128,26 +129,30 @@ class ImagesController < ApplicationController
 
   def load_image
     @image = Image.find(params[:id])
+    @image.reset_crop_data
+    @image.reset_commands
     authorize @image
   end
 
+  # Set the strategy; Set data for the processors; Call the processors.
   def set_cropping_data
     @image.strategy = params[:image].delete(:strategy)&.to_sym
-
-    case @image.strategy
-    when :papercrop
-      params[:image].delete(:template_id)
-      set_papercrop_resize_data
-    when :contextual_crop
-      @template      = Template.find(params[:image].delete(:template_id))
-      @image.context = @template
-      @image.pos_x   = params[:image].delete(:pos_x)
-      @image.pos_y   = params[:image].delete(:pos_y)
-    end
+    __send__("set_#{@image.strategy}_resize_data").to_sym
+    @image.image.reprocess!
   end
 
+  # Set the target height/width for Papercrop.
   def set_papercrop_resize_data
+    params[:image].delete(:template_id)
     @image.resize_height = params[:image].delete(:resize_height)
     @image.resize_width  = params[:image].delete(:resize_width)
+  end
+
+  # Set the context image and the drag data for contextual crop.
+  def set_contextual_crop_resize_data
+    @template      = Template.find(params[:image].delete(:template_id))
+    @image.context = @template
+    @image.pos_x   = params[:image].delete(:pos_x)
+    @image.pos_y   = params[:image].delete(:pos_y)
   end
 end
