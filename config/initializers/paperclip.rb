@@ -22,7 +22,7 @@ Paperclip.interpolates :dynamic_path do |attachment, style|
     folder  = "#{creator.id}_#{creator.last_name.downcase.gsub(' ','-')}_#{creator.first_name.downcase.gsub(' ','-')}"
   elsif attachment.instance.is_a?(Document)
     file_type = "documents"
-    file_name = attachment.instance.pdf_file_name
+    file_name = attachment.instance.__send__("#{attachment.name.to_s}_file_name".to_sym)
 
     creator = attachment.instance.creator
     folder  = "#{creator.id}_#{creator.last_name.downcase.gsub(' ','-')}_#{creator.first_name.downcase.gsub(' ','-')}"
