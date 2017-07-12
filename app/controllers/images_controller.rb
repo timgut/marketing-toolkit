@@ -137,7 +137,7 @@ class ImagesController < ApplicationController
   # Set the strategy; Set data for the processors; Call the processors.
   def set_cropping_data
     @image.strategy = params[:image].delete(:strategy)&.to_sym
-    __send__("set_#{@image.strategy}_resize_data").to_sym
+    __send__("set_#{@image.strategy}_resize_data".to_sym)
     @image.image.reprocess!
   end
 
