@@ -1,6 +1,8 @@
 window.Toolkit ||= {}
 window.Toolkit.Document ||= {}
 
+## trivial change to make sure this is recompiled in production
+
 window.Toolkit.Document.reloadImagePicker = ->
   $target = $("#image-picker .image-grid")
 
