@@ -9,3 +9,4 @@
 /coverage
 /public/pdfs/*.pdf
 /public/system
+sucker_punch.lock

@@ -1,8 +1,74 @@
+<script type="text/javascript">
+  $(document).ready(function(){
+    window.nqbs = {}; // Namespace all functions for this template
+
+    window.nqbs.changeBranding = function(branding){
+      switch(branding){
+        case "afscme":
+          $("#nqlogo3").parent("div").hide();             // Hide CSEA affiliate logo
+          $("#logo2-custom").parent("div").show();        // Show custom logo
+          $("#nqbs-contact-afscme").parent("div").show(); // Show AFSCME headline
+          $("#nqbs-contact-csea").parent("div").hide();   // Hide CSEA headline
+          break;
+
+        case "csea":
+          $("#nqlogo3").parent("div").show();              // Show CSEA affiliate logo
+          $("#logo2-custom").parent("div").hide();         // Hide custom logo
+          $("#nqbs-contact-afscme").parent("div").hide();  // Hide AFSCME headline
+          $("#nqbs-contact-csea").parent("div").show();    // Show CSEA headline
+          $("#nqbs-contact-afscme").removeAttr("checked"); // Uncheck the AFSCME headline by default
+          break;
+      }
+    }
+
+    window.nqbs.setDefaultState = function(){
+      $("#nqbs-contact-afscme").attr("checked", "checked"); // Check AFSCME headline
+      $("#nqbs-contact-csea").parent("div").hide();         // Hide CSEA headline
+    }
+
+    if(window.Toolkit.Document.hasOwnProperty("savedData")){
+      if(window.Toolkit.Document.savedData.hasOwnProperty("nqbs_branding")){
+        window.nqbs.changeBranding(window.Toolkit.Document.savedData.nqbs_branding.value)
+      } else {
+        window.nqbs.setDefaultState();
+      }
+    } else {
+      window.nqbs.setDefaultState();
+    }
+
+    $(document).on("click", "[name='data[nqbs_branding]']", function(){
+      window.nqbs.changeBranding($(this).val());
+    });
+  });
+</script>
+
+<div id="branding" class="grouping branding image-select radio cf"> 
+
+    <h3>Choose Flyer Branding</h3>
+
+    <div class="field logo"> 
+        <input id="branding-afscme" name="data[nqbs_branding]" type="radio" value="afscme" />
+        <label for="branding-afscme">
+           <div class="radio-button"></div>
+           <figure style="background-image: url(http://toolkit-afscme.bytrilogy.com/theme/img/afscme-branding-thumb.png);"></figure>
+        </label>
+    </div>
+    
+    <div class="field logo"> 
+        <input id="branding-csea" name="data[nqbs_branding]" type="radio" value="csea" />
+        <label for="branding-csea">
+           <div class="radio-button"></div>
+           <figure style="background-image: url(http://toolkit-afscme.bytrilogy.com/theme/img/csea-branding-thumb.png);"></figure>
+        </label>
+    </div>
+    
+</div><!--theme-->
+
 <div class="step grouping image-select radio cf">
   <h3>Choose a Never Quit logo</h3>
 
     <div class="field logo white"> 
-        <input id="nqlogo1" checked="checked" name="data[nqbs_logo]" type="radio" value="http://neverquit.afscme.org/toolkit/never-quit-sector-specific-flyer-custom/nqlogo/nq-logo-afscme-color.png" />
+        <input id="nqlogo1" name="data[nqbs_logo]" type="radio" value="http://neverquit.afscme.org/toolkit/never-quit-sector-specific-flyer-custom/nqlogo/nq-logo-afscme-color.png" />
         <label for="nqlogo1">
            <div class="radio-button"></div>
            <figure style="background-image: url(http://neverquit.afscme.org/toolkit/never-quit-sector-specific-flyer-custom/nqlogo/nq-logo-afscme-color.png);"></figure>
@@ -20,7 +86,14 @@
 </div>
 
 <div class="step grouping image-select radio cf">
-  <h3>Council/Affiliate Logo</h3>
+  <h3>Council/Affiliate Logo <small>(Optional)</small></h3>
+
+  <div class="field logo white" style="display:none;"> 
+        <input id="nqlogo3" name="ata[nqbs_affiliate_logo]" type="radio" value="https://toolkit-afscme.bytrilogy.com/print/img/csea-tagline-color.png" />
+        <label for="nqlogo3">
+           <figure style="background-image: url(https://toolkit-afscme.bytrilogy.com/print/img/csea-tagline-color.png);"></figure>
+        </label>
+  </div>
 
   <div class="field upload"> 
       <input id="logo2-custom" data-custom="image" name="data[nqbs_affiliate_logo]" type="radio" value="" />
@@ -35,14 +108,37 @@
   </div>
 </div><!--logo-->
 
-<div class="step grouping cf">
-  <h3>URL/Contact Info (optional)</h3>
+
+<div class="step grouping radio cf"> 
+
+  <h3>Choose a Call-to-Action</h3>
   
-  <div class="field radio wide cf">
-    <label for="contact-custom" class="cf">
+  <div class="field"> 
+      <input id="nqbs-contact-afscme" class="required" name="data[nqbs_contact]" type="radio" value="AFSCME.ORG/NeverQuit" />
+      <label for="nqbs-contact-afscme">
+        <div class="radio-button"></div>
+        AFSCME.ORG/NeverQuit
+      </label>
+  </div>
+
+  <div class="field"> 
+      <input id="nqbs-contact-csea" class="required" name="data[nqbs_contact]" type="radio" value="CSEAny.org" />
+      <label for="nqbs-contact-csea">
+        <div class="radio-button"></div>
+        CSEAny.org
+      </label>
+  </div>
+      
+      
+  <div class="field wide"> 
+      <input id="nqbs-contact-custom" data-custom="text" name="data[nqbs_contact]" type="radio" />
+      <label for="nqbs-contact-custom">
+        <div class="radio-button"></div>
         <strong>CREATE YOUR OWN</strong><br/>
         <small>Maximum of 25 characters. Please preview, since your text may be cut off on the page.</small>
-        <input type="text" name="data[nqbs_contact]" data-custom="text" id="contact-custom" value="" maxlength="30" />
-    </label>
+        <input type="text" name="contact-custom" id="contact-custom" data-target="nqbs-contact-custom" value="" maxlength="30" />
+        <label for="contact-custom"></label>
+      </label>
   </div>
-</div>
+
+</div><!--headline-->

@@ -1,235 +1,89 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
 
+<meta charset="utf-8">
 
-  <!-- CSS -->
-  <style>
-    *,
-    *:before,
-    *:after {
-        -moz-box-sizing:    border-box; 
-        -webkit-box-sizing: border-box;
-        box-sizing:         border-box; 
-        transition:         all .25s ease-in-out;    
-        -webkit-transition: all .25s ease-in-out;  
-        -moz-transition:    all .25s ease-in-out;  
-        -o-transition:      all .25s ease-in-out;  
-        -ms-transition:     all .25s ease-in-out; 
-        }
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Lato:300,400,900" rel="stylesheet">
 
+<link rel="stylesheet" href="http://toolkit-afscme.bytrilogy.com/print/css/reset.css" type="text/css" />
+<link rel="stylesheet" href="http://toolkit-afscme.bytrilogy.com/print/css/global.css" type="text/css" />
 
-    html, body, div, span, object, iframe,
-    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-    abbr, address, cite, code,
-    del, dfn, em, img, ins, kbd, q, samp,
-    small, strong, sub, sup, var,
-    b, i,
-    dl, dt, dd, ol, ul, li,
-    fieldset, form, label, legend,
-    table, caption, tbody, tfoot, thead, tr, th, td,
-    article, aside, canvas, details, figcaption, figure, main,
-    footer, header, hgroup, menu, nav, section, summary,
-    time, mark, audio, video {
-      margin: 0 auto;
-      padding: 0;
-      border: 0;
-      outline: 0;
-      font-size: 100%;
-      vertical-align: baseline;
-      background: transparent; }
+<style>
+.background { 
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+.container {
+  margin: auto;
+  width: 8.5in;
+  height:11in;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: contain;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+  position: relative;
+}
+.logos {
+  display: inline-block;
+  position: absolute;
+  text-align: center;
+  bottom: .6in;  
+  left: .7in;
+  width: 100%;
+  height: .8in;
+}
+.logo {
+  display: inline-block;
+  width: 1.5in;
+  height: .8in;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  text-align: center;
+}
+.affiliate-logo {
+  display: inline-block;
+  width: 1.5in;
+  height: .8in;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+}
+.logo-line {
+  background: #00A94F;
+  width: 1px;
+  height: .8in;
+  margin: 0 .15in;
+  display: inline-block;
+}
+.union-bug {
+  position: absolute;
+  right: .1in;
+  bottom: .55in; 
+  width: .6in;
+  height: .2in;
+  background: url(http://toolkit-afscme.bytrilogy.com/print/img/union-bug-black.svg) no-repeat center center;
+  background-size: contain;
+}
+.bottom-left-text {
+  display: inline-block;
+  position: absolute;
+  left: .1in;
+  bottom: .55in; 
+  font-weight: 600;
+  text-align: left;
+  color: #00a94f;
+  font-size: 12pt;
+  z-index: 10000;
+}
+</style>
 
-    body { line-height: 1; }
-
-    article,
-    aside,
-    details,
-    figcaption,
-    figure,
-    footer,
-    header,
-    hgroup,
-    menu,
-    nav,
-    section,
-    main { display: block; }
-
-    nav ul { list-style: none; }
-
-    blockquote, q { quotes: none; }
-
-    blockquote:before,
-    blockquote:after,
-    q:before, q:after {
-      content: '';
-      content: none; }
-
-    a {
-      margin: 0 auto;
-      padding: 0;
-      font-size: 100%;
-      vertical-align: baseline;
-      background: transparent; }
-
-    ins {
-      background-color: #ff9;
-      color: #000;
-      text-decoration: none; }
-
-    mark {
-      background-color: #ff9;
-      color: #000; 
-      font-style: italic;
-      font-weight: bold; }
-
-    del { text-decoration: line-through; }
-
-    abbr[title],
-    dfn[title] {
-      border-bottom: 1px dotted;
-      cursor: help; }
-
-    table {
-      border-collapse: collapse;
-      border-spacing: 0; }
-
-    hr {
-      display: block;
-      height: 1px;
-      border: 0;   
-      border-top: 1px solid #cccccc;
-      margin: 1em 0;
-      padding: 0; 
-      }
-
-    input, select { vertical-align: middle; }
-
-    /* Clearfix */
-
-    .clearfix:before,
-    .clearfix:after {
-       content: "";
-       display: table; }
-    .clearfix:after { clear: both; }
-    .ie7 .clearfix { zoom: 1; }
-
-    .cf:before,
-    .cf:after {
-       content: "";
-       display: table; }
-    .cf:after { clear: both; }
-
-    /* Hide */
-
-    .hide {
-      position: absolute;
-      left: -999em;
-      top: auto;
-      width: 1px;
-      height: 1px;
-      overflow: hidden; }
-      
-
-    /* Default behavior for background tiles */
-
-    .background { 
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: cover;
-      }
-
-
-      /* /theme/css/brand-story-poster.css */
-    body { 
-      font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-      font-weight: normal;
-      font-weight: 300;
-      text-align: center; 
-      color: #404040;
-      line-height: 1.4; 
-      font-size: 11pt;
-      text-rendering: optimizelegibility;
-      }
-
-
-    .container {
-      margin: auto;
-      width: 8.5in;
-      height:11in;
-      background-repeat: no-repeat;
-      background-position: center top;
-      background-size: contain;
-      position: relative;
-      overflow: hidden;
-      text-align: left;
-      position: relative;
-      }
-
-    .logos {
-      display: inline-block;
-      position: absolute;
-      text-align: center;
-      bottom: .6in;  
-      left: .7in;
-      width: 100%;
-      height: .8in;
-      }
-
-    .logo {
-      display: inline-block;
-      width: 1.5in;
-      height: .8in;
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: contain;
-      text-align: center;
-      }
-
-    .affiliate-logo {
-      display: inline-block;
-      width: 1.5in;
-      height: .8in;
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: contain;
-      }
-      
-    .logo-line {
-      background: #00A94F;
-      width: 1px;
-      height: .8in;
-      margin: 0 .15in;
-      display: inline-block;
-      }
-
-    .union-bug {
-      position: absolute;
-      right: .1in;
-      bottom: .55in; 
-      width: .6in;
-      height: .2in;
-      background: url('/theme/img/union-bug-dark.png') no-repeat center center;
-      background-size: contain;
-      }
-      
-    .bottom-left-text {
-      display: inline-block;
-      position: absolute;
-      left: .1in;
-      bottom: .55in; 
-      width: 2in;
-      font-weight: 600;
-      color: #00a94f;
-      font-size: 12pt;
-      width: 2.5in;
-      overflow: hidden;
-      }
-    </style>
-
-    <script type="text/javascript" src="//fast.fonts.net/jsapi/596a83d8-daac-4f87-8267-fa96da6e6754.js"></script>
-    <link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/596a83d8-daac-4f87-8267-fa96da6e6754.css"/>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>    
-  </head>
+</head>
 
   <body id="wide" class="brand-story-poster toolkit poster">
     <main class="container poster poster" style="background-image: url('http://neverquit.afscme.org/toolkit/brand-story/poster/brand-story-poster-top.png');">
@@ -242,11 +96,10 @@
         <% end %>
       </div>
       
-      <% if @document.nqbs_contact.present? %>
-        <div class="bottom-left-text"><%= @document.nqbs_contact %></div>
-      <% end %>
+      <div class="bottom-left-text"><%= @document.nqbs_contact %></div>
 
       <div class="union-bug"></div>
+          
     </main>      
   </body>
 </html>
