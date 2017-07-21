@@ -35,14 +35,20 @@ class ImagesController < ApplicationController
     end
   end
 
-  # GET /images/1/crop
-  def crop
+  # GET /images/1/contextual_crop
+  def contextual_crop
     load_image
-    @template = Template.find(params[:template_id])
-    set_resize_data
-    @image.image.reprocess!
+    set_cropping_data
 
-    render :crop_modal, layout: false
+    render layout: false
+  end
+
+  # GET /images/1/papercrop
+  def papercrop
+    load_image
+    set_cropping_data
+
+    render layout: false
   end
 
   # GET /images/1/edit
@@ -81,6 +87,7 @@ class ImagesController < ApplicationController
   def update
     load_image
     set_cropping_data
+    @image.paperclip_resize = true
 
     respond_to do |format|
       format.html do
@@ -114,30 +121,38 @@ class ImagesController < ApplicationController
 
   def image_params
     params.require(:image).permit(
-      :image, :creator_id, :pos_x, :pos_y, :template_id
+      :image, :creator_id, :pos_x, :pos_y, :template_id,
+      :image_original_w, :image_original_h, :image_box_w, :image_aspect, :image_crop_x, :image_crop_y, :image_crop_w, :image_crop_h,
+      :resize_height, :resize_width
     )
   end
 
   def load_image
     @image = Image.find(params[:id])
+    @image.reset_crop_data
+    @image.reset_commands
     authorize @image
   end
 
-  def set_resize_data
-    @image.resize  = true
-    @image.context = @template
+  # Set the strategy; Set data for the processors; Call the processors.
+  def set_cropping_data
+    @image.strategy = params[:image].delete(:strategy)&.to_sym
+    __send__("set_#{@image.strategy}_resize_data".to_sym)
+    @image.image.reprocess!
   end
 
-  def set_cropping_data
-    if template_id = params[:image].delete(:template_id)
-      @image.context = Template.find(template_id)
-      @image.pos_x = params[:image].delete(:pos_x)
-      @image.pos_y = params[:image].delete(:pos_y)
+  # Set the target height/width for Papercrop.
+  def set_papercrop_resize_data
+    params[:image].delete(:template_id)
+    @image.resize_height = params[:image].delete(:resize_height)
+    @image.resize_width  = params[:image].delete(:resize_width)
+  end
 
-      # Paperclip processors run in order starting with the original image, so it needs to be resized again before cropping.
-      if @image.cropping?
-        @image.resize = true
-      end
-    end
+  # Set the context image and the drag data for contextual crop.
+  def set_contextual_crop_resize_data
+    @template      = Template.find(params[:image].delete(:template_id))
+    @image.context = @template
+    @image.pos_x   = params[:image].delete(:pos_x)
+    @image.pos_y   = params[:image].delete(:pos_y)
   end
 end

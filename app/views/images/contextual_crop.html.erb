@@ -8,9 +8,11 @@
 
 <%= form_for(@image, remote: true) do |f| %>
   <%= hidden_field_tag :format, :json %>
-  <%= f.hidden_field :pos_x, value: "" %>
-  <%= f.hidden_field :pos_y, value: "" %>
+  <%= f.hidden_field :pos_x,       value: "" %>
+  <%= f.hidden_field :pos_y,       value: "" %>
   <%= f.hidden_field :template_id, value: @template.id %>
+  <%= f.hidden_field :strategy,    value: :contextual_crop %>
+
   <%= f.hidden_field :image %>
   <%= f.submit "Crop Image", class: "save button active" %>
 <% end %>

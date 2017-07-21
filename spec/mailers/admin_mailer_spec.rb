@@ -118,4 +118,22 @@ RSpec.describe AdminMailer, type: :mailer do
       }.to change { ActionMailer::Base.deliveries.count }.by(1)
     end
   end
+
+  describe "#send_account_nag_emails" do
+    let!(:mail) { AdminMailer.send_account_nag_emails([unapproved_user]).deliver_now }
+
+    it "has the correct subject line" do
+      expect(mail.subject).to eq "Toolkit account application(s) waiting for approval"
+    end
+
+    it "includes the users' names" do
+      expect(mail.body).to include unapproved_user.name
+    end
+
+    it "sends an email" do
+      expect {
+        AdminMailer.send_account_nag_emails([unapproved_user]).deliver_now
+      }.to change { ActionMailer::Base.deliveries.count }.by(1)
+    end
+  end
 end

@@ -40,7 +40,7 @@ class AdminMailer < ActionMailer::Base
     mail(to: recipient, subject: "Toolkit account application(s) waiting for approval")
     unapproved_users.each do |user|
       user.approval_reminder_sent = DateTime.now
-      puts "\n\nSaving #{user.name} with a reminder value of #{DateTime.now.to_s}\n\n"
+      # puts "\n\nSaving #{user.name} with a reminder value of #{DateTime.now.to_s}\n\n"
       user.save
     end
   end

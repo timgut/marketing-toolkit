@@ -80,21 +80,6 @@ RSpec.describe Image, type: :model do
   end
 
   describe "Instance Methods" do
-    describe "#cropping?" do
-      it "returns true when context, pos_x, and pos_y are set" do
-        context = create(:template)
-        image.context = context
-        image.pos_x   = 100
-        image.pos_y   = 50
-
-        expect(image.cropping?).to eq true
-      end
-
-      it "returns false when context, pos_x, and pos_y are NOT set" do
-        expect(image.cropping?).to eq false
-      end
-    end
-
     describe "#orientation" do
       it "returns landscape" do
         image2 = create(:image, image: File.new("#{Rails.root}/spec/support/images/landscape.jpg"))
@@ -104,17 +89,6 @@ RSpec.describe Image, type: :model do
       it "returns portrait" do
         image2 = create(:image, image: File.new("#{Rails.root}/spec/support/images/portrait.jpg"))
         expect(image2.orientation).to eq :portrait
-      end
-    end
-
-    describe "#resizing?" do
-      it "returns true when resize is set" do
-        image.resize = true
-        expect(image.resizing?).to eq true
-      end
-      
-      it "returns false when resize is NOT set" do
-        expect(image.resizing?).to eq false
       end
     end
 

@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe Paperclip::Resize, type: :class do
+RSpec.describe Paperclip::ContextualResize, type: :class do
   let!(:image)     { create(:image, image: landscape_file) }
   let!(:template)  { create(:template, blank_image: blank_file) }
-  let!(:processor) { Paperclip::Resize.new(landscape_file, {}, image.image) }
+  let!(:processor) { Paperclip::ContextualResize.new(landscape_file, {}, image.image) }
 
   # 1260x573
   def landscape_file
@@ -20,9 +20,9 @@ RSpec.describe Paperclip::Resize, type: :class do
     File.new("#{Rails.root}/spec/support/images/blank.jpg")
   end
 
-  def setup_resize
-    image.context = template
-    image.resize  = true
+  def setup
+    image.strategy = :contextual_crop
+    image.context  = template
   end
 
   def set_context
@@ -39,9 +39,9 @@ RSpec.describe Paperclip::Resize, type: :class do
   end
 
   describe "#transformation_command" do
-    before(:each) { setup_resize }
-
     context "with resizing data" do
+      before(:each) { setup }
+
       context "landscape" do
         it "calculates the ImageMagick resize command" do
           result = processor.transformation_command
@@ -58,10 +58,10 @@ RSpec.describe Paperclip::Resize, type: :class do
       context "portrait" do
         it "calculates the ImageMagick resize command" do
           portrait = create(:image, image: portrait_file)
-          portrait.resize = true
+          portrait.strategy = :contextual_crop
           portrait.context = template
 
-          processor = Paperclip::Resize.new(portrait_file, {}, portrait.image)
+          processor = Paperclip::ContextualResize.new(portrait_file, {}, portrait.image)
           result    = processor.transformation_command
 
           expect(result).to eq  ["-resize", "720x1082^"]
@@ -77,7 +77,6 @@ RSpec.describe Paperclip::Resize, type: :class do
 
     context "without resizing data" do
       it "does not crop" do
-        image.resize = false
         expect(processor.transformation_command).to eq ["-auto-orient"]
       end
     end

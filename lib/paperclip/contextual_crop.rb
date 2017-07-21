@@ -9,7 +9,9 @@ module Paperclip
     end
 
     def transformation_command
-      if target.cropping?
+      if target.strategy == :contextual_crop && target.pos_x && target.pos_y
+        # puts "*"*60
+        # puts "ContextualCrop"
         # The crop width will always be the width of the context image.
         crop_w = Integer(context.blank_image.width)
 
@@ -28,7 +30,7 @@ module Paperclip
         # end
 
         command = ["-crop", "#{crop_w}x#{crop_h}+#{crop_x}+#{crop_y}"]
-        target.crop_cmd = command
+        target.commands << command
         command
       else
         super

@@ -6,7 +6,8 @@ RSpec.describe Paperclip::ContextualCrop, type: :class do
   let!(:file)      { File.new("#{Rails.root}/spec/support/images/landscape.jpg") }
   let!(:processor) { Paperclip::ContextualCrop.new(file, {}, image.image) }
 
-  def set_context
+  def setup
+    image.strategy = :contextual_crop
     image.context = template
   end
 
@@ -20,13 +21,13 @@ RSpec.describe Paperclip::ContextualCrop, type: :class do
   end
 
   it "sets context" do
-    set_context
+    setup
     expect(processor.context).to eq template
   end
 
   describe "#transformation_command" do
     context "with cropping data" do
-      before(:each) { set_context }
+      before(:each) { setup }
 
       describe "with a negative pos_x" do
         it "uses the absolute value" do
