@@ -109,4 +109,5 @@ class Document < ApplicationRecord
       }
     }
   end
+
 end

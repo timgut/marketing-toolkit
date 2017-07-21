@@ -12,6 +12,8 @@ class DocumentsController < ApplicationController
     if @document.save
       DocumentUser.create!(document_id: @document.id, user_id: current_user.id)
       create_data
+      DocumentPdfJob.perform_async(@document)
+      DocumentThumbnailJob.perform_in(20, @document)
 
       redirect_to documents_path, notice: "Document created!"
     else
