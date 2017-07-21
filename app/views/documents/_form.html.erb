@@ -38,10 +38,15 @@
           <%= f.label :title %>
           <%= f.text_field :title %>
         </li>
-                    
+
         <li>
           <%= f.label :description %>
           <%= f.text_area :description %> 
+        </li>
+
+        <li>
+          <%= f.label :crop_marks, "Display Crop Marks" %>
+          <%= f.check_box :crop_marks %> 
         </li>
                 
         <li><strong class="metadata-label">Dimensions</strong><%= dimensions(@template) %></li>

@@ -153,7 +153,7 @@ class DocumentsController < ApplicationController
   end
 
   def document_params
-    params.require(:document).permit(:title, :description, :status, :template_id, :creator_id)
+    params.require(:document).permit(:title, :description, :status, :crop_marks, :template_id, :creator_id)
   end
 
   def force_format(format)
