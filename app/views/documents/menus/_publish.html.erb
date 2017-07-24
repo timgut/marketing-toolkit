@@ -1,5 +1,18 @@
-<li><%= link_to "<span class='icons'>c</span> Duplicate".html_safe, duplicate_document_path(document), title: "Duplicate" %></li>
-<li><%= link_to "<span class='icons'>d</span> Download".html_safe, download_link(document), title: "Download", target: :blank %></li> 
+<li>
+  <%= link_to(
+    "<span class='icons'>c</span> Duplicate".html_safe,
+    duplicate_document_path(document),
+    title: "Duplicate"
+  ) %>
+</li>
+<li>
+  <%= link_to(
+    "<span class='icons'>d</span> Download".html_safe,
+    download_link(document),
+    title: "Download",
+    remote: true,
+  ) %>
+</li> 
 <li>
   <%= link_to(
     "<span class='icons'>x</span> Delete".html_safe,

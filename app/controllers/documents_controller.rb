@@ -13,7 +13,6 @@ class DocumentsController < ApplicationController
       DocumentUser.create!(document_id: @document.id, user_id: current_user.id)
       create_data
       DocumentPdfJob.perform_async(@document)
-      DocumentThumbnailJob.perform_in(20, @document)
 
       redirect_to documents_path, notice: "Document created!"
     else
@@ -44,10 +43,9 @@ class DocumentsController < ApplicationController
     force_format(:pdf)
     load_document
 
-    @document.generate_pdf
-    DocumentThumbnailJob.perform_later(@document)
+    DocumentPdfJob.perform_async(@document)
 
-    redirect_to @document.pdf.url
+    head :no_content
   end
 
   # GET /documents
@@ -94,13 +92,14 @@ class DocumentsController < ApplicationController
   # PATCH /documents/1
   def update
     @document = Document.find(params[:id])
-    @document.pdf = nil
 
     if @document.update_attributes(document_params)
       ActiveRecord::Base.transaction do
         delete_data
         create_data
       end
+
+      DocumentPdfJob.perform_async(@document)
 
       redirect_to edit_document_path(@document), notice: "Your changes have been saved."
     else
