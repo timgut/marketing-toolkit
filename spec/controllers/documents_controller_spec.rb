@@ -76,7 +76,7 @@ RSpec.describe DocumentsController, type: :controller do
             post :create, params: create_params
 
             expect(response).to have_http_status(302)
-            expect(response).to redirect_to documents_path
+            expect(response).to redirect_to documents_path(generating: Document.last.id)
           end
         end
         
@@ -180,13 +180,17 @@ RSpec.describe DocumentsController, type: :controller do
         end
         __send__("controller_#{role}_sign_in".to_sym)
 
-        it "redirects to the PDF" do
+        it "returns head :no_content" do
           own_document
           get :download, params: destroy_params
 
-          # Rspec handles redirects to PDFs a bit strangely
-          expect(response.headers["Location"]).to include "#{document.id}.pdf"
-          expect(response).to have_http_status 302
+          expect(response).to have_http_status 200
+        end
+
+        it "instantiates a new DocumentPdfJob" do
+          own_document
+          expect(DocumentPdfJob).to receive(:perform_async)
+          get :download, params: destroy_params
         end
       end
     end
@@ -285,7 +289,7 @@ RSpec.describe DocumentsController, type: :controller do
             patch :update, params: update_params
             
             expect(response).to have_http_status 302
-            expect(response.body).to redirect_to edit_document_path(document)
+            expect(response.body).to redirect_to edit_document_path(document, generating: true)
           end
         end
 

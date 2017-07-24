@@ -1,10 +1,6 @@
 class Image < ApplicationRecord
   include Status
 
-  PROCESSORS = [
-
-  ]
-
   has_attached_file(
     :image,
     storage:        :s3,
@@ -12,11 +8,12 @@ class Image < ApplicationRecord
     s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials)},
     styles:         {cropped: ""},
     processors:     [
-      :papercrop_normalize, # 
-      :papercrop,           # 
-      :papercrop_resize,    # 
-      :contextual_resize,   # 
-      :contextual_crop      # 
+      :papercrop_normalize, # Resizes larger images so they're easier to crop in the UI.
+      :papercrop,           # The actual papercrop processor that crops the image
+      :papercrop_resize,    # Resizes the image to the target dimensions
+
+      :contextual_resize,   # Resizes the image in the context of the template.
+      :contextual_crop      # Crops the image in the context of the template.
     ]
   )
 
