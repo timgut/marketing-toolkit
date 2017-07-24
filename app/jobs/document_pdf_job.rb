@@ -3,7 +3,10 @@ class DocumentPdfJob < ApplicationJob
 
   def perform(document)
     Rails.logger.tagged("DocumentPdfJob", "#{document.id}") do
-      document.generate_pdf
+      ActiveRecord::Base.connection_pool.with_connection do
+        document.generate_pdf
+      end
+
       DocumentThumbnailJob.perform_later(document)
     end
   end
