@@ -2,22 +2,35 @@
   <%= link_to(
     "<span class='icons'>c</span> Duplicate".html_safe,
     duplicate_document_path(document),
-    title: "Duplicate"
+    title: "Duplicate",
+    class: "duplicate"
   ) %>
 </li>
 <li>
-  <%= link_to(
-    "<span class='icons'>d</span> Download".html_safe,
-    download_link(document),
-    title: "Download",
-    remote: true,
-  ) %>
+  <% if document.pdf_file_name %>
+    <%= link_to(
+      "<span class='icons'>d</span> Download".html_safe,
+      document.pdf.url,
+      title:  "Download",
+      class:  "download",
+    ) %>
+  <% else %>
+    <%= link_to(
+      "<span class='icons'>d</span> Download".html_safe,
+      download_document_path(document),
+      title:  "Download",
+      class:  "download",
+      remote: true,
+      data:   {id: document.id, job: "pdfAndThumbnail"}
+    ) %>
+  <% end %>
 </li> 
 <li>
   <%= link_to(
     "<span class='icons'>x</span> Delete".html_safe,
     trash_document_path(document),
     title:  "Delete",
+    class:  "delete",
     method: :patch,
     data:   {confirm: "Are you sure that you want to move this document to the trash?"} 
   ) %>
@@ -26,7 +39,8 @@
   <%= link_to(
     "<span class='icons'>S</span> Preview".html_safe,
     preview_document_path(document),
-    title: "Preview PDF",
+    title:  "Preview PDF",
+    class:  "preview",
     target: :_blank 
   ) %>
 </li>
@@ -36,8 +50,8 @@
       "<span class='icons'>F</span> Rebuild PDF".html_safe,
       download_document_path(document),
       title: "Rebuild PDF",
-      target: :_blank,
-      data: {id: document.id, job: "generateThumbnail"} 
+      class: "rebuild",
+      data: {id: document.id, job: "pdfAndThumbnail"} 
     ) %>
   </li> 
 <% end %>

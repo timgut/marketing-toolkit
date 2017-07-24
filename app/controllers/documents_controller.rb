@@ -14,7 +14,7 @@ class DocumentsController < ApplicationController
       create_data
       DocumentPdfJob.perform_async(@document)
 
-      redirect_to documents_path, notice: "Document created!"
+      redirect_to documents_path(document_id: @document.id), notice: "Document created!"
     else
       redirect_back fallback_location: documents_path
     end
@@ -42,18 +42,32 @@ class DocumentsController < ApplicationController
   def download
     force_format(:pdf)
     load_document
-
     DocumentPdfJob.perform_async(@document)
-
     head :no_content
   end
 
   # GET /documents
   def index
+    Rails.logger.info params.inspect
     if params[:category_id]
       @filtered_documents = @documents.select{|document| document.template.category_id == params[:category_id].to_i}.reverse
     else
       @filtered_documents = @documents.reverse
+    end
+  end
+
+  # GET /documents/1/job_status
+  def job_status
+    load_document
+
+    respond_to do |format|
+      format.json do
+        if @document.pdf_file_name && @document.thumbnail_file_name
+          render json: {status: :complete, thumbnail: @document.thumbnail.url, pdf: @document.pdf.url}
+        else
+          render json: {status: :incomplete}
+        end
+      end
     end
   end
 

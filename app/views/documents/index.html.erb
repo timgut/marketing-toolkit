@@ -10,11 +10,22 @@
 </aside>
 
 <% if @filtered_documents.count > 0 %>
+  <section class="workspace cf">
+    <%= render @filtered_documents %>
+  </section>
 
-<section class="workspace cf">
-  <%= render @filtered_documents %>
-</section>
-
+  <% 
+    # This document was just created and redirected to the index.
+    # Click the 'Download' button for the user so they can see
+    # that their document is being generated.
+  %>
+  <% if params[:document_id] %>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $("a[data-id='<%= params[:document_id] %>']").click()
+      });
+    </script>
+  <% end %>
 <% else %>
 	<% if @shared %>
 		<p class="no-results">You have not had any documents shared with you.</p>

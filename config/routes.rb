@@ -43,6 +43,7 @@ Rails.application.routes.draw do
     member do
       get :duplicate
       get :download
+      get :job_status
       get :preview
       get :share
     end
