@@ -31,6 +31,12 @@ Toolkit.isEditPage = ->
 Toolkit.isDocumentPage = ->
   location.href.indexOf("/documents") isnt -1
 
+Toolkit.isDocumentsIndexPage = ->
+  location.pathname is "/documents"
+
+Toolkit.isDocumentEditPage = ->
+  Toolkit.isDocumentPage() and Toolkit.isEditPage()
+
 Toolkit.resetDropzones = ->
   window.Toolkit.dropzones = []
 

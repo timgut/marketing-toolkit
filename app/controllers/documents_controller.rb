@@ -14,7 +14,7 @@ class DocumentsController < ApplicationController
       create_data
       DocumentPdfJob.perform_async(@document)
 
-      redirect_to documents_path(document_id: @document.id), notice: "Document created!"
+      redirect_to documents_path(generating: @document.id), notice: "Document created!"
     else
       redirect_back fallback_location: documents_path
     end
@@ -48,7 +48,6 @@ class DocumentsController < ApplicationController
 
   # GET /documents
   def index
-    Rails.logger.info params.inspect
     if params[:category_id]
       @filtered_documents = @documents.select{|document| document.template.category_id == params[:category_id].to_i}.reverse
     else
@@ -106,6 +105,8 @@ class DocumentsController < ApplicationController
   # PATCH /documents/1
   def update
     load_document
+    @document.pdf = nil
+    @document.thumbnail = nil
 
     if @document.update_attributes(document_params)
       ActiveRecord::Base.transaction do
@@ -115,7 +116,7 @@ class DocumentsController < ApplicationController
 
       DocumentPdfJob.perform_async(@document)
 
-      redirect_to edit_document_path(@document), notice: "Your changes have been saved."
+      redirect_to edit_document_path(@document, generating: true), notice: "Your changes have been saved."
     else
       redirect_back fallback_location: documents_path, error: alert_message
     end

@@ -2,6 +2,8 @@ window.Toolkit ||= {}
 
 class Toolkit.Job
   constructor: (@el, @job, @document_id) ->
+    @openedPDF = false
+
     @create()
     @displayLoading()
     @addJobToUser()
@@ -39,27 +41,39 @@ class Toolkit.Job
     Toolkit.jobs.splice(index, 1) if index?
 
   displayLoading: ->
-    $(@el).find(".options>li>a").click()
-    
-    $(@el).prepend("
-     <div class='overlay'>
-        <span class='positioner'>
-          <img src='/assets/loader.svg' />
-          Generating your document                    
-        </span>
-      </div>
-    ")
+    # Hide the 'Download' links
+    if Toolkit.isDocumentEditPage()
+      $(".download-document").hide()
+
+    # Close the plus menu and display the overlay
+    else if Toolkit.isDocumentsIndexPage() and @el?
+      $(@el).find(".options>li>a").click()
+      
+      $(@el).prepend("
+       <div class='overlay'>
+          <span class='positioner'>
+            <img src='/assets/loader.svg' />
+            Generating your document                    
+          </span>
+        </div>
+      ")
 
   displayResult: (data) ->
-    $overlay = $(@el).find(".overlay")
-    $thumb   = $(@el).find(".document-thumbnail")
-    $pdf     = $(@el).find(".options .download")
+    # Show the download links
+    if Toolkit.isDocumentEditPage()
+      $(".download-document").prop("href", data.pdf).prop("target", "_blank").show()
 
-    # It's possible for this function to be called more than once,
-    # so only process the UI callbacks if the overlay is still in the DOM.
-    if $overlay.length > 0
+    # Hide the overlay; Change the thumbnail; Change the download link; Open the PDF.
+    else if Toolkit.isDocumentsIndexPage() and @el?
+      $overlay = $(@el).find(".overlay")
+      $thumb   = $(@el).find(".document-thumbnail")
+      $pdf     = $(@el).find(".options .download")
+
       $overlay.remove()
-      $thumb.css("background-image", "url('#{data.thumbnail}');")
+      $thumb.attr("style", "background-image: url('#{data.thumbnail}');")
       $pdf.prop("href", data.pdf).prop("target", "_blank").removeAttr("data-id data-job data-remote")
 
-      window.open(data.pdf)
+      # Timing issues can cause this function can be called more than once, so ensure that the PDF is only opened once.
+      if @openedPDF is false
+        window.open(data.pdf)
+        @openedPDF = true
