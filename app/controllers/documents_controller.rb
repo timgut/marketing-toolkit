@@ -105,7 +105,7 @@ class DocumentsController < ApplicationController
 
   # PATCH /documents/1
   def update
-    @document = Document.find(params[:id])
+    load_document
 
     if @document.update_attributes(document_params)
       ActiveRecord::Base.transaction do
