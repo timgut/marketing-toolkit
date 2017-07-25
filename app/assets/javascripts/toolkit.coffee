@@ -32,7 +32,7 @@ Toolkit.isDocumentPage = ->
   location.href.indexOf("/documents") isnt -1
 
 Toolkit.isDocumentsIndexPage = ->
-  location.pathname is "/documents"
+  location.pathname is "/documents" or location.pathname is "/documents/"
 
 Toolkit.isDocumentEditPage = ->
   Toolkit.isDocumentPage() and Toolkit.isEditPage()
