@@ -158,5 +158,13 @@ RSpec.describe Document, type: :model do
         expect(document.reload.thumbnail_file_name).not_to eq nil
       end
     end
+
+    describe "#delete_local_pdf" do
+      it "delete the file" do
+        document.generate_pdf
+        document.delete_local_pdf
+        expect(File.file?(document.local_pdf_path)).to eq false
+      end
+    end
   end
 end
