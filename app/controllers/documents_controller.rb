@@ -38,9 +38,8 @@ class DocumentsController < ApplicationController
     assign_records
   end
 
-  # GET /documents/1/download.pdf
+  # GET /documents/1/download
   def download
-    force_format(:pdf)
     load_document
     DocumentPdfJob.perform_async(@document)
     head :no_content
@@ -170,10 +169,6 @@ class DocumentsController < ApplicationController
 
   def document_params
     params.require(:document).permit(:title, :description, :status, :template_id, :creator_id)
-  end
-
-  def force_format(format)
-    params[:format] = format
   end
 
   def load_document

@@ -15,6 +15,7 @@ require 'paperclip/matchers'
 require "#{Rails.root}/spec/support/controller_macros.rb"
 require 'pundit/rspec'
 require 'sucker_punch/testing/inline'
+require 'ostruct'
 
 ActiveRecord::Migration.maintain_test_schema!
 
@@ -53,7 +54,7 @@ RSpec.configure do |config|
 
   # Clean up all jobs specs with truncation
   config.before(:each, type: :job) do
-    DatabaseCleaner.strategy = :truncation
+    # DatabaseCleaner.strategy = :truncation
   end
 
   config.after(:each) do

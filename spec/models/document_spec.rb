@@ -75,6 +75,20 @@ RSpec.describe Document, type: :model do
     end
   end
 
+  describe "Pathing" do
+    describe "#local_pdf_path" do
+      it "gives each PDF a unique filename" do
+        expect(document.local_pdf_path).to include document.id.to_s
+      end
+    end
+
+    describe "#local_thumbnail_path" do
+      it "gives each thumbnail a unique filename" do
+        expect(document.local_thumbnail_path).to include document.id.to_s
+      end
+    end
+  end
+
   describe "Instance Methods" do
     describe "#duplicate!" do
       it "creates a new Document and DocumentUser" do
@@ -133,6 +147,15 @@ RSpec.describe Document, type: :model do
       it "creates a PDF for the document" do
         document.generate_pdf
         expect(document.reload.pdf_file_name).not_to eq nil
+      end
+    end
+
+    describe "#generate_thumbnail" do
+      it "updates the document with the thumbnail" do
+        document.generate_pdf
+        document.generate_thumbnail
+
+        expect(document.reload.thumbnail_file_name).not_to eq nil
       end
     end
   end
