@@ -20,4 +20,5 @@
 //= require jquery.popupoverlay.1.7.13.js
 //= require dropzone
 //= require jquery.jcrop
+//= require tinymce-jquery
 //= require_tree .
