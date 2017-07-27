@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 20170630204529) do
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
     t.integer  "creator_id"
-    t.integer  "status",                           default: 1, null: false
+    t.integer  "status",                           default: 1
     t.text     "crop_data",          limit: 65535
     t.text     "image_meta",         limit: 65535
     t.index ["creator_id"], name: "index_images_on_creator_id", using: :btree
