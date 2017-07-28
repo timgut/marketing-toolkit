@@ -80,8 +80,10 @@
       editor.on('Change', function (e) {
         $field  = $("#"+e.target.id);
         content = e.level.content;
-
+        console.log($field);
+        console.log(value);
         $field.val(content);
+        $field.trigger("change");
       });
     }
   });
