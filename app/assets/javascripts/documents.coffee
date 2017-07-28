@@ -168,7 +168,7 @@ window.Toolkit.Document.saveIds = ->
 
     # Add an event listener for this field to populate the hidden field when it's changed
     $("form[data-document='true']").on("change", "##{id}", ->
-      console.log("Changed ##{id}. Syncing to [name='#{name}']");
+      # console.log("Changed ##{id}. Syncing to [name='#{name}']");
       $target = $("[name='#{name}']")
       $target.val(id)
     )
