@@ -6,6 +6,7 @@
       switch(branding){
         case "afscme":
           $("#nqlogo3").parent("div").hide();             // Hide CSEA affiliate logo
+          $("#nqlogo3").prop('checked', false);           // Uncheck the CSEA affiliate logo
           $("#logo2-custom").parent("div").show();        // Show custom logo
           $("#nqbs-contact-afscme").parent("div").show(); // Show AFSCME headline
           $("#nqbs-contact-csea").parent("div").hide();   // Hide CSEA headline
@@ -13,9 +14,12 @@
 
         case "csea":
           $("#nqlogo3").parent("div").show();              // Show CSEA affiliate logo
+          $("#nqlogo3").prop('checked', true);             // Check the CSEA affiliate logo
           $("#logo2-custom").parent("div").hide();         // Hide custom logo
+          $("#logo2-custom").prop('checked', false);       // Uncheck the AFSCME affiliate logo
           $("#nqbs-contact-afscme").parent("div").hide();  // Hide AFSCME headline
           $("#nqbs-contact-csea").parent("div").show();    // Show CSEA headline
+          $("#nqbs-contact-csea").prop("checked", true);   // Check the CSEA headline
           $("#nqbs-contact-afscme").removeAttr("checked"); // Uncheck the AFSCME headline by default
           break;
       }
@@ -89,13 +93,13 @@
   <h3>Council/Affiliate Logo <small>(Optional)</small></h3>
 
   <div class="field logo white" style="display:none;"> 
-        <input id="nqlogo3" name="ata[nqbs_affiliate_logo]" type="radio" value="https://toolkit-afscme.bytrilogy.com/print/img/csea-tagline-color.png" />
+        <input id="nqlogo3" name="data[nqbs_affiliate_logo]" type="radio" value="https://toolkit-afscme.bytrilogy.com/print/img/csea-tagline-color.png" />
         <label for="nqlogo3">
            <figure style="background-image: url(https://toolkit-afscme.bytrilogy.com/print/img/csea-tagline-color.png);"></figure>
         </label>
   </div>
 
-  <div class="field upload"> 
+  <div class="field upload logo"> 
       <input id="logo2-custom" data-custom="image" name="data[nqbs_affiliate_logo]" type="radio" value="" />
       <label for="logo2-custom">
          <figure href="javascript:void(0);" title="Add Photo" class="image-picker" data-target="logo2-custom">
@@ -128,7 +132,6 @@
         CSEAny.org
       </label>
   </div>
-      
       
   <div class="field wide"> 
       <input id="nqbs-contact-custom" data-custom="text" name="data[nqbs_contact]" type="radio" />

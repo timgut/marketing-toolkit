@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lato:400,900" rel="stylesheet">
+
+<link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/reset.css" type="text/css" />
+<link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/dynamic-print-marks.css" type="text/css" />
+<link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/global.css" type="text/css" />
+<link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/newsletter.css" type="text/css" />
+
+<style type="text/css">
+</style>
+
+</head>
+
+<body class="standard <%= 'show-print-marks ' if @document.crop_marks? %> <%= @document.ss_branding %>">
+
+<div class="container">
+
+  <div class="trim-container">    
+    <div class="print-marks trim top left"></div>
+    <div class="print-marks bleed top left"></div>
+
+    <div class="print-marks trim top right"></div>
+    <div class="print-marks bleed top right"></div>
+
+    <div class="print-marks trim bot left"></div>
+    <div class="print-marks bleed bot left"></div>
+
+    <div class="print-marks trim bot right"></div>
+    <div class="print-marks bleed bot right"></div>
+  </div>
+
+  <main class="page1">
+
+        <header>
+          <h1><%= @document.headline %></h1>
+          <p><%= @document.subheadline %></p>
+        </header>
+        
+        <div class="table">
+            
+            <div class="col">
+                <h2><%= @document.page1_col2_title %></h2>
+                <% unless @document.page1_col1_photo.blank? %>
+                  <figure class="background-image" style="background-image: url(<%= "#{@document.page1_col1_photo}" %>);"></figure>
+                <% end %>
+                <figcaption><%= @document.page1_col1_caption %></figcaption>
+                <%= @document.page1_col1_text.try(:html_safe) %>
+            </div>
+            
+            <div class="col">
+                <% unless @document.page1_col2_photo.blank? %>
+                  <figure class="background-image" style="background-image: url(<%= "#{@document.page1_col2_photo}" %>);"></figure>
+                <% end %>
+                <h3><%= @document.page1_col2_title %></h3>
+                <%= @document.page1_col2_bot_text %>
+
+                <div class="events">
+                    <h3><%= @document.page1_col2_bot_headline %></h3>
+                    <%= @document.page1_col2_text.try(:html_safe) %>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+          <div class="angle"></div>
+          <div class="union-bug"></div>          
+          <% unless @document.nl_affiliate_logo.blank? %>
+            <div class="affiliate-logo">
+              <div style="background-image: url('<%= "#{@document.nl_affiliate_logo}" %>');"></div>
+            </div>
+          <% end %>
+          <div class="main-logo"></div>
+        </footer>
+
+  </main>
+
+</div>
+
+<div class="container">
+
+  <div class="trim-container">    
+    <div class="print-marks trim top left"></div>
+    <div class="print-marks bleed top left"></div>
+
+    <div class="print-marks trim top right"></div>
+    <div class="print-marks bleed top right"></div>
+
+    <div class="print-marks trim bot left"></div>
+    <div class="print-marks bleed bot left"></div>
+
+    <div class="print-marks trim bot right"></div>
+    <div class="print-marks bleed bot right"></div>
+  </div>
+
+  <main class="page2">
+  
+        <div class="top-bar"></div>
+        <div class="pad">
+
+            <div class="int-pres">   
+                <h2>From the International President</h2>
+                <article>
+                    <figure class="headshot" style="background-image: url(http://toolkit-afscme.bytrilogy.com/print/img/newsletter/international-president.jpg);"></figure>
+                    <p>Freedom is one of the most cherished American principles. But freedom means more than the ability to speak your mind, practice your religion, or choose your own democratically elected leaders. Our freedoms don’t end with the First Amendment to the Constitution.</p>
+                    <p>Freedom is also the ability to enjoy economic security and stability. And that means more than making a decent living and having enough to pay the bills. It’s about both financially supporting our families and having time to be there for them. Freedom is the ability to take your mom or dad to a doctor’s appointment, to attend a parent-teacher conference, and to retire with dignity.</p>
+                    <p>Unions like the American Federation of State, County and Municipal Employees (AFSCME), where I serve as president, provide the power in numbers that allow us to secure and protect these freedoms.</p>
+                    <p>At our union, we champion policies that benefit all Americans. We fight for affordable healthcare for all, especially now, as Congress is considering legislation which would inexplicably throw millions of people off the insurance rolls. Pat Waller, a union member who is a labor and delivery nurse at a rural hospital in southern Ohio, is speaking out against Medicaid cuts that threaten the health coverage of new mothers and babies.</p>
+                    <p>We fight to improve the quality of public services. Union member Tyrone Wooten is an environmental technician at a medical facility in Flint, Michigan. He knows firsthand the devastating impact of the water supply contamination in his community. And he traveled 14 hours by bus last year to Washington, to protest the testimony of the Michigan governor, whose austerity policies led to the water crisis in Flint.</p>
+                    <p>We’re also on the front lines when it comes to retirement security. AFSCME’s nearly 250,000 retiree members, led by Gary Tavormina — who began his public service career as a corrections officer in New York State in 1957 — are active in protecting public pensions and safeguarding Social Security.</p>
+                    <p>It’s hard to believe anyone could be against pregnant women and infants having quality health services, families having clean drinking water, or retirees having rock-solid Social Security benefits. But many people actually are. The privileged and powerful — CEOs, massive corporations, and the wealthiest 1 percent — do not just oppose these freedoms. They rig the rules to undermine them and they spend billions of dollars lobbying against them.</p>
+                    <p>And because unions fight for these freedoms, the moneyed interests have made us a target. They want to use the courts to chip away at the rights and protections unions have won for everyone. They have now petitioned the Supreme Court to take a case called Janus v. AFSCME, in which the plaintiffs seek to impose “right-to-work” as the law of the land in the public sector.</p>
+                    <p>Right-to-work threatens the ability of working people to stand together in a strong union, drives down wages and weakens workplace protections, while redistributing wealth upward. Moreover, right-to-work has its roots in the Jim Crow south, where segregationists pushed it to restrict the labor rights of African Americans and keep them from finding common cause with their white coworkers. Right-to-work, in other words, was created to inhibit freedom.
+                    Americans value their freedom, and they define it broadly. It is the ability to earn a decent paycheck without sacrificing family life. It is the opportunity to live in a safe community and send your kids to a decent school. It is the peace of mind of knowing that an injury or illness won’t ruin you financially and that you can live in some modest comfort in your golden years.</p>
+                    <p>The labor movement believes in — and are the guardians of — all of these freedoms. So, as the corporate special interests gear up for another well-funded attack, we will do everything in our power to protect and defend our freedom to join together in a union.</p>
+                </article>
+            </div>
+        </div>
+
+        <div class="who">
+        <div class="pad">
+            <article>
+                <h3><%= @document.page2_bot_title %></h3>
+                <% unless @document.page2_bot_photo.blank? %>
+                  <figure class="background-image" style="background-image: url(<%= "#{@document.page2_bot_photo}" %>);"></figure>
+                <% end %>
+                <figcaption><%= @document.page2_bot_caption %></figcaption>
+                <%= @document.page2_bot_text.try(:html_safe) %>
+            </article>        
+        </div>
+        </div>
+
+        <footer>
+          <div class="angle"></div>
+          <div class="union-bug"></div>          
+          <% unless @document.nl_affiliate_logo.blank? %>
+            <div class="affiliate-logo">
+              <div style="background-image: url('<%= "#{@document.nl_affiliate_logo}" %>');"></div>
+            </div>
+          <% end %>
+          <div class="main-logo"></div>
+        </footer>
+
+  </main>
+
+</div>
+
+</body>
+</html>
