@@ -1,0 +1,21 @@
+<script>
+  function initTinyMCE() {
+    if (typeof tinyMCE != 'undefined') {
+      tinyMCE.init({
+        selector: "textarea.tinymce",
+        toolbar: ["styleselect | bold italic | undo redo"],
+        branding: false,
+        menubar: "edit insert view format table tools",
+        plugins: "code,searchreplace",
+        extended_valid_elements: "script[src],style"
+      });
+    } else {
+      setTimeout(initTinyMCE, 50);
+    }
+  }
+
+$(document).ready(function(){
+	initTinyMCE();
+});
+
+</script>
