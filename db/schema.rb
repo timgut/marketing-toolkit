@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170721183442) do
+ActiveRecord::Schema.define(version: 20170801185704) do
 
   create_table "affiliates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
@@ -122,8 +122,8 @@ ActiveRecord::Schema.define(version: 20170721183442) do
     t.integer  "status"
     t.integer  "campaign_id"
     t.text     "customizable_options",        limit: 65535
-    t.datetime "created_at",                                               null: false
-    t.datetime "updated_at",                                               null: false
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
     t.integer  "category_id"
     t.string   "orientation"
     t.boolean  "customize",                                 default: true
@@ -132,6 +132,7 @@ ActiveRecord::Schema.define(version: 20170721183442) do
     t.integer  "static_pdf_file_size"
     t.datetime "static_pdf_updated_at"
     t.text     "blank_image_meta",            limit: 65535
+    t.boolean  "crop_marks_by_default",                     default: false
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|

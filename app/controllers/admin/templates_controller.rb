@@ -83,7 +83,7 @@ class Admin::TemplatesController < AdminController
     params.require(:template).permit(
       :title, :description, :height, :width, :pdf_markup, :form_markup, :status, :thumbnail,
       :numbered_image, :blank_image, :customizable_options, :campaign_id, :category_id,
-      :crop_top, :crop_bottom, :orientation, :customize, :static_pdf
+      :crop_top, :crop_bottom, :orientation, :customize, :static_pdf, :crop_marks_by_default
     )
   end
 end
