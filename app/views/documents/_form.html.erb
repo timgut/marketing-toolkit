@@ -75,7 +75,12 @@
 
 <script type="text/javascript">
   tinyMCE.init({
-    selector: 'textarea.tinymce',
+    branding: false,
+    menubar:  "edit view format tools",
+    plugins:  "code searchreplace lists",
+    selector: "textarea.tinymce",
+    toolbar:  "styleselect | bold italic underline strikethrough | bullist numlist | indent outdent | alignleft aligncenter alignright alignjustify | undo redo",
+    extended_valid_elements: "script[src] style",
     init_instance_callback: function(editor) {
       window.Toolkit.Document.fillWysiwyg(editor);
 
