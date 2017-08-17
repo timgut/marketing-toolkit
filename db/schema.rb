@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 20170801185704) do
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
     t.integer  "creator_id"
-    t.integer  "status",                           default: 1, null: false
+    t.integer  "status",                           default: 1
     t.text     "crop_data",          limit: 65535
     t.text     "image_meta",         limit: 65535
     t.index ["creator_id"], name: "index_images_on_creator_id", using: :btree
@@ -122,8 +122,8 @@ ActiveRecord::Schema.define(version: 20170801185704) do
     t.integer  "status"
     t.integer  "campaign_id"
     t.text     "customizable_options",        limit: 65535
-    t.datetime "created_at",                                                null: false
-    t.datetime "updated_at",                                                null: false
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
     t.integer  "category_id"
     t.string   "orientation"
     t.boolean  "customize",                                 default: true
@@ -132,7 +132,7 @@ ActiveRecord::Schema.define(version: 20170801185704) do
     t.integer  "static_pdf_file_size"
     t.datetime "static_pdf_updated_at"
     t.text     "blank_image_meta",            limit: 65535
-    t.boolean  "crop_marks_by_default",                     default: false
+    t.integer  "crop_mark",                                 default: 0,    null: false
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|

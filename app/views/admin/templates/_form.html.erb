@@ -49,8 +49,8 @@
       </li>
 
       <li>
-        <%= f.label :crop_marks_by_default, "Check 'Display Crop Marks' by default?" %>
-        <%= f.select(:crop_marks_by_default, [["Yes", true], ["No", false]]) %>
+        <%= f.label :crop_marks, "Use Crop Marks" %>
+        <%= f.select(:crop_marks, Template.crop_marks.keys ) %>
       </li>
 
       <li>

@@ -25,9 +25,10 @@ module ApplicationHelper
 
   def check_crop_marks?
     if @document.new_record?
-      @template.crop_marks_by_default?
+      @template.crop_marks == 2
+      return true
     else
-      @document.crop_marks?
+      return false
     end
   end
 end
