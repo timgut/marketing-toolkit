@@ -80,7 +80,7 @@
         <% @departments.each do |department| %>
           <tr>
             <td><%= department %></td>
-            <td><%= User.where("role = '#{department}'").count %></td>
+            <td><%= User.where("department = '#{department}'").count %></td>
           </tr>
         <% end %>
       </tbody>
