@@ -64,6 +64,7 @@ Rails.application.routes.draw do
 
   namespace :admin, path: '/admin' do
     root to: "misc#home"
+    get 'stats', to: 'misc#stats', as: :stats
 
     resources :campaigns,  except: [:new, :show]
     resources :users,      except: [:destroy, :show]
