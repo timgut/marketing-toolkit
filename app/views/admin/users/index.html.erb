@@ -2,53 +2,53 @@
 <% breadcrumb :admin_users %>
 
 <main class="clearfix">
-	<section class="workspace cf">
-		<p style="text-align:left;">You can manage users on this screen, or you can <%= link_to "create a new user", new_admin_user_path %>.</p>
+  <section class="workspace cf">
+    <p style="text-align:left;">You can manage users on this screen, or you can <%= link_to "create a new user", new_admin_user_path %>.</p>
 
-		<% if @unapproved.count > 0 %>
+    <% if @unapproved.count > 0 %>
 
-		<h2>Unapproved Users</h2>
-		<p>Click a user name to either approve or reject their Toolkit access.</p>
+    <h2>Unapproved Users</h2>
+    <p>Click a user name to either approve or reject their Toolkit access.</p>
 
-		<div class="table">
-	     <div class="rows">
-	     		<%= render partial: "admin/users/header_row" %> 
-	      	<% @unapproved.each do |user| %>
-	      		<%= render partial: "admin/users/user_row", locals: {user: user} %>
-	      	<% end %>
-	   </div><!--rows-->            
-	  </div><!--table-->     
+    <div class="table">
+       <div class="rows">
+           <%= render partial: "admin/users/header_row" %> 
+          <% @unapproved.each do |user| %>
+            <%= render partial: "admin/users/user_row", locals: {user: user} %>
+          <% end %>
+     </div><!--rows-->            
+    </div><!--table-->     
 
-	  <% end %>
+    <% end %>
 
-		<h2>Active Users</h2>
-		<p>Click a user name to update their account information.</p>
+    <h2>Active Users</h2>
+    <p>Click a user name to update their account information.</p>
 
-		<div class="table">
-	     <div class="rows">
-	     		<%= render partial: "admin/users/header_row" %> 
-	      	<% @approved.each do |user| %>
-	      		<%= render partial: "admin/users/user_row", locals: {user: user} %>
-	      	<% end %>
-	   </div><!--rows-->            
-	  </div><!--table-->     
+    <div class="table">
+       <div class="rows">
+           <%= render partial: "admin/users/header_row" %> 
+          <% @approved.each do |user| %>
+            <%= render partial: "admin/users/user_row", locals: {user: user} %>
+          <% end %>
+     </div><!--rows-->            
+    </div><!--table-->     
 
-		<% if @rejected.count > 0 %>
+    <% if @rejected.count > 0 %>
 
-		<h2>Rejected Users</h2>
-		<p>Click a user name to modify their Toolkit access.</p>
+    <h2>Rejected Users</h2>
+    <p>Click a user name to modify their Toolkit access.</p>
 
-		<div class="table">
-	     <div class="rows">
-	     		<%= render partial: "admin/users/header_row" %> 
-	      	<% @rejected.each do |user| %>
-	      		<%= render partial: "admin/users/user_row", locals: {user: user} %>
-	      	<% end %>
-	   </div><!--rows-->            
-	  </div><!--table-->     
+    <div class="table">
+       <div class="rows">
+           <%= render partial: "admin/users/header_row" %> 
+          <% @rejected.each do |user| %>
+            <%= render partial: "admin/users/user_row", locals: {user: user} %>
+          <% end %>
+     </div><!--rows-->            
+    </div><!--table-->     
 
-	  <% end %>
+    <% end %>
 
 
-	</section><!--workspace--> 
+  </section><!--workspace--> 
 </main>

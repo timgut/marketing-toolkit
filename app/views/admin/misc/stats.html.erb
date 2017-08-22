@@ -1,100 +1,120 @@
-<p class="note">All statistics omit data from administrators, unless noted otherwise.</p>
+<% content_for :title {"Admin: Stats"} %>
+<% breadcrumb :admin_stats %>
 
-<table class="stats" id="overall-stats">
-  <thead>
-    <tr>
-      <th colspan="2">Overall Statistics</th>
-    </tr>
-  </thead>
+<section class="breadcrumbs branding">
+  <div class="gradient-mask"></div>
+  <%= breadcrumbs(
+    class:         :crumbs,
+    current_class: :active,
+    style:         :inline,
+    separator:     ""
+  ) %>
 
-  <tbody>
-    <tr>
-      <td>Total users</td>
-      <td><%= @non_admins.count %></td>
-    </tr>
+  <%= content_for(:breadcrumb_extras) %>
+</section>
 
-    <tr>
-      <td>Admin users</td>
-      <td><%= User.where("role = 'Administrator'").count %></td>
-    </tr>
+<main class="clearfix">
+  <section class="workspace cf">
+    <p class="note">All statistics omit data from administrators, unless noted otherwise.</p>
 
-    <tr>
-      <td>Total documents</td>
-      <td><%= @non_admins.map(&:documents).count %></td>
-    </tr>
+    <table class="stats" id="overall-stats">
+      <thead>
+        <tr>
+          <th colspan="2">Overall Statistics</th>
+        </tr>
+      </thead>
 
-    <tr>
-      <td>Total images</td>
-      <td><%= @non_admins.map(&:images).count %></td>
-    </tr>
+      <tbody>
+        <tr>
+          <td>Total users</td>
+          <td><%= @non_admins.count %></td>
+        </tr>
 
-    <tr>
-      <td>Total templates</td>
-      <td><%= @templates.count %></td>
-    </tr>
-  </tbody>
-</table>
+        <tr>
+          <td>Admin users</td>
+          <td><%= User.where("role = 'Administrator'").count %></td>
+        </tr>
 
-<table class="stats" id="document-stats">
-  <thead>
-    <tr>
-      <th colspan="2">Documents Created</th>
-    </tr>
-  </thead>
+        <tr>
+          <td>Total documents</td>
+          <td><%= @non_admins.map(&:documents).count %></td>
+        </tr>
 
-  <tbody>
-    <% @templates.each do |template| %>
-      <tr>
-        <td><%= template.title %></td>
-        <td><%= template.documents.select{|d| d.creator.role != 'Administrator'}.count %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        <tr>
+          <td>Total images</td>
+          <td><%= @non_admins.map(&:images).count %></td>
+        </tr>
 
-<table class="stats" id="department-stats">
-  <thead>
-    <tr>
-      <th colspan="2">Users by Department</th>
-    </tr>
-  </thead>
+        <tr>
+          <td>Total templates</td>
+          <td><%= @templates.count %></td>
+        </tr>
+      </tbody>
+    </table>
 
-  <tbody>
-    <% @departments.each do |department| %>
-      <tr>
-        <td><%= department %></td>
-        <td><%= User.where("role = '#{department}'").count %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <table class="stats" id="document-stats">
+      <thead>
+        <tr>
+          <th colspan="2">Documents Created</th>
+        </tr>
+      </thead>
 
-<table class="stats" id="user-status-stats">
-  <thead>
-    <tr>
-      <th colspan="2">Users by Status</th>
-    </tr>
-  </thead>
+      <tbody>
+        <% @templates.each do |template| %>
+          <tr>
+            <td><%= template.title %></td>
+            <td><%= template.documents.select{|d| d.creator.role != 'Administrator'}.count %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-  <tbody>
-    <tr>
-      <td>Approved</td>
-      <td><%= User.approved.count %></td>
-    </tr>
+    <table class="stats" id="department-stats">
+      <thead>
+        <tr>
+          <th colspan="2">Users by Department</th>
+        </tr>
+      </thead>
 
-    <tr>
-      <td>Unapproved</td>
-      <td><%= User.unapproved.count %></td>
-    </tr>
+      <tbody>
+        <% @departments.each do |department| %>
+          <tr>
+            <td><%= department %></td>
+            <td><%= User.where("role = '#{department}'").count %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-    <tr>
-      <td>Needs Reminder</td>
-      <td><%= User.unapproved_and_needs_reminder.count %></td>
-    </tr>
+    <table class="stats" id="user-status-stats">
+      <thead>
+        <tr>
+          <th colspan="2">Users by Status</th>
+        </tr>
+      </thead>
 
-    <tr>
-      <td>Rejected</td>
-      <td><%= User.rejected.count %></td>
-    </tr>
-  </tbody>
-</table>
+      <tbody>
+        <tr>
+          <td>Approved</td>
+          <td><%= User.approved.count %></td>
+        </tr>
+
+        <tr>
+          <td>Unapproved</td>
+          <td><%= User.unapproved.count %></td>
+        </tr>
+
+        <tr>
+          <td>Needs Reminder</td>
+          <td><%= User.unapproved_and_needs_reminder.count %></td>
+        </tr>
+
+        <tr>
+          <td>Rejected</td>
+          <td><%= User.rejected.count %></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+
