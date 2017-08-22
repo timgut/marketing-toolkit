@@ -1,0 +1,121 @@
+<% content_for :title {"Admin: Stats"} %>
+<% breadcrumb :admin_stats %>
+
+<section class="breadcrumbs branding">
+  <div class="gradient-mask"></div>
+  <%= breadcrumbs(
+    class:         :crumbs,
+    current_class: :active,
+    style:         :inline,
+    separator:     ""
+  ) %>
+
+  <%= content_for(:breadcrumb_extras) %>
+</section>
+
+<main class="clearfix">
+  <section class="workspace cf">
+    <h1>Statistics</h1>
+    <p class="note">All statistics omit data from administrators, unless noted otherwise.</p>
+
+    <table class="stats" id="overall-stats">
+      <thead>
+        <tr>
+          <th colspan="2">Overall Statistics</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>Total users</td>
+          <td><%= @non_admins.count %></td>
+        </tr>
+
+        <tr>
+          <td>Admin users</td>
+          <td><%= User.where("role = 'Administrator'").count %></td>
+        </tr>
+
+        <tr>
+          <td>Total documents</td>
+          <td><%= @non_admins.map(&:documents).count %></td>
+        </tr>
+
+        <tr>
+          <td>Total images</td>
+          <td><%= @non_admins.map(&:images).count %></td>
+        </tr>
+
+        <tr>
+          <td>Total templates</td>
+          <td><%= @templates.count %></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table class="stats" id="document-stats">
+      <thead>
+        <tr>
+          <th colspan="2">Documents Created</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @templates.each do |template| %>
+          <tr>
+            <td><%= template.title %></td>
+            <td><%= template.documents.select{|d| d.creator.role != 'Administrator'}.count %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <table class="stats" id="department-stats">
+      <thead>
+        <tr>
+          <th colspan="2">Users by Department</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @departments.each do |department| %>
+          <tr>
+            <td><%= department %></td>
+            <td><%= User.where("department = '#{department}'").count %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <table class="stats" id="user-status-stats">
+      <thead>
+        <tr>
+          <th colspan="2">Users by Status</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>Approved</td>
+          <td><%= User.approved.count %></td>
+        </tr>
+
+        <tr>
+          <td>Unapproved</td>
+          <td><%= User.unapproved.count %></td>
+        </tr>
+
+        <tr>
+          <td>Needs Reminder</td>
+          <td><%= User.unapproved_and_needs_reminder.count %></td>
+        </tr>
+
+        <tr>
+          <td>Rejected</td>
+          <td><%= User.rejected.count %></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+
