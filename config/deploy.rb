@@ -34,7 +34,7 @@ set :migration_role, :db
 #   end
 # end
 
-before :deploy, :check_jobs
+#before :deploy, :check_jobs
 
 after :deploy, "unicorn:restart"
 
