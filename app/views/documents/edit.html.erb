@@ -7,3 +7,11 @@
 
 <%= render 'form' %>
 <%= render partial: "images/modal" %>
+
+<% if params[:generating] %>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      new window.Toolkit.Job(undefined, "pdfAndThumbnail", <%= @document.id %>)
+    });
+  </script>
+<% end %>

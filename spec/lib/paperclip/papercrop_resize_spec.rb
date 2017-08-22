@@ -11,6 +11,8 @@ RSpec.describe Paperclip::PapercropResize, type: :class do
 
   def setup
     image.strategy = :papercrop
+    image.paperclip_resize = true
+    image.reset_commands
     image.resize_height = 50
     image.resize_width = 75
   end
