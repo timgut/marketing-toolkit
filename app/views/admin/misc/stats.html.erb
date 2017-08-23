@@ -33,17 +33,17 @@
 
         <tr>
           <td>Admin users</td>
-          <td><%= User.where("role = 'Administrator'").count %></td>
+          <td><%= @admins.count %></td>
         </tr>
 
         <tr>
           <td>Total documents</td>
-          <td><%= @non_admins.map(&:documents).count %></td>
+          <td><%= @num_documents %></td>
         </tr>
 
         <tr>
           <td>Total images</td>
-          <td><%= @non_admins.map(&:images).count %></td>
+          <td><%= @num_images %></td>
         </tr>
 
         <tr>
