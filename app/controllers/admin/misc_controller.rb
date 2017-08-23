@@ -10,7 +10,7 @@ class Admin::MiscController < AdminController
     @admins      = User.where("role = 'Administrator'")
     @non_admins  = User.includes(:documents, :images).where("role != 'Administrator'")
     @templates   = Template.includes(:documents, documents: [:creator]).all
-    @departments = @non_admins.map(&:department).uniq
+    @departments = @non_admins.map(&:department).uniq.compact
 
     # Counts
     @num_documents = DocumentUser.where.not(user_id: @admins.map(&:id)).count
