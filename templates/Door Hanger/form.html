@@ -38,7 +38,7 @@
   <div class="field upload cf"> 
     <input id="photo1-custom" data-custom="image" name="data[photo1]" type="radio" value="" />
     <label for="photo1-custom">
-       <figure href="javascript:void(0);" title="Add Photo" class="image-picker" data-target="photo1-custom">
+       <figure href="javascript:void(0);" title="Add Photo" class="image-picker" data-target="photo1-custom" data-resize-width="1200" data-resize-height="825">
            <div class="positioner">
                <span class="icons">C</span>
                Add Photo
@@ -69,8 +69,7 @@
     </label>
 
     <label for="front_text">
-      <textarea class="tinymce" name="data[front_text]" data-custom="wysiwyg" id="front_text_custom"></textarea>
-      <small>Maximum of 100 characters. Please preview, since words may wrap unexpectedly and cutoff your text.</small>
+      <textarea class="tinymce" name="data[front_text]" data-custom="wysiwyg" id="front_text"></textarea>
     </label>
 
   </div>
@@ -83,7 +82,7 @@
   <div class="field upload cf"> 
     <input id="photo2-custom" data-custom="image" name="data[photo2]" type="radio" value="" />
     <label for="photo2-custom">
-       <figure href="javascript:void(0);" title="Add Photo" class="image-picker" data-target="photo2-custom">
+       <figure href="javascript:void(0);" title="Add Photo" class="image-picker" data-target="photo2-custom" data-resize-width="1200" data-resize-height="625">
            <div class="positioner">
                <span class="icons">C</span>
                Add Photo
@@ -104,8 +103,7 @@
     </label>
       
     <label for="back_text">
-      <textarea class="tinymce" name="data[back_text]" data-custom="wysiwyg" id="back_text_custom"></textarea>
-      <small>Maximum of 100 characters. Please preview, since words may wrap unexpectedly and cutoff your text.</small>
+      <textarea class="tinymce" name="data[back_text]" data-custom="wysiwyg" id="back_text"></textarea>
     </label>
 
     <label for="back_subheading">
@@ -114,8 +112,7 @@
     </label>
 
     <label for="back_bullets">
-      <textarea class="tinymce" name="data[back_bullets]" data-custom="wysiwyg" id="back_bullets_custom"></textarea>
-      <small>Maximum of 100 characters. Please preview, since words may wrap unexpectedly and cutoff your text.</small>
+      <textarea class="tinymce" name="data[back_bullets]" data-custom="wysiwyg" id="back_bullets"></textarea>
     </label>
 
   </div>
@@ -125,8 +122,8 @@
   <h3>Edit Funding Disclaimer</h3>
   <div class="field"> 
     <label for="funding_disclaimer">
-      <input type="text" data-custom="text" name="data[funding_disclaimer]" id="funding_disclaimer_custom" maxlength="70" value="" placeholder="Paid for by the American Federation of State, County and Municipal Employees" />
-      <small>Maximum of 70 characters. Please preview, since words may wrap unexpectedly and cutoff your postage information.</small>
+      <input type="text" data-custom="text" name="data[funding_disclaimer]" id="funding_disclaimer_custom" maxlength="90" value="" placeholder="Paid for by the American Federation of State, County and Municipal Employees" />
+      <small>Maximum of 90 characters. Please preview, since words may wrap unexpectedly and cutoff your postage information.</small>
       <label for="postage_info_custom"></label>
     </label>
   </div>
