@@ -15,6 +15,7 @@ require 'paperclip/matchers'
 require "#{Rails.root}/spec/support/controller_macros.rb"
 require 'pundit/rspec'
 require 'sucker_punch/testing/inline'
+require 'ostruct'
 
 ActiveRecord::Migration.maintain_test_schema!
 
@@ -33,11 +34,6 @@ RSpec.configure do |config|
   config.add_setting :non_admins,    default: [:user, :vetter, :local_president]
   config.add_setting :http_referer,  default: "http://toolkit.afscme.org"
 
-  # Clean up all jobs specs with truncation
-  config.before(:each, type: :job) do
-    DatabaseCleaner.strategy = :truncation
-  end
-
   config.before(:suite) do
     Warden.test_mode!
     DatabaseCleaner.strategy = :transaction
@@ -46,11 +42,19 @@ RSpec.configure do |config|
   config.before(:each) do
     DatabaseCleaner.start
 
+    allow(DocumentPdfJob).to receive(:perform_async).and_return(true)
+    allow(DocumentThumbnailJob).to receive(:perform_async).and_return(true)
+
     # Only do this in controller specs. Only controller and helper specs define request.
     # However, helper specs will set request to nil.
     if defined?(request) && !request.nil?
       request.env['HTTP_REFERER'] = config.http_referer
     end
+  end
+
+  # Clean up all jobs specs with truncation
+  config.before(:each, type: :job) do
+    # DatabaseCleaner.strategy = :truncation
   end
 
   config.after(:each) do

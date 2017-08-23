@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170630204529) do
+ActiveRecord::Schema.define(version: 20170721183442) do
 
   create_table "affiliates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
@@ -55,14 +55,15 @@ ActiveRecord::Schema.define(version: 20170630204529) do
     t.string   "pdf_content_type"
     t.integer  "pdf_file_size"
     t.datetime "pdf_updated_at"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
     t.integer  "tag_id"
     t.integer  "creator_id"
     t.string   "thumbnail_file_name"
     t.string   "thumbnail_content_type"
     t.integer  "thumbnail_file_size"
     t.datetime "thumbnail_updated_at"
+    t.boolean  "crop_marks",                           default: false
     t.index ["creator_id"], name: "index_documents_on_creator_id", using: :btree
     t.index ["template_id"], name: "index_documents_on_template_id", using: :btree
   end

@@ -65,7 +65,14 @@
 
       <div class="buttons small cf">
         <% unless @document.new_record? %>
-          <%= link_to "Download".html_safe, download_link(@document), target: :blank, class: "preview action button", title:  changed_document_message, data: {download: true} %>
+          <%= link_to(
+            "Download".html_safe,
+            @document.pdf&.url,
+            target: :blank,
+            class:  "preview action button download-document",
+            title:  changed_document_message,
+            style:  @document.pdf_file_name ? "" : "display:none"
+          ) %>
         <% end %>
         <%= f.button "Save", class: "button save active" %>
       </div>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8">
+
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lato:400,900" rel="stylesheet">
+
+<link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/reset.css" type="text/css" />
+<link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/dynamic-print-marks.css" type="text/css" />
+<link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/global.css" type="text/css" />
+<link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/political-mailer.css" type="text/css" />
+
+<style type="text/css">
+</style>
+
+</head>
+
+<body class="standard <%= 'show-print-marks ' if @document.crop_marks? %> <%= @document.ss_branding %>">
+
+<div class="container">
+
+  <div class="trim-container">    
+    <div class="print-marks trim top left"></div>
+    <div class="print-marks bleed top left"></div>
+
+    <div class="print-marks trim top right"></div>
+    <div class="print-marks bleed top right"></div>
+
+    <div class="print-marks trim bot left"></div>
+    <div class="print-marks bleed bot left"></div>
+
+    <div class="print-marks trim bot right"></div>
+    <div class="print-marks bleed bot right"></div>
+  </div>
+
+  <main class="page1">
+        <header><%= @document.heading %></header>
+        <div class="title">
+          <h1>
+            <%= @document.candidate_name %>
+            <% unless @document.candidate_office.blank? %>
+              <em><%= @document.candidate_office %></em>
+            <% end %>
+          </h1>
+        </div>
+        <div class="table">
+          <div class="col one">
+              <figure class="photo large" style="background-image: url('<%= "#{@document.headshot}" %>');"></figure>
+          </div>
+          <div class="col two">
+              <h2><%= @document.headline %></h2>
+              <figure class="photo small" style="background-image: url('<%= "#{@document.bottom_right_photo}" %>');"></figure>
+          </div>              
+        </div>
+        <header class="cta"><%= @document.call_to_action %></header>
+  </main>
+
+</div>
+
+<div class="container">
+
+  <div class="trim-container">    
+    <div class="print-marks trim top left"></div>
+    <div class="print-marks bleed top left"></div>
+
+    <div class="print-marks trim top right"></div>
+    <div class="print-marks bleed top right"></div>
+
+    <div class="print-marks trim bot left"></div>
+    <div class="print-marks bleed bot left"></div>
+
+    <div class="print-marks trim bot right"></div>
+    <div class="print-marks bleed bot right"></div>
+  </div>
+
+  <main class="page2">
+        <div class="address">
+          <%= @document.pm_address %><br>
+          <%= @document.pm_city_state_zip %>          
+        </div>
+        <div class="postage">
+          Prst Std<br>
+          U.S. Postage Paid<br>
+          <%= @document.postage_info %> 
+        </div>
+
+        <div class="table">
+        
+          <div class="col one">
+              <figure style="background-image: url('<%= "#{@document.page_2_photo}" %>');"></figure>
+              <h1><%= @document.event_name %></h1>
+              <h2><%= @document.event_date %></h2>
+          </div>
+          
+          <div class="col two">
+              <h4><%= @document.page2_headline1 %></h4>                
+              <% unless @document.page2_text1.blank? %>
+                <p><%= @document.page2_text1 %></p>
+              <% end %>               
+          </div>          
+          
+        </div>
+        
+        <footer>
+          <div class="angle"></div>
+          <div class="union-bug"></div>   
+          <% unless @document.funding_disclaimer.blank? %>
+            <div class="paidfor"><%= @document.funding_disclaimer %></div>
+          <% end %>  
+          <% unless @document.nl_affiliate_logo.blank? %>
+            <div class="affiliate-logo">
+              <div style="background-image: url('<%= "#{@document.nl_affiliate_logo}" %>');"></div>
+            </div>
+          <% end %>
+        </footer>
+
+  </main>
+
+</div>
+
+</body>
+</html>

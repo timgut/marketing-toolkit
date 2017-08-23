@@ -21,6 +21,7 @@ RSpec.describe Paperclip::ContextualResize, type: :class do
   end
 
   def setup
+    image.reset_commands
     image.strategy = :contextual_crop
     image.context  = template
   end
@@ -58,6 +59,7 @@ RSpec.describe Paperclip::ContextualResize, type: :class do
       context "portrait" do
         it "calculates the ImageMagick resize command" do
           portrait = create(:image, image: portrait_file)
+          portrait.reset_commands
           portrait.strategy = :contextual_crop
           portrait.context = template
 

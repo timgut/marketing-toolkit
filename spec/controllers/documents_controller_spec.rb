@@ -27,8 +27,8 @@ RSpec.describe DocumentsController, type: :controller do
     }
   end
 
-  def destroy_params
-    { id: document.id }
+  def destroy_params(params={})
+    { id: document.id }.deep_merge(params)
   end
 
   def new_params
@@ -76,7 +76,7 @@ RSpec.describe DocumentsController, type: :controller do
             post :create, params: create_params
 
             expect(response).to have_http_status(302)
-            expect(response).to redirect_to documents_path
+            expect(response).to redirect_to documents_path(generating: Document.last.id)
           end
         end
         
@@ -180,13 +180,56 @@ RSpec.describe DocumentsController, type: :controller do
         end
         __send__("controller_#{role}_sign_in".to_sym)
 
-        it "redirects to the PDF" do
+        it "returns head :no_content" do
           own_document
           get :download, params: destroy_params
 
-          # Rspec handles redirects to PDFs a bit strangely
-          expect(response.headers["Location"]).to include "#{document.id}.pdf"
-          expect(response).to have_http_status 302
+          expect(response).to have_http_status 204
+        end
+
+        it "instantiates a new DocumentPdfJob" do
+          own_document
+          expect(DocumentPdfJob).to receive(:perform_async)
+          get :download, params: destroy_params
+        end
+      end
+    end
+  end
+
+  describe "GET #job_status" do
+    context "not signed in" do
+      it "redirects to the sign in page" do
+        get :job_status, params: destroy_params
+        expect(response).to have_http_status 302
+        expect(response.body).to eq RSpec.configuration.redirect_html
+      end
+    end
+
+    RSpec.configuration.user_roles.each do |role|
+      context "signed in as: #{role}" do
+        __send__("controller_#{role}_sign_in".to_sym)
+
+        it "returns json when the jobs are incomplete" do
+          own_document
+          get :job_status, params: destroy_params(format: :json)
+
+          json = JSON.parse(response.body)
+          expect(json["status"]).to eq "incomplete"
+        end
+
+        it "returns json when the jobs are complete" do
+          own_document
+          
+          document.pdf = File.new(Rails.root.join("spec", "support", "images", "blank.pdf").to_s)
+          document.thumbnail = File.new(Rails.root.join("spec", "support", "images", "blank.jpg").to_s)
+          document.save!
+
+          get :job_status, params: destroy_params(format: :json)
+          json = JSON.parse(response.body)
+
+          expect(json["status"]).to eq "complete"
+          expect(json["thumbnail"]).to eq document.thumbnail.url
+          expect(json["pdf"]).to eq document.pdf.url
         end
       end
     end
@@ -285,7 +328,7 @@ RSpec.describe DocumentsController, type: :controller do
             patch :update, params: update_params
             
             expect(response).to have_http_status 302
-            expect(response.body).to redirect_to edit_document_path(document)
+            expect(response.body).to redirect_to edit_document_path(document, generating: true)
           end
         end
 

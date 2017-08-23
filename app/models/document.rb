@@ -53,6 +53,8 @@ class Document < ApplicationRecord
   end
 
   def generate_pdf
+    reload # Grab the latest copy from the database
+
     av = ActionView::Base.new
     av.view_paths = ActionController::Base.view_paths
     pdf_html = av.render(template: "documents/build.pdf.erb", locals: {document: self})
@@ -62,9 +64,6 @@ class Document < ApplicationRecord
     
     self.pdf = File.open(local_pdf_path)
     self.save
-
-    # Save the file for thumbnail generation
-    # File.delete(local_pdf_path)
   end
 
   def generate_thumbnail
@@ -78,6 +77,10 @@ class Document < ApplicationRecord
     self.save
     
     File.delete(local_thumbnail_path)
+  end
+
+  def delete_local_pdf
+    File.delete(local_pdf_path)
   end
 
   def local_pdf_path
@@ -109,4 +112,5 @@ class Document < ApplicationRecord
       }
     }
   end
+
 end

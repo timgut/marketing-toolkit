@@ -6,8 +6,10 @@ RSpec.describe Image, type: :model do
 
   def set_crop_data
     image.update_attributes(crop_data: {
-      crop:   "-crop 612x791+140+167",
-      resize: "-resize 1430x950^",
+      commands: [
+        ["-resize", "200x200!"],
+        ["-crop", "200x400+150+225"]
+      ],
       drag:   {x: "-140", y: "-167"}
     })
   end
@@ -100,18 +102,25 @@ RSpec.describe Image, type: :model do
       end
     end
 
+    describe "#reset_commands" do
+      it "truncates any commands in-memory" do
+        image.commands = ['command 1', 'command 2']
+        image.reset_commands
+        expect(image.commands.count).to eq 0
+      end
+    end
+
     describe "#set_crop_data!" do
       it "persists the crop_data" do
-        image.crop_cmd   = "-crop 612x791+140+167"
-        image.resize_cmd = "-resize 1430x950^"
-        image.pos_x      = "-140"
-        image.pos_y      = "-167"
+        image.commands = ['command 1', 'command 2']
+        image.pos_x = "-140"
+        image.pos_y = "-167"
 
         image.set_crop_data!
         image.reload
 
         expect(image.crop_data).to eq({
-          crop: "-crop 612x791+140+167", resize: "-resize 1430x950^", drag: {x: "-140", y: "-167"}
+          commands: ['command 1', 'command 2'], drag: {x: "-140", y: "-167"}
         })
       end
     end

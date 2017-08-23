@@ -10,15 +10,23 @@
 </aside>
 
 <% if @filtered_documents.count > 0 %>
-
-<section class="workspace cf">
-  <%= render @filtered_documents %>
-</section>
-
+  <section class="workspace cf">
+    <%= render @filtered_documents %>
+  </section>
 <% else %>
 	<% if @shared %>
 		<p class="no-results">You have not had any documents shared with you.</p>
 	<% else %>
 		<p class="no-results">You have not created any documents of this type.</p>
 	<% end %>
+<% end %>
+
+<% if params[:generating] %>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $el = $("a[data-id='<%= params[:generating] %>']").closest(".document");
+      console.log($el);
+      new window.Toolkit.Job($el, "pdfAndThumbnail", <%= params[:generating] %>);
+    });
+  </script>
 <% end %>
