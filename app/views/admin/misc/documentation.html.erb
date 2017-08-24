@@ -14,12 +14,12 @@
     body {
       padding: 1em;
       font-family: 'Roboto Condensed', sans-serif;
-      font-weight: normal;
       font-weight: 100;
       color: #292929;
       font-size: 100%;
       line-height: 1.4;
       text-rendering: optimizelegibility;
+      background: #e3e3e3;
     }
 
     aside {
@@ -56,7 +56,7 @@
     }
 
     em {
-      color: #6d9cbe;
+      color: #587ea1;
     }
 
     #last-updated {
@@ -65,125 +65,112 @@
     }
 
     </style>
-    </head>
-    <body>
-      <main class="clearfix">
-        <aside class="preview">
-          <h3>Navigation</h3>
-          
-          <nav class="menu">
-            <ul>
-              <li><a href="#terminolog">Terminology</a></li>
-              <li>
-                <a href="#data-attributes">Data Attributes</a>
-                <ul>
-                  <li>
-                    <a href="#data-custom">data-custom</a>
-                    <ul>
-                      <li>
-                        <a href="#data-custom-text">data-custom="text"</a>
-                        <ul>
-                          <li><a href="#data-custom-text-examples">Examples</a></li>
-                        </ul>  
-                      </li>
+  </head>
+  <body>
+    <main class="clearfix">
+      <aside class="preview">
+        <h3>Navigation</h3>
+        
+        <nav class="menu">
+          <ul>
+            <li><a href="#terminolog">Terminology</a></li>
+            <li>
+              <a href="#data-attributes">Data Attributes</a>
+              <ul>
+                <li>
+                  <a href="#data-custom">data-custom</a>
+                  <ul>
+                    <li>
+                      <a href="#data-custom-text">data-custom="text"</a>
+                      <ul><li><a href="#data-custom-text-examples">Examples</a></li></ul>  
+                    </li>
 
-                      <li>
-                        <a href="#data-custom-wysiwyg">data-custom="wysiwyg"</a>
-                        <ul>
-                          <li><a href="#data-custom-wysiwyg-examples">Examples</a></li>
-                        </ul>  
-                      </li>
+                    <li>
+                      <a href="#data-custom-wysiwyg">data-custom="wysiwyg"</a>
+                      <ul><li><a href="#data-custom-wysiwyg-examples">Examples</a></li></ul>  
+                    </li>
 
-                      <li>
-                        <a href="#data-custom-image">data-custom="image"</a>
-                        <ul>
-                          <li><a href="#data-custom-image-examples">Examples</a></li>
-                          <li><a href="#cropping-images">Cropping Images</a></li>
-                            <ul>
-                              <li><a href="#cropping-image-examples">Examples</a></li>
-                            </ul>
-                        </ul><!-- data-custom="image" -->
-                      </li>
+                    <li>
+                      <a href="#data-custom-image">data-custom="image"</a>
+                      <ul>
+                        <li><a href="#data-custom-image-examples">Examples</a></li>
+                        <li>
+                          <a href="#cropping-images">Cropping Images</a>
+                          <ul><li><a href="#cropping-image-examples">Examples</a></li></ul>
+                        </li>
+                      </ul><!-- data-custom="image" -->
+                    </li>
 
-                      <li>
-                        <a href="#data-custom-combine">data-custom="combine"</a>
-                        <ul>
-                          <li><a href="#data-custom-combine-examples">Examples</a></li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </li><!-- data-custom -->
+                    <li>
+                      <a href="#data-custom-combine">data-custom="combine"</a>
+                      <ul><li><a href="#data-custom-combine-examples">Examples</a></li></ul>
+                    </li>
+                  </ul>
+                </li><!-- data-custom -->
 
-                  <li>
-                    <a href="#data-target">data-target</a>
-                    <ul>
-                      <li>
-                        <a href="#data-target-custom-text">Custom Text</a>
-                        <ul>
-                          <li><a href="#data-target-custom-text-examples">Examples</a></li>
-                        </ul>  
-                      </li>
-                    </ul><!-- Custom Text -->
-                        
-                    <ul>
-                      <li>
-                        <a href="#data-target-custom-image">Custom Image</a>
-                        <ul>
-                          <li><a href="#data-target-custom-image-examples">Examples</a></li>
-                        </ul>  
-                      </li>
-                    </ul><!-- Custom Image -->
-                  </li><!-- data-target -->
+                <li>
+                  <a href="#data-target">data-target</a>
+                  <ul>
+                    <li>
+                      <a href="#data-target-custom-text">Custom Text</a>
+                      <ul><li><a href="#data-target-custom-text-examples">Examples</a></li></ul>  
+                    </li>
+                  </ul><!-- Custom Text -->
+                      
+                  <ul>
+                    <li>
+                      <a href="#data-target-custom-image">Custom Image</a>
+                      <ul><li><a href="#data-target-custom-image-examples">Examples</a></li></ul>  
+                    </li>
+                  </ul><!-- Custom Image -->
+                </li><!-- data-target -->
 
-                  <li>
-                    <a href="#data-combine">data-combine-tag</a>
-                    <ul>
-                      <li>
-                        <a href="#data-combine-examples">Examples</a>
-                      </li>
-                    </ul> 
-                  </li><!-- data-combine -->
+                <li>
+                  <a href="#data-combine">data-combine-tag</a>
+                  <ul><li><a href="#data-combine-examples">Examples</a></li></ul> 
+                </li><!-- data-combine -->
 
-                </ul><!-- Data Attributes -->
-              </li>
+              </ul><!-- Data Attributes -->
+            </li>
 
-              <li>
-                <a href="#conditional-views">Conditional Views</a>
-              </li>
-            </ul><!-- Root ul -->
-          </nav>
+            <li>
+              <a href="#conditional-views">Conditional Views</a>
+              <a href="#crop-marks">Crop Marks</a>
+            </li>
+          </ul><!-- Root ul -->
+        </nav>
 
-          <p id="last-updated"><b>Last Updated</b><br /><i>Wed Aug 23 15:19:10 CDT 2017</i></p>
-        </aside>
+        <p id="last-updated"><b>Last Updated</b><br /><i>Wed Aug 23 15:19:10 CDT 2017</i></p>
+      </aside>
 
-        <section class="workspace">
-          <section class="definition">
-            <h2 id="terminology">Terminology</h2>
-            <ul>
-              <li><b>Data Field</b> is any input whose name is scoped under <em>data[]</em>. These are the fields that are saved to the <em>data</em> table. They can be radio buttons, text fields, or textareas.</li>
-              <li><b>Custom Field</b> is an input whose <em>id</em> attribute ends in <em>-custom</em>. These fields either send their value to the data field via a <em>data-target</em> attribute, or they themselves are also data fields.</li>
-            </ul>
-          </section>
+      <section class="workspace">
+        <section class="definition">
+          <h2 id="terminology">Terminology</h2>
+          <ul>
+            <li><b>Data Field</b> is any input whose name is scoped under <em>data[]</em>. These are the fields that are saved to the <em>data</em> table. They can be radio buttons, text fields, or textareas.</li>
+            <li><b>Custom Field</b> is any input whose <em>id</em> attribute ends in <em>-custom</em>. These fields either send their value to the data field via a <em>data-target</em> attribute, or they themselves are also data fields.</li>
+          </ul>
+        </section>
 
-          <section class="definition">
-            <h2 id="data-attributes">Data Attributes</h2>
-            <h3 id="data-custom">data-custom</h3>
-            <p>Data fields that are a custom field or have an associated custom field use this attribute to determine what type of custom value to fill in. The <em>id</em> of the custom field should end in <em>-custom</em>.</p>
-          </section>
+        <section class="definition">
+          <h2 id="data-attributes">Data Attributes</h2>
+          <h3 id="data-custom">data-custom</h3>
+          <p>Data fields that are a custom field or have an associated custom field use this attribute to determine what type of custom value to fill in. The <em>id</em> of the custom field should end in <em>-custom</em>.</p>
+        </section>
 
-          <section class="definition">
-            <h3 id="data-custom-text">data-custom="text"</h3>
-            <h4 id="data-custom-text-examples">Example: When the data field is the custom field</h4>
-            <pre><code class="html">
+        <section class="definition">
+          <h3 id="data-custom-text">data-custom="text"</h3>
+          <h4 id="data-custom-text-examples">Example: When the data field is the custom field</h4>
+          <pre><code class="html">
 &lt;label for="headline"&gt;
   &lt;input type="text" name="data[headline]" data-custom="text" id="headline-custom" /&gt;
   &lt;label for="headline-custom"&gt;&lt;/label&gt;
 &lt;/label&gt;
-            </code></pre>
-            <p>In this example, there is no radio button so you only need to make sure the <em>id</em> ends in <em>-custom</em>.</p>
+          </code></pre>
+          <p>In this example, there is no radio button so you only need to make sure the <em>id</em> ends in <em>-custom</em>.</p>
 
-            <h4>Example: When the data field is a radio button, and the custom field is a separate text field</h4>
-            <pre><code class="html">
+          <h4>Example: When the data field is a radio button, and the custom field is a separate text field</h4>
+          <pre><code class="html">
 &lt;input id="headline4" data-custom="text" name="data[headline]" type="radio" /&gt;
 &lt;label for="headline4"&gt;
   &lt;em&gt;
@@ -192,31 +179,31 @@
     &lt;label for="headline-custom"&gt;&lt;/label&gt;
   &lt;/em&gt;
 &lt;/label&gt;
-            </code></pre>
+          </code></pre>
 
-            <p>
-              In this example, the <em>id</em> of the radio button is <em>headline4</em>. Therefore, the <em>id</em> of the custom field must be <em>headline4-custom</em>. The <em>data-custom</em> attribute belongs on the radio button because its name  is scoped under <em>data[]</em>.
-            </p>
-          </section>
+          <p>
+            In this example, the <em>id</em> of the radio button is <em>headline4</em>. Therefore, the <em>id</em> of the custom field must be <em>headline4-custom</em>. The <em>data-custom</em> attribute belongs on the radio button because its name  is scoped under <em>data[]</em>.
+          </p>
+        </section>
 
-          <section class="definition">    
-            <h3 id="data-custom-wysiwyg">data-custom="wysiwyg"</h3>
-            <h4 id="data-custom-wysiwyg-examples">Example: When the data field is a WYSIWYG editor</h4>
-            <pre><code class="html">
+        <section class="definition">    
+          <h3 id="data-custom-wysiwyg">data-custom="wysiwyg"</h3>
+          <h4 id="data-custom-wysiwyg-examples">Example: When the data field is a WYSIWYG editor</h4>
+          <pre><code class="html">
 &lt;label for="back_bullets"&gt;
   &lt;textarea class="tinymce" name="data[back_bullets]" data-custom="wysiwyg" id="back_bullets">&lt;/textarea&gt;
 &lt;/label&gt;
-            </code></pre>
-            <p>
-              This will render a TinyMCE editor. Note that the <em>id</em> field does not need to end in <em>-custom</em>.
-            </p>
-          </section>
+          </code></pre>
+          <p>
+            This will render a TinyMCE editor. Note that the <em>id</em> field does not need to end in <em>-custom</em>.
+          </p>
+        </section>
 
-          <section class="definition">
-            <h3 id="data-custom-image">data-custom="image"</h3>
-            <p>A custom image field always needs a radio button.</p>
-            <h4 id="data-custom-image-examples">Example</h4>
-            <pre><code class="html">
+        <section class="definition">
+          <h3 id="data-custom-image">data-custom="image"</h3>
+          <p>A custom image field always needs a radio button.</p>
+          <h4 id="data-custom-image-examples">Example</h4>
+          <pre><code class="html">
 &lt;div class="field"&gt; 
   &lt;input id="photo7" data-custom="image" name="data[photo]" type="radio" /&gt;
   &lt;label for="photo7"&gt;
@@ -229,40 +216,40 @@
     &lt;/figure&gt;
   &lt;/label&gt;
 &lt;/div&gt;
-            </code></pre>
+          </code></pre>
 
-            <p>
-              The <em>data-custom="image"</em> attribute belongs on the radio button. The &lt;figure&gt; tag's <em>class</em> opens the modal, and the <em>data-target</em> attribute sends the selected image's URL to the radio button.
-            </p>
+          <p>
+            The <em>data-custom="image"</em> attribute belongs on the radio button. The &lt;figure&gt; tag's <em>class</em> opens the modal, and the <em>data-target</em> attribute sends the selected image's URL to the radio button.
+          </p>
 
-            <h4 id="cropping-images">Cropping Images</h4>
-            <p>
-              Passing a <em>data-crop="true"</em> attribute to the &lt;figure&gt; tag that launches the modal will enable cropping after an image is uploaded.
-            </p>
+          <h4 id="cropping-images">Cropping Images</h4>
+          <p>
+            Passing a <em>data-crop="true"</em> attribute to the &lt;figure&gt; tag that launches the modal will enable cropping after an image is uploaded.
+          </p>
 
-            <h5 id="cropping-images-examples">Example</h5>
-            <pre><code class="html">
+          <h5 id="cropping-images-examples">Example</h5>
+          <pre><code class="html">
 &lt;figure href="javascript:void(0);" title="Add Photo" class="image-picker" data-target="photo7" data-crop="true"&gt;
-            </code></pre>
-          </section>
+          </code></pre>
+        </section>
 
-          <section class="definition">
-            <h3 id="data-custom-combine">data-custom="combine"</h3>
-            <p>
-              Sometimes we need more than one custom field to build the value for the data field. For example, a headline text field and a body textarea can be combined to form <em>data[body]</em>. The two fields are always concatenated with HTML, so we need a <em>data-combine-tag</em> on the custom field to determine which text belongs inside which custom field. We also need to use jQuery event listeners to do some of the work.
-            </p>
+        <section class="definition">
+          <h3 id="data-custom-combine">data-custom="combine"</h3>
+          <p>
+            Sometimes we need more than one custom field to build the value for the data field. For example, a headline text field and a body textarea can be combined to form <em>data[body]</em>. The two fields are always concatenated with HTML, so we need a <em>data-combine-tag</em> on the custom field to determine which text belongs inside which custom field. We also need to use jQuery event listeners to do some of the work.
+          </p>
 
-            <h4 id="data-custom-combine-examples">Example</h4>
-            <pre><code class="javascript">
+          <h4 id="data-custom-combine-examples">Example</h4>
+          <pre><code class="javascript">
 $("form[data-document='true']").on("click", "#body1-headline-custom, #body1-custom", function(){
   $("#body1").prop("checked", true);
 });
 $("form[data-document='true']").on("change", "#body1-headline-custom, #body1-custom", function(){
   $("#body1").val("&lt;div class='take-action'&gt;&lt;h3&gt;" + $("#body1-headline-custom").val() + "&lt;/h3&gt;&lt;p&gt;" + $("#body1-custom").val() + "&lt;/p&gt;&lt;/div&gt;");
 });
-            </code></pre>
+          </code></pre>
 
-            <pre><code class="html">
+          <pre><code class="html">
 &lt;div class="field radio wide"&gt; 
   &lt;input id="body1" name="data[body]" data-custom="combine" type="radio" value="" /&gt;
   &lt;label for="body1"&gt;
@@ -272,55 +259,55 @@ $("form[data-document='true']").on("change", "#body1-headline-custom, #body1-cus
     &lt;/em&gt;
   &lt;/label&gt;
 &lt;/div&gt;
-            </code></pre>
+          </code></pre>
 
-            <p>
-              In this example, the custom fields are a text field and textarea are combined to provide a value to the data field named <em>data[body]</em>. The <em>name</em> attributes of the custom fields are unimportant, but do not name them <em>data[]</em>. The <em>id</em> attributes of the custom fields must end in <em>-custom</em>. The <em>label</em> tag that wraps the custom fields must have a <em>name</em> attribute that matches the data field's <em>id</em> attribute.
-            </p>
+          <p>
+            In this example, the custom fields are a text field and textarea are combined to provide a value to the data field named <em>data[body]</em>. The <em>name</em> attributes of the custom fields are unimportant, but do not name them <em>data[]</em>. The <em>id</em> attributes of the custom fields must end in <em>-custom</em>. The <em>label</em> tag that wraps the custom fields must have a <em>name</em> attribute that matches the data field's <em>id</em> attribute.
+          </p>
 
-            <p>
-              There are two events listeners. The first one listens for a click on the custom fields that checks the radio button. The second one listens for a change on the custom fields, and wraps the values in HTML that is then placed in the radio button.
-            </p>
+          <p>
+            There are two events listeners. The first one listens for a click on the custom fields that checks the radio button. The second one listens for a change on the custom fields, and wraps the values in HTML that is then placed in the radio button.
+          </p>
 
-            <p>
-              Refer to the documentation for <em>data-combine-tag</em> to see how saved combined values are filled into the form when editing a document.
-            </p>
-          </section>
+          <p>
+            Refer to the documentation for <em>data-combine-tag</em> to see how saved combined values are filled into the form when editing a document.
+          </p>
+        </section>
 
-          <section class="definition">
-            <h2 id="data-target">data-target</h2>
-            <p>
-              Use <em>data-target</em> when the value of one field should be sent to another field. The value of the <em>data-target</em> attribute should be the <em>id</em> of the data field.
-            </p>
-          </section>
+        <section class="definition">
+          <h2 id="data-target">data-target</h2>
+          <p>
+            Use <em>data-target</em> when the value of one field should be sent to another field. The value of the <em>data-target</em> attribute should be the <em>id</em> of the data field.
+          </p>
+        </section>
 
-          <section class="definition">
-            <h3 id="data-target-custom-text">Custom Text</h3>
-            <p>
-              Whenever using custom fields that have a <em>data-custom="text"</em> attribute, you can use <em>data-target</em> to send the custom value to the data field.
-            </p>
+        <section class="definition">
+          <h3 id="data-target-custom-text">Custom Text</h3>
+          <p>
+            Whenever using custom fields that have a <em>data-custom="text"</em> attribute, you can use <em>data-target</em> to send the custom value to the data field.
+          </p>
 
-            <h4 id="data-target-custom-text-examples">Example</h4>
-            <pre><code class="html">
+          <h4 id="data-target-custom-text-examples">Example</h4>
+          <pre><code class="html">
 &lt;input id="headline4" data-custom="text" name="data[headline]" type="radio" /&gt;
 &lt;label for="headline4"&gt;
   &lt;em&gt;
     &lt;input type="text" name="headline-custom" id="headline4-custom" data-target="headline4" value="" /&gt;
   &lt;/em&gt;
 &lt;/label&gt;
-            </code></pre>
+          </code></pre>
 
-            <p>
-              In this example, we want the value typed into <em>#headline4-custom</em> to be sent to <em>#headline4</em>. Providing the <em>data-target="headline4"</em> attribute on the custom field accomplishes this.
-            </p>
-          </section>
+          <p>
+            In this example, we want the value typed into <em>#headline4-custom</em> to be sent to <em>#headline4</em>. Providing the <em>data-target="headline4"</em> attribute on the custom field accomplishes this.
+          </p>
+        </section>
 
-          <section class="definition">
-            <h3 id="custom-image">Custom Image</h3>
-            <p>Whenever choosing an image from the modal window, we want to send that image's URL to the data field.</p>
+        <section class="definition">
+          <h3 id="custom-image">Custom Image</h3>
+          <p>Whenever choosing an image from the modal window, we want to send that image's URL to the data field.</p>
 
-            <h4 id="custom-image-example">Example</h4>
-            <pre><code class="html">
+          <h4 id="custom-image-example">Example</h4>
+          <pre><code class="html">
 &lt;input id="photo7" data-custom="image" name="data[photo]" type="radio" /&gt;
 &lt;label for="photo7"&gt;
   &lt;div class="radio-button"&gt;&lt;/div&gt;
@@ -331,29 +318,29 @@ $("form[data-document='true']").on("change", "#body1-headline-custom, #body1-cus
     &lt;/div&gt;
   &lt;/figure&gt;
 &lt;/label&gt;
-            </code></pre>
+          </code></pre>
 
-            <p>
-              In this example, we want to send the selected image's URL to <em>#photo7</em>, so the <em>data-target="photo7"</em> attribute on the <em>a</em> tag accomplishes this.
-            </p>
-          </section>
+          <p>
+            In this example, we want to send the selected image's URL to <em>#photo7</em>, so the <em>data-target="photo7"</em> attribute on the <em>a</em> tag accomplishes this.
+          </p>
+        </section>
 
-          <section class="definition">
-            <h2 id="data-combine">data-combine-tag</h2>
-            <p>
-              When using <em>data-custom="combine"</em> on a data field, the custom fields must have a <em>data-combine-tag</em> attribute. This attribute tells the combined text which custom field it belongs in. This is used when editing a saved document.
-            </p>
+        <section class="definition">
+          <h2 id="data-combine">data-combine-tag</h2>
+          <p>
+            When using <em>data-custom="combine"</em> on a data field, the custom fields must have a <em>data-combine-tag</em> attribute. This attribute tells the combined text which custom field it belongs in. This is used when editing a saved document.
+          </p>
 
-            <h3 id="data-combine-examples">Example</h3>
-            <pre><code class="javascript">
+          <h3 id="data-combine-examples">Example</h3>
+          <pre><code class="javascript">
 $("form[data-document='true']").on("click", "#body1-headline-custom, #body1-custom", function(){
   $("#body1").prop("checked", true);
 });
 $("form[data-document='true']").on("change", "#body1-headline-custom, #body1-custom", function(){
   $("#body1").val("<div class='take-action'><h3>" + $("#body1-headline-custom").val() + "</h3><p>" + $("#body1-custom").val() + "</p></div>");
 });
-            </code></pre>
-            <pre><code class="html">
+          </code></pre>
+          <pre><code class="html">
 &lt;div class="field radio wide"&gt; 
   &lt;input id="body1" name="data[body]" data-custom="combine" type="radio" value="" /&gt;
   &lt;label for="body1"&gt;
@@ -363,20 +350,27 @@ $("form[data-document='true']").on("change", "#body1-headline-custom, #body1-cus
     &lt;/em&gt;
   &lt;/label&gt;
 &lt;/div&gt;
-            </code></pre>
+          </code></pre>
 
-            <p>
-              In this example, the custom fields have values, so the <em>change</em> event listener will set the data field's value to: &lt;div class='take-action'&gt;&lt;h3&gt;Body Headline&lt;/h3&gt;&lt;p&gt;Body text&lt;/p&gt;&lt;/div&gt;. When we return to edit this document, that HTML is placed in a hidden <em>div</em> on the page. Then the <em>data-combine-tag</em> uses its value to select the HTML from the saved value. Therefore, <em>Body Headline</em> will be placed in the custom text field since its <em>data-combine-tag</em> value is <em>h3</em>, and <em>Body text</em> will be placed in the custom textarea since its <em>data-combine-tag</em> value is <em>p</em>.
-            </p>
-          </section>
-
-          <section class="definition">
-            <h2 id="conditional-views">Conditional Views</h2>
-            <p>
-              Wrapping content in &lt;div id="branding"&gt;&lt;/div&gt; will make that content only visible to users who have <em>Custom Branding</em> selected on their account.
-            </p>
-          </section>
+          <p>
+            In this example, the custom fields have values, so the <em>change</em> event listener will set the data field's value to: &lt;div class='take-action'&gt;&lt;h3&gt;Body Headline&lt;/h3&gt;&lt;p&gt;Body text&lt;/p&gt;&lt;/div&gt;. When we return to edit this document, that HTML is placed in a hidden <em>div</em> on the page. Then the <em>data-combine-tag</em> uses its value to select the HTML from the saved value. Therefore, <em>Body Headline</em> will be placed in the custom text field since its <em>data-combine-tag</em> value is <em>h3</em>, and <em>Body text</em> will be placed in the custom textarea since its <em>data-combine-tag</em> value is <em>p</em>.
+          </p>
         </section>
-      </main>
-    </body>
-  </html>
+
+        <section class="definition">
+          <h2 id="conditional-views">Conditional Views</h2>
+          <p>
+            Wrapping content in &lt;div id="branding"&gt;&lt;/div&gt; will make that content only visible to users who have <em>Custom Branding</em> selected on their account.
+          </p>
+        </section>
+
+        <section class="definition">
+          <h2 id="crop-marks">Crop Marks</h2>
+          <p>
+            Checking the 'Crop Marks' checkbox on any document will add 0.75 inches to the height and width of the document, and display crop marks in the margins of the page.
+          </p>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
