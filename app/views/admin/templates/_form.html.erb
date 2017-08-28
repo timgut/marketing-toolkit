@@ -49,8 +49,8 @@
       </li>
 
       <li>
-        <%= f.label :crop_marks, "Use Crop Marks" %>
-        <%= f.select(:crop_marks, Template.crop_marks.keys ) %>
+        <%= f.label :crop_marks, "Use Crop Marks?" %>
+        <%= f.select(:crop_marks, [["Suppress from Document", :no_crop_marks], ["Use crop marks; off by default", :false_by_default], ["Use crop marks; on by default", :true_by_default]] ) %>
       </li>
 
       <li>

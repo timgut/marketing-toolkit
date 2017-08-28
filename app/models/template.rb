@@ -1,7 +1,7 @@
 class Template < ApplicationRecord
   include Status
 
-  enum crop_mark: [:no_crop_marks, :false_by_default, :true_by_default]
+  enum crop_marks: [:no_crop_marks, :false_by_default, :true_by_default]
 
   ATTACHMENTS = [:thumbnail, :numbered_image, :blank_image, :static_pdf]
 

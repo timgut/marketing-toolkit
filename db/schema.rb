@@ -132,7 +132,7 @@ ActiveRecord::Schema.define(version: 20170801185704) do
     t.integer  "static_pdf_file_size"
     t.datetime "static_pdf_updated_at"
     t.text     "blank_image_meta",            limit: 65535
-    t.integer  "crop_mark",                                 default: 0,    null: false
+    t.integer  "crop_marks",                                default: 0,    null: false
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
