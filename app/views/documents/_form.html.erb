@@ -48,7 +48,7 @@
         <li><strong class="metadata-label">Toolkit</strong><%= @campaign.title if @campaign %></li>
         <li><strong class="metadata-label">Type</strong>Flyer</li>
 
-      <% if @template.crop_marks %>
+      <% unless @template.crop_marks == 'no_crop_marks' %>
         <li class="crop-radio">
           <%= f.label :crop_marks do %>
             <%= f.check_box :crop_marks, checked: check_crop_marks? %> 
