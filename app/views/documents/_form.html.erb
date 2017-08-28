@@ -50,8 +50,8 @@
 
       <% unless @template.crop_marks == 'no_crop_marks' %>
         <li class="crop-radio">
+          <%= f.check_box :crop_marks, checked: check_crop_marks? %> 
           <%= f.label :crop_marks do %>
-            <%= f.check_box :crop_marks, checked: check_crop_marks? %> 
             <div class="radio-button"></div>
             Display Crop Marks
           <% end %>
