@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 20170721183442) do
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
     t.integer  "creator_id"
-    t.integer  "status",                           default: 1, null: false
+    t.integer  "status",                           default: 1
     t.text     "crop_data",          limit: 65535
     t.text     "image_meta",         limit: 65535
     t.index ["creator_id"], name: "index_images_on_creator_id", using: :btree
@@ -132,6 +132,7 @@ ActiveRecord::Schema.define(version: 20170721183442) do
     t.integer  "static_pdf_file_size"
     t.datetime "static_pdf_updated_at"
     t.text     "blank_image_meta",            limit: 65535
+    t.integer  "crop_marks",                                default: 0,    null: false
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|

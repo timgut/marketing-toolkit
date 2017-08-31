@@ -14,60 +14,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
+
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
-<link href="https://fonts.googleapis.com/css?family=Lato:300,400,900" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lato:400,900" rel="stylesheet">
 
+<link rel="stylesheet" href="http://toolkit-afscme.bytrilogy.com/print/css/reset.css" type="text/css" />
+<link rel="stylesheet" href="http://toolkit-afscme.bytrilogy.com/print/css/dynamic-print-marks.css" type="text/css" />
+<link rel="stylesheet" href="http://toolkit-afscme.bytrilogy.com/print/css/global.css" type="text/css" />
+    
 <style type="text/css">
-*,
-*:before,
-*:after {
-  -moz-box-sizing:    border-box; 
-  -webkit-box-sizing: border-box;
-  box-sizing:         border-box; 
+.container {
+  width: 8.5in;
+  height: 11in;
+  margin: auto;
+  overflow: hidden;
+  position: relative;  
+}    
+.show-print-marks .container {
+  width: 9.25in;
+  height: 11.75in;
+  padding: .25in;
 }
-
-html, body, div, span, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-abbr, address, cite, code,
-del, dfn, em, img, ins, kbd, q, samp,
-small, strong, sub, sup, var,
-b, i,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, figcaption, figure, main,
-footer, header, hgroup, menu, nav, section, summary,
-time, mark, audio, video {
-  margin: 0 auto;
-  padding: 0;
-  border: 0;
-  outline: 0;
-  font-size: 100%;
-  vertical-align: baseline;
-  background: transparent; 
-}
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section,
-main { 
-  display: block; 
-}
-.cf:before,
-.cf:after {
-  content: "";
-  display: table; 
-}
-.cf:after { 
-  clear: both;
+main {
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 .background { 
   background-repeat: no-repeat;
@@ -84,16 +55,9 @@ body {
   font-size: 11pt;
   text-rendering: optimizelegibility;
 }
-.container {
-  margin: auto;
-  width: 8.5in;
-  height: 11in;
-  overflow: hidden;
-  text-align: left;
-  position: relative;
-}
+
 .background-image {
-  width: 8.5in;
+  width: 100%;
   height: 7.9in;
   background-size: <%= container_bg_size %>;
   background-repeat: no-repeat;
@@ -101,19 +65,8 @@ body {
   position: absolute;
   top: 2.1in;
 }
-.top-bar {
-  background-image: -webkit-linear-gradient(left, #0054a5 0%, #00ab4f 63.89%, #00ab4f 100%);
-  background-image: linear-gradient(left, #0054a5 0%, #00ab4f 63.89%, #00ab4f 100%);
-  width: 100%;
-  height: .11in;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 20000;  
-}
-.csea .top-bar {
-  background-image: -webkit-linear-gradient(right, #004785 0%, #e03a3e 100%);
-  background-image: linear-gradient(right, #004785 0%, #e03a3e 100%);
+.show-print-marks .background-image {
+  height: 8.15in;
 }
 header {
   position: relative;
@@ -145,6 +98,11 @@ header h1 {
   font-size: 44pt;
   line-height: .95;
 }
+.show-print-marks header h1 {
+  top: calc(.5in + .125in);
+  left: calc(.5in + .125in);
+}
+
 header h1 small {
   font-size: 38pt;  
 }
@@ -160,7 +118,6 @@ header h1 span {
   color: #e03a3e;
 }
 .body {
-  width: 3.8in;
   width: 4.5in;
   color: white;
   position: absolute;
@@ -171,13 +128,17 @@ header h1 span {
   padding: .25in .25in .5in .25in;
   background: rgba(0,0,0,.5);
 }
+.show-print-marks .body {
+  width: calc(4.5in + .125in);
+  padding-left: calc(.25in + .125in);
+}
+
 .body h2 {
   font-size: 15pt;
   line-height: 1;
   margin-bottom: .5em;
 }
 .quote {
-  width: 2.25in;
   width: 2.5in;
   color: white;
   position: absolute;
@@ -188,6 +149,11 @@ header h1 span {
   padding: .75in .25in .25in .25in;
   background: rgba(0,0,0,.7);
 }
+.show-print-marks .quote {
+  width: calc(2.5in + .125in);
+  padding-right: calc(.25in + .125in);
+}
+
 .quote h2 {
   font-size: 24pt;
   line-height: 1;
@@ -219,7 +185,6 @@ footer {
   position: absolute;
   left: 0;
   bottom: 0;
-  border-bottom: .25in solid white;
   height: 1.65in;
   width: 100%;
   overflow: hidden;
@@ -242,7 +207,7 @@ footer .angle {
   background-image: linear-gradient(right, #004785 0%, #e03a3e 100%);
 }
 footer .url {
-  width: 2.5in;
+  width: 4in;
   height: .25in;  
   position: absolute;
   left: .25in;
@@ -251,6 +216,11 @@ footer .url {
   color: #fff;
   font-size: 16pt;
 }
+.show-print-marks footer .url {
+  left: calc(.25in + .125in);
+  bottom: calc(.3in + .125in);  
+}
+
 footer .affiliate-logo {
   position: absolute;
   right: 1.65in;
@@ -259,6 +229,10 @@ footer .affiliate-logo {
   height: .7in;
   border-right: 1px solid white;
   padding-right: .12in;
+}
+.show-print-marks footer .affiliate-logo {
+  right: calc(1.65in + .125in);
+  bottom: calc(.3in + .125in);  
 }
 footer .affiliate-logo div {
   width: 100%;
@@ -280,6 +254,11 @@ footer .main-logo  {
   bottom: .3in;  
   z-index: 10000;
 }
+.show-print-marks footer .main-logo {
+  right: calc(.15in + .125in);
+  bottom: calc(.3in + .125in);  
+}
+
 .csea footer .main-logo  {
   background-image: url(http://toolkit-afscme.bytrilogy.com/print/img/csea-inverted.png);
   width: 1.2in;
@@ -293,36 +272,62 @@ footer .union-bug {
   background: url('http://neverquit.afscme.org/theme/img/union-bug.png') no-repeat center center;
   background-size: contain;
 }
+.show-print-marks footer .union-bug {
+  right: calc(.1in + .125in);
+  bottom: calc(.1in + .125in);  
+}
+
 </style>
 
 </head>
 
-<body class="<%= @document.ss_branding %>">
-    <main class="container">
-      <div class="top-bar"></div>
+<body class="<%= 'show-print-marks ' if @document.crop_marks? %><%= @document.ss_branding %>">
 
-      <header>
-        <div class="angle"></div>
-        <div class="bar"></div>
-        <h1><%= @document.headline.try(:html_safe) %></h1>
-      </header>
-          
-      <figure class="background-image" style="background-image: url('<%= "#{@document.photo}" %>');"></figure>
+<div class="container">
 
-      <article class="body"><%= @document.body.try(:html_safe) %></article>
-      <aside class="quote"><%= @document.testimonial.try(:html_safe) %></aside>
-      <div class="new-page"></div>
-      <footer>
-        <div class="angle"></div>
-        <div class="url"><%= @document.ss_call_to_action %></div>
-        <% unless @document.ss_affiliate_logo.blank? %>
-          <div class="affiliate-logo">
-            <div style="background-image: url('<%= "#{@document.ss_affiliate_logo}" %>');"></div>
-          </div>
-        <% end %>
-        <div class="main-logo"></div>
-        <div class="union-bug"></div>
-      </footer>
-    </main>
+  <div class="trim-container">    
+    <div class="print-marks trim top left"></div>
+    <div class="print-marks bleed top left"></div>
+
+    <div class="print-marks trim top right"></div>
+    <div class="print-marks bleed top right"></div>
+
+    <div class="print-marks trim bot left"></div>
+    <div class="print-marks bleed bot left"></div>
+
+    <div class="print-marks trim bot right"></div>
+    <div class="print-marks bleed bot right"></div>
+  </div>
+
+  <main class="page1">
+        <div class="top-bar"></div>
+
+        <header>
+          <div class="angle"></div>
+          <div class="bar"></div>
+          <h1><%= @document.headline.try(:html_safe) %></h1>
+        </header>
+
+        <figure class="background-image" style="background-image: url('<%= "#{@document.photo}" %>');"></figure>
+
+        <article class="body"><%= @document.body.try(:html_safe) %></article>
+        <aside class="quote"><%= @document.testimonial.try(:html_safe) %></aside>
+        <div class="new-page"></div>
+        <footer>
+          <div class="angle"></div>
+          <div class="url"><%= @document.ss_call_to_action %></div>
+          <% unless @document.ss_affiliate_logo.blank? %>
+            <div class="affiliate-logo">
+              <div style="background-image: url('<%= "#{@document.ss_affiliate_logo}" %>');"></div>
+            </div>
+          <% end %>
+          <div class="main-logo"></div>
+          <div class="union-bug"></div>
+        </footer>
+
+  </main>
+
+</div>
+
 </body>
 </html>
