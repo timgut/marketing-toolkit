@@ -7,10 +7,11 @@
       <li>
         <%= link_to(
           "<span class='icons'>d</span> Download".html_safe,
-          download_link(@document),
+          @document.pdf&.url,
           target: :blank,
           title:  changed_document_message,
-          data: {download: true}
+          class:  "download-document",
+          style:  @document.pdf_file_name ? "" : "display:none"
         ) %>
       </li>
 			<li>

@@ -7,6 +7,7 @@ RSpec.describe Paperclip::ContextualCrop, type: :class do
   let!(:processor) { Paperclip::ContextualCrop.new(file, {}, image.image) }
 
   def setup
+    image.reset_commands
     image.strategy = :contextual_crop
     image.context = template
   end

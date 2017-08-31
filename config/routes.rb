@@ -43,6 +43,7 @@ Rails.application.routes.draw do
     member do
       get :duplicate
       get :download
+      get :job_status, defaults: {format: :json}
       get :preview
       get :share
     end
@@ -64,6 +65,7 @@ Rails.application.routes.draw do
 
   namespace :admin, path: '/admin' do
     root to: "misc#home"
+    get 'stats', to: 'misc#stats', as: :stats
 
     resources :campaigns,  except: [:new, :show]
     resources :users,      except: [:destroy, :show]

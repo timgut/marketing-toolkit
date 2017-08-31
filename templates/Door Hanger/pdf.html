@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8">
+
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lato:400,900" rel="stylesheet">
+
+<link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/reset.css" type="text/css" />
+<link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/dynamic-print-marks.css" type="text/css" />
+<link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/global.css" type="text/css" />
+<link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/door-hanger.css" type="text/css" />
+
+<style type="text/css">
+</style>
+
+</head>
+
+<body class="standard <%= 'show-print-marks ' if @document.crop_marks? %> <%= @document.pm_branding %>">
+
+<div class="container">
+
+  <div class="trim-container">    
+    <div class="print-marks trim top left"></div>
+    <div class="print-marks bleed top left"></div>
+
+    <div class="print-marks trim top right"></div>
+    <div class="print-marks bleed top right"></div>
+
+    <div class="print-marks trim bot left"></div>
+    <div class="print-marks bleed bot left"></div>
+
+    <div class="print-marks trim bot right"></div>
+    <div class="print-marks bleed bot right"></div>
+  </div>
+
+  <main class="page1">
+        <div class="top-bar"></div>
+        <header><%= @document.heading %></header>
+        <figure style="background-image: url('<%= "#{@document.photo1}" %>');"></figure>
+        <div class="pad">
+          <h1><%= @document.headline %></h1>
+          <h2><%= @document.subheading %></h2>
+          <h3><%= @document.call_to_action %></h3>
+          <p><%= @document.front_text %></p>
+        </div>
+        <footer>
+          <div class="angle"></div>
+          <div class="union-bug"></div>          
+          <% unless @document.nl_affiliate_logo.blank? %>
+            <div class="affiliate-logo">
+              <div style="background-image: url('<%= "#{@document.nl_affiliate_logo}" %>');"></div>
+            </div>
+          <% end %>
+        </footer>
+
+  </main>
+
+</div>
+
+<div class="container">
+
+  <div class="trim-container">    
+    <div class="print-marks trim top left"></div>
+    <div class="print-marks bleed top left"></div>
+
+    <div class="print-marks trim top right"></div>
+    <div class="print-marks bleed top right"></div>
+
+    <div class="print-marks trim bot left"></div>
+    <div class="print-marks bleed bot left"></div>
+
+    <div class="print-marks trim bot right"></div>
+    <div class="print-marks bleed bot right"></div>
+  </div>
+
+  <main class="page2">
+        <div class="top-bar"></div>
+        <figure style="background-image: url('<%= "#{@document.photo2}" %>');"></figure>
+        <div class="pad">        
+
+          <h1><%= @document.back_headline %></h1>
+          <% unless @document.back_text.blank? %>                        
+            <p><%= @document.back_text %></p>
+          <% end %>
+          <% unless @document.back_subheading.blank? %>                        
+            <h2><%= @document.back_subheading %></h2>
+          <% end %>
+          <% unless @document.back_bullets.blank? %>            
+            <div class="bullets">
+              <%= @document.back_bullets %>
+            </div>
+          <% end %>
+            
+        </div>
+
+        <footer>
+          <div class="angle"></div>
+          <% unless @document.funding_disclaimer.blank? %>
+            <div class="paidfor"><%= @document.funding_disclaimer %></div>
+          <% end %>         
+          <% unless @document.nl_affiliate_logo.blank? %>
+            <div class="affiliate-logo">
+              <div style="background-image: url('<%= "#{@document.dh_affiliate_logo}" %>');"></div>
+            </div>
+          <% end %>
+        </footer>
+
+  </main>
+
+</div>
+
+</body>
+</html>

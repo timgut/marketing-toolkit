@@ -12,8 +12,9 @@ class DocumentsController < ApplicationController
     if @document.save
       DocumentUser.create!(document_id: @document.id, user_id: current_user.id)
       create_data
+      DocumentPdfJob.perform_async(@document)
 
-      redirect_to documents_path, notice: "Document created!"
+      redirect_to documents_path(generating: @document.id), notice: "Document created!"
     else
       redirect_back fallback_location: documents_path
     end
@@ -37,15 +38,11 @@ class DocumentsController < ApplicationController
     assign_records
   end
 
-  # GET /documents/1/download.pdf
+  # GET /documents/1/download
   def download
-    force_format(:pdf)
     load_document
-
-    @document.generate_pdf
-    DocumentThumbnailJob.perform_later(@document)
-
-    redirect_to @document.pdf.url
+    DocumentPdfJob.perform_async(@document)
+    head :no_content
   end
 
   # GET /documents
@@ -54,6 +51,21 @@ class DocumentsController < ApplicationController
       @filtered_documents = @documents.select{|document| document.template.category_id == params[:category_id].to_i}.reverse
     else
       @filtered_documents = @documents.reverse
+    end
+  end
+
+  # GET /documents/1/job_status
+  def job_status
+    load_document
+
+    respond_to do |format|
+      format.json do
+        if @document.pdf_file_name && @document.thumbnail_file_name
+          render json: {status: :complete, thumbnail: @document.thumbnail.url, pdf: @document.pdf.url}
+        else
+          render json: {status: :incomplete}
+        end
+      end
     end
   end
 
@@ -91,8 +103,9 @@ class DocumentsController < ApplicationController
 
   # PATCH /documents/1
   def update
-    @document = Document.find(params[:id])
+    load_document
     @document.pdf = nil
+    @document.thumbnail = nil
 
     if @document.update_attributes(document_params)
       ActiveRecord::Base.transaction do
@@ -100,7 +113,9 @@ class DocumentsController < ApplicationController
         create_data
       end
 
-      redirect_to edit_document_path(@document), notice: "Your changes have been saved."
+      DocumentPdfJob.perform_async(@document)
+
+      redirect_to edit_document_path(@document, generating: true), notice: "Your changes have been saved."
     else
       redirect_back fallback_location: documents_path, error: alert_message
     end
@@ -154,10 +169,6 @@ class DocumentsController < ApplicationController
 
   def document_params
     params.require(:document).permit(:title, :description, :status, :template_id, :creator_id)
-  end
-
-  def force_format(format)
-    params[:format] = format
   end
 
   def load_document

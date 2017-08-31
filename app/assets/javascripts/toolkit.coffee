@@ -5,43 +5,42 @@ window.Toolkit ||= {}
 # sure that code is only loaded once.
 window.Toolkit.init ||= {}
 
-window.Toolkit.init.optionsMenu        = false
-window.Toolkit.init.documentDataTarget = false
+Toolkit.init.optionsMenu        = false
+Toolkit.init.documentDataTarget = false
 
-# Uncomment to add UI feedback from a delayed job
-#
-window.Toolkit.init.delayedJob = ->
+Toolkit.init.jobs = ->
   window.Toolkit.jobs = []
 
   $(document).on("click", "a[data-job]", (e, data, status, xhr) ->
-    # $el = $(e.currentTarget)
-    # console.log(e)
-    # console.log(data)
-    # console.log(status)
-    # console.log(xhr)
-
+    $el = $(e.currentTarget).closest(".document")
     job = $(@).attr("data-job")
-    id  = $(@).attr("id")
+    id  = $(@).attr("data-id")
 
     switch job
-      when "generateThumbnail"
-        # Do something after the thumbnail has been generated
+      when "pdfAndThumbnail"
+        new Toolkit.Job($el, job, id)
       else
-        console.log("Unknown job: #{job}")
+        console.log "Unknown job: #{job}"
   )
 
 Dropzone.autoDiscover = false
 
-window.Toolkit.isEditPage = ->
+Toolkit.isEditPage = ->
   location.href.indexOf("edit") isnt -1
 
-window.Toolkit.isDocumentPage = ->
+Toolkit.isDocumentPage = ->
   location.href.indexOf("/documents") isnt -1
 
-window.Toolkit.resetDropzones = ->
+Toolkit.isDocumentsIndexPage = ->
+  location.pathname is "/documents" or location.pathname is "/documents/"
+
+Toolkit.isDocumentEditPage = ->
+  Toolkit.isDocumentPage() and Toolkit.isEditPage()
+
+Toolkit.resetDropzones = ->
   window.Toolkit.dropzones = []
 
-window.Toolkit.mobileMenu = ->
+Toolkit.mobileMenu = ->
   $(document).on("click", ".menu-trigger", ->
     $(".mobile.menu.main").slideToggle()
     
@@ -62,8 +61,8 @@ window.Toolkit.mobileMenu = ->
     $("body").toggleClass("expanded-user-menu")
   )
 
-window.Toolkit.optionsMenu = ->
-  if window.Toolkit.init.optionsMenu is false
+Toolkit.optionsMenu = ->
+  if Toolkit.init.optionsMenu is false
     window.Toolkit.init.optionsMenu = true
 
     $(document).on("click", ".options a", ->
@@ -76,12 +75,13 @@ window.Toolkit.optionsMenu = ->
     )
 
 # TODO: Remove surrounding quotes if user added them to the string.
-window.Toolkit.normalizeQuotes = (str) ->
+Toolkit.normalizeQuotes = (str) ->
   str.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"')
 
-window.Toolkit.cleanup = ->
+Toolkit.cleanup = ->
   window.Toolkit.Document.savedData = {}
 
-window.Toolkit.mobileMenu()
+Toolkit.mobileMenu()
+Toolkit.init.jobs()
 
-$(document).on('turbolinks:click', window.Toolkit.cleanup)
+$(document).on('turbolinks:click', Toolkit.cleanup)

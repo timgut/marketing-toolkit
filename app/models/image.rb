@@ -1,10 +1,6 @@
 class Image < ApplicationRecord
   include Status
 
-  PROCESSORS = [
-
-  ]
-
   has_attached_file(
     :image,
     storage:        :s3,
@@ -12,11 +8,12 @@ class Image < ApplicationRecord
     s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials)},
     styles:         {cropped: ""},
     processors:     [
-      :papercrop_normalize, # 
-      :papercrop,           # 
-      :papercrop_resize,    # 
-      :contextual_resize,   # 
-      :contextual_crop      # 
+      :papercrop_normalize, # Resizes larger images so they're easier to crop in the UI.
+      :papercrop,           # The actual papercrop processor that crops the image
+      :papercrop_resize,    # Resizes the image to the target dimensions
+
+      :contextual_resize,   # Resizes the image in the context of the template.
+      :contextual_crop      # Crops the image in the context of the template.
     ]
   )
 
@@ -36,14 +33,14 @@ class Image < ApplicationRecord
 
   serialize :crop_data, Hash
 
-  attr_accessor :pos_x,         # contextual_crop setting: the X position of the image within the context image.
-                :pos_y,         # contextual_crop setting: the Y position of the image within the context image.
-                :context,       # The Template record to use for contextual cropping.
-                :commands,      # An array of commands sent to ImagMagick
-                :resize_height, # The target height to for images cropped with Papercrop
-                :resize_width,  # The target width to for images cropped with Papercrop
-                :strategy,      # Set to :papercrop or :contextual_crop to enable the processors
-                :paperclip_resize
+  attr_accessor :pos_x,           # contextual_crop setting: the X position of the image within the context image.
+                :pos_y,           # contextual_crop setting: the Y position of the image within the context image.
+                :context,         # The Template record to use for contextual cropping.
+                :commands,        # An array of commands sent to ImagMagick.
+                :resize_height,   # The target height to for images cropped with Papercrop.
+                :resize_width,    # The target width to for images cropped with Papercrop.
+                :strategy,        # Set to :papercrop or :contextual_crop to enable the processors.
+                :paperclip_resize # Set to true to enable the PaperclipResize processor.
 
   class << self
     def find_by_url(url)

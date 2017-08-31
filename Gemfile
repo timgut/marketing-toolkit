@@ -36,7 +36,7 @@ gem 'rufus-scheduler'
 
 # moved outside of :development because of unknown error on remote migrations during deploy
 gem 'listen', '~> 3.0.5'
-gem 'tinymce-rails'
+gem 'tinymce-rails', github: "spohlenz/tinymce-rails", ref: "8a31db6"
 
 group :development do
   gem 'puma', '~> 3.0'
