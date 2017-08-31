@@ -1,0 +1,14 @@
+Run "date" locally to get the timestamp.
+
+The timestamp should reflect when either a) the code was deployed into production; or b) when master was updated, in case of non-deploys.
+
+Latest changes go on top.
+
+--------------------
+
+Thu Aug 31 11:52:52 CDT 2017
+
+- Redmine 1762: Adding crop_marks to documents and templates
+- Redmine 1810: Adding template documentation to admin interface
+
+--------------------
