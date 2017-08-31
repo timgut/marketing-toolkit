@@ -92,6 +92,14 @@ window.Toolkit.Document.saveButton = ->
     $("form[data-document='true']").submit()
   )
 
+window.Toolkit.Document.fillWysiwyg = (editor) ->
+  id = editor.id.split("-custom")[0]
+
+  if Toolkit.Document.savedData[id]
+    editor.setContent(Toolkit.Document.savedData[id].value)
+  else
+    console.log "[wysiwyg] Cannot find savedData for #{id}"
+
 window.Toolkit.Document.fillForm = ->
   $.each(Toolkit.Document.savedData, (key, data) ->
     if data.fieldID
@@ -147,6 +155,8 @@ window.Toolkit.Document.fillForm = ->
             # Display the selected image
             $figure.css({"background-image": "url('#{data.value}'"}).addClass("image-added")
             $positioner.html("<span class='icons'>C</span>Change Image")
+          when "wysiwyg"
+            # See /documents/_form.html.erb and the fillWysiwyg(editor) function
           else
             console.log("Don't know how to fill in #{$field.attr("data-custom")}")
   )

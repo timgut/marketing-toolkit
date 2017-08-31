@@ -89,3 +89,23 @@
     </section>
   </main>
 <% end %>
+
+<script type="text/javascript">
+  tinyMCE.init({
+    branding: false,
+    menubar:  "edit view format tools",
+    plugins:  "code searchreplace lists",
+    selector: "textarea.tinymce",
+    toolbar:  "styleselect | bold italic underline strikethrough | bullist numlist | indent outdent | alignleft aligncenter alignright alignjustify | undo redo",
+    extended_valid_elements: "script[src] style",
+    init_instance_callback: function(editor) {
+      window.Toolkit.Document.fillWysiwyg(editor);
+
+      editor.on('Change', function (e) {
+        $field  = $("#"+e.target.id);
+        content = e.level.content;
+        $field.val(content).trigger("change");
+      });
+    }
+  });
+</script>
