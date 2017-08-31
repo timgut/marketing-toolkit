@@ -1,6 +1,11 @@
 class Admin::MiscController < AdminController
   before_action :admin_auth
 
+  # GET /admin/documentation
+  def documentation
+    render layout: false
+  end
+
   # GET /admin
   def home
   end
