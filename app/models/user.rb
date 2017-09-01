@@ -22,7 +22,23 @@ class User < ApplicationRecord
   after_create :send_admin_emails
 
   ROLES = ['User', 'Local President', 'Vetter', 'Administrator']
-  DEPARTMENTS = ['IU-Communications', 'IU-Organizing', 'IU-Political', 'Council-Communications','Council-Organizing', 'Council-Political', 'Local-President']
+  
+  DEPARTMENTS = [ 
+    'IU-Communications', 
+    'IU-Organizing', 
+    'IU-Political', 
+    'Council-Communications',
+    'Council-Organizing', 
+    'Council-Political', 
+    'Local-President', 
+    'Research', 
+    'Data & Analytics',
+    'Education', 
+    'Executive Office',
+    'Federal Government Affairs',
+    'Information Technology',
+    'Retirees'
+  ]
 
   def send_admin_emails
     AdminMailer.new_user_waiting_for_approval(self).deliver_now
