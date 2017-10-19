@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
   def user_not_authorized
     flash[:alert] = "
       You cannot
-      #{params[:action].singularize.sub('show', 'view').sub('home', 'view')}
+      #{params[:action].singularize.sub('show', 'view').sub('home', 'view').sub('stat','view')}
       this
       #{params[:controller].split('/').first.singularize.sub('admin', 'page')}.
     "
