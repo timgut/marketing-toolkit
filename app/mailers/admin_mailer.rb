@@ -13,7 +13,8 @@ class AdminMailer < ActionMailer::Base
       if approvers.count > 0
         emails = approvers.pluck(:email)
       else
-        emails = MAIL_CONFIG['default_vetter']
+        region = @user.affiliate ? @user.affiliate.region.downcase : 'default'
+        emails = MAIL_CONFIG['vetter'][region]
       end
       mail(to: emails, subject: "Toolkit account request from #{user.name}")
     end
@@ -36,7 +37,7 @@ class AdminMailer < ActionMailer::Base
 
   def send_account_nag_emails(unapproved_users)
     @unapproved = unapproved_users
-    recipient = MAIL_CONFIG['default_vetter']
+    recipient = MAIL_CONFIG['nagger']
     mail(to: recipient, subject: "Toolkit account application(s) waiting for approval")
     unapproved_users.each do |user|
       user.approval_reminder_sent = DateTime.now
