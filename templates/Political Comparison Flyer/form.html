@@ -1,0 +1,269 @@
+<div id="branding" class="grouping branding image-select radio cf"> 
+
+    <h3>Choose Flyer Branding</h3>
+
+    <div class="field logo"> 
+        <input id="branding-afscme" name="data[flyer_branding]" type="radio" value="afscme" />
+        <label for="branding-afscme">
+           <div class="radio-button"></div>
+           <figure style="background-image: url(http://toolkit-afscme.bytrilogy.com/theme/img/afscme-branding-thumb.png);"></figure>
+        </label>
+    </div>
+    
+    <div class="field logo"> 
+        <input id="branding-csea" name="data[flyer_branding]" type="radio" value="csea" />
+        <label for="branding-csea">
+           <div class="radio-button"></div>
+           <figure style="background-image: url(http://toolkit-afscme.bytrilogy.com/theme/img/csea-branding-thumb.png);"></figure>
+        </label>
+    </div>
+    
+</div><!--theme-->
+
+<div class="step grouping cf"> 
+    <h3>Create a headline</h3>
+                                
+    <div class="field radio wide"> 
+        <label for="headline">
+            <input type="text" name="data[flyer_headline]" data-custom="text" id="headline-custom" value="" maxlength="60" placeholder="Headline" />
+            <label for="headline-custom"></label>
+            <small>Maximum of 60 characters. Please preview, since words may wrap unexpectedly and cutoff your headline.</small>
+        </label>
+        
+        <label for="sub-headline">
+            <input type="text" name="data[flyer_subheadline]" data-custom="text" id="subheadline-custom" value="" maxlength="45" placeholder="Sub-headline" />
+            <label for="subheadline-custom"></label>
+            <small>Maximum of 45 characters. Please preview, since words may wrap unexpectedly and cutoff your sub-headline.</small>
+        </label>                            
+    </div>
+  
+</div><!--headline-->
+
+<div class="step grouping testimonial multi-input cf"> 
+
+    <h3>Candidate 1 Headshot & Name</h3>
+    <div class="table">  
+
+        <div class="testimonial-image image-select"> 
+
+            <div class="field upload"> 
+                <input id="photo1" data-custom="image" name="data[candidate1_headshot]" type="radio" />
+                <label for="photo1">
+                   <figure href="javascript:void(0);" title="Add Photo" class="image-picker" data-target="photo1" data-resize-width="450" data-resize-height="450">
+                       <div class="positioner">
+                           <span class="icons">C</span>
+                           Add Headshot
+                       </div>
+                   </figure>
+                </label>
+            </div>
+
+        </div>
+
+        <div class="testimonial-text"> 
+            <div class="field"> 
+                <label for="candidate1_name">
+                   <input type="text" placeholder="Candidate 1 Name" name="data[candidate1_name]" id="candidate1_name-custom" data-custom="text" value="" maxlength="40" />
+                </label>
+            </div>
+        </div>
+
+    </div>      
+
+</div><!--Candidate 1-->
+
+<div class="step grouping testimonial multi-input cf"> 
+
+    <h3>Candidate 2 Headshot & Name</h3>
+    <div class="table">  
+
+        <div class="testimonial-image image-select"> 
+
+            <div class="field upload"> 
+                <input id="photo2" data-custom="image" name="data[candidate2_headshot]" type="radio" />
+                <label for="photo2">
+                   <figure href="javascript:void(0);" title="Add Photo" class="image-picker" data-target="photo2" data-resize-width="450" data-resize-height="450">
+                       <div class="positioner">
+                           <span class="icons">C</span>
+                           Add Headshot
+                       </div>
+                   </figure>
+                </label>
+            </div>
+
+        </div>
+
+        <div class="testimonial-text"> 
+            <div class="field"> 
+                <label for="candidate1_name">
+                   <input type="text" placeholder="Candidate 2 Name" name="data[candidate2_name]" id="candidate2_name-custom" data-custom="text" value="" maxlength="40" />
+                </label>
+            </div>
+        </div>
+
+    </div>      
+
+</div><!--Candidate 1--> 
+
+<div class="step grouping cf"> 
+
+    <h3>Topic 1 Comparison</h3>
+
+    <div class="field radio wide"> 
+        <div class="option">
+            <input type="text" name="data[topic1_title]" data-custom="text" id="topic1_title-custom" maxlength="45" placeholder="Topic 1" />
+            <label for="topic1_title"></label>
+            <small>Maximum of 45 characters. Please preview, since words may wrap unexpectedly and cutoff your headline.</small>
+        </div>      
+
+        <div class="option">
+            <input type="text" name="data[topic1_candidate1]" data-custom="text" id="topic1_candidate1-custom" value="" maxlength="135" placeholder="Candidate 1 Stance" />
+            <input class="footnote" type="text" name="data[topic1_candidate1_footnote]" data-custom="text" id="topic1_candidate1_footnote-custom" value="" maxlength="135" placeholder="Footnote" />            
+            <label for="topic1_candidate1"></label>
+        </div>  
+        
+        <div class="option">
+            <input type="text" name="data[topic1_candidate2]" data-custom="text" id="topic1_candidate2-custom" value="" maxlength="135" placeholder="Candidate 2 Stance" />
+            <input class="footnote" type="text" name="data[topic1_candidate2_footnote]" data-custom="text" id="topic1_candidate2_footnote-custom" value="" maxlength="135" placeholder="Footnote" />                        
+            <label for="topic1_candidate2"></label>
+            <small>Maximum of 135 characters per field. Please preview, since words may wrap unexpectedly and cutoff your headline.</small>
+        </div>              
+    </div>
+  
+</div><!--Issue Row-->   
+
+<div class="step grouping cf"> 
+
+    <h3>Topic 2 Comparison</h3>
+
+    <div class="field radio wide"> 
+        <div class="option">
+            <input type="text" name="data[topic2_title]" data-custom="text" id="topic2_title-custom" maxlength="45" placeholder="Topic 2" />
+            <label for="topic2_title"></label>
+            <small>Maximum of 45 characters. Please preview, since words may wrap unexpectedly and cutoff your headline.</small>
+        </div>      
+
+        <div class="option">
+            <input type="text" name="data[topic2_candidate1]" data-custom="text" id="topic2_candidate1-custom" value="" maxlength="135" placeholder="Candidate 2 Stance" />
+            <input class="footnote" type="text" name="data[topic2_candidate1_footnote]" data-custom="text" id="topic2_candidate1_footnote-custom" value="" maxlength="135" placeholder="Footnote" />            
+            <label for="topic2_candidate1"></label>
+        </div>  
+        
+        <div class="option">
+            <input type="text" name="data[topic2_candidate2]" data-custom="text" id="topic2_candidate2-custom" value="" maxlength="135" placeholder="Candidate 2 Stance" />
+            <input class="footnote" type="text" name="data[topic2_candidate2_footnote]" data-custom="text" id="topic2_candidate2_footnote-custom" value="" maxlength="135" placeholder="Footnote" />                        
+            <label for="topic2_candidate2"></label>
+            <small>Maximum of 135 characters per field. Please preview, since words may wrap unexpectedly and cutoff your headline.</small>
+        </div>              
+    </div>
+  
+</div><!--Issue Row-->   
+
+<div class="step grouping cf"> 
+
+    <h3>Topic 3 Comparison</h3>
+
+    <div class="field radio wide"> 
+        <div class="option">
+            <input type="text" name="data[topic3_title]" data-custom="text" id="topic3_title-custom" maxlength="45" placeholder="Topic 3" />
+            <label for="topic3_title"></label>
+            <small>Maximum of 45 characters. Please preview, since words may wrap unexpectedly and cutoff your headline.</small>
+        </div>      
+
+        <div class="option">
+            <input type="text" name="data[topic3_candidate1]" data-custom="text" id="topic3_candidate1-custom" value="" maxlength="135" placeholder="Candidate 1 Stance" />
+            <input class="footnote" type="text" name="data[topic3_candidate1_footnote]" data-custom="text" id="topic3_candidate1_footnote-custom" value="" maxlength="135" placeholder="Footnote" />            
+            <label for="topic3_candidate1"></label>
+        </div>  
+        
+        <div class="option">
+            <input type="text" name="data[topic3_candidate2]" data-custom="text" id="topic3_candidate2-custom" value="" maxlength="135" placeholder="Candidate 2 Stance" />
+            <input class="footnote" type="text" name="data[topic3_candidate2_footnote]" data-custom="text" id="topic3_candidate2_footnote-custom" value="" maxlength="135" placeholder="Footnote" />                        
+            <label for="topic3_candidate2"></label>
+            <small>Maximum of 135 characters per field. Please preview, since words may wrap unexpectedly and cutoff your headline.</small>
+        </div>              
+    </div>
+  
+</div><!--Issue Row-->   
+
+<div class="step grouping cf"> 
+
+    <h3>Topic 4 Comparison</h3>
+
+    <div class="field radio wide"> 
+        <div class="option">
+            <input type="text" name="data[topic4_title]" data-custom="text" id="topic4_title-custom" maxlength="45" placeholder="Topic" />
+            <label for="topic4_title"></label>
+            <small>Maximum of 45 characters. Please preview, since words may wrap unexpectedly and cutoff your headline.</small>
+        </div>      
+
+        <div class="option">
+            <input type="text" name="data[topic4_candidate1]" data-custom="text" id="topic4_candidate1-custom" value="" maxlength="135" placeholder="Candidate 1 Stance" />
+            <input class="footnote" type="text" name="data[topic4_candidate1_footnote]" data-custom="text" id="topic4_candidate1_footnote-custom" value="" maxlength="135" placeholder="Footnote" />            
+            <label for="topic4_candidate1"></label>
+        </div>  
+        
+        <div class="option">
+            <input type="text" name="data[topic4_candidate2]" data-custom="text" id="topic4_candidate2-custom" value="" maxlength="135" placeholder="Candidate 2 Stance" />
+            <input class="footnote" type="text" name="data[topic4_candidate2_footnote]" data-custom="text" id="topic4_candidate2_footnote-custom" value="" maxlength="135" placeholder="Footnote" />                        
+            <label for="topic4_candidate2"></label>
+            <small>Maximum of 135 characters per field. Please preview, since words may wrap unexpectedly and cutoff your headline.</small>
+        </div>              
+    </div>
+  
+</div><!--Issue Row-->   
+
+<div class="step grouping cf"> 
+
+    <h3>Topic 5 Comparison</h3>
+
+    <div class="field radio wide"> 
+        <div class="option">
+            <input type="text" name="data[topic5_title]" data-custom="text" id="topic5_title-custom" maxlength="45" placeholder="Topic 5" />
+            <label for="topic5_title"></label>
+            <small>Maximum of 45 characters. Please preview, since words may wrap unexpectedly and cutoff your headline.</small>
+        </div>      
+
+        <div class="option">
+            <input type="text" name="data[topic5_candidate1]" data-custom="text" id="topic5_candidate1-custom" value="" maxlength="135" placeholder="Candidate 1 Stance" />
+            <input class="footnote" type="text" name="data[topic5_candidate1_footnote]" data-custom="text" id="topic5_candidate5_footnote-custom" value="" maxlength="135" placeholder="Footnote" />            
+            <label for="topic5_candidate1"></label>
+        </div>  
+        
+        <div class="option">
+            <input type="text" name="data[topic5_candidate2]" data-custom="text" id="topic5_candidate2-custom" value="" maxlength="135" placeholder="Candidate 2 Stance" />
+            <input class="footnote" type="text" name="data[topic5_candidate2_footnote]" data-custom="text" id="topic5_candidate2_footnote-custom" value="" maxlength="135" placeholder="Footnote" />                        
+            <label for="topic5_candidate2"></label>
+            <small>Maximum of 135 characters per field. Please preview, since words may wrap unexpectedly and cutoff your headline.</small>
+        </div>              
+    </div>
+  
+</div><!--Issue Row-->   
+
+<div class="step grouping cf"> 
+  <h3>Edit Funding Disclaimer</h3>
+  <div class="field"> 
+    <label for="funding_disclaimer">
+      <input type="text" data-custom="text" name="data[funding_disclaimer]" id="funding_disclaimer_custom" maxlength="90" value="" placeholder="Paid for by the American Federation of State, County and Municipal Employees" />
+      <small>Maximum of 90 characters. Please preview, since words may wrap unexpectedly and cutoff your postage information.</small>
+      <label for="funding_disclaimer"></label>
+    </label>
+  </div>
+</div><!--headline-->
+
+<div class="step grouping image-select cf"> 
+    <h3>Council/Affiliate Logo (optional)</h3>
+
+    <div class="field upload"> 
+        <input id="logo2" data-custom="image" name="data[flyer_affiliate_logo]" type="radio" value="custom" />
+
+        <label for="logo2">
+           <figure href="javascript:void(0);" title="Add Photo" class="image-picker logo" data-target="logo2">
+               <div class="positioner">
+                   <span class="icons">C</span>
+                   Add Image
+               </div>
+           </figure>
+        </label>
+    </div>
+</div><!--nqlogo-->

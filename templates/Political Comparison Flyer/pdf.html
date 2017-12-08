@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lato:400,900" rel="stylesheet">
+
+<link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/reset.css" type="text/css" />
+<link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/dynamic-print-marks.css" type="text/css" />
+<link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/global.css" type="text/css" />
+<link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/comparison-table.css" type="text/css" />
+
+<style>
+
+</style>
+
+</head>
+
+<%
+count = 0
+if @document.topic1_title.present? and  @document.topic1_candidate1.present? and  @document.topic1_candidate2.present?
+  count += 1
+  row1 = true
+end
+
+if @document.topic2_title.present? and  @document.topic2_candidate1.present? and  @document.topic2_candidate1.present?
+  count += 1
+  row2 = true
+end
+
+if @document.topic3_title.present? and  @document.topic3_candidate1.present? and  @document.topic3_candidate1.present?
+  count += 1
+  row3 = true
+end
+
+if @document.topic4_title.present? and  @document.topic4_candidate1.present? and  @document.topic4_candidate1.present?
+  count += 1
+  row4 = true
+end
+
+if @document.topic5_title.present? and  @document.topic5_candidate1.present? and  @document.topic5_candidate1.present?
+  count += 1
+  row5 = true
+end
+%>
+
+<body class="standard <%= 'show-print-marks ' if @document.crop_marks? %> <%= @document.flyer_branding %>">
+    <main class="container">
+      <header>
+          <div class="top-bar"></div>
+    
+          <h1>
+            <%= @document.flyer_headline.try(:html_safe) %>
+            <small><%= @document.flyer_subheadline.try(:html_safe) %></small>
+          </h1>
+      </header>
+
+      <div class="table header">        
+        <div class="row header cf">
+          <div class="cell">&nbsp;</div>            
+          <div class="cell">
+              <figure class="headshot" style="background-image: url('<%= "#{@document.candidate1_headshot}" %>');"></figure>
+              <strong><%= @document.candidate1_name.try(:html_safe) %></strong>
+          </div>
+          <div class="cell">
+                <figure class="headshot" style="background-image: url('<%= "#{@document.candidate2_headshot}" %>');"></figure>
+                <strong><%= @document.candidate2_name.try(:html_safe) %></strong>
+          </div>
+        </div>
+        <div class="bar"></div>
+      </div>
+
+      <div class="table background">  
+          <div class="row cf">
+            <div class="cell"></div>            
+            <div class="cell"></div>
+            <div class="cell"></div>
+          </div>            
+      </div>
+
+      <div class="table rows rows-<%= count %>">  
+            
+        <% if row1 %>
+          <div class="row cf">
+            <div class="cell"><%= @document.topic1_title.try(:html_safe) %></div>            
+            <div class="cell"><%= @document.topic1_candidate1.try(:html_safe) %></div>
+            <div class="cell"><%= @document.topic1_candidate2.try(:html_safe) %></div>
+          </div>
+        <% end %>
+
+        <% if row2 %>
+          <div class="row cf">
+            <div class="cell"><%= @document.topic2_title.try(:html_safe) %></div>            
+            <div class="cell"><%= @document.topic2_candidate1.try(:html_safe) %></div>
+            <div class="cell"><%= @document.topic2_candidate2.try(:html_safe) %></div>
+          </div>                 
+        <% end %>
+
+        <% if row3 %>
+          <div class="row cf">
+            <div class="cell"><%= @document.topic3_title.try(:html_safe) %></div>            
+            <div class="cell"><%= @document.topic3_candidate1.try(:html_safe) %></div>
+            <div class="cell"><%= @document.topic3_candidate2.try(:html_safe) %></div>
+          </div>
+        <% end %>
+
+        <% if row4 %>
+          <div class="row cf">
+            <div class="cell"><%= @document.topic4_title.try(:html_safe) %></div>            
+            <div class="cell"><%= @document.topic4_candidate1.try(:html_safe) %></div>
+            <div class="cell"><%= @document.topic4_candidate2.try(:html_safe) %></div>
+          </div>
+        <% end %>
+
+        <% if row5 %>
+          <div class="row cf">
+            <div class="cell"><%= @document.topic5_title.try(:html_safe) %></div>            
+            <div class="cell"><%= @document.topic5_candidate1.try(:html_safe) %></div>
+            <div class="cell"><%= @document.topic5_candidate2.try(:html_safe) %></div>
+          </div>
+        <% end %>
+            
+       <!-- add logic to display IF there are footnotes exist -->           
+       <div class="table footnotes">
+         <strong>Foonotes</strong>
+         <%= @document.topic1_candidate1_footnote.try(:html_safe) if @document.topic1_candidate1_footnote.present? %>
+         <%= @document.topic1_candidate2_footnote.try(:html_safe) if @document.topic1_candidate2_footnote.present? %>
+                  
+         <%= @document.topic2_candidate1_footnote.try(:html_safe) if @document.topic2_candidate1_footnote.present? %>
+         <%= @document.topic2_candidate2_footnote.try(:html_safe) if @document.topic2_candidate2_footnote.present? %>
+                 
+         <%= @document.topic3_candidate1_footnote.try(:html_safe) if @document.topic3_candidate1_footnote.present? %>
+         <%= @document.topic3_candidate2_footnote.try(:html_safe) if @document.topic3_candidate2_footnote.present? %>
+                  
+         <%= @document.topic4_candidate1_footnote.try(:html_safe) if @document.topic4_candidate1_footnote.present? %>
+         <%= @document.topic4_candidate2_footnote.try(:html_safe) if @document.topic4_candidate2_footnote.present? %>
+                  
+         <%= @document.topic5_candidate1_footnote.try(:html_safe) if @document.topic5_candidate1_footnote.present? %>
+         <%= @document.topic5_candidate2_footnote.try(:html_safe) if @document.topic5_candidate2_footnote.present? %>                  
+       </div>
+                  
+      </div>
+                          
+      <footer>
+          <div class="angle"></div>
+
+          <% if @document.flyer_affiliate_logo.present? %>
+            <div class="affiliate-logo"><div style="background-image: url('<%= @document.flyer_affiliate_logo %>');"></div></div>
+          <% end %>
+
+          <div class="main-logo"></div>
+          <div class="union-bug"></div>
+      </footer>
+    </main>
+  </body>
+</html>
