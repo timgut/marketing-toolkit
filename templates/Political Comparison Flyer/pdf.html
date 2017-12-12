@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/reset.css" type="text/css" />
 <link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/dynamic-print-marks.css" type="text/css" />
 <link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/global.css" type="text/css" />
-<link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/comparison-table.css" type="text/css" />
+<link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/political-comparison-table.css" type="text/css" />
 
 <style>
 
@@ -84,61 +84,145 @@ end
             
         <% if row1 %>
           <div class="row cf">
-            <div class="cell"><%= @document.topic1_title.try(:html_safe) %></div>            
-            <div class="cell"><%= @document.topic1_candidate1.try(:html_safe) %></div>
-            <div class="cell"><%= @document.topic1_candidate2.try(:html_safe) %></div>
+            <div class="cell">
+               <%= @document.topic1_title.try(:html_safe) %>                
+            </div>            
+            <div class="cell">
+                  <%= @document.topic1_candidate1.try(:html_safe) %>
+                  <% if @document.topic1_candidate1_footnote.present? %>
+                    <span class="footnote-counter"></span>
+                  <% end %>                  
+            </div>
+            <div class="cell">
+                  <%= @document.topic1_candidate2.try(:html_safe) %>
+                  <% if @document.topic1_candidate2_footnote.present? %>
+                    <span class="footnote-counter"></span>
+                  <% end %>                      
+             </div>
           </div>
         <% end %>
 
         <% if row2 %>
           <div class="row cf">
-            <div class="cell"><%= @document.topic2_title.try(:html_safe) %></div>            
-            <div class="cell"><%= @document.topic2_candidate1.try(:html_safe) %></div>
-            <div class="cell"><%= @document.topic2_candidate2.try(:html_safe) %></div>
-          </div>                 
+            <div class="cell">
+               <%= @document.topic2_title.try(:html_safe) %>                
+            </div>            
+            <div class="cell">
+                  <%= @document.topic2_candidate1.try(:html_safe) %>
+                  <% if @document.topic2_candidate1_footnote.present? %>
+                    <span class="footnote-counter"></span>
+                  <% end %>                  
+            </div>
+            <div class="cell">
+                  <%= @document.topic2_candidate2.try(:html_safe) %>
+                  <% if @document.topic2_candidate2_footnote.present? %>
+                    <span class="footnote-counter"></span>
+                  <% end %>                      
+             </div>
+          </div>
         <% end %>
-
+                  
         <% if row3 %>
           <div class="row cf">
-            <div class="cell"><%= @document.topic3_title.try(:html_safe) %></div>            
-            <div class="cell"><%= @document.topic3_candidate1.try(:html_safe) %></div>
-            <div class="cell"><%= @document.topic3_candidate2.try(:html_safe) %></div>
+            <div class="cell">
+               <%= @document.topic3_title.try(:html_safe) %>                
+            </div>            
+            <div class="cell">
+                  <%= @document.topic3_candidate1.try(:html_safe) %>
+                  <% if @document.topic3_candidate1_footnote.present? %>
+                    <span class="footnote-counter"></span>
+                  <% end %>                  
+            </div>
+            <div class="cell">
+                  <%= @document.topic3_candidate2.try(:html_safe) %>
+                  <% if @document.topic3_candidate2_footnote.present? %>
+                    <span class="footnote-counter"></span>
+                  <% end %>                      
+             </div>
           </div>
-        <% end %>
-
+        <% end %>      
+                  
         <% if row4 %>
           <div class="row cf">
-            <div class="cell"><%= @document.topic4_title.try(:html_safe) %></div>            
-            <div class="cell"><%= @document.topic4_candidate1.try(:html_safe) %></div>
-            <div class="cell"><%= @document.topic4_candidate2.try(:html_safe) %></div>
+            <div class="cell">
+               <%= @document.topic4_title.try(:html_safe) %>                
+            </div>            
+            <div class="cell">
+                  <%= @document.topic4_candidate1.try(:html_safe) %>
+                  <% if @document.topic4_candidate1_footnote.present? %>
+                    <span class="footnote-counter"></span>
+                  <% end %>                  
+            </div>
+            <div class="cell">
+                  <%= @document.topic4_candidate2.try(:html_safe) %>
+                  <% if @document.topic4_candidate2_footnote.present? %>
+                    <span class="footnote-counter"></span>
+                  <% end %>                      
+             </div>
           </div>
-        <% end %>
+        <% end %>                      
 
         <% if row5 %>
           <div class="row cf">
-            <div class="cell"><%= @document.topic5_title.try(:html_safe) %></div>            
-            <div class="cell"><%= @document.topic5_candidate1.try(:html_safe) %></div>
-            <div class="cell"><%= @document.topic5_candidate2.try(:html_safe) %></div>
+            <div class="cell">
+               <%= @document.topic5_title.try(:html_safe) %>                
+            </div>            
+            <div class="cell">
+                  <%= @document.topic5_candidate1.try(:html_safe) %>
+                  <% if @document.topic5_candidate1_footnote.present? %>
+                    <span class="footnote-counter"></span>
+                  <% end %>                  
+            </div>
+            <div class="cell">
+                  <%= @document.topic5_candidate2.try(:html_safe) %>
+                  <% if @document.topic5_candidate2_footnote.present? %>
+                    <span class="footnote-counter"></span>
+                  <% end %>                      
+             </div>
           </div>
-        <% end %>
-            
+        <% end %>       
+                  
        <!-- add logic to display IF there are footnotes exist -->           
        <div class="table footnotes">
          <strong>Foonotes</strong>
-         <%= @document.topic1_candidate1_footnote.try(:html_safe) if @document.topic1_candidate1_footnote.present? %>
-         <%= @document.topic1_candidate2_footnote.try(:html_safe) if @document.topic1_candidate2_footnote.present? %>
+         <div class="text">
                   
-         <%= @document.topic2_candidate1_footnote.try(:html_safe) if @document.topic2_candidate1_footnote.present? %>
-         <%= @document.topic2_candidate2_footnote.try(:html_safe) if @document.topic2_candidate2_footnote.present? %>
-                 
-         <%= @document.topic3_candidate1_footnote.try(:html_safe) if @document.topic3_candidate1_footnote.present? %>
-         <%= @document.topic3_candidate2_footnote.try(:html_safe) if @document.topic3_candidate2_footnote.present? %>
+           <% if @document.topic1_candidate1_footnote.present? %>
+              <span><%= @document.topic1_candidate1_footnote.try(:html_safe) %></span>
+           <% end %>
+           <% if @document.topic1_candidate2_footnote.present? %>
+              <span><%= @document.topic1_candidate2_footnote.try(:html_safe) %></span>
+           <% end %>
                   
-         <%= @document.topic4_candidate1_footnote.try(:html_safe) if @document.topic4_candidate1_footnote.present? %>
-         <%= @document.topic4_candidate2_footnote.try(:html_safe) if @document.topic4_candidate2_footnote.present? %>
+           <% if @document.topic2_candidate1_footnote.present? %>
+              <span><%= @document.topic2_candidate1_footnote.try(:html_safe) %></span>
+           <% end %>
+           <% if @document.topic2_candidate2_footnote.present? %>
+              <span><%= @document.topic2_candidate2_footnote.try(:html_safe) %></span>
+           <% end %>                  
+
+           <% if @document.topic3_candidate1_footnote.present? %>
+              <span><%= @document.topic3_candidate1_footnote.try(:html_safe) %></span>
+           <% end %>
+           <% if @document.topic3_candidate2_footnote.present? %>
+              <span><%= @document.topic3_candidate2_footnote.try(:html_safe) %></span>
+           <% end %>   
                   
-         <%= @document.topic5_candidate1_footnote.try(:html_safe) if @document.topic5_candidate1_footnote.present? %>
-         <%= @document.topic5_candidate2_footnote.try(:html_safe) if @document.topic5_candidate2_footnote.present? %>                  
+           <% if @document.topic4_candidate1_footnote.present? %>
+              <span><%= @document.topic4_candidate1_footnote.try(:html_safe) %></span>
+           <% end %>
+           <% if @document.topic4_candidate2_footnote.present? %>
+              <span><%= @document.topic4_candidate2_footnote.try(:html_safe) %></span>
+           <% end %>  
+
+           <% if @document.topic5_candidate1_footnote.present? %>
+              <span><%= @document.topic5_candidate1_footnote.try(:html_safe) %></span>
+           <% end %>
+           <% if @document.topic5_candidate2_footnote.present? %>
+              <span><%= @document.topic5_candidate2_footnote.try(:html_safe) %></span>
+           <% end %>                     
+                  
+         </div>
        </div>
                   
       </div>
@@ -146,6 +230,10 @@ end
       <footer>
           <div class="angle"></div>
 
+          <% if @document.funding_disclaimer.present? %>
+            <div class="disclaimer"><%= @document.funding_disclaimer.try(:html_safe) %></div>
+          <% end %>
+          
           <% if @document.flyer_affiliate_logo.present? %>
             <div class="affiliate-logo"><div style="background-image: url('<%= @document.flyer_affiliate_logo %>');"></div></div>
           <% end %>
