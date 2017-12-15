@@ -24,7 +24,7 @@
       <li>
         <%= f.select(:affiliate_id) do %>
           <%= content_tag(:option, "Affiliate/Council*", value: '') %>
-          <% Affiliate.all.each do |aff| -%>
+          <% Affiliate.order(:state,:title).each do |aff| -%>
             <%= content_tag(:option, aff.to_s, value: aff.id) %>
           <% end %>
         <% end %>   

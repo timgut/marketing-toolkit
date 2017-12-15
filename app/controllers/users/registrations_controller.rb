@@ -6,7 +6,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     load_user
   	@body_class = 'toolkit profile'
   	@header_navigation = true
-    @affiliates = Affiliate.all
+    @affiliates = Affiliate.order(:state,:title)
   end
 
   def password

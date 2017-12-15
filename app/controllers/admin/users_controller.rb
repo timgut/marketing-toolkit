@@ -15,7 +15,7 @@ class Admin::UsersController < AdminController
 
       redirect_to edit_admin_user_path(@user), notice: "User created and activation email sent!"
     else
-      @affiliates = Affiliate.all
+      @affiliates = Affiliate.order(:state,:title)
       render :new
     end
   end
@@ -25,7 +25,7 @@ class Admin::UsersController < AdminController
     load_user
     @body_class = 'toolkit USER'
     @header_navigation = true
-    @affiliates = Affiliate.all
+    @affiliates = Affiliate.order(:state,:title)
   end
 
   # GET /users
@@ -40,7 +40,7 @@ class Admin::UsersController < AdminController
   def new
     @user = User.new
     authorize @user
-    @affiliates = Affiliate.all
+    @affiliates = Affiliate.order(:state,:title)
   end
 
   # PATCH /users/1
@@ -57,7 +57,7 @@ class Admin::UsersController < AdminController
     else
       @body_class = 'toolkit USER'
       @header_navigation = true
-      @affiliates = Affiliate.all
+      @affiliates = Affiliate.order(:state,:title)
 
       render :edit, notice: "There was a problem updating the user."
     end
