@@ -9,4 +9,4 @@ set :deploy_user, "app-#{fetch(:application)}"
 
 set :branch, "master"
 
-server "chi-rails1", user: 'app-afscme-tk', roles: %w(web app db)
+server "chi-afscme", user: 'app-afscme-tk', roles: %w(web app db)
