@@ -20,4 +20,19 @@ describe DocumentPolicy, type: :class do
       end
     end
   end
+
+  permissions :current_user_can_access_campaign? do
+    let!(:campaign) { create(:campaign) }
+    before(:each) { CampaignUser.destroy_all }
+
+    it "denies access if the user does not have a join table record" do
+      expect(policy).not_to permit(user, document)
+    end
+
+    it "grants access if the user has a join table record" do
+      document.template.update_attributes!(campaign_id: campaign.id)
+      CampaignUser.create!(campaign: campaign, user: user)
+      expect(policy).to permit(user, document)
+    end
+  end
 end

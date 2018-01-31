@@ -15,13 +15,17 @@ class TemplatesController < ApplicationController
   def show
     load_template
     @campaign = @template.campaign
+    authorize_campaign!(@campaign)
   end
 
   private
 
   def assign_sidebar_vars
-    @campaigns =  Campaign.publish.roots
-    @templates = Template.publish
+    @campaigns = current_user.campaigns.publish.roots
+
+    @templates = @campaigns.inject([]) do |templates, campaign|
+      templates << campaign.templates.publish
+    end.flatten
 
     @sidebar_vars = @categories.inject([]) do |sidebar_vars, category|
       sidebar_vars << {

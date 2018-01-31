@@ -73,6 +73,7 @@ class DocumentsController < ApplicationController
   def new
     @template = Template.find(params[:template_id])
     @document = Document.new(template_id: @template.id, title: @template.title, description: @template.description)
+    authorize_campaign!(@document)
     assign_records
   end
 
@@ -134,7 +135,7 @@ class DocumentsController < ApplicationController
 
     @recent = @documents.recent(current_user)
 
-    @campaigns = Campaign.publish
+    @campaigns = current_user.campaigns.publish
     @trashed   = current_user.documents.trash
 
 
@@ -173,6 +174,7 @@ class DocumentsController < ApplicationController
 
   def load_document
     @document = Document.find(params[:id])
+    authorize_campaign!(@document)
     authorize @document
   end
 end

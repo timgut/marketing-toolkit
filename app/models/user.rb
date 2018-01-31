@@ -1,12 +1,10 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
   has_and_belongs_to_many :documents
   has_and_belongs_to_many :images
+  has_and_belongs_to_many :campaigns, join_table: :campaigns_users
 
   belongs_to :affiliate
 
@@ -19,6 +17,7 @@ class User < ApplicationRecord
   #scope :approvers, -> { where(role: ['Administrator','Vetter']) }
   scope :approvers, -> { where(role: 'Vetter') }
 
+  after_create :access_all_campaigns!
   after_create :send_admin_emails
 
   ROLES = ['User', 'Local President', 'Vetter', 'Administrator']
@@ -39,13 +38,6 @@ class User < ApplicationRecord
     'Information Technology',
     'Retirees'
   ]
-
-  def send_admin_emails
-    AdminMailer.new_user_waiting_for_approval(self).deliver_now
-    unless self.admin?
-      AdminMailer.notification_to_approvers(self, self.regional_approvers).deliver_now
-    end
-  end
 
   def send_account_notification(status)
     case status
@@ -84,6 +76,14 @@ class User < ApplicationRecord
     self.role == 'Vetter'
   end
 
+  def set_accessible_campaigns!(campaigns)
+    CampaignUser.where(user_id: id).destroy_all
+
+    Array(campaigns).each do |campaign|
+      CampaignUser.create!(campaign_id: campaign, user_id: id)
+    end
+  end
+
   ## auth methods for devise
   def active_for_authentication? 
     super && approved? 
@@ -102,4 +102,19 @@ class User < ApplicationRecord
     User.approvers.select {|user| user.vetter_region == region}
   end
   ## end of auth methods for devise
+  
+  protected
+
+  def send_admin_emails
+    AdminMailer.new_user_waiting_for_approval(self).deliver_now
+    unless self.admin?
+      AdminMailer.notification_to_approvers(self, self.regional_approvers).deliver_now
+    end
+  end
+
+  def access_all_campaigns!
+    Campaign.publish.each do |campaign|
+      CampaignUser.create!(campaign: campaign, user: self)
+    end
+  end
 end

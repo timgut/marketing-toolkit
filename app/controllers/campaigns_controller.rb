@@ -3,20 +3,24 @@ class CampaignsController < ApplicationController
 
   # GET /campaigns
   def index
-    @campaigns = Campaign.publish.roots
+    @campaigns = current_user.campaigns.publish.roots
   end
 
   # GET /campaigns/1
   def show
     @campaign = Campaign.includes(:templates, :children).find(params[:id])
+    authorize_campaign!(@campaign)
     @filtered_templates = @campaign.templates.publish
   end
 
   protected
 
   def assign_sidebar_vars
-    @campaigns = Campaign.publish.roots.includes(:templates).publish('title ASC')
-    @templates = Template.publish
+    @campaigns = current_user.campaigns.publish.roots.includes(:templates).publish('title ASC')
+
+    @templates = @campaigns.inject([]) do |templates, campaign|
+      templates << campaign.templates.publish
+    end.flatten
 
     @sidebar_vars = @categories.inject([]) do |sidebar_vars, category|
       sidebar_vars << {

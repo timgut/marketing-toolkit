@@ -69,5 +69,18 @@ RSpec.describe User, type: :model do
   end
 
   describe "Instance Methods" do
+    describe "#access_all_campaigns!" do
+      let!(:campaign1) { create(:campaign, status: 1) }
+      let!(:campaign2) { create(:campaign, status: 1) }
+      let!(:campaign3) { create(:campaign, status: 0) }
+
+      it "gives new users access to all published campaigns" do
+        new_user = create(:user)
+
+        expect(new_user.campaigns).to include campaign1
+        expect(new_user.campaigns).to include campaign2
+        expect(new_user.campaigns).not_to include campaign3
+      end
+    end
   end
 end

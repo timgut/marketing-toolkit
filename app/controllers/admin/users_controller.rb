@@ -26,6 +26,7 @@ class Admin::UsersController < AdminController
     @body_class = 'toolkit USER'
     @header_navigation = true
     @affiliates = Affiliate.order(:state,:title)
+    @all_campaigns = Campaign.publish
   end
 
   # GET /users
@@ -49,6 +50,8 @@ class Admin::UsersController < AdminController
     account_status = set_account_status
 
     if @user.update_attributes(user_params)
+      @user.set_accessible_campaigns!(params[:campaigns])
+
       unless account_status == 'same'
         @user.send_account_notification(account_status)
       end

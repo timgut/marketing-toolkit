@@ -1,110 +1,119 @@
 <script>
 $(document).ready(function(){
 
-	if ($('#user_role').val() != 'Vetter'){
-		$('#user_vetter_region').prop('disabled',true);
-	}
+  if ($('#user_role').val() != 'Vetter'){
+    $('#user_vetter_region').prop('disabled',true);
+  }
 
-	$('#user_role').change(function(){
-		if ( $(this).val() != 'Vetter' ) {
-			$('#user_vetter_region').val('').prop('disabled',true);
-		}
-		else {
-			$('#user_vetter_region').val('').prop('disabled',false);
-		}
-	})
+  $('#user_role').change(function(){
+    if ( $(this).val() != 'Vetter' ) {
+      $('#user_vetter_region').val('').prop('disabled',true);
+    }
+    else {
+      $('#user_vetter_region').val('').prop('disabled',false);
+    }
+  })
 });
-
 </script>
 
-    <div class="cf">     
-	    <ol>
-	      <li>
-	        <%= f.label :first_name %><br />
-	        <%= f.text_field :first_name, autofocus: true %>              
-	      </li>
-	        
-	      <li>
-	        <%= f.label :last_name %><br />
-	        <%= f.text_field :last_name, autofocus: true %>              
-	      </li>
-	        
-	      <li>
-	        <%= f.label :email %><br />
-	        <%= f.email_field :email, autofocus: true %>
-	      </li>
-	        
-	      <li>
-	        <%= f.label :zip_code %><br />
-	        <%= f.text_field :zip_code, autofocus: true %>              
-	      </li>
-	        
-	      <li>
-	        <%= f.label :affiliate_id, 'Affiliate/Council' %><br />
-	        <%= f.select(:affiliate_id) do %>
-            <%= options_for_select(@affiliates.collect { |aff| [aff.to_s, aff.id] }, @user.affiliate_id) %>
-	        <% end %>          
-	      </li>
-	        
-	      <li>
-	        <%= f.label :local_number %><br />
-	        <%= f.text_field :local_number, autofocus: true %>              
-	      </li>
-	        
-	      <li>
-	        <%= f.label :department %>
-	        <%= f.select(:department) do %>
-	          <%= options_for_select( User::DEPARTMENTS, @user.department) %>
-	        <% end %>
-	      </li>
+<div class="cf">     
+  <ol>
+    <li>
+      <%= f.label :first_name %><br />
+      <%= f.text_field :first_name, autofocus: true %>              
+    </li>
+      
+    <li>
+      <%= f.label :last_name %><br />
+      <%= f.text_field :last_name, autofocus: true %>              
+    </li>
+      
+    <li>
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true %>
+    </li>
+      
+    <li>
+      <%= f.label :zip_code %><br />
+      <%= f.text_field :zip_code, autofocus: true %>              
+    </li>
+      
+    <li>
+      <%= f.label :affiliate_id, 'Affiliate/Council' %><br />
+      <%= f.select(:affiliate_id) do %>
+        <%= options_for_select(@affiliates.collect { |aff| [aff.to_s, aff.id] }, @user.affiliate_id) %>
+      <% end %>          
+    </li>
+      
+    <li>
+      <%= f.label :local_number %><br />
+      <%= f.text_field :local_number, autofocus: true %>              
+    </li>
+      
+    <li>
+      <%= f.label :department %>
+      <%= f.select(:department) do %>
+        <%= options_for_select( User::DEPARTMENTS, @user.department) %>
+      <% end %>
+    </li>
 
-	      <li>
-	        <%= f.label :cell_phone %><br />
-	        <%= f.text_field :cell_phone, autofocus: true %>              
-	      </li>
+    <li>
+      <%= f.label :cell_phone %><br />
+      <%= f.text_field :cell_phone, autofocus: true %>              
+    </li>
 
-	      <li class="checkbox clearfix">
-	        <%= f.check_box :custom_branding %>  
-	        <%= f.label :custom_branding, 'User will see custom branding options in templates (e.g., CSEA)' %></label>
-	      </li>
-	        
-	      <li class="checkbox clearfix">
-	        <%= f.check_box :receive_alerts %>  
-	        <%= f.label :receive_alerts, 'By providing my cell phone number, I agree to receive text, autodialed and/or prerecorded messages at the cell number provided above on any subject from AFSCME and affiliated labor, political, or charitable organizations. Message and data rates may apply.' %></label>
-	      </li>
+    <li class="checkbox clearfix">
+      <%= f.check_box :custom_branding %>  
+      <%= f.label :custom_branding, 'User will see custom branding options in templates (e.g., CSEA)' %></label>
+    </li>
+      
+    <li class="checkbox clearfix">
+      <%= f.check_box :receive_alerts %>  
+      <%= f.label :receive_alerts, 'By providing my cell phone number, I agree to receive text, autodialed and/or prerecorded messages at the cell number provided above on any subject from AFSCME and affiliated labor, political, or charitable organizations. Message and data rates may apply.' %></label>
+    </li>
+  </ol> 
 
-	    </ol> 
+  <ol>
+    <li>
+      <%= f.label :role %><br />
+      <%= f.select(:role) do %>
+        <%= options_for_select( User::ROLES, @user.role) %>
+      <% end %>
+    </li>
 
-			<ol>
-	      <li>
-	         <%= f.label :role %><br />
-					 <%= f.select(:role) do %>
-	         <%= options_for_select( User::ROLES, @user.role) %>
-	        <% end %>
-	      </li>
+    <li>
+      <%= f.label :vetter_region%></br>
+      <%= f.select(:vetter_region) do %>
+        <%= options_for_select( ['','Central','Eastern','Southern','Western'], @user.vetter_region) %>
+      <% end %>
+    </li>
 
-	      <li>
-	      	<%= f.label :vetter_region%></br>
-					<%= f.select(:vetter_region) do %>
-	         <%= options_for_select( ['','Central','Eastern','Southern','Western'], @user.vetter_region) %>
-	        <% end %>
+    <% unless @user.rejected? %>
+      <li class="checkbox clearfix">
+        <%= f.check_box :approved %>  
+        <%= f.label :approved, !@user.approved? ? "Activate User (sends email notice with login information)" : "User is active; uncheck/save to deactivate and notify user." %></label>
+      </li>
+     <% end %>
 
-	      </li>
+    <% unless @user.approved?  or @user.new_record? %>
+      <li class="checkbox clearfix">
+        <%= f.check_box :rejected %>  
+        <%= f.label :rejected, !@user.rejected? ? "Decline Access (sends email notice of decision)" : "User has been rejected; uncheck/save to enter back into appproval queue (must approve access subsequently)" %></label>
+      </li>
+    <% end %>
 
-
-	      <% unless @user.rejected? %>
-	      <li class="checkbox clearfix">
-	        <%= f.check_box :approved %>  
-	        <%= f.label :approved, !@user.approved? ? "Activate User (sends email notice with login information)" : "User is active; uncheck/save to deactivate and notify user." %></label>
-	      </li>
-	     	<% end %>
-	      <% unless @user.approved?	or @user.new_record? %>
-	      <li class="checkbox clearfix">
-	        <%= f.check_box :rejected %>  
-	        <%= f.label :rejected, !@user.rejected? ? "Decline Access (sends email notice of decision)" : "User has been rejected; uncheck/save to enter back into appproval queue (must approve access subsequently)" %></label>
-	      </li>
-	     	<% end %>		
-	     	
-			</ol>
-
-		</div>
+    <% if @user.persisted? %>
+      <li>
+        <%= label_tag "Campaigns" %>
+        <ul>
+          <% @all_campaigns.each do |campaign| %>
+            <li class="checkbox clearfix">
+              <%= check_box_tag "campaigns[]", campaign.id, @user.campaigns.include?(campaign), id: "campaign-checkbox-#{campaign.id}" %>
+              <%= label_tag "campaign-checkbox-#{campaign.id}", campaign.title %>
+            </li>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
+  </ol>
+</div>

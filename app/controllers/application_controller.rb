@@ -21,6 +21,10 @@ class ApplicationController < ActionController::Base
     "There was a problem. Please try again."
   end
 
+  def authorize_campaign!(record)
+    authorize record, :current_user_can_access_campaign?
+  end
+
   private
 
   def after_sign_out_path_for(resource_or_scope)

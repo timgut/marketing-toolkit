@@ -20,4 +20,17 @@ describe CampaignPolicy, type: :class do
       end
     end
   end
+
+  permissions :current_user_can_access_campaign? do
+    before(:each) { CampaignUser.destroy_all }
+
+    it "denies access if the user does not have a join table record" do
+      expect(policy).not_to permit(user, campaign)
+    end
+
+    it "grants access if the user has a join table record" do
+      CampaignUser.create!(campaign: campaign, user: user)
+      expect(policy).to permit(user, campaign)
+    end
+  end
 end
