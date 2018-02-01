@@ -1,0 +1,21 @@
+<%= form_tag(update_positions_admin_templates_path, method: :patch) do %>
+  <table>
+    <thead>
+      <tr>
+        <th>Template</th>
+        <th>Position</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @templates.each do |template| %>
+        <tr>
+          <td><%= link_to(template.title, template, target: :blank) %></td>
+          <td><%= text_field_tag("positions[#{template.id}]", template.position, class: "select-on-click") %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= submit_tag "Update Position Data" %>
+<% end %>
