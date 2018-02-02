@@ -58,8 +58,15 @@ class ApplicationController < ActionController::Base
     redirect_back fallback_location: authenticated_root_path
   end
 
-  def paginate!
+  def paginate(collection)
     params[:page] ||= 1
+
+    case collection
+    when ActiveRecord::Relation
+      collection.page(params[:page])
+    when Array
+      Kaminari.paginate_array(collection).page(params[:page])
+    end
   end
 end
  

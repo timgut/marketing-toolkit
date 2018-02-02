@@ -1,6 +1,5 @@
 class TemplatesController < ApplicationController
   before_action :assign_sidebar_vars, only: [:index]
-  before_action :paginate!,           only: [:index]
 
   # GET /templates
   def index
@@ -10,10 +9,11 @@ class TemplatesController < ApplicationController
       }
 
       @category = Category.find(params[:category_id])
-      Kaminari.paginate_array(@filtered_templates).page(params[:page])
     else
-      @filtered_templates = @templates.page(params[:page])
+      @filtered_templates = @templates
     end
+
+    @filtered_templates = paginate(@filtered_templates)
   end
 
   # GET /templates/1
