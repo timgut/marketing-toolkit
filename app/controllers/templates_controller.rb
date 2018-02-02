@@ -7,9 +7,10 @@ class TemplatesController < ApplicationController
     if params[:category_id]
       @filtered_templates = @templates.select{ |template| 
         template.category_id == params[:category_id].to_i 
-      }.page(params[:page])
+      }
 
       @category = Category.find(params[:category_id])
+      Kaminari.paginate_array(@filtered_templates).page(params[:page])
     else
       @filtered_templates = @templates.page(params[:page])
     end
