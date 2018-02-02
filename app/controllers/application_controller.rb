@@ -57,5 +57,9 @@ class ApplicationController < ActionController::Base
 
     redirect_back fallback_location: authenticated_root_path
   end
+
+  def paginate!
+    params[:page] ||= 1
+  end
 end
  

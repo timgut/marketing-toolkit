@@ -4,6 +4,7 @@ class DocumentsController < ApplicationController
   protect_from_forgery except: :create
 
   before_action :assign_sidebar_vars, only: [:index, :recent, :shared, :trashed]
+  before_action :paginate!,           only: [:index, :recent, :shared]
 
   # POST /documents
   def create
@@ -48,10 +49,14 @@ class DocumentsController < ApplicationController
   # GET /documents
   def index
     if params[:category_id]
-      @filtered_documents = @documents.select{|document| document.template.category_id == params[:category_id].to_i}.reverse
+      @filtered_documents = @documents.select{ |document| 
+        document.template.category_id == params[:category_id].to_i
+      }.reverse
     else
       @filtered_documents = @documents.reverse
     end
+
+    @filtered_documents = Kaminari.paginate_array(@filtered_documents).page(params[:page])
   end
 
   # GET /documents/1/job_status
@@ -85,7 +90,7 @@ class DocumentsController < ApplicationController
 
   # GET /documents/recent
   def recent
-    @filtered_documents = Document.includes(:template).recent(current_user).not_trashed.reverse
+    @filtered_documents = Document.includes(:template).recent(current_user).not_trashed.reverse.page(params[:page])
     render :index
   end
 
@@ -96,7 +101,7 @@ class DocumentsController < ApplicationController
 
   # GET /documents/shared
   def shared
-    @filtered_documents = Document.includes(:template).shared_with_me(current_user)
+    @filtered_documents = Document.includes(:template).shared_with_me(current_user).page(params[:page])
     @shared = true
     render :index
   end

@@ -1,13 +1,17 @@
 class TemplatesController < ApplicationController
   before_action :assign_sidebar_vars, only: [:index]
+  before_action :paginate!,           only: [:index]
 
   # GET /templates
   def index
     if params[:category_id]
-      @filtered_templates = @templates.select{|template| template.category_id == params[:category_id].to_i }
+      @filtered_templates = @templates.select{ |template| 
+        template.category_id == params[:category_id].to_i 
+      }.page(params[:page])
+
       @category = Category.find(params[:category_id])
     else
-      @filtered_templates = @templates
+      @filtered_templates = @templates.page(params[:page])
     end
   end
 
