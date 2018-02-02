@@ -2,16 +2,16 @@
   <table>
     <thead>
       <tr>
-        <th>Template</th>
         <th>Position</th>
+        <th>Template</th>
       </tr>
     </thead>
 
     <tbody>
       <% @templates.each do |template| %>
         <tr>
-          <td><%= link_to(template.title, template, target: :blank) %></td>
           <td><%= text_field_tag("positions[#{template.id}]", template.position, class: "select-on-click") %>
+          <td><%= link_to(template.title, template, target: :blank) %></td>
         </tr>
       <% end %>
     </tbody>
