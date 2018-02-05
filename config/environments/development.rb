@@ -57,4 +57,7 @@ Rails.application.configure do
   # }
 
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
+  # Uncomment to see backtraces for ActiveRecord queries
+  # ActiveRecordQueryTrace.enabled = true
 end
