@@ -39,7 +39,14 @@ class ApplicationPolicy
       return false
     end
 
-    campaign.is_a?(Campaign) ? @current_user.campaigns.include?(campaign) : false
+    case campaign
+    when Nilclass
+      true # Allow access to any record that has a NULL campaign
+    when Campaign
+      @current_user.campaigns.include?(campaign) # Does the user have access to the record's campaign?
+    else
+      false # Any other kind of data should not allow access
+    end
   end
 
   def current_user_is_owner_or_admin?
