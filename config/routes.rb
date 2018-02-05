@@ -65,13 +65,20 @@ Rails.application.routes.draw do
 
   namespace :admin, path: '/admin' do
     root to: "misc#home"
+
+    resources :templates,  except: [:show] do
+      collection do
+        get   :positions
+        patch :update_positions
+      end
+    end
+
     get 'documentation', to: 'misc#documentation', as: :documentation
     get 'stats', to: 'misc#stats', as: :stats
 
     resources :campaigns,  except: [:new, :show]
     resources :users,      except: [:destroy, :show]
     resources :categories, except: [:new, :show]
-    resources :templates,  except: [:show]
     resources :affiliates, only:   []
   end
 end

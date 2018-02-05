@@ -8,4 +8,8 @@ Rails.application.config.assets.paths << "#{Rails.root}/app/assets/videos"
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-Rails.application.config.assets.precompile += %w( highlight-js-railscasts.css highlight.pack.js )
+Rails.application.config.assets.precompile += %w(
+  highlight-js-railscasts.css 
+  highlight.pack.js 
+  jquery.tablednd.1.0.3.min.js
+)

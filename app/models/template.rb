@@ -17,6 +17,8 @@ class Template < ApplicationRecord
 
   scope :with_category, ->(category_id){ where(category_id: category_id) }
 
+  default_scope ->{ order(position: :asc) }
+
   ATTACHMENTS.each do |attachment|
     has_attached_file attachment, storage: :s3, s3_protocol: "https",  s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) }
   end
@@ -25,6 +27,17 @@ class Template < ApplicationRecord
   validates_attachment_content_type :numbered_image, content_type: /\Aimage\/.*\z/
   validates_attachment_content_type :blank_image,    content_type: /\Aimage\/.*\z/
   validates_attachment_content_type :static_pdf,     content_type: "application/pdf"
+
+  class << self
+    def update_positions!(data)
+      @templates = Template.find(data.keys)
+
+      data.each do |id, position|
+        template = @templates.select{|t| t.id == id.to_i}.first
+        template.update_attributes!(position: position)
+      end
+    end
+  end
 
   def croppable?
     blank_image.exists?
