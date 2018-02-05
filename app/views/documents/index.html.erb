@@ -11,7 +11,8 @@
 
 <% if @filtered_documents.count > 0 %>
   <section class="workspace cf">
-    <%= render @filtered_documents %>
+    <%= render   @filtered_documents %>
+    <%= paginate @filtered_documents %>
   </section>
 <% else %>
 	<% if @shared %>
@@ -25,7 +26,6 @@
   <script type="text/javascript">
     $(document).ready(function(){
       $el = $("a[data-id='<%= params[:generating] %>']").closest(".document");
-      console.log($el);
       new window.Toolkit.Job($el, "pdfAndThumbnail", <%= params[:generating] %>);
     });
   </script>

@@ -4,7 +4,7 @@ class DocumentsController < ApplicationController
   protect_from_forgery except: :create
 
   before_action :assign_sidebar_vars, only: [:index, :recent, :shared, :trashed]
-
+  
   # POST /documents
   def create
     @document = Document.new(document_params)
@@ -48,10 +48,14 @@ class DocumentsController < ApplicationController
   # GET /documents
   def index
     if params[:category_id]
-      @filtered_documents = @documents.select{|document| document.template.category_id == params[:category_id].to_i}.reverse
+      @filtered_documents = @documents.select{ |document| 
+        document.template.category_id == params[:category_id].to_i
+      }.reverse
     else
       @filtered_documents = @documents.reverse
     end
+
+    @filtered_documents = paginate(@filtered_documents)
   end
 
   # GET /documents/1/job_status
@@ -87,6 +91,7 @@ class DocumentsController < ApplicationController
   # GET /documents/recent
   def recent
     @filtered_documents = Document.includes(:template).recent(current_user).not_trashed.reverse
+    @filtered_documents = paginate(@filtered_documents)
     render :index
   end
 
@@ -98,6 +103,7 @@ class DocumentsController < ApplicationController
   # GET /documents/shared
   def shared
     @filtered_documents = Document.includes(:template).shared_with_me(current_user)
+    @filtered_documents = paginate(@filtered_documents)
     @shared = true
     render :index
   end

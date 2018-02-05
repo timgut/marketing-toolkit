@@ -4,11 +4,16 @@ class TemplatesController < ApplicationController
   # GET /templates
   def index
     if params[:category_id]
-      @filtered_templates = @templates.select{|template| template.category_id == params[:category_id].to_i }
+      @filtered_templates = @templates.select{ |template| 
+        template.category_id == params[:category_id].to_i 
+      }
+
       @category = Category.find(params[:category_id])
     else
       @filtered_templates = @templates
     end
+
+    @filtered_templates = paginate(@filtered_templates)
   end
 
   # GET /templates/1
