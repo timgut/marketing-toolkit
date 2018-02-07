@@ -106,7 +106,7 @@ $(document).ready(function(){
       <li>
         <%= label_tag "Campaigns" %>
         <ul>
-          <% @all_campaigns.each do |campaign| %>
+          <% Array(@all_campaigns).each do |campaign| %>
             <li class="checkbox clearfix">
               <%= check_box_tag "campaigns[]", campaign.id, @user.campaigns.include?(campaign), id: "campaign-checkbox-#{campaign.id}" %>
               <%= label_tag "campaign-checkbox-#{campaign.id}", campaign.title %>

@@ -37,6 +37,9 @@ Toolkit.isDocumentsIndexPage = ->
 Toolkit.isDocumentEditPage = ->
   Toolkit.isDocumentPage() and Toolkit.isEditPage()
 
+Toolkit.isUserWorkspacePage = ->
+  location.href.indexOf("/admin/users") isnt -1 and location.href.indexOf("/workspace") isnt -1
+
 Toolkit.resetDropzones = ->
   window.Toolkit.dropzones = []
 

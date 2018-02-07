@@ -1,0 +1,56 @@
+<%
+  if document.thumbnail_file_name.nil?
+    thumbnail = document.template.thumbnail&.url
+  else
+    thumbnail = document.thumbnail&.url
+  end
+%>
+
+<div class="document">
+  <%= link_to(
+    "", 
+    preview_document_path(document),
+    class: "document-thumbnail",
+    title: document.title,
+    style: "background-image: url('#{thumbnail}');",
+    data: {
+      behavior: "download"
+    }
+  ) %>
+
+  <%= link_to(
+      document.title,
+      edit_document_path(document),
+      class:  "document-title",
+      title:  document.title,
+      target: :_blank
+  ) %>
+
+  <ul class="options"> 
+    <li>
+      <a href="javascript:void(0);" title="Options" class="icons">+</a>
+      <ol>
+        <li>
+          <%= link_to(
+            "<span class='icons'>S</span>Quick View".html_safe,
+            preview_document_path(document),
+            title:  "View PDF",
+            class:  "preview",
+            target: :_blank 
+          ) %>
+        </li>
+
+        <li>
+          <%= link_to(
+            "<span class='icons'>F</span> Download PDF".html_safe,
+            download_document_path(document),
+            title: "Rebuild PDF",
+            class: "rebuild",
+            remote: true,
+            data: {id: document.id, job: "pdfAndThumbnail"} 
+          ) %>
+        </li>
+      </ol>
+    </li>
+  </ul>
+</div>
