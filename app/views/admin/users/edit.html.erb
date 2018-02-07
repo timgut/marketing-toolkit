@@ -11,7 +11,7 @@
       </div>          
     <% end %>
 
-    <section id="user-statistics">
+    <section id="user-statistics" class="cf">
       <table id="statistics" class="stats">
         <thead>
           <tr>
@@ -50,6 +50,8 @@
       </table>
     </section>
 
-    <%= link_to "See Users' Documents", admin_user_workspace_path(@user), class: "button save" %> 
+    <div class="buttons cf">
+      <%= link_to "See Users' Documents", admin_user_workspace_path(@user), class: "button save" %> 
+    </div>
   </section><!--workspace-->    
 </main>
