@@ -1,12 +1,12 @@
 <ul> 
   <li>
     <%= link_to "Campaigns", campaigns_path, title: "Campaigns" %>
-    <div class="contents-counter"><%= @campaigns.count %></div>
+    <div class="contents-counter"><%= @campaigns.length %></div>
   </li>
         
   <li>
     <%= link_to "All", templates_path, title: "View All" %>
-    <div class="contents-counter"><%= @templates.count %></div>
+    <div class="contents-counter"><%= @templates.length %></div>
   </li>
     
   <li>
@@ -17,7 +17,7 @@
         <!-- TODO: Add class="active" on the active link. Figure out how to determine which link is active. -->
         <li> 
           <%= link_to sidebar_var[:title], templates_path(category_id: sidebar_var[:category_id]), title: sidebar_var[:title] %>
-          <div class="contents-counter"><%= sidebar_var[:items].count %></div>
+          <div class="contents-counter"><%= sidebar_var[:items].length %></div>
         </li>
       <% end %>
     </ol>

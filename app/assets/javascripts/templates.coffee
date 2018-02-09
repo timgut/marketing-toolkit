@@ -59,9 +59,14 @@ window.Toolkit.Template.dropzones = ->
       });
     )
 
+window.Toolkit.Template.selectOnClick = ->
+  $("input.select-on-click").click ->
+     $(@).select()
+
 window.Toolkit.Template.ready = ->
   window.Toolkit.optionsMenu()
   window.Toolkit.Template.codeMirror()
   window.Toolkit.Template.dropzones()
+  window.Toolkit.Template.selectOnClick()
 
 $(document).on('turbolinks:load', window.Toolkit.Template.ready)

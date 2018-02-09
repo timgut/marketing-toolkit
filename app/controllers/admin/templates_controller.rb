@@ -47,6 +47,11 @@ class Admin::TemplatesController < AdminController
     @campaign = @template.campaign
   end
 
+  # GET /admin/templates/positions
+  def positions
+    @templates = Template.publish
+  end
+
   # PATCH /admin/templates/1
   def update
     load_template
@@ -65,6 +70,12 @@ class Admin::TemplatesController < AdminController
         head :no_content
       end
     end
+  end
+
+  # PATCH /admin/templates/update_positions
+  def update_positions
+    Template.update_positions!(params[:positions])
+    redirect_to admin_templates_path, notice: "Template positions updated."
   end
 
   private

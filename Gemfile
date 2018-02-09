@@ -19,6 +19,7 @@ gem 'gretel'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-validation-rails'
+gem 'kaminari'
 gem 'mini_magick'
 gem 'paperclip', '~> 5.0.0'
 gem 'paperclip-meta'
@@ -39,6 +40,7 @@ gem 'listen', '~> 3.0.5'
 gem 'tinymce-rails', github: "spohlenz/tinymce-rails", ref: "8a31db6"
 
 group :development do
+  gem 'active_record_query_trace'
   gem 'puma', '~> 3.0'
   gem 'web-console', '>= 3.3.0'
   gem 'spring'

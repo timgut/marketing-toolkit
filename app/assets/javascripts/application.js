@@ -17,8 +17,9 @@
 //= require codemirror/modes/css
 //= require jquery.validate
 //= require jquery-ui/widgets/draggable
-//= require jquery.popupoverlay.1.7.13.js
+//= require jquery.popupoverlay.1.7.13
 //= require dropzone
 //= require jquery.jcrop
 //= require tinymce-jquery
+//= require jquery.tablednd.1.0.3.min
 //= require_tree .

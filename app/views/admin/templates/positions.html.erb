@@ -1,0 +1,33 @@
+<%= form_tag(update_positions_admin_templates_path, method: :patch) do %>
+  <table id="positions">
+    <thead>
+      <tr>
+        <th>Position</th>
+        <th>Template</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @templates.each do |template| %>
+        <tr id="<%= template.position %>">
+          <td class="position"><%= text_field_tag("positions[#{template.id}]", template.position, class: "select-on-click") %>
+          <td class="name"><%= link_to(template.title, template, target: :blank) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= submit_tag "Update Position Data" %>
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#positions").tableDnD({
+      onDrop: function(table, droppedRow){
+        $.each($(table).find("tbody tr"), function(i, tr){
+          $(tr).find("td.position input").attr("value", i+1);
+        });
+      },
+    });
+  });
+</script>
