@@ -40,7 +40,7 @@ class ApplicationPolicy
     end
 
     case campaign
-    when Nilclass
+    when NilClass
       true # Allow access to any record that has a NULL campaign
     when Campaign
       @current_user.campaigns.include?(campaign) # Does the user have access to the record's campaign?
