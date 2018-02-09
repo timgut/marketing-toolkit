@@ -4,6 +4,7 @@ class Admin::TemplatesController < AdminController
   # POST /admin/templates
   def create
     @template = Template.new(template_params)
+    @template.position = Template.publish.count + 1
     authorize @template
 
     if @template.save
