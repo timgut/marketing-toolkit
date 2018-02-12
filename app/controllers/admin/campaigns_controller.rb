@@ -1,4 +1,10 @@
 class Admin::CampaignsController < AdminController
+  # PUT /admin/campaigns/1/blacklist
+  def blacklist
+    CampaignUser.where(campaign_id: params[:id]).destroy_all
+    redirect_to admin_campaigns_path, notice: "Campaign blacklisted! No one can access its templates."
+  end
+
   # POST /admin/campaigns
   def create
     @new_campaign = Campaign.new(campaign_params)
@@ -48,6 +54,15 @@ class Admin::CampaignsController < AdminController
       @body_class = 'toolkit campaign'
       @header_navigation = true
     end
+  end
+
+  # PUT /admin/campaigns/1/whitelist
+  def whitelist
+    User.approved.each do |user|
+      CampaignUser.find_or_create_by(campaign_id: params[:id], user_id: user.id)
+    end
+
+    redirect_to admin_campaigns_path, notice: "Campaign whitelisted! Everyone can access its templates."
   end
 
   private
