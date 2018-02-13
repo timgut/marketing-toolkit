@@ -1,7 +1,9 @@
 class Admin::CampaignsController < AdminController
   # PUT /admin/campaigns/1/blacklist
   def blacklist
+    @campaign = Campaign.find(params[:id])
     CampaignUser.where(campaign_id: params[:id]).destroy_all
+    @campaign.audit!("Blacklisted by #{current_user.name}")
     redirect_to admin_campaigns_path, notice: "Campaign blacklisted! No one can access its templates."
   end
 
@@ -11,6 +13,7 @@ class Admin::CampaignsController < AdminController
     authorize @new_campaign
 
     if @new_campaign.save
+      @new_campaign.audit!("Created by #{current_user.name}")
       @campaign = Campaign.new
       @campaigns = Campaign.all
       redirect_to admin_campaigns_path, notice: "Campaign created!"
@@ -48,6 +51,7 @@ class Admin::CampaignsController < AdminController
     load_campaign
 
     if @campaign.update_attributes(campaign_params)
+      @campaign.audit!("Updated by #{current_user.name}")
       redirect_to edit_admin_campaign_path(@campaign), notice: "Campaign updated!"
     else
       render :edit, alert: "Cannot update campaign!"
@@ -62,6 +66,8 @@ class Admin::CampaignsController < AdminController
       CampaignUser.find_or_create_by(campaign_id: params[:id], user_id: user.id)
     end
 
+    @campaign = Campaign.find(params[:id])
+    @campaign.audit!("Whitelisted by #{current_user.name}")
     redirect_to admin_campaigns_path, notice: "Campaign whitelisted! Everyone can access its templates."
   end
 

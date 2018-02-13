@@ -5,10 +5,10 @@
 	<section class="workspace metadata cf">
 		<h1>Campaigns</h1>
 
-		<div class="table">
+		<div class="table" style="max-width: 90% !important">
       <div class="rows">
         <div class="row header">
-          <div class="col one tag">Campaign Title</div>
+          <div class="col one tag">Campaign</div>
           <div class="col one delete">Delete</div>
           <div class="col one delete">Whitelist</div>
           <div class="col one delete">Blacklist</div>
@@ -16,7 +16,12 @@
 
         <% @campaigns.each do |campaign| %>
           <div class="row">
-            <div class="col one tag"><%= link_to campaign.title, edit_admin_campaign_path(campaign) %></div>
+            <div class="col one tag">
+              <%= link_to campaign.title, edit_admin_campaign_path(campaign) %>
+              <% if campaign.audit %>
+              <span style="color: #000; font-size: 0.75em; font-weight: 100;">(<%= campaign.audit %>)</span>
+              <% end %>
+            </div>
             
             <div class="col one delete">
               <div class="icons delete action-button">
