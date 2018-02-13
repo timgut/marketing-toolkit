@@ -10,9 +10,10 @@
   <%= link_to(
     "", 
     preview_document_path(document),
-    class: "document-thumbnail",
-    title: document.title,
-    style: "background-image: url('#{thumbnail}');",
+    class:  "document-thumbnail",
+    title:  document.title,
+    style:  "background-image: url('#{thumbnail}');",
+    target: :_blank,
     data: {
       behavior: "download"
     }
