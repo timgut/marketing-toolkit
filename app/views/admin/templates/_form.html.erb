@@ -9,6 +9,11 @@
       </li>
 
       <li>
+        <%= f.label :format %>
+        <%= f.select(:format, options_for_select([["PDF", "pdf"], ["PNG", "png"]], @template.format)) %>
+      </li>
+
+      <li>
         <%= f.label :description %>
         <%= f.text_area :description %>
       </li>
@@ -33,22 +38,27 @@
         <%= f.text_area :customizable_options %>
       </li>
 
-      <li>
+      <li data-for="orientation">
         <%= f.label :orientation %>
         <%= f.select(:orientation, [["Portrait", "Portrait"], ["Landscape", "Landscape"]]) %>
       </li>
 
+      <li data-for="unit">
+        <%= f.label :unit, "Unit of Measurement" %>
+        <%= f.select(:unit, [["Inches", "in"], ["Pixels", "px"]]) %>
+      </li>
+
       <li>
-        <%= f.label :height, "Height (inches)" %>
+        <%= f.label :height, "Height (<span class='unit'></span>)".html_safe %>
         <%= f.text_field :height %>
       </li>
 
       <li>
-        <%= f.label :width, "Width (inches)" %>
+        <%= f.label :width, "Width (<span class='unit'></span>)".html_safe %>
         <%= f.text_field :width %>
       </li>
 
-      <li>
+      <li data-for="crop-marks">
         <%= f.label :crop_marks, "Use Crop Marks?" %>
         <%= f.select(:crop_marks, [["Suppress from Document", :no_crop_marks], ["Use crop marks; off by default", :false_by_default], ["Use crop marks; on by default", :true_by_default]] ) %>
       </li>
@@ -67,6 +77,11 @@
         <%= f.text_area :pdf_markup %>
       </li>
 
+      <li id="mini-magick-markup">
+        <%= f.label :mini_magick_markup %>
+        <%= f.text_area :mini_magick_markup %>
+      </li>
+
       <li id="form-markup">
         <%= f.label :form_markup %>
         <%= f.text_area :form_markup %>
@@ -79,8 +94,9 @@
   </section>
 <% end %>
 
-<% unless @template.new_record? %>
-  <div class="image-upload cf">
+
+<div class="image-upload cf">
+  <% unless @template.new_record? %>
     <% unless @template.customize? %>
       <%= form_for([:admin, template], html: {class: "dropzone", multipart: true, id: "template-static-pdf-form"}) do |f| %>
         <div class="label">
@@ -146,6 +162,6 @@
         <%= f.file_field :blank_image %>
       </div>
     <% end %>
-  </div>
-<% end %>
+  <% end %>
+</div>
 

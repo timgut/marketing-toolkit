@@ -1,11 +1,13 @@
 class Document < ApplicationRecord
   include Status
 
-  has_attached_file :pdf,       storage: :s3, s3_protocol: "https", s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) }
-  has_attached_file :thumbnail, storage: :s3, s3_protocol: "https", s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) }
+  has_attached_file :pdf,           storage: :s3, s3_protocol: "https", s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) }
+  has_attached_file :thumbnail,     storage: :s3, s3_protocol: "https", s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) }
+  has_attached_file :share_graphic, storage: :s3, s3_protocol: "https", s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) }
   
-  validates_attachment :pdf,       content_type: {content_type: "application/pdf"}
-  validates_attachment :thumbnail, content_type: {content_type: /\Aimage\/.*\z/}
+  validates_attachment :pdf,           content_type: {content_type: "application/pdf"}
+  validates_attachment :thumbnail,     content_type: {content_type: /\Aimage\/.*\z/}
+  validates_attachment :share_graphic, content_type: {content_type: "image/png"}
 
   has_and_belongs_to_many :users
   
@@ -20,7 +22,7 @@ class Document < ApplicationRecord
   scope :recent,         ->(user) { where("documents.creator_id = ? AND documents.created_at >= ?", user.id, DateTime.now - 2.weeks) }
   scope :shared_with_me, ->(user) { all.joins(:documents_users).where("user_id = ? and documents_users.user_id != ?", user.id, user.id) }
 
-  before_destroy   ->{ self.pdf = nil }
+  before_destroy ->{ self.pdf = nil; self.share_graphic = nil; self.thumbnail = nil }
 
   attr_accessor :debug_pdf
 
@@ -66,6 +68,10 @@ class Document < ApplicationRecord
     self.save
   end
 
+  def generate_share_graphic
+
+  end
+
   def generate_thumbnail
     thumb = MiniMagick::Image.open(local_pdf_path) 
     thumb.format "png"
@@ -101,8 +107,8 @@ class Document < ApplicationRecord
       lowquality:    false,
       image_quality: 94,
       show_as_html:  debug_pdf,
-      page_height:   "#{template.height}in",
-      page_width:    "#{template.width}in",
+      page_height:   "#{template.height}#{template.unit}",
+      page_width:    "#{template.width}#{template.unit}",
       zoom: 1,
       margin:  {
         top:    0,
