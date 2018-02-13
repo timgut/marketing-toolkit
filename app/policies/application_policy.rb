@@ -24,22 +24,26 @@ class ApplicationPolicy
   end
 
   def current_user_can_access_campaign?
-    campaign = case @record
-    when Campaign
-      @record
-    when Document
-      if @record.persisted?
-        @record.template.campaign
-      else
-        Template.find(@record.template_id).campaign
-      end
-    when Template
-      @record.campaign
+    if current_user_is_admin?
+      return true
     else
-      return false
-    end
+      campaign = case @record
+      when Campaign
+        @record
+      when Document
+        if @record.persisted?
+          @record.template.campaign
+        else
+          Template.find(@record.template_id).campaign
+        end
+      when Template
+        @record.campaign
+      else
+        return false
+      end
 
-    campaign.is_a?(Campaign) ? @current_user.campaigns.include?(campaign) : false
+      campaign.is_a?(Campaign) ? @current_user.campaigns.include?(campaign) : false
+    end
   end
 
   def current_user_is_owner_or_admin?
