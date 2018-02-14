@@ -54,6 +54,15 @@ class Document < ApplicationRecord
     end
   end
 
+  def generated?
+    case template.format
+    when "pdf"
+      self.pdf_file_name && self.thumbnail_file_name
+    when "png"
+      self.share_graphic_file_name #&& self.share_graphic_file_name
+    end
+  end
+
   def generate_pdf
     reload # Grab the latest copy from the database
 
@@ -69,7 +78,10 @@ class Document < ApplicationRecord
   end
 
   def generate_share_graphic
+    eval template.mini_magick_markup
 
+    self.share_graphic = File.open(local_share_graphic_path)
+    self.save
   end
 
   def generate_thumbnail
@@ -91,6 +103,10 @@ class Document < ApplicationRecord
 
   def local_pdf_path
     Rails.root.join("public", "pdfs", "#{id}.pdf").to_s
+  end
+
+  def local_share_graphic_path
+    Rails.root.join("public", "share_graphics", "#{id}.png").to_s
   end
 
   def local_thumbnail_path

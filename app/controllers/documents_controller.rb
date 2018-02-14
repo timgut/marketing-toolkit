@@ -12,7 +12,7 @@ class DocumentsController < ApplicationController
     if @document.save
       DocumentUser.create!(document_id: @document.id, user_id: current_user.id)
       create_data
-      DocumentPdfJob.perform_async(@document)
+      DocumentGeneratorJob.perform_async(@document)
 
       redirect_to documents_path(generating: @document.id), notice: "Document created!"
     else
@@ -41,7 +41,7 @@ class DocumentsController < ApplicationController
   # GET /documents/1/download
   def download
     load_document
-    DocumentPdfJob.perform_async(@document)
+    DocumentGeneratorJob.perform_async(@document)
     head :no_content
   end
 
@@ -64,7 +64,7 @@ class DocumentsController < ApplicationController
 
     respond_to do |format|
       format.json do
-        if @document.pdf_file_name && @document.thumbnail_file_name
+        if @document.generated?
           render json: {status: :complete, thumbnail: @document.thumbnail.url, pdf: @document.pdf.url}
         else
           render json: {status: :incomplete}
@@ -120,7 +120,7 @@ class DocumentsController < ApplicationController
         create_data
       end
 
-      DocumentPdfJob.perform_async(@document)
+      DocumentGeneratorJob.perform_async(@document)
 
       redirect_to edit_document_path(@document, generating: true), notice: "Your changes have been saved."
     else
