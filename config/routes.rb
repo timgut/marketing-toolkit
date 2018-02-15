@@ -73,7 +73,8 @@ Rails.application.routes.draw do
       end
     end
 
-    get 'documentation', to: 'misc#documentation', as: :documentation
+    get 'documentation',             to: 'misc#documentation', as: :documentation
+    get 'documentation/mini_magick', to: 'misc#mini_magick',   as: :mini_magick_documentation
     get 'stats', to: 'misc#stats', as: :stats
 
     resources :campaigns,  except: [:new, :show]
