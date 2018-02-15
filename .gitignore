@@ -8,5 +8,6 @@
 /config/secrets.yml
 /coverage
 /public/pdfs/*.pdf
+/public/share_graphics/*.png
 /public/system
 sucker_punch.lock

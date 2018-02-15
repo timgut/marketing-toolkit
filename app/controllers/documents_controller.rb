@@ -65,7 +65,12 @@ class DocumentsController < ApplicationController
     respond_to do |format|
       format.json do
         if @document.generated?
-          render json: {status: :complete, thumbnail: @document.thumbnail.url, pdf: @document.pdf.url}
+          case @document.template.format
+          when "pdf"
+            render json: {status: :complete, thumbnail: @document.thumbnail.url, pdf: @document.pdf.url}
+          when "png"
+            render json: {status: :complete, thumbnail: @document.thumbnail.url, pdf: @document.share_graphic.url}
+          end
         else
           render json: {status: :incomplete}
         end

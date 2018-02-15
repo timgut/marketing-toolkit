@@ -85,16 +85,26 @@ class Document < ApplicationRecord
   end
 
   def generate_thumbnail
-    thumb = MiniMagick::Image.open(local_pdf_path) 
+    # Assign the correct paths depending on the type of template
+    case template.format
+    when "pdf"
+      document_path = local_pdf_path
+      thumb_path    = local_pdf_thumb_path
+    when "png"
+      document_path = local_share_graphic_path
+      thumb_path    = local_share_graphic_thumb_path
+    end
+
+    # Create a thumbnail from the document
+    thumb = MiniMagick::Image.open(document_path) 
     thumb.format "png"
     thumb.resize "348x269"
     
-    FileUtils.cp(thumb.path, local_thumbnail_path)
-
-    self.thumbnail = File.open(local_thumbnail_path)
+    # Update the record, and delete the local thumbnail after it's uploaded to S3.
+    FileUtils.cp(thumb.path, thumb_path)
+    self.thumbnail = File.open(thumb_path)
     self.save
-    
-    File.delete(local_thumbnail_path)
+    File.delete(thumb_path)
   end
 
   def delete_local_pdf
@@ -105,12 +115,20 @@ class Document < ApplicationRecord
     Rails.root.join("public", "pdfs", "#{id}.pdf").to_s
   end
 
+  def local_pdf_thumb_path
+    Rails.root.join("public", "pdfs", "#{id}_thumb.png").to_s
+  end
+
+  def delete_local_share_graphic
+    File.delete(local_share_graphic_path)
+  end
+
   def local_share_graphic_path
     Rails.root.join("public", "share_graphics", "#{id}.png").to_s
   end
 
-  def local_thumbnail_path
-    Rails.root.join("public", "pdfs", "#{id}.png").to_s
+  def local_share_graphic_thumb_path
+    Rails.root.join("public", "share_graphics", "#{id}_thumb.png").to_s
   end
 
   def pdf_options
@@ -134,5 +152,4 @@ class Document < ApplicationRecord
       }
     }
   end
-
 end

@@ -13,6 +13,15 @@
       document.pdf.url,
       title:  "Download",
       class:  "download",
+      target: :_blank,
+    ) %>
+  <% elsif document.share_graphic_file_name %>
+    <%= link_to(
+      "<span class='icons'>d</span> Download".html_safe,
+      document.share_graphic.url,
+      title:  "Download",
+      class:  "download",
+      target: :_blank,
     ) %>
   <% else %>
     <%= link_to(
@@ -35,22 +44,25 @@
     data:   {confirm: "Are you sure that you want to move this document to the trash?"} 
   ) %>
 </li>
-<li>
-  <%= link_to(
-    "<span class='icons'>S</span> Preview".html_safe,
-    preview_document_path(document),
-    title:  "Preview PDF",
-    class:  "preview",
-    target: :_blank 
-  ) %>
-</li>
-<% if current_user.admin? %>
+<% if document.template.format == "pdf" %>
   <li>
     <%= link_to(
-      "<span class='icons'>F</span> Rebuild PDF".html_safe,
+      "<span class='icons'>S</span> Preview".html_safe,
+      preview_document_path(document),
+      title:  "Preview PDF",
+      class:  "preview",
+      target: :_blank 
+    ) %>
+  </li>
+<% end %>
+<% if current_user.admin? %>
+  <% text = document.template.format == "pdf" ? "Rebuild PDF" : "Rebuild Image" %>
+  <li>
+    <%= link_to(
+      "<span class='icons'>F</span> #{text}".html_safe,
       download_document_path(document),
-      title: "Rebuild PDF",
-      class: "rebuild",
+      title:  text,
+      class:  "rebuild",
       remote: true,
       data: {id: document.id, job: "pdfAndThumbnail"} 
     ) %>
