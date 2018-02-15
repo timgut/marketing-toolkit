@@ -10,9 +10,9 @@ class DocumentGeneratorJob < ApplicationJob
         when "png"
           document.generate_share_graphic
         end
-      end
 
-      DocumentThumbnailJob.perform_later(document)
+        DocumentThumbnailJob.perform_later(document)
+      end
     end
   end
 end
