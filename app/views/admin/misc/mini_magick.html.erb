@@ -77,6 +77,16 @@
             <li><a href="#intro">What is MiniMagick?</a></li>
             <li><a href="#boilerplate">Boilerplate Template</a></li>
             <li><a href="#dsl">MiniMagick DSL</a></li>
+            <li>
+              <a href="#api">MiniMagick API</a>
+              <ul>
+                <li><a href="#api-draw">draw</a></li>
+                <li><a href="#api-fill">fill</a></li>
+                <li><a href="#api-font">font</a></li>
+                <li><a href="#api-gravity">gravity</a></li>
+                <li><a href="#api-stroke">stroke</a></li>
+              </ul>
+            </li>
           </ul>
         </nav>
       </aside>
@@ -88,28 +98,28 @@
         </p>
 
         <p>
-          Being a <em>thin wrapper</em> means that MiniMagick can do everything ImageMagick can do. Because of this, MiniMagick does not document all of its functionality. Instead, you have to read the <a href="http://www.imagemagick.org/script/command-line-options.php" target="_blank">ImageMagick documentation</a>. This raises some issues.
+          Being a <em>thin wrapper</em> means that MiniMagick can do everything ImageMagick can do. Because of this, MiniMagick does not document all of its functionality. Instead we have to rely on the <a href="http://www.imagemagick.org/script/command-line-options.php" target="_blank">ImageMagick documentation</a>. This raises some issues.
           <ol>
             <li>The documentation is poorly written and confusing at times.</li>
+            <li>It doesn't provide examples for complex commands.</li>
             <li>You have to figure out thow to translate the ImageMagick commands into MiniMagick code yourself.</li>
           </ol>
         </p>
-        <p>This documentation exists to provide a quick reference to the more commonly used MiniMagick code in the Toolkit templates. This documentation is not comprehensive. It connects the ImageMagick documenation to the MiniMagick code in a way that's simple to understand.</p>
+
+        <p>This documentation exists to provide a quick reference to the more commonly used MiniMagick code in the Toolkit templates. This documentation is not comprehensive. It connects the ImageMagick documenation to the MiniMagick code in a way that is simple to understand.</p>
 
         <h2 id="boilerplate">Boilerplate Template</h2>
         <p>
-          Share Graphic templates should all share the same boilerplate code, shown below. First, always start with a background image. Then the <em>image.combine_options</em> block is where the MiniMagick code goes. The code inside of this block is what ImageMagick will use to generate its command that produces the final image. And lastly, the image must be written to <em>local_share_graphic_path</em>, which points to a file on the server where the image will be temporarily stored while it is uploaded to AWS S3.
+          Share Graphic templates should all share the same boilerplate code, shown below. First, always start with a background image. Then the <em>image.combine_options</em> block is where the MiniMagick code goes. The code inside of this block is converted into an ImageMagick command that will generate the final image. And lastly, the image must be written to <em>local_share_graphic_path</em>, which points to a file on the server where the image will be temporarily stored while it is uploaded to AWS S3.
         </p>
         <p>
-          <pre><code class="ruby">
-image = ::MiniMagick::Image.open("#{Rails.root}/app/assets/images/backgrond-image.png")
+<pre><code class="ruby">image = ::MiniMagick::Image.open("#{Rails.root}/app/assets/images/backgrond-image.png")
 
 image.combine_options do |c|
   # MiniMagick DSL code goes here
 end
 
-image.write(local_share_graphic_path)
-          </code></pre>
+image.write(local_share_graphic_path)</code></pre>
         </p>
 
         <h2 id="dsl">MiniMagick DSL</h2>
@@ -117,8 +127,7 @@ image.write(local_share_graphic_path)
 
         <p>The DSL is interpretted from top to bottom. So if you want to use the same font family and color throughout the entire image, you can set it at the beginning and forget about it.</p>
 
-          <pre><code class="ruby">
-image.combine_options do |c|
+<pre><code class="ruby">image.combine_options do |c|
   c.font    "#{Rails.root}/app/assets/fonts/RobotoCondensed-Bold.ttf" # Everything below this will use this font
   c.gravity "Center"  # All text below this will be centered horizontally and vertically.
   c.fill    "#ffffff" # Everything below this will be white
@@ -127,14 +136,49 @@ image.combine_options do |c|
 
   c.fill "red" # Everything below this will be red
   c.draw "rectangle 0,0, 100,100" # Draw a rectangle with a red background from the top left of the image that's 100px high and 100px wide
-end
-          </code></pre>
+end</code></pre>
 
           <p>
             You can see the ImageMagick documentation for <a href="http://www.imagemagick.org/script/command-line-options.php#draw" target="_blank">draw</a> and <a href="http://www.imagemagick.org/script/command-line-options.php#fill" target="_blank">fill</a> to see how to convert ImageMagick commands into MiniMagick DSL. It will not always be clear how to do these conversions, so there will be some trial-and-error involved whenever trying out something new.
           </p>
 
           <p>That is the basics of how MiniMagick works. The ImageMagick documentation provides the names of commands, such as "fill" and describes the values you can provide that command.</p>
+      
+          <h2 id="api">MiniMagick API</h2>
+          <p>All of the code mentioned in this section runs inside of the <em>image.combine_options</em> block.</p>
+
+          <h3 id="api-draw">draw</h3>
+          <p>This will be the most commonly used command. You can draw text and shapes.</p>
+<pre><code class="ruby">c.draw "text 100,50 \"My Text\"" # Render 'My Text' 100px from the left and 50px from the top of the image. Text must be escaped with backslashes.
+c.draw "image Over 0,0 10,10 \"/my-image.png\"" # Resize /my-image.png to 10x10 and render it at the top left of the image.
+c.draw "rectangle 0,0, 100,100"              # Draw a rectangle with a red background from the top left of the image that's 100px high and 100px wide</code></pre>
+          [<a href="http://www.imagemagick.org/script/command-line-options.php#draw" target="_blank">ImageMagick API</a>]
+
+          <h3 id="api-fill">fill</h3>
+          <p>This applies to font colors and shape background colors.</p>
+<pre><code class="ruby">c.fill "#ffffff"        # Accepts hex values
+c.fill "white"          # Accepts common color names
+c.fill "rgb(0,100,200)" # Accepts RGB combos</code></pre>
+          [<a href="http://www.imagemagick.org/script/command-line-options.php#fill" target="_blank">ImageMagick API</a>]
+          
+          <h3 id="api-font">font</h3>
+          <p>Apply a font family to text drawn with c.draw.</p>
+<pre><code class="ruby">c.font "/path/to/font.ttf" # Accepts only local TTF fonts</code></pre>
+          [<a href="http://www.imagemagick.org/script/command-line-options.php#font" target="_blank">ImageMagick API</a>]
+                    
+          <h3 id="api-gravity">gravity</h3>
+          <p>This applies only to text. The origin point of the text will be set to wherever the gravity pulls it, and you can further offset the text from that point. Shapes always have their origin at 0,0 and do not respond to gravity.</p>
+<pre><code class="ruby">c.gravity "Center" # Horizontally and vertically align the text at the image's center.
+c.draw "text -100,50 \"Hello world\"" # Draw 'Hello World' 100px to the left and 50px below the center of the image.</code></pre>
+          [<a href="http://www.imagemagick.org/script/command-line-options.php#gravity" target="_blank">ImageMagick API</a>]
+          
+          <h3 id="api-stroke">stroke</h3>
+          <p>This applies to the border color of text and shapes.</p>
+<pre><code class="ruby">c.stroke "#ffffff"        # Accepts hex values
+c.stroke "white"          # Accepts common color names
+c.stroke "rgb(0,100,200)" # Accepts RGB combos</code></pre>
+          [<a href="http://www.imagemagick.org/script/command-line-options.php#stroke" target="_blank">ImageMagick API</a>]
+
       </section>
     </main>
   </body>
