@@ -19,8 +19,15 @@
       </li>
 
       <li>
-        <%= f.label :campaign %>
-        <%= f.select(:campaign_id, options_from_collection_for_select(@campaigns, 'id', 'title', @template.campaign_id ? @template.campaign_id : ''), include_blank: 'NULL') %>
+        <%= label_tag "Campaigns" %>
+        <ul>
+          <% @campaigns.each do |campaign| %>
+            <li class="checkbox clearfix">
+              <%= check_box_tag "campaigns[]", campaign.id, @template.campaigns.include?(campaign), id: "campaign-checkbox-#{campaign.id}" %>
+              <%= label_tag "campaign-checkbox-#{campaign.id}", campaign.title %>
+            </li>
+          <% end %>
+        </ul>
       </li>
 
       <li>

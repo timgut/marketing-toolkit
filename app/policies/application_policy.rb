@@ -29,23 +29,26 @@ class ApplicationPolicy
       @record
     when Document
       if @record.persisted?
-        @record.template.campaign
+        @record.template.campaigns.to_a
       else
-        Template.find(@record.template_id).campaign
+        Template.find(@record.template_id).campaigns.to_a
       end
     when Template
-      @record.campaign
+      @record.campaigns.to_a
     else
       return false
     end
 
     case campaign
-    when NilClass
-      true # Allow access to any record that has a NULL campaign
     when Campaign
-      @current_user.campaigns.include?(campaign) # Does the user have access to the record's campaign?
+      # Does the user have access to the record's campaign?
+      @current_user.campaigns.include?(campaign)
+    when Array
+      # Does the campaign array share any IDs with the current_user's campaigns?
+      (@current_user.campaigns.map(&:id) & campaign.map(&:id)).length > 0
     else
-      false # Any other kind of data should not allow access
+      # Any other kind of data should not allow access
+      false
     end
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180131130957) do
+ActiveRecord::Schema.define(version: 20180228084157) do
 
   create_table "affiliates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
@@ -21,15 +21,6 @@ ActiveRecord::Schema.define(version: 20180131130957) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "campaign_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "campaign_id"
-    t.integer  "user_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["campaign_id"], name: "index_campaign_users_on_campaign_id", using: :btree
-    t.index ["user_id"], name: "index_campaign_users_on_user_id", using: :btree
-  end
-
   create_table "campaigns", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
     t.text     "description", limit: 65535
@@ -37,6 +28,16 @@ ActiveRecord::Schema.define(version: 20180131130957) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.integer  "parent_id"
+    t.text     "audit",       limit: 65535
+  end
+
+  create_table "campaigns_templates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.integer  "campaign_id"
+    t.integer  "template_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["campaign_id"], name: "index_campaigns_templates_on_campaign_id", using: :btree
+    t.index ["template_id"], name: "index_campaigns_templates_on_template_id", using: :btree
   end
 
   create_table "campaigns_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -67,21 +68,25 @@ ActiveRecord::Schema.define(version: 20180131130957) do
   create_table "documents", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "template_id"
     t.string   "title"
-    t.text     "description",            limit: 65535
+    t.text     "description",                limit: 65535
     t.integer  "status"
     t.string   "pdf_file_name"
     t.string   "pdf_content_type"
     t.integer  "pdf_file_size"
     t.datetime "pdf_updated_at"
-    t.datetime "created_at",                                           null: false
-    t.datetime "updated_at",                                           null: false
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
     t.integer  "tag_id"
     t.integer  "creator_id"
     t.string   "thumbnail_file_name"
     t.string   "thumbnail_content_type"
     t.integer  "thumbnail_file_size"
     t.datetime "thumbnail_updated_at"
-    t.boolean  "crop_marks",                           default: false
+    t.boolean  "crop_marks",                               default: false
+    t.string   "share_graphic_file_name"
+    t.string   "share_graphic_content_type"
+    t.integer  "share_graphic_file_size"
+    t.datetime "share_graphic_updated_at"
     t.index ["creator_id"], name: "index_documents_on_creator_id", using: :btree
     t.index ["template_id"], name: "index_documents_on_template_id", using: :btree
   end
@@ -153,6 +158,9 @@ ActiveRecord::Schema.define(version: 20180131130957) do
     t.boolean  "crop_marks_by_default",                     default: false
     t.integer  "crop_marks",                                default: 0,     null: false
     t.integer  "position",                                                  null: false
+    t.text     "mini_magick_markup",          limit: 65535
+    t.string   "unit"
+    t.string   "format"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|

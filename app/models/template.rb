@@ -9,7 +9,7 @@ class Template < ApplicationRecord
 
   has_many :documents
 
-  belongs_to :campaign, optional: true
+  has_and_belongs_to_many :campaigns, join_table: :campaigns_templates, optional: true
   belongs_to :category, optional: true
 
   validates :title, :description, :height, :width, :pdf_markup, :form_markup, :status, presence: true, if: Proc.new{|t| t.customize?}
@@ -41,5 +41,13 @@ class Template < ApplicationRecord
 
   def croppable?
     blank_image.exists?
+  end
+
+  def set_campaigns!(campaigns)
+    CampaignTemplate.where(template_id: id).destroy_all
+
+    Array(campaigns).each do |campaign|
+      CampaignTemplate.create!(campaign_id: campaign, template_id: id)
+    end
   end
 end
