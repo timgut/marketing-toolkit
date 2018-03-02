@@ -24,28 +24,25 @@ class ApplicationPolicy
   end
 
   def current_user_can_access_campaign?
-    campaign = case @record
-    when Campaign
-      @record
-    when Document
-      if @record.persisted?
-        @record.template.campaign
+    if current_user_is_admin?
+      return true
+    else
+      campaign = case @record
+      when Campaign
+        @record
+      when Document
+        if @record.persisted?
+          @record.template.campaign
+        else
+          Template.find(@record.template_id).campaign
+        end
+      when Template
+        @record.campaign
       else
-        Template.find(@record.template_id).campaign
+        return false
       end
-    when Template
-      @record.campaign
-    else
-      return false
-    end
 
-    case campaign
-    when NilClass
-      true # Allow access to any record that has a NULL campaign
-    when Campaign
-      @current_user.campaigns.include?(campaign) # Does the user have access to the record's campaign?
-    else
-      false # Any other kind of data should not allow access
+      campaign.is_a?(Campaign) ? @current_user.campaigns.include?(campaign) : false
     end
   end
 

@@ -3,17 +3,55 @@
 
 <main class="clearfix">
   <section class="workspace cf">
-   <%= form_for(@user, url: admin_user_path(@user), html: { method: :put, class: 'profile-form edit-form split cf'}) do |f| %>
+    <%= form_for(@user, url: admin_user_path(@user), html: { method: :put, class: 'profile-form edit-form split cf'}) do |f| %>
+      <%= render partial: "admin/users/form", locals: {f: f} %>
 
-		<%= render partial: "admin/users/form", locals: {f: f} %>
-    
-    <div class="buttons cf">
-      <%= f.submit "Save Changes", class: 'button save' %>
-    </div>
+      <div class="buttons cf">
+        <%= f.submit "Save Changes", class: 'button save' %>
+      </div>          
+    <% end %>
 
+    <section id="user-statistics" class="cf">
+      <table id="statistics" class="stats">
+        <thead>
+          <tr>
+            <th colspan="2">Statistics</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Documents</td>
+            <td><%= @user.documents.length %></td>
+          </tr>
           
-   <% end %>
+          <tr>
+            <td>Images</td>
+            <td><%= @user.images.count %></td>
+          </tr>
+        </tbody>
+      </table>
 
-  </section><!--workspace-->
-      
+      <table id="documents-created" class="stats">
+        <thead>
+          <tr>
+            <th colspan="2">Documents Created</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @templates.each do |template| %>
+            <tr>
+              <td><%= template.title %></td>
+              <td><%= @template_ids.select{|tid| tid == template.id}.length %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="buttons cf">
+      <%= link_to "See Users' Documents", admin_user_workspace_path(@user), class: "button save" %> 
+    </div>
+  </section><!--workspace-->    
 </main>
