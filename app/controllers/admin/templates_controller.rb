@@ -88,7 +88,7 @@ class Admin::TemplatesController < AdminController
   end
 
   def load_template
-    @template = Template.includes(:campaign).find(params[:id])
+    @template = Template.find(params[:id])
     authorize @template
   end
 

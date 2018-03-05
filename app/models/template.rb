@@ -5,8 +5,6 @@ class Template < ApplicationRecord
 
   ATTACHMENTS = [:thumbnail, :numbered_image, :blank_image, :static_pdf]
 
-  belongs_to :campaign
-
   has_many :documents
 
   has_and_belongs_to_many :campaigns, join_table: :campaigns_templates, optional: true
