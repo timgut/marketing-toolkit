@@ -17,17 +17,15 @@
         <%= f.label :customize, "Customizable?" %>
         <%= f.select(:customize, [["Yes", true], ["No", false]]) %>
       </li>
-
+<% byebug %>
       <li>
-        <%= label_tag "Campaigns" %>
-        <ul>
-          <% @campaigns.each do |campaign| %>
-            <li class="checkbox clearfix">
-              <%= check_box_tag "campaigns[]", campaign.id, @template.campaigns.include?(campaign), id: "campaign-checkbox-#{campaign.id}" %>
-              <%= label_tag "campaign-checkbox-#{campaign.id}", campaign.title %>
-            </li>
-          <% end %>
-        </ul>
+        <%= f.label :campaigns %>
+        <%= f.select(
+          :campaigns,
+          options_from_collection_for_select(@campaigns, 'id', 'title', @template.campaigns.map(&:id)),
+          {include_blank: 'NULL'},
+          {multiple: true, size: 5}
+        ) %>
       </li>
 
       <li>
