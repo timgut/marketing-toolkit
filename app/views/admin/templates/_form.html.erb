@@ -23,7 +23,7 @@
         <%= f.select(
           :campaigns,
           options_from_collection_for_select(@campaigns, 'id', 'title', @template.campaigns.map(&:id)),
-          {include_blank: 'NULL'},
+          {include_blank: false},
           {multiple: true, size: 5}
         ) %>
       </li>

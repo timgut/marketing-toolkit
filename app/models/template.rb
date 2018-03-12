@@ -45,7 +45,9 @@ class Template < ApplicationRecord
     CampaignTemplate.where(template_id: id).destroy_all
 
     Array(campaigns).each do |campaign|
-      CampaignTemplate.create!(campaign_id: campaign, template_id: id)
+      unless campaign.blank?
+        CampaignTemplate.create!(campaign_id: campaign, template_id: id)
+      end
     end
   end
 end
