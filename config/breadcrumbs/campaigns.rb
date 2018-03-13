@@ -1,6 +1,6 @@
 # Campaigns
 crumb :campaigns do
-  link "Campaigns", authenticated_root_path
+  link "Campaigns", campaigns_path
   parent :root
 end
 
