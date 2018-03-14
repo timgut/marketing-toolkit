@@ -86,8 +86,6 @@ Rails.application.routes.draw do
     get 'documentation', to: 'misc#documentation', as: :documentation
     get 'stats', to: 'misc#stats', as: :stats
 
-    resources :campaigns,  except: [:new, :show]
-    resources :users,      except: [:destroy, :show]
     resources :categories, except: [:new, :show]
     resources :affiliates, only:   []
   end
