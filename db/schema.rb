@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180213175032) do
+ActiveRecord::Schema.define(version: 20180228084157) do
 
   create_table "affiliates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
@@ -145,8 +145,8 @@ ActiveRecord::Schema.define(version: 20180213175032) do
     t.integer  "status"
     t.integer  "campaign_id"
     t.text     "customizable_options",        limit: 65535
-    t.datetime "created_at",                                               null: false
-    t.datetime "updated_at",                                               null: false
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
     t.integer  "category_id"
     t.string   "orientation"
     t.boolean  "customize",                                 default: true
