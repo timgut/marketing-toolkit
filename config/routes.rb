@@ -75,12 +75,19 @@ Rails.application.routes.draw do
 
     resources :users, except: [:destroy, :show] do
       get :workspace
+
+    resources :campaigns,  except: [:new, :show] do
+      member do
+        put :whitelist
+        put :blacklist
+      end
     end
 
     get 'documentation', to: 'misc#documentation', as: :documentation
     get 'stats', to: 'misc#stats', as: :stats
 
     resources :campaigns,  except: [:new, :show]
+    resources :users,      except: [:destroy, :show]
     resources :categories, except: [:new, :show]
     resources :affiliates, only:   []
   end
