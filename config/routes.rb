@@ -75,6 +75,7 @@ Rails.application.routes.draw do
 
     resources :users, except: [:destroy, :show] do
       get :workspace
+    end
 
     resources :campaigns,  except: [:new, :show] do
       member do
