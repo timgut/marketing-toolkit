@@ -6,8 +6,10 @@ class Admin::TemplatesController < AdminController
     @template = Template.new(template_params)
     @template.position = Template.publish.count + 1
     authorize @template
+    campaign_params = params[:template].delete(:campaigns)
 
     if @template.save
+      @template.set_campaigns!(campaign_params)
       redirect_to edit_admin_template_path(@template), notice: "Template created! You can now add images."
     else
       assign_form_vars
@@ -45,7 +47,6 @@ class Admin::TemplatesController < AdminController
   def new
     @template = Template.new(campaign_id: params[:campaign_id])
     authorize @template
-    @campaign = @template.campaign
   end
 
   # GET /admin/templates/positions
@@ -56,10 +57,12 @@ class Admin::TemplatesController < AdminController
   # PATCH /admin/templates/1
   def update
     load_template
+    campaign_params = params[:template].delete(:campaigns)
 
     respond_to do |format|
       format.html do
         if @template.update_attributes(template_params)
+          @template.set_campaigns!(campaign_params)
           redirect_to edit_admin_template_path(@template), notice: "Template updated!"
         else
           render :edit, alert: "Cannot update template!"
@@ -82,12 +85,12 @@ class Admin::TemplatesController < AdminController
   private
 
   def assign_form_vars
-    @campaigns = Campaign.all
+    @campaigns = Campaign.publish
     @categories = Category.all
   end
 
   def load_template
-    @template = Template.includes(:campaign).find(params[:id])
+    @template = Template.find(params[:id])
     authorize @template
   end
 

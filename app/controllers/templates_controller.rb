@@ -5,7 +5,7 @@ class TemplatesController < ApplicationController
   def index
     if params[:category_id]
       @filtered_templates = @templates.select{ |template| 
-        template.category_id == params[:category_id].to_i 
+        template.category_id == params[:category_id].to_i && template.campaigns.count > 0
       }
 
       @category = Category.find(params[:category_id])
@@ -28,15 +28,17 @@ class TemplatesController < ApplicationController
   def assign_sidebar_vars
     @campaigns = current_user.campaigns.publish.roots
 
-    @templates = @campaigns.inject([]) do |templates, campaign|
-      templates << campaign.templates.publish
-    end.flatten
+
+    # @templates = (@campaigns.inject([]) do |templates, campaign|
+    #   templates << campaign.templates.publish
+    # end + Template.publish).flatten.uniq
+    @templates = Template.includes(:campaigns).publish
 
     @sidebar_vars = @categories.inject([]) do |sidebar_vars, category|
       sidebar_vars << {
         category_id: category.id,
         title:       category.title,
-        items:       @templates.select{|template| template.category_id == category.id }
+        items:       @templates.select{|template| template.try(:category_id) == category.try(:id) }
       }
     end
   end

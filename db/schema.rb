@@ -31,13 +31,22 @@ ActiveRecord::Schema.define(version: 20180213175032) do
     t.text     "audit",       limit: 65535
   end
 
-  create_table "campaigns_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "campaigns_templates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "campaign_id"
+    t.integer  "template_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["campaign_id"], name: "index_campaigns_templates_on_campaign_id", using: :btree
+    t.index ["template_id"], name: "index_campaigns_templates_on_template_id", using: :btree
+  end
+
+  create_table "campaigns_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "campaign_id"
     t.integer  "user_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["campaign_id"], name: "index_campaign_users_on_campaign_id", using: :btree
-    t.index ["user_id"], name: "index_campaign_users_on_user_id", using: :btree
+    t.index ["campaign_id"], name: "index_campaigns_users_on_campaign_id", using: :btree
+    t.index ["user_id"], name: "index_campaigns_users_on_user_id", using: :btree
   end
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -99,7 +108,7 @@ ActiveRecord::Schema.define(version: 20180213175032) do
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
     t.integer  "creator_id"
-    t.integer  "status",                           default: 1, null: false
+    t.integer  "status",                           default: 1
     t.text     "crop_data",          limit: 65535
     t.text     "image_meta",         limit: 65535
     t.index ["creator_id"], name: "index_images_on_creator_id", using: :btree
@@ -136,8 +145,8 @@ ActiveRecord::Schema.define(version: 20180213175032) do
     t.integer  "status"
     t.integer  "campaign_id"
     t.text     "customizable_options",        limit: 65535
-    t.datetime "created_at",                                                null: false
-    t.datetime "updated_at",                                                null: false
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
     t.integer  "category_id"
     t.string   "orientation"
     t.boolean  "customize",                                 default: true
