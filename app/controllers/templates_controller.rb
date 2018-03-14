@@ -19,8 +19,8 @@ class TemplatesController < ApplicationController
   # GET /templates/1
   def show
     load_template
-    @campaign = @template.campaign
-    authorize_campaign!(@campaign)
+    @campaigns = @template.campaigns
+    authorize_campaign!(@campaigns)
   end
 
   private
@@ -44,7 +44,7 @@ class TemplatesController < ApplicationController
   end
 
   def load_template
-    @template = Template.includes(:campaign).find(params[:id])
+    @template = Template.includes(:campaigns).find(params[:id])
     authorize @template
   end
 end
