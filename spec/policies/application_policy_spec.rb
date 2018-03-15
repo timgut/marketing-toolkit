@@ -9,6 +9,7 @@ describe ApplicationPolicy, type: :class do
 
   # This method raises an error, so ignore it.
   before(:each) do
+    create(:campaign_template, campaign: campaign, template: template)
     allow_any_instance_of(User).to receive(:send_admin_emails).and_return(nil)
   end
 

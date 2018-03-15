@@ -56,7 +56,6 @@ FactoryGirl.define do
 
     blank_image { File.new("#{Rails.root}/templates/Sector Specific/blank-ss.png") }
 
-    campaign
     category
   end
 
@@ -118,6 +117,11 @@ FactoryGirl.define do
   end
 
   # JOIN TABLES
+  factory :campaign_template do
+    campaign
+    template
+  end
+
   factory :document_user do
     document
     user

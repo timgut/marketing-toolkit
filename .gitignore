@@ -10,3 +10,4 @@
 /public/pdfs/*.pdf
 /public/system
 sucker_punch.lock
+config/mailer.yml

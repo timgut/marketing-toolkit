@@ -41,6 +41,8 @@ describe TemplatePolicy, type: :class do
 
   permissions :current_user_can_access_campaign? do
     let!(:campaign) { create(:campaign) }
+    let!(:ct)       { create(:campaign_template, campaign: campaign, template: template)}
+
     before(:each) { CampaignUser.destroy_all }
 
     it "denies access if the user does not have a join table record" do
@@ -48,7 +50,6 @@ describe TemplatePolicy, type: :class do
     end
 
     it "grants access if the user has a join table record" do
-      template.update_attributes!(campaign_id: campaign.id)
       CampaignUser.create!(campaign: campaign, user: user)
       expect(policy).to permit(user, template)
     end
