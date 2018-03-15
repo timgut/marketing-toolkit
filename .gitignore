@@ -6,6 +6,7 @@
 !/tmp/.keep
 /config/database.yml
 /config/secrets.yml
+/config/mailer.yml
 /coverage
 /public/pdfs/*.pdf
 /public/system
