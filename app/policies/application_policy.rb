@@ -44,8 +44,13 @@ class ApplicationPolicy
       # Does the user have access to the record's campaign?
       @current_user.campaigns.include?(campaign)
     when Array
-      # Does the campaign array share any IDs with the current_user's campaigns?
-      (@current_user.campaigns.map(&:id) & campaign.map(&:id)).length > 0
+      if campaign.length == 0
+        # Document's template does not belong to any campaigns. Allow access.
+        true
+      else
+        # Does the campaign array share any IDs with the current_user's campaigns?
+        (@current_user.campaigns.map(&:id) & campaign.map(&:id)).length > 0
+      end
     else
       # Any other kind of data should not allow access
       false

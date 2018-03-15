@@ -157,7 +157,7 @@ class DocumentsController < ApplicationController
   private
 
   def assign_records
-    @template = @document.template
+    @template  = @document.template
     @campaigns = @template.campaigns
     @custom_branding = current_user.custom_branding?
   end

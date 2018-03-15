@@ -19,15 +19,14 @@ class TemplatesController < ApplicationController
   # GET /templates/1
   def show
     load_template
-    @campaigns = @template.campaigns
-    authorize_campaign!(@campaigns)
+    @campaign = @template.campaigns.try(:first)
+    authorize_campaign!(@campaign) unless @campaign.nil?
   end
 
   private
 
   def assign_sidebar_vars
     @campaigns = current_user.campaigns.publish.roots
-
 
     # @templates = (@campaigns.inject([]) do |templates, campaign|
     #   templates << campaign.templates.publish
