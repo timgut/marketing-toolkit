@@ -45,7 +45,7 @@ class Admin::TemplatesController < AdminController
 
   # GET /admin/templates/new
   def new
-    @template = Template.new(campaign_id: params[:campaign_id])
+    @template = Template.new
     authorize @template
   end
 
