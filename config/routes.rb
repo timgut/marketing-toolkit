@@ -10,7 +10,8 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'intro', to: 'misc#intro', as: :intro
+  get 'intro',   to: 'misc#intro',   as: :intro
+  get 'support', to: 'misc#support', as: :support
 
   devise_for :users, controllers: {registrations: "users/registrations"}
 
