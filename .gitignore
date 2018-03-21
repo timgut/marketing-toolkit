@@ -6,8 +6,10 @@
 !/tmp/.keep
 /config/database.yml
 /config/secrets.yml
+/config/mailer.yml
 /coverage
 /public/pdfs/*.pdf
 /public/share_graphics/*.png
 /public/system
 sucker_punch.lock
+config/mailer.yml

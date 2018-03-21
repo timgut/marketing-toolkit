@@ -58,11 +58,7 @@ RSpec.describe Template, type: :model do
     it "has_many documents" do
       expect(template).to respond_to(:documents)
     end
-    
-    it "belongs_to campaign" do
-      expect(template).to respond_to(:campaign)
-    end
-    
+
     it "belongs_to category" do
       expect(template).to respond_to(:category)
     end

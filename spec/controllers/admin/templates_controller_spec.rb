@@ -15,7 +15,6 @@ RSpec.describe Admin::TemplatesController, type: :controller do
         width:       8.5,
         pdf_markup:  "PDF markup",
         form_markup: "Form Markup",
-        campaign_id: campaign.id,
         category_id: category.id,
         orientation: :portrait,
         customize:   true

@@ -52,10 +52,10 @@ FactoryGirl.define do
     pdf_markup  "<html><body>Hello World</body></html>"
     form_markup "This is a placeholder for the form markup."
     status      "publish"
+    position    1
 
     blank_image { File.new("#{Rails.root}/templates/Sector Specific/blank-ss.png") }
 
-    campaign
     category
   end
 
@@ -117,6 +117,11 @@ FactoryGirl.define do
   end
 
   # JOIN TABLES
+  factory :campaign_template do
+    campaign
+    template
+  end
+
   factory :document_user do
     document
     user

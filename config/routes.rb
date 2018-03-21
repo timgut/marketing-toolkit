@@ -66,7 +66,7 @@ Rails.application.routes.draw do
   namespace :admin, path: '/admin' do
     root to: "misc#home"
 
-    resources :templates,  except: [:show] do
+    resources :templates, except: [:show] do
       collection do
         get   :positions
         patch :update_positions
@@ -75,10 +75,20 @@ Rails.application.routes.draw do
 
     get 'documentation',             to: 'misc#documentation', as: :documentation
     get 'documentation/mini_magick', to: 'misc#mini_magick',   as: :mini_magick_documentation
+
+    resources :users, except: [:destroy, :show] do
+      get :workspace
+    end
+
+    resources :campaigns,  except: [:new, :show] do
+      member do
+        put :whitelist
+        put :blacklist
+      end
+    end
+
     get 'stats', to: 'misc#stats', as: :stats
 
-    resources :campaigns,  except: [:new, :show]
-    resources :users,      except: [:destroy, :show]
     resources :categories, except: [:new, :show]
     resources :affiliates, only:   []
   end

@@ -2,45 +2,57 @@
 <% breadcrumb :admin_campaigns %>
 
 <main class="clearfix">
-
 	<section class="workspace metadata cf">
-	
 		<h1>Campaigns</h1>
 
-		<div class="table">
+		<div class="table" style="max-width: 90% !important">
+      <div class="rows">
+        <div class="row header">
+          <div class="col one tag">Campaign</div>
+          <div class="col one delete">Delete</div>
+          <div class="col one delete">Whitelist</div>
+          <div class="col one delete">Blacklist</div>
+        </div><!--row header-->
 
-     <div class="rows">
-     
-     		  <div class="row header">
-            <div class="col one tag">Campaign Title</div>
-            <div class="col one delete">Delete</div>
-          </div><!--row header-->
-          
-
-          <% @campaigns.each do |campaign| %>
+        <% @campaigns.each do |campaign| %>
           <div class="row">
-              <div class="col one tag"><%= link_to campaign.title, edit_admin_campaign_path(campaign) %></div>
-              <div class="col one delete">
-            		<div class="icons delete action-button">
-                  <%= link_to "X", admin_campaign_path(campaign), method: :delete, data: {confirm: "Are you sure that you want to DELETE this campaign? This cannot be undone!"}  %>
-                </div>
-            	</div>
+            <div class="col one tag">
+              <%= link_to campaign.title, edit_admin_campaign_path(campaign) %>
+              <% if campaign.audit %>
+              <span style="color: #000; font-size: 0.75em; font-weight: 100;">(<%= campaign.audit %>)</span>
+              <% end %>
+            </div>
+            
+            <div class="col one delete">
+              <div class="icons delete action-button">
+                <%= link_to "X", admin_campaign_path(campaign), method: :delete, data: {confirm: "Are you sure that you want to DELETE this campaign? This cannot be undone!"}  %>
+              </div>
+            </div>
+            
+            <div class="col one delete">
+              <div class="icons delete action-button">
+                <%= link_to "&#10003;".html_safe, whitelist_admin_campaign_path(campaign), method: :put, data: {confirm: "This will allow all users to view this campaign's templates. This cannot be undone!"}  %>
+              </div>
+            </div>
+            
+            <div class="col one delete">
+              <div class="icons delete action-button">
+                <%= link_to "L", blacklist_admin_campaign_path(campaign), method: :put, data: {confirm: "This will restrict all users from viewing this campaign's templates. This cannot be undone!"}  %>
+              </div>
+            </div>
           </div>
-          <% end %>
-
-      </div><!--rows-->            
-
+        <% end %>
+      </div><!--rows-->
     </div><!--table-->
     
-		<div class="add-tag">
+    <div class="add-tag">
       <form title="add-tag" action="/admin/campaigns" method="POST" class="cf">
         <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
         <label>Add a new campaign</label>
         <input class="searchinput find-course" type="text" placeholder="Enter campaign title" name="campaign[title]">
-				<button class="button active">Add</button>
+        <button class="button active">Add</button>
       </form>     
     </div><!--user-search-->
-  
+
   </section><!--workspace-->
-		    
 </main>

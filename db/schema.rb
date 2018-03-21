@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180213153918) do
+ActiveRecord::Schema.define(version: 20180314165449) do
 
   create_table "affiliates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
@@ -28,6 +28,16 @@ ActiveRecord::Schema.define(version: 20180213153918) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.integer  "parent_id"
+    t.text     "audit",       limit: 65535
+  end
+
+  create_table "campaigns_templates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.integer  "campaign_id"
+    t.integer  "template_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["campaign_id"], name: "index_campaigns_templates_on_campaign_id", using: :btree
+    t.index ["template_id"], name: "index_campaigns_templates_on_template_id", using: :btree
   end
 
   create_table "campaigns_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -133,7 +143,6 @@ ActiveRecord::Schema.define(version: 20180213153918) do
     t.integer  "blank_image_file_size"
     t.datetime "blank_image_updated_at"
     t.integer  "status"
-    t.integer  "campaign_id"
     t.text     "customizable_options",        limit: 65535
     t.datetime "created_at",                                                null: false
     t.datetime "updated_at",                                                null: false

@@ -24,7 +24,7 @@
       <li><strong class="metadata-label">Dimensions</strong><%= dimensions(@template) %></li>
     <% end %>
 
-    <li><strong class="metadata-label">Toolkit</strong><%= @template.campaign ? @template.campaign.title : 'None'  %></li>
+    <li><strong class="metadata-label">Toolkit</strong><%= @template.campaigns.length > 0 ? @template.campaigns.map(&:title).join(", ").html_safe : 'None'  %></li>
     <li><strong class="metadata-label">Type</strong>Flyer</li>
     
     <% if @template.customize %>

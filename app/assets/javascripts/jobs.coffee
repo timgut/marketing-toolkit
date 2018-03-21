@@ -46,7 +46,7 @@ class Toolkit.Job
       $(".download-document").hide()
 
     # Close the plus menu and display the overlay
-    else if Toolkit.isDocumentsIndexPage() and @el?
+    else if (Toolkit.isDocumentsIndexPage() or Toolkit.isUserWorkspacePage()) and @el?
       $(@el).find(".options>li>a").click()
       
       $(@el).prepend("
@@ -64,7 +64,7 @@ class Toolkit.Job
       $(".download-document").prop("href", data.pdf).prop("target", "_blank").show()
 
     # Hide the overlay; Change the thumbnail; Change the download link; Open the PDF.
-    else if Toolkit.isDocumentsIndexPage() and @el?
+    else if (Toolkit.isDocumentsIndexPage() or Toolkit.isUserWorkspacePage()) and @el?
       $overlay = $(@el).find(".overlay")
       $thumb   = $(@el).find(".document-thumbnail")
       $pdf     = $(@el).find(".options .download")

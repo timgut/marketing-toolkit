@@ -1,5 +1,5 @@
 class Admin::UsersController < AdminController
-  # POST /users
+  # POST /admin/users
   def create
     @user = User.new(user_params)
     authorize @user
@@ -20,16 +20,19 @@ class Admin::UsersController < AdminController
     end
   end
 
-  # GET /users/1/edit
+  # GET /admin/users/1/edit
   def edit
     load_user
-    @body_class = 'toolkit USER'
+    @body_class        = 'toolkit USER'
     @header_navigation = true
-    @affiliates = Affiliate.order(:state,:title)
+
+    @affiliates    = Affiliate.order(:state,:title)
     @all_campaigns = Campaign.publish
+    @template_ids  = @user.documents.map(&:template_id)
+    @templates     = Template.find(@template_ids.uniq)
   end
 
-  # GET /users
+  # GET /admin/users
   def index
     @approved = User.includes(:affiliate).approved
     @unapproved = User.includes(:affiliate).unapproved
@@ -37,14 +40,14 @@ class Admin::UsersController < AdminController
     authorize @approved
   end
 
-  # GET /users/new
+  # GET /admin/users/new
   def new
     @user = User.new
     authorize @user
     @affiliates = Affiliate.order(:state,:title)
   end
 
-  # PATCH /users/1
+  # PATCH /admin/users/1
   def update
     load_user
     account_status = set_account_status
@@ -64,6 +67,12 @@ class Admin::UsersController < AdminController
 
       render :edit, notice: "There was a problem updating the user."
     end
+  end
+
+  # GET /admin/users/1/workspace
+  def workspace
+    @user = User.find(params[:user_id])
+    @documents = paginate(@user.documents)
   end
 
   private
