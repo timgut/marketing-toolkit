@@ -78,15 +78,9 @@ window.Toolkit.Template.changeFormat = (format) ->
       $("li[data-for='orientation']").hide()
       $("li[data-for='crop-marks']").hide()
 
-      $("#pdf-markup").hide()
-      $("#mini-magick-markup").show()
-
     when "pdf"
       $("li[data-for='orientation']").show()
       $("li[data-for='crop-marks']").show()
-      
-      $("#pdf-markup").show()
-      $("#mini-magick-markup").hide()
 
 window.Toolkit.Template.ready = ->
   window.Toolkit.optionsMenu()

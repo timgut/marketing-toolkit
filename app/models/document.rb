@@ -24,7 +24,7 @@ class Document < ApplicationRecord
 
   before_destroy ->{ self.pdf = nil; self.share_graphic = nil; self.thumbnail = nil }
 
-  attr_accessor :debug_pdf
+  attr_accessor :debug_pdf, :phantomjs_user
 
   def method_missing(meth, *args, &block)
     data.find{|d| d.key == meth.to_s}&.value || ""
@@ -63,7 +63,7 @@ class Document < ApplicationRecord
     end
   end
 
-  def generate_pdf
+  def generate_pdf(user_id=nil)
     reload # Grab the latest copy from the database
 
     av = ActionView::Base.new
@@ -77,9 +77,10 @@ class Document < ApplicationRecord
     self.save
   end
 
-  def generate_share_graphic
-    eval template.mini_magick_markup
-
+  def generate_share_graphic(user_id=nil)
+    reload # Grab the latest copy from the database
+    %x(#{PHANTOMJS["cmd"]} #{PHANTOMJS["script"]} #{PHANTOMJS["host"]} #{id} #{user_id} png > #{PHANTOMJS["log"]})
+    
     self.share_graphic = File.open(local_share_graphic_path)
     self.save
   end

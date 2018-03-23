@@ -4,6 +4,8 @@ class DocumentsController < ApplicationController
   protect_from_forgery except: :create
 
   before_action :assign_sidebar_vars, only: [:index, :recent, :shared, :trashed]
+
+  skip_before_action :authenticate_user!, if: ->{ is_phantomjs_request? }
   
   # POST /documents
   def create
@@ -12,7 +14,7 @@ class DocumentsController < ApplicationController
     if @document.save
       DocumentUser.create!(document_id: @document.id, user_id: current_user.id)
       create_data
-      DocumentGeneratorJob.perform_async(@document)
+      DocumentGeneratorJob.perform_async(@document, current_user)
 
       redirect_to documents_path(generating: @document.id), notice: "Document created!"
     else
@@ -41,7 +43,8 @@ class DocumentsController < ApplicationController
   # GET /documents/1/download
   def download
     load_document
-    DocumentGeneratorJob.perform_async(@document)
+    # @document.generate_share_graphic(current_user.id)
+    DocumentGeneratorJob.perform_async(@document, current_user)
     head :no_content
   end
 
@@ -90,7 +93,12 @@ class DocumentsController < ApplicationController
   def preview
     load_document
     @document.debug_pdf = true
-    render @document.pdf_options
+    # render @document.pdf_options
+
+    av = ActionView::Base.new
+    av.view_paths = ActionController::Base.view_paths
+    html = av.render(template: "documents/build.pdf.erb", locals: {document: @document})
+    render html: html
   end
 
   # GET /documents/recent
@@ -125,7 +133,7 @@ class DocumentsController < ApplicationController
         create_data
       end
 
-      DocumentGeneratorJob.perform_async(@document)
+      DocumentGeneratorJob.perform_async(@document, current_user)
 
       redirect_to edit_document_path(@document, generating: true), notice: "Your changes have been saved."
     else
@@ -185,7 +193,19 @@ class DocumentsController < ApplicationController
 
   def load_document
     @document = Document.find(params[:id])
-    authorize_campaign!(@document)
-    authorize @document
+
+    if is_phantomjs_request?
+      @document.phantomjs_user = User.find(request.headers["X-TOOLKIT-USERID"])
+      authorize @document, :phantomjs_user_can_access_document?
+    else
+      authorize_campaign!(@document)
+      authorize @document
+    end
+  end
+
+  def is_phantomjs_request?
+    request.params["action"] == "preview" &&
+    request.headers["X-TOOLKIT-USERID"].present? && 
+    request.env["HTTP_USER_AGENT"]["PhantomJS"].present?
   end
 end
