@@ -5,8 +5,8 @@ class DocumentsController < ApplicationController
 
   before_action :assign_sidebar_vars, only: [:index, :recent, :shared, :trashed]
 
-  skip_before_action :authenticate_user!, if: ->{ is_imgkit_request? }
-  
+  skip_before_action :authenticate_user!, only: [:preview]
+
   # POST /documents
   def create
     @document = Document.new(document_params)
@@ -194,17 +194,9 @@ class DocumentsController < ApplicationController
   def load_document
     @document = Document.find(params[:id])
 
-    if is_imgkit_request?
-      # @document.phantomjs_user = User.find(request.headers["X-TOOLKIT-USERID"])
-      # authorize @document, :phantomjs_user_can_access_document?
-    else
+    unless params[:action] == "preview"
       authorize_campaign!(@document)
       authorize @document
     end
-  end
-
-  def is_imgkit_request?
-    request.params["action"] == "preview" &&
-    request.env["HTTP_USER_AGENT"][" Qt/"].present?
   end
 end
