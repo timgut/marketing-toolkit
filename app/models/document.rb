@@ -63,7 +63,7 @@ class Document < ApplicationRecord
     end
   end
 
-  def generate_pdf(user_id=nil)
+  def generate_pdf
     reload # Grab the latest copy from the database
 
     av = ActionView::Base.new
@@ -77,10 +77,12 @@ class Document < ApplicationRecord
     self.save
   end
 
-  def generate_share_graphic(user_id=nil)
+  def generate_share_graphic
     reload # Grab the latest copy from the database
-    %x(#{PHANTOMJS["cmd"]} #{PHANTOMJS["script"]} #{PHANTOMJS["host"]} #{id} #{user_id} png > #{PHANTOMJS["log"]})
-    
+    config = Rails.application.config.wkhtmltoimage
+
+    %x(#{config["cmd"]} --quality 100 --format jpg #{config["host"]}/documents/#{id}/preview #{local_share_graphic_path})
+
     self.share_graphic = File.open(local_share_graphic_path)
     self.save
   end
@@ -125,7 +127,7 @@ class Document < ApplicationRecord
   end
 
   def local_share_graphic_path
-    Rails.root.join("public", "share_graphics", "#{id}.png").to_s
+    Rails.root.join("public", "share_graphics", "#{id}.jpg").to_s
   end
 
   def local_share_graphic_thumb_path

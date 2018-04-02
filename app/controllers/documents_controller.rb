@@ -5,7 +5,7 @@ class DocumentsController < ApplicationController
 
   before_action :assign_sidebar_vars, only: [:index, :recent, :shared, :trashed]
 
-  skip_before_action :authenticate_user!, if: ->{ is_phantomjs_request? }
+  skip_before_action :authenticate_user!, if: ->{ is_imgkit_request? }
   
   # POST /documents
   def create
@@ -14,7 +14,7 @@ class DocumentsController < ApplicationController
     if @document.save
       DocumentUser.create!(document_id: @document.id, user_id: current_user.id)
       create_data
-      DocumentGeneratorJob.perform_async(@document, current_user)
+      DocumentGeneratorJob.perform_async(@document)
 
       redirect_to documents_path(generating: @document.id), notice: "Document created!"
     else
@@ -44,7 +44,7 @@ class DocumentsController < ApplicationController
   def download
     load_document
     # @document.generate_share_graphic(current_user.id)
-    DocumentGeneratorJob.perform_async(@document, current_user)
+    DocumentGeneratorJob.perform_async(@document)
     head :no_content
   end
 
@@ -133,7 +133,7 @@ class DocumentsController < ApplicationController
         create_data
       end
 
-      DocumentGeneratorJob.perform_async(@document, current_user)
+      DocumentGeneratorJob.perform_async(@document)
 
       redirect_to edit_document_path(@document, generating: true), notice: "Your changes have been saved."
     else
@@ -194,18 +194,17 @@ class DocumentsController < ApplicationController
   def load_document
     @document = Document.find(params[:id])
 
-    if is_phantomjs_request?
-      @document.phantomjs_user = User.find(request.headers["X-TOOLKIT-USERID"])
-      authorize @document, :phantomjs_user_can_access_document?
+    if is_imgkit_request?
+      # @document.phantomjs_user = User.find(request.headers["X-TOOLKIT-USERID"])
+      # authorize @document, :phantomjs_user_can_access_document?
     else
       authorize_campaign!(@document)
       authorize @document
     end
   end
 
-  def is_phantomjs_request?
+  def is_imgkit_request?
     request.params["action"] == "preview" &&
-    request.headers["X-TOOLKIT-USERID"].present? && 
-    request.env["HTTP_USER_AGENT"]["PhantomJS"].present?
+    request.env["HTTP_USER_AGENT"][" Qt/"].present?
   end
 end

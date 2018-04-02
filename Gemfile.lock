@@ -293,6 +293,7 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
     wicked_pdf (1.1.0)
+    wkhtmltoimage-binary (0.12.4)
     wkhtmltopdf-binary-edge (0.12.3.0)
 
 PLATFORMS
@@ -342,6 +343,7 @@ DEPENDENCIES
   unicorn
   web-console (>= 3.3.0)
   wicked_pdf
+  wkhtmltoimage-binary (~> 0.12.4)
   wkhtmltopdf-binary-edge (~> 0.12.3.0)
 
 BUNDLED WITH

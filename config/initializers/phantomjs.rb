@@ -1,1 +1,0 @@
-PHANTOMJS = YAML.load_file("#{Rails.root}/config/phantomjs.yml")
