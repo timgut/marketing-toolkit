@@ -7,7 +7,7 @@ class Document < ApplicationRecord
   
   validates_attachment :pdf,           content_type: {content_type: "application/pdf"}
   validates_attachment :thumbnail,     content_type: {content_type: /\Aimage\/.*\z/}
-  validates_attachment :share_graphic, content_type: {content_type: "image/png"}
+  validates_attachment :share_graphic, content_type: {content_type: /^image\/(png|jpg|jpeg)/,}
 
   has_and_belongs_to_many :users
   
@@ -72,9 +72,7 @@ class Document < ApplicationRecord
     pdf = WickedPdf.new.pdf_from_string(pdf_html, pdf_options)
 
     File.open(local_pdf_path, 'wb') {|file| file << pdf}
-    
-    self.pdf = File.open(local_pdf_path)
-    self.save
+    self.update_attributes(pdf: File.open(local_pdf_path))
   end
 
   def generate_share_graphic
@@ -82,9 +80,7 @@ class Document < ApplicationRecord
     config = Rails.application.config.wkhtmltoimage
 
     %x(#{config["cmd"]} --quality 100 --format jpg #{config["host"]}/documents/#{id}/preview #{local_share_graphic_path})
-
-    self.share_graphic = File.open(local_share_graphic_path)
-    self.save
+    self.update_attributes(share_graphic: File.open(local_share_graphic_path))
   end
 
   def generate_thumbnail
