@@ -13,6 +13,15 @@
       document.pdf.url,
       title:  "Download",
       class:  "download",
+      target: :_blank,
+    ) %>
+  <% elsif document.share_graphic_file_name %>
+    <%= link_to(
+      "<span class='icons'>d</span> Download".html_safe,
+      document.share_graphic.url,
+      title:  "Download",
+      class:  "download",
+      target: :_blank,
     ) %>
   <% else %>
     <%= link_to(
@@ -47,10 +56,10 @@
 <% if current_user.admin? %>
   <li>
     <%= link_to(
-      "<span class='icons'>F</span> Rebuild PDF".html_safe,
+      "<span class='icons'>F</span> Rebuild".html_safe,
       download_document_path(document),
-      title: "Rebuild PDF",
-      class: "rebuild",
+      title:  "Rebuild",
+      class:  "rebuild",
       remote: true,
       data: {id: document.id, job: "pdfAndThumbnail"} 
     ) %>

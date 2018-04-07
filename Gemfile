@@ -32,6 +32,7 @@ gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 gem 'unicorn'
 gem 'wicked_pdf'
+gem 'wkhtmltoimage-binary', '~> 0.12.4'
 gem 'wkhtmltopdf-binary-edge', '~> 0.12.3.0'
 gem 'rufus-scheduler'
 

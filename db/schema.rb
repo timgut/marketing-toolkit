@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180314165449) do
+ActiveRecord::Schema.define(version: 20180323121307) do
 
   create_table "affiliates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
@@ -157,7 +157,6 @@ ActiveRecord::Schema.define(version: 20180314165449) do
     t.boolean  "crop_marks_by_default",                     default: false
     t.integer  "crop_marks",                                default: 0,     null: false
     t.integer  "position",                                                  null: false
-    t.text     "mini_magick_markup",          limit: 65535
     t.string   "unit"
     t.string   "format"
   end

@@ -10,7 +10,7 @@ class Template < ApplicationRecord
   has_and_belongs_to_many :campaigns, join_table: :campaigns_templates, optional: true
   belongs_to :category, optional: true
 
-  validates :title, :description, :height, :width, :pdf_markup, :form_markup, :status, presence: true, if: Proc.new{|t| t.customize?}
+  validates :title, :description, :height, :width, :format, :unit, :status, presence: true, if: Proc.new{|t| t.customize?}
   validates :height, :width, numericality: true, if: Proc.new{|t| t.customize?}
 
   scope :with_category, ->(category_id){ where(category_id: category_id) }

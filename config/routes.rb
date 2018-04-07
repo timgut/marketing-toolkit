@@ -74,6 +74,9 @@ Rails.application.routes.draw do
       end
     end
 
+    get 'documentation',             to: 'misc#documentation', as: :documentation
+    get 'documentation/mini_magick', to: 'misc#mini_magick',   as: :mini_magick_documentation
+
     resources :users, except: [:destroy, :show] do
       get :workspace
     end
@@ -85,7 +88,6 @@ Rails.application.routes.draw do
       end
     end
 
-    get 'documentation', to: 'misc#documentation', as: :documentation
     get 'stats', to: 'misc#stats', as: :stats
 
     resources :categories, except: [:new, :show]

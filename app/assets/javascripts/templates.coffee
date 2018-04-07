@@ -4,21 +4,31 @@ window.Toolkit.Template ||= {}
 window.Toolkit.Template.dropMsg = "Drop image here to upload"
 
 window.Toolkit.Template.codeMirror = ->
-  codeMirrorOpts = {
+  cssOpts = {
     lineNumbers: true,
     mode:        "css",
     theme:       "ambiance",
     tabSize:     2
   }
 
+  rubyOpts = {
+    lineNumbers: true,
+    mode:        "ruby",
+    theme:       "ambiance",
+    tabSize:     2
+  }
+
   if pdfTextarea = document.getElementById("template_pdf_markup")
-    window.Toolkit.pdfEditor = CodeMirror.fromTextArea(pdfTextarea, codeMirrorOpts)
+    window.Toolkit.pdfEditor = CodeMirror.fromTextArea(pdfTextarea, cssOpts)
 
   if formTextarea = document.getElementById("template_form_markup")
-    window.Toolkit.formEditor = CodeMirror.fromTextArea(formTextarea, codeMirrorOpts)
+    window.Toolkit.formEditor = CodeMirror.fromTextArea(formTextarea, cssOpts)
+
+  if miniMagickTextarea = document.getElementById("template_mini_magick_markup")
+    window.Toolkit.miniMagickEditor = CodeMirror.fromTextArea(miniMagickTextarea, rubyOpts)
 
   if optionsTextarea = document.getElementById("template_customizable_options")
-    window.Toolkit.optionsEditor = CodeMirror.fromTextArea(optionsTextarea, codeMirrorOpts)
+    window.Toolkit.optionsEditor = CodeMirror.fromTextArea(optionsTextarea, cssOpts)
 
 window.Toolkit.Template.dropzones = ->
   window.Toolkit.resetDropzones()
@@ -59,14 +69,34 @@ window.Toolkit.Template.dropzones = ->
       });
     )
 
-window.Toolkit.Template.selectOnClick = ->
-  $("input.select-on-click").click ->
-     $(@).select()
+window.Toolkit.Template.changeUnit = (unit) ->
+  $("span.unit").text(unit)
+
+window.Toolkit.Template.changeFormat = (format) ->
+  switch format
+    when "png"
+      $("li[data-for='orientation']").hide()
+      $("li[data-for='crop-marks']").hide()
+
+    when "pdf"
+      $("li[data-for='orientation']").show()
+      $("li[data-for='crop-marks']").show()
 
 window.Toolkit.Template.ready = ->
   window.Toolkit.optionsMenu()
   window.Toolkit.Template.codeMirror()
   window.Toolkit.Template.dropzones()
-  window.Toolkit.Template.selectOnClick()
+
+  $("input.select-on-click").click ->
+    $(@).select()
+
+  $("#template_format").change ->
+    window.Toolkit.Template.changeFormat($(@).val())
+
+  $("#template_unit").change ->
+    window.Toolkit.Template.changeUnit($(@).find("option:selected").text())
+
+  $("#template_format").trigger("change")
+  $("#template_unit").trigger("change")
 
 $(document).on('turbolinks:load', window.Toolkit.Template.ready)

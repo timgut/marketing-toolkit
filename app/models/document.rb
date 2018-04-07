@@ -1,11 +1,13 @@
 class Document < ApplicationRecord
   include Status
 
-  has_attached_file :pdf,       storage: :s3, s3_protocol: "https", s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) }
-  has_attached_file :thumbnail, storage: :s3, s3_protocol: "https", s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) }
+  has_attached_file :pdf,           storage: :s3, s3_protocol: "https", s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) }
+  has_attached_file :thumbnail,     storage: :s3, s3_protocol: "https", s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) }
+  has_attached_file :share_graphic, storage: :s3, s3_protocol: "https", s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) }
   
-  validates_attachment :pdf,       content_type: {content_type: "application/pdf"}
-  validates_attachment :thumbnail, content_type: {content_type: /\Aimage\/.*\z/}
+  validates_attachment :pdf,           content_type: {content_type: "application/pdf"}
+  validates_attachment :thumbnail,     content_type: {content_type: /\Aimage\/.*\z/}
+  validates_attachment :share_graphic, content_type: {content_type: /^image\/(png|jpg|jpeg)/,}
 
   has_and_belongs_to_many :users
   
@@ -20,9 +22,9 @@ class Document < ApplicationRecord
   scope :recent,         ->(user) { where("documents.creator_id = ? AND documents.created_at >= ?", user.id, DateTime.now - 2.weeks) }
   scope :shared_with_me, ->(user) { all.joins(:documents_users).where("user_id = ? and documents_users.user_id != ?", user.id, user.id) }
 
-  before_destroy   ->{ self.pdf = nil }
+  before_destroy ->{ self.pdf = nil; self.share_graphic = nil; self.thumbnail = nil }
 
-  attr_accessor :debug_pdf
+  attr_accessor :debug_pdf, :phantomjs_user
 
   def method_missing(meth, *args, &block)
     data.find{|d| d.key == meth.to_s}&.value || ""
@@ -52,6 +54,15 @@ class Document < ApplicationRecord
     end
   end
 
+  def generated?
+    case template.format
+    when "pdf"
+      self.pdf_file_name && self.thumbnail_file_name
+    when "png"
+      self.share_graphic_file_name #&& self.share_graphic_file_name
+    end
+  end
+
   def generate_pdf
     reload # Grab the latest copy from the database
 
@@ -61,22 +72,38 @@ class Document < ApplicationRecord
     pdf = WickedPdf.new.pdf_from_string(pdf_html, pdf_options)
 
     File.open(local_pdf_path, 'wb') {|file| file << pdf}
-    
-    self.pdf = File.open(local_pdf_path)
-    self.save
+    self.update_attributes(pdf: File.open(local_pdf_path))
+  end
+
+  def generate_share_graphic
+    reload # Grab the latest copy from the database
+    config = Rails.application.config.wkhtmltoimage
+
+    %x(#{config["cmd"]} --quality 100 --format jpg #{config["host"]}/documents/#{id}/preview #{local_share_graphic_path})
+    self.update_attributes(share_graphic: File.open(local_share_graphic_path))
   end
 
   def generate_thumbnail
-    thumb = MiniMagick::Image.open(local_pdf_path) 
+    # Assign the correct paths depending on the type of template
+    case template.format
+    when "pdf"
+      document_path = local_pdf_path
+      thumb_path    = local_pdf_thumb_path
+    when "png"
+      document_path = local_share_graphic_path
+      thumb_path    = local_share_graphic_thumb_path
+    end
+
+    # Create a thumbnail from the document
+    thumb = MiniMagick::Image.open(document_path) 
     thumb.format "png"
     thumb.resize "348x269"
     
-    FileUtils.cp(thumb.path, local_thumbnail_path)
-
-    self.thumbnail = File.open(local_thumbnail_path)
+    # Update the record, and delete the local thumbnail after it's uploaded to S3.
+    FileUtils.cp(thumb.path, thumb_path)
+    self.thumbnail = File.open(thumb_path)
     self.save
-    
-    File.delete(local_thumbnail_path)
+    File.delete(thumb_path)
   end
 
   def delete_local_pdf
@@ -87,8 +114,20 @@ class Document < ApplicationRecord
     Rails.root.join("public", "pdfs", "#{id}.pdf").to_s
   end
 
-  def local_thumbnail_path
-    Rails.root.join("public", "pdfs", "#{id}.png").to_s
+  def local_pdf_thumb_path
+    Rails.root.join("public", "pdfs", "#{id}_thumb.png").to_s
+  end
+
+  def delete_local_share_graphic
+    File.delete(local_share_graphic_path)
+  end
+
+  def local_share_graphic_path
+    Rails.root.join("public", "share_graphics", "#{id}.jpg").to_s
+  end
+
+  def local_share_graphic_thumb_path
+    Rails.root.join("public", "share_graphics", "#{id}_thumb.png").to_s
   end
 
   def pdf_options
@@ -101,8 +140,8 @@ class Document < ApplicationRecord
       lowquality:    false,
       image_quality: 94,
       show_as_html:  debug_pdf,
-      page_height:   "#{template.height}in",
-      page_width:    "#{template.width}in",
+      page_height:   "#{template.height}#{template.unit}",
+      page_width:    "#{template.width}#{template.unit}",
       zoom: 1,
       margin:  {
         top:    0,
@@ -112,5 +151,4 @@ class Document < ApplicationRecord
       }
     }
   end
-
 end

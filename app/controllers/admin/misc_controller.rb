@@ -5,6 +5,12 @@ class Admin::MiscController < AdminController
   def documentation
     render layout: false
   end
+  
+  # GET /admin/documentation/mini_magick
+  def mini_magick
+    render layout: false
+  end
+
 
   # GET /admin
   def home

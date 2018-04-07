@@ -4,7 +4,9 @@ class DocumentsController < ApplicationController
   protect_from_forgery except: :create
 
   before_action :assign_sidebar_vars, only: [:index, :recent, :shared, :trashed]
-  
+
+  skip_before_action :authenticate_user!, only: [:preview]
+
   # POST /documents
   def create
     @document = Document.new(document_params)
@@ -12,7 +14,7 @@ class DocumentsController < ApplicationController
     if @document.save
       DocumentUser.create!(document_id: @document.id, user_id: current_user.id)
       create_data
-      DocumentPdfJob.perform_async(@document)
+      DocumentGeneratorJob.perform_async(@document)
 
       redirect_to documents_path(generating: @document.id), notice: "Document created!"
     else
@@ -41,7 +43,8 @@ class DocumentsController < ApplicationController
   # GET /documents/1/download
   def download
     load_document
-    DocumentPdfJob.perform_async(@document)
+    # @document.generate_share_graphic(current_user.id)
+    DocumentGeneratorJob.perform_async(@document)
     head :no_content
   end
 
@@ -64,8 +67,13 @@ class DocumentsController < ApplicationController
 
     respond_to do |format|
       format.json do
-        if @document.pdf_file_name && @document.thumbnail_file_name
-          render json: {status: :complete, thumbnail: @document.thumbnail.url, pdf: @document.pdf.url}
+        if @document.generated?
+          case @document.template.format
+          when "pdf"
+            render json: {status: :complete, thumbnail: @document.thumbnail.url, pdf: @document.pdf.url}
+          when "png"
+            render json: {status: :complete, thumbnail: @document.thumbnail.url, pdf: @document.share_graphic.url}
+          end
         else
           render json: {status: :incomplete}
         end
@@ -85,7 +93,12 @@ class DocumentsController < ApplicationController
   def preview
     load_document
     @document.debug_pdf = true
-    render @document.pdf_options
+    # render @document.pdf_options
+
+    av = ActionView::Base.new
+    av.view_paths = ActionController::Base.view_paths
+    html = av.render(template: "documents/build.pdf.erb", locals: {document: @document})
+    render html: html
   end
 
   # GET /documents/recent
@@ -120,7 +133,7 @@ class DocumentsController < ApplicationController
         create_data
       end
 
-      DocumentPdfJob.perform_async(@document)
+      DocumentGeneratorJob.perform_async(@document)
 
       redirect_to edit_document_path(@document, generating: true), notice: "Your changes have been saved."
     else
@@ -180,7 +193,10 @@ class DocumentsController < ApplicationController
 
   def load_document
     @document = Document.find(params[:id])
-    authorize_campaign!(@document)
-    authorize @document
+
+    unless params[:action] == "preview"
+      authorize_campaign!(@document)
+      authorize @document
+    end
   end
 end

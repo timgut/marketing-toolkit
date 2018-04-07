@@ -15,6 +15,7 @@
 //= require turbolinks
 //= require codemirror
 //= require codemirror/modes/css
+//= require codemirror/modes/ruby
 //= require jquery.validate
 //= require jquery-ui/widgets/draggable
 //= require jquery.popupoverlay.1.7.13
