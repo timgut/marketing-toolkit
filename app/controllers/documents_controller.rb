@@ -43,7 +43,7 @@ class DocumentsController < ApplicationController
   # GET /documents/1/download
   def download
     load_document
-    # @document.generate_share_graphic(current_user.id)
+    @document.delete_attachment!
     DocumentGeneratorJob.perform_async(@document)
     head :no_content
   end
@@ -70,9 +70,9 @@ class DocumentsController < ApplicationController
         if @document.generated?
           case @document.template.format
           when "pdf"
-            render json: {status: :complete, thumbnail: @document.thumbnail.url, pdf: @document.pdf.url}
+            render json: {status: :complete, thumbnail: @document.thumbnail.url, pdf: @document.pdf_url_with_timestamp}
           when "png"
-            render json: {status: :complete, thumbnail: @document.thumbnail.url, pdf: @document.share_graphic.url}
+            render json: {status: :complete, thumbnail: @document.thumbnail.url, pdf: @document.share_graphic_url_with_timestamp}
           end
         else
           render json: {status: :incomplete}

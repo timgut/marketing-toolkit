@@ -63,26 +63,6 @@ class Document < ApplicationRecord
     end
   end
 
-  def generate_pdf
-    reload # Grab the latest copy from the database
-
-    av = ActionView::Base.new
-    av.view_paths = ActionController::Base.view_paths
-    pdf_html = av.render(template: "documents/build.pdf.erb", locals: {document: self})
-    pdf = WickedPdf.new.pdf_from_string(pdf_html, pdf_options)
-
-    File.open(local_pdf_path, 'wb') {|file| file << pdf}
-    self.update_attributes(pdf: File.open(local_pdf_path))
-  end
-
-  def generate_share_graphic
-    reload # Grab the latest copy from the database
-    config = Rails.application.config.wkhtmltoimage
-
-    %x(#{config["cmd"]} --quality 100 --format jpg #{config["host"]}/documents/#{id}/preview #{local_share_graphic_path})
-    self.update_attributes(share_graphic: File.open(local_share_graphic_path))
-  end
-
   def generate_thumbnail
     # Assign the correct paths depending on the type of template
     case template.format
@@ -106,16 +86,22 @@ class Document < ApplicationRecord
     File.delete(thumb_path)
   end
 
-  def delete_local_pdf
-    File.delete(local_pdf_path)
+  def delete_attachment!
+    case template.format
+    when "pdf"
+      self.update_attributes!(pdf: nil, thumbnail: nil)
+    when "png"
+      self.update_attributes!(share_graphic: nil, thumbnail: nil)
+    end
   end
 
-  def local_pdf_path
-    Rails.root.join("public", "pdfs", "#{id}.pdf").to_s
-  end
+  # Share Graphic Methods
+  def generate_share_graphic
+    reload # Grab the latest copy from the database
+    config = Rails.application.config.wkhtmltoimage
 
-  def local_pdf_thumb_path
-    Rails.root.join("public", "pdfs", "#{id}_thumb.png").to_s
+    %x(#{config["cmd"]} --quality 100 --format jpg #{config["host"]}/documents/#{id}/preview #{local_share_graphic_path})
+    self.update_attributes(share_graphic: File.open(local_share_graphic_path))
   end
 
   def delete_local_share_graphic
@@ -128,6 +114,39 @@ class Document < ApplicationRecord
 
   def local_share_graphic_thumb_path
     Rails.root.join("public", "share_graphics", "#{id}_thumb.png").to_s
+  end
+
+  def share_graphic_url_with_timestamp
+    "#{share_graphic.url}?#{DateTime.now.to_i}"
+  end
+
+  # PDF Methods
+  def generate_pdf
+    reload # Grab the latest copy from the database
+
+    av = ActionView::Base.new
+    av.view_paths = ActionController::Base.view_paths
+    pdf_html = av.render(template: "documents/build.pdf.erb", locals: {document: self})
+    pdf = WickedPdf.new.pdf_from_string(pdf_html, pdf_options)
+
+    File.open(local_pdf_path, 'wb') {|file| file << pdf}
+    self.update_attributes(pdf: File.open(local_pdf_path))
+  end
+
+  def delete_local_pdf
+    File.delete(local_pdf_path)
+  end
+
+  def local_pdf_path
+    Rails.root.join("public", "pdfs", "#{id}.pdf").to_s
+  end
+
+  def local_pdf_thumb_path
+    Rails.root.join("public", "pdfs", "#{id}_thumb.png").to_s
+  end
+
+  def pdf_url_with_timestamp
+    "#{pdf.url}?#{DateTime.now.to_i}"
   end
 
   def pdf_options

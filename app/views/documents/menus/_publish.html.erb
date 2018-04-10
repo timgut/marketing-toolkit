@@ -10,7 +10,7 @@
   <% if document.pdf_file_name %>
     <%= link_to(
       "<span class='icons'>d</span> Download".html_safe,
-      document.pdf.url,
+      document.pdf_url_with_timestamp,
       title:  "Download",
       class:  "download",
       target: :_blank,
@@ -18,7 +18,7 @@
   <% elsif document.share_graphic_file_name %>
     <%= link_to(
       "<span class='icons'>d</span> Download".html_safe,
-      document.share_graphic.url,
+      document.share_graphic_url_with_timestamp,
       title:  "Download",
       class:  "download",
       target: :_blank,
