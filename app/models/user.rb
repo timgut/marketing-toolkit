@@ -20,6 +20,8 @@ class User < ApplicationRecord
   after_create :access_all_campaigns!
   after_create :send_admin_emails
 
+  attr_accessor :quiet # Set to true to disable emails to the user
+
   ROLES = ['User', 'Local President', 'Vetter', 'Administrator']
   
   DEPARTMENTS = [ 
@@ -40,14 +42,16 @@ class User < ApplicationRecord
   ]
 
   def send_account_notification(status)
-    case status
-    when 'approved'
-        AdminMailer.send_account_activation(self).deliver_now
-        self.send_reset_password_instructions
-    when 'rejected'
-        AdminMailer.send_account_rejection(self).deliver_now
-    when 'unapproved'
-        AdminMailer.send_account_suspension(self).deliver_now
+    unless quiet
+      case status
+      when 'approved'
+          AdminMailer.send_account_activation(self).deliver_now
+          self.send_reset_password_instructions
+      when 'rejected'
+          AdminMailer.send_account_rejection(self).deliver_now
+      when 'unapproved'
+          AdminMailer.send_account_suspension(self).deliver_now
+      end
     end
   end
 

@@ -50,12 +50,18 @@ class Admin::UsersController < AdminController
   # PATCH /admin/users/1
   def update
     load_user
+
+    if params[:quiet_rejection] == '1'
+      @user.quiet = true
+      params[:user][:rejected] = '1'
+    end  
+
     account_status = set_account_status
 
     if @user.update_attributes(user_params)
       @user.set_accessible_campaigns!(params[:campaigns])
 
-      unless account_status == 'same'
+      if account_status != 'same'
         @user.send_account_notification(account_status)
       end
 
