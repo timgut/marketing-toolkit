@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8">
+
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Lato:400,300,900' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" href="http://toolkit-afscme.bytrilogy.com/print/css/reset.css" type="text/css" />
+<link rel="stylesheet" href="http://toolkit-afscme.bytrilogy.com/print/css/print-marks.css" type="text/css" />
+<link rel="stylesheet" href="http://toolkit-afscme.bytrilogy.com/print/css/global.css" type="text/css" />
+<link rel="stylesheet" href="http://toolkit-afscme.bytrilogy.com/print/css/inoculation-flyer.css" type="text/css" />
+
+</head>
+
+<body class="<%= @document.ss_branding %>">
+    <main class="container">
+      <div class="top-bar"></div>
+      <header>
+        <div class="bar"></div>
+        <h1><%= @document.headline %></h1>
+      </header>
+    
+      <aside class="message">
+         <%= @document.body_text %>
+      </aside>
+          
+       <div class="quote-area">
+         <h3>Just take their word for it:</h3>
+         <div class="quote">
+            <%= @document.quote %>
+         </div>
+      </div>
+          
+      <footer>
+        <div class="angle"></div>
+    
+        <% if @document.affiliate_logo.present? %>
+          <div class="affiliate-logo"><div style="background-image: url('<%= @document.affiliate_logo %>');"></div></div>
+        <% end %>
+
+        <% if @document.logo.present? %>
+          <div class="nq-logo" style="background-image: url('<%= @document.logo %>');"></div>
+        <% end %>
+
+        <div class="union-bug"></div>
+      </footer>
+    </main>
+  </body>
+</html>

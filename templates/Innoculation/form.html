@@ -1,0 +1,194 @@
+<script type="text/javascript">  
+  $(document).ready(function() {
+    // Custom Headline
+    $("form[data-document='true']").on("click", "#headline-custom, #subheadline-custom", function(){
+      $("#headline2").prop("checked", true);
+    });
+    $("form[data-document='true']").on("change", "#headline-custom, #subheadline-custom", function(){
+      $("#headline2").val("<h1>" + $("#headline-custom").val() + "</h1><span>" + $("#subheadline-custom").val() + "</span>");
+    });
+
+    // Custom Body
+    $("form[data-document='true']").on("click", "#body2-custom", function(){
+      $("#body2").prop("checked", true);
+    });
+
+    // Custom Quote
+    $("form[data-document='true']").on("click", "#quote-custom, #attribution-custom", function(){
+      $("#quote4").prop("checked", true);
+    });
+    $("form[data-document='true']").on("change", "#quote-custom, #attribution-custom", function(){
+      $("#quote4").val("<h3>" + $("#quote-custom").val() + "</h3><div class=\"quote\">" + $("#attribution-custom").val() + "</div>");
+    });
+    
+    if(window.Toolkit.Document.savedData.hasOwnProperty("ss_branding")){
+      var branding = window.Toolkit.Document.savedData.ss_branding.value;
+
+      if (branding === 'csea') {
+          $("#afscme-logo").hide();
+          $("#csea-logo").show();
+          $('#ng-logo1').prop('checked',false);
+          $('#ng-logo2').prop('checked',true);
+      }
+      else if (branding === 'afscme') {
+          $('#ng-logo1').prop('checked',true);
+          $('#ng-logo2').prop('checked',false);
+      }
+    }
+    
+    // Toggle between AFSCME and CSEA affiliate logos
+    $("form[data-document='true']").on("click", "[name='data[ss_branding]']", function(){
+      if($(this).val() === "afscme"){
+        $("#afscme-logo").show();
+        $("#csea-logo").hide();
+      } else if($(this).val() === "csea"){
+        $("#afscme-logo").hide();
+        $("#csea-logo").show();
+      } else {
+        console.log($(this).val());
+      }
+    });
+  });
+</script>
+
+<div id="branding" class="grouping branding image-select radio cf"> 
+
+    <h3>Choose Flyer Branding</h3>
+
+    <div class="field logo"> 
+        <input id="branding-afscme" name="data[ss_branding]" type="radio" value="afscme" />
+        <label for="branding-afscme">
+           <div class="radio-button"></div>
+           <figure style="background-image: url(http://toolkit-afscme.bytrilogy.com/theme/img/afscme-branding-thumb.png);"></figure>
+        </label>
+    </div>
+    
+    <div class="field logo"> 
+        <input id="branding-csea" name="data[ss_branding]" type="radio" value="csea" />
+        <label for="branding-csea">
+           <div class="radio-button"></div>
+           <figure style="background-image: url(http://toolkit-afscme.bytrilogy.com/theme/img/csea-branding-thumb.png);"></figure>
+        </label>
+    </div>
+    
+</div><!--theme-->
+
+<div class="step grouping columns five radio cf"> 
+
+    <h3>Create a Headline</h3>
+
+    <div class="field wide"> 
+        <input id="headline1" class="required" name="data[headline]" type="radio" value="Fraud Alert <span>What is the Freedom Foundation’s real agenda?</span>" />
+        <label for="headline1">
+            <div class="radio-button"></div>
+            <strong>Fraud Alert</strong> What is the Freedom Foundation’s real agenda?
+         </label>
+    </div>
+
+    <div class="field wide"> 
+        <input id="headline2" data-custom="combine" name="data[headline]" type="radio" value="" />
+        <label for="headline2">
+          <div class="radio-button"></div>
+          <strong>CREATE YOUR OWN</strong>
+          <small>Maximum of 100 characters. Please preview, since words may wrap unexpectedly and cutoff your headline.</small>
+          <input placeholder="Headline"     type="text" name="headline-custom"    id="headline-custom"    data-combine-tag="h1"   value="" maxlength="100" />
+          <input placeholder="Sub-headline" type="text" name="subheadline-custom" id="subheadline-custom" data-combine-tag="span" value="" maxlength="100" />
+        </label>
+    </div>
+
+</div><!--headline-->
+
+<div class="step grouping columns five radio cf"> 
+
+    <h3>Create Body Text</h3>
+
+    <div class="field wide"> 
+        <input id="body1" class="required" name="data[body_text]" type="radio" value="" data-value="body1-text" />
+        <label for="body1">
+            <div class="radio-button"></div>
+            <div id="body1-text">
+                <p>A group called the “Freedom Foundation” – funded by powerful anti-worker CEOs – is spending millions of dollars on mail and phone calls telling union members that it’s in your best interest to quit your union. They say they’re just looking out for you; that you can get all the benefits of a union for free. Sound too good to be true? It is.</p>
+                <p>Groups like the “Freedom Foundation” know that when people quit their union, the less power your union has to negotiate job protections, fair pay and benefits. The group’s own founder, Bob Williams, openly admits that he wants to strip public service workers of their retirement security, urging states to gamble your retirement funds on the stock market through risky 401(k) schemes.</p>
+                <p>A strong union means stronger contracts and quality public services. If the “Freedom Foundation” or anyone else tries to bust your union, tell them loud and clear: <strong>I’ll never quit.</strong></p>
+            </div>
+         </label>
+    </div>
+
+    <div class="field wide"> 
+        <input id="body2" data-custom="text" name="data[body_text]" type="radio" />
+        <label for="body2">
+          <div class="radio-button"></div>
+          <strong>CREATE YOUR OWN</strong>
+          <small>Maximum of 400 characters. Please preview, since words may wrap unexpectedly and cutoff your headline.</small>
+          <textarea name="body2-custom" data-target="body2" id="body2-custom" maxlength="400" placeholder="Your body text"></textarea>
+        </label>
+    </div>
+
+</div><!--body-->
+
+
+<div class="step grouping columns five radio cf"> 
+
+    <h3>Create Testimonial</h3>
+
+    <div class="field wide"> 
+        <input id="quote1" class="required" name="data[quote]" type="radio" value="" data-value="quote1-text" />
+        <label for="quote1">
+            <div class="radio-button"></div>
+            <div id="quote1-text">
+              “It makes little sense to promote a pay raise for state employees who are satisfied enough with their jobs that 90% of them chose to remain employed by the state.”
+              <small>– Amber Gunn, Freedom Foundation Blog</small>
+            </div>
+         </label>
+    </div>
+
+    <div class="field wide"> 
+        <input id="quote2" class="required" name="data[quote]" type="radio" value="" data-value="quote2-text" />
+        <label for="quote2">
+            <div class="radio-button"></div>
+            <div id="quote2-text">
+              “It’s about time state worker health insurance premiums were on the table.  The Freedom Foundation has long recommended that state workers pay a bigger share…”
+              <small>– Freedom Foundation Official Blog</small>
+            </div>
+         </label>
+    </div>
+
+
+    <div class="field wide"> 
+        <input id="quote3" class="required" name="data[quote]" type="radio" value="" data-value="quote3-text" />
+        <label for="quote3">
+            <div class="radio-button"></div>
+            <div id="quote3-text">>
+              “Everything should be on the table… states should consider replacing their defined-benefit plans with defined-contribution 401(k) plans.”
+              <small>– Bob Williams, founder of the “Freedom Foundation”</small>
+            </div>
+         </label>
+    </div>
+
+    <div class="field wide"> 
+        <input id="quote4" data-custom="combine" name="data[quote]" type="radio" value="" />
+        <label for="quote4">
+          <div class="radio-button"></div>
+          <strong>CREATE YOUR OWN</strong><br/>
+          <small>Maximum 60 characters. Please preview, since words may wrap unexpectedly due to size limits.</small>
+          <textarea name="quote-custom"       id="quote-custom"       data-combine-tag="h3"  value="" placeholder="Your quote"        maxlength="60"></textarea>
+          <input    name="attribution-custom" id="attribution-custom" data-combine-tag="div" value="" placeholder="Quote attribution" maxlength="60" type="text" />
+        </label>
+    </div>
+</div><!--testimonial-->
+
+<div class="step grouping image-select cf"> 
+  <h3>Council/Affiliate Logo (optional)</h3>
+    <div class="field upload"> 
+        <input id="affiliate-logo" data-custom="image" name="data[affiliate_logo]" type="radio" value="custom" />
+
+        <label for="affiliate-logo">
+           <figure href="javascript:void(0);" title="Add Photo" class="image-picker" data-target="affiliate-logo">
+               <div class="positioner">
+                   <span class="icons">C</span>
+                   Add Image
+               </div>
+           </figure>
+        </label>
+    </div>
+</div>

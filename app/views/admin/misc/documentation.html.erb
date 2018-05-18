@@ -130,6 +130,11 @@
                   <ul><li><a href="#data-combine-examples">Examples</a></li></ul> 
                 </li><!-- data-combine -->
 
+                <li>
+                  <a href="#data-value">data-value</a>
+                  <ul><li><a href="#data-value-examples">Examples</a></li></ul> 
+                </li><!-- data-value -->
+
               </ul><!-- Data Attributes -->
             </li>
 
@@ -349,6 +354,31 @@ $("form[data-document='true']").on("change", "#body1-headline-custom, #body1-cus
       &lt;textarea name="body1-custom" id="body1-custom" data-combine-tag="p" /&gt;Body text&lt;/textarea&gt;
     &lt;/em&gt;
   &lt;/label&gt;
+&lt;/div&gt;
+          </code></pre>
+
+          <p>
+            In this example, the custom fields have values, so the <em>change</em> event listener will set the data field's value to: &lt;div class='take-action'&gt;&lt;h3&gt;Body Headline&lt;/h3&gt;&lt;p&gt;Body text&lt;/p&gt;&lt;/div&gt;. When we return to edit this document, that HTML is placed in a hidden <em>div</em> on the page. Then the <em>data-combine-tag</em> uses its value to select the HTML from the saved value. Therefore, <em>Body Headline</em> will be placed in the custom text field since its <em>data-combine-tag</em> value is <em>h3</em>, and <em>Body text</em> will be placed in the custom textarea since its <em>data-combine-tag</em> value is <em>p</em>.
+          </p>
+        </section>
+
+        <section class="definition">
+          <h2 id="data-value">data-value</h2>
+          <p>
+            Sometimes we don't want to fill in the value attribute because the text contains too much formatting, or the text is too long. Giving a data field a <em>data-value="a-div"</em> attribute will copy <em>#a-div</em>'s HTML to the data field's value attribute.
+          </p>
+
+          <h3 id="data-value-examples">Example</h3>
+          <pre><code class="html">
+&lt;div class="field wide"&gt;
+    &lt;input id="quote3" class="required" name="data[quote]" type="radio" value="" data-value="quote3-text" /&gt;
+    &lt;label for="quote3"&gt;
+        &lt;div class="radio-button"&gt;&lt;/div&gt;
+        &lt;div id="quote3-text"&gt;
+          “Everything should be on the table… states should consider replacing their defined-benefit plans with defined-contribution 401(k) plans.”
+          &lt;small&gt;– Bob Williams, founder of the “Freedom Foundation”&lt;/small&gt;
+        &lt;/div&gt;
+     &lt;/label&gt;
 &lt;/div&gt;
           </code></pre>
 

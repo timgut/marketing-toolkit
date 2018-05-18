@@ -183,6 +183,17 @@ window.Toolkit.Document.saveIds = ->
     )
   )
 
+# Sometimes we don't want to populate the value attribute because the text is too large.
+# By adding a data-value attrbute to an input, you can give it an ID and it will fill in
+# the input value with the html inside of the ID.
+window.Toolkit.Document.fillValues = ->
+  $form  = $("form[data-document='true']")
+  $pulls = $("[data-value]")
+
+  $.each($pulls, (i, input) ->
+    $(input).val($("##{$(input).attr("data-value")}").html())
+  )
+
 window.Toolkit.Document.dataTarget = ->
   # When a custom value is entered, change the value in the actual field
   if Toolkit.init.documentDataTarget is false
@@ -361,6 +372,7 @@ window.Toolkit.Document.ready = ->
     Toolkit.optionsMenu()
     Toolkit.Document.saveIds()
     Toolkit.Document.fillForm()
+    Toolkit.Document.fillValues()
     Toolkit.Document.dataTarget()
 
 $(document).on('turbolinks:load', window.Toolkit.Document.ready)
