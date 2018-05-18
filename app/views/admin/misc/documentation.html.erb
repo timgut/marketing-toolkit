@@ -382,9 +382,7 @@ $("form[data-document='true']").on("change", "#body1-headline-custom, #body1-cus
 &lt;/div&gt;
           </code></pre>
 
-          <p>
-            In this example, the custom fields have values, so the <em>change</em> event listener will set the data field's value to: &lt;div class='take-action'&gt;&lt;h3&gt;Body Headline&lt;/h3&gt;&lt;p&gt;Body text&lt;/p&gt;&lt;/div&gt;. When we return to edit this document, that HTML is placed in a hidden <em>div</em> on the page. Then the <em>data-combine-tag</em> uses its value to select the HTML from the saved value. Therefore, <em>Body Headline</em> will be placed in the custom text field since its <em>data-combine-tag</em> value is <em>h3</em>, and <em>Body text</em> will be placed in the custom textarea since its <em>data-combine-tag</em> value is <em>p</em>.
-          </p>
+          <p>In this example, the HTML inside of <em>div#quote3-text</em> will become <em>input#quote3</em>'s value attribute.</p>
         </section>
 
         <section class="definition">
