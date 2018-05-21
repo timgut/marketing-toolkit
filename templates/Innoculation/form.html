@@ -2,7 +2,7 @@
   $(document).ready(function() {
     // Custom Headline
     $("form[data-document='true']").on("click", "#headline-custom, #subheadline-custom", function(){
-      $("#headline2").prop("checked", true);
+      $("#headline2").trigger("click");
     });
     $("form[data-document='true']").on("change", "#headline-custom, #subheadline-custom", function(){
       $("#headline2").val("<h1>" + $("#headline-custom").val() + "</h1><span>" + $("#subheadline-custom").val() + "</span>");
@@ -10,32 +10,34 @@
 
     // Custom Body
     $("form[data-document='true']").on("click", "#body2-custom", function(){
-      $("#body2").prop("checked", true);
+      $("#body2").trigger("click");
     });
 
     // Custom Quote
     $("form[data-document='true']").on("click", "#quote-custom, #attribution-custom", function(){
-      $("#quote4").prop("checked", true);
+      $("#quote4").trigger("click");
     });
     $("form[data-document='true']").on("change", "#quote-custom, #attribution-custom", function(){
-      $("#quote4").val("<h3>" + $("#quote-custom").val() + "</h3><div class=\"quote\">" + $("#attribution-custom").val() + "</div>");
+      $("#quote4").val("<div class=\"quote-text\">" + $("#quote-custom").val() + "</div><small>" + $("#attribution-custom").val() + "</small>");
     });
     
-    if(window.Toolkit.Document.savedData.hasOwnProperty("ss_branding")){
-      var branding = window.Toolkit.Document.savedData.ss_branding.value;
+    if(window.Toolkit.Document.hasOwnProperty("savedData")){
+      if(window.Toolkit.Document.savedData.hasOwnProperty("ss_branding")){
+        var branding = window.Toolkit.Document.savedData.ss_branding.value;
 
-      if (branding === 'csea') {
-          $("#afscme-logo").hide();
-          $("#csea-logo").show();
-          $('#ng-logo1').prop('checked',false);
-          $('#ng-logo2').prop('checked',true);
-      }
-      else if (branding === 'afscme') {
-          $('#ng-logo1').prop('checked',true);
-          $('#ng-logo2').prop('checked',false);
+        if (branding === 'csea') {
+            $("#afscme-logo").hide();
+            $("#csea-logo").show();
+            $('#ng-logo1').prop('checked',false);
+            $('#ng-logo2').prop('checked',true);
+        }
+        else if (branding === 'afscme') {
+            $('#ng-logo1').prop('checked',true);
+            $('#ng-logo2').prop('checked',false);
+        }
       }
     }
-    
+
     // Toggle between AFSCME and CSEA affiliate logos
     $("form[data-document='true']").on("click", "[name='data[ss_branding]']", function(){
       if($(this).val() === "afscme"){
@@ -90,9 +92,9 @@
         <label for="headline2">
           <div class="radio-button"></div>
           <strong>CREATE YOUR OWN</strong>
-          <small>Maximum of 100 characters. Please preview, since words may wrap unexpectedly and cutoff your headline.</small>
-          <input placeholder="Headline"     type="text" name="headline-custom"    id="headline-custom"    data-combine-tag="h1"   value="" maxlength="100" />
-          <input placeholder="Sub-headline" type="text" name="subheadline-custom" id="subheadline-custom" data-combine-tag="span" value="" maxlength="100" />
+          <small>Maximum of 17 characters for the headline and 50 characters for the sub-headline. Please preview, since words may wrap unexpectedly and cutoff your headline.</small>
+          <input placeholder="Headline"     type="text" name="headline-custom"    id="headline-custom"    data-combine-tag="h1"   value="" maxlength="17" />
+          <input placeholder="Sub-headline" type="text" name="subheadline-custom" id="subheadline-custom" data-combine-tag="span" value="" maxlength="50" />
         </label>
     </div>
 
@@ -158,7 +160,7 @@
         <input id="quote3" class="required" name="data[quote]" type="radio" value="" data-value="quote3-text" />
         <label for="quote3">
             <div class="radio-button"></div>
-            <div id="quote3-text">>
+            <div id="quote3-text">
               “Everything should be on the table… states should consider replacing their defined-benefit plans with defined-contribution 401(k) plans.”
               <small>– Bob Williams, founder of the “Freedom Foundation”</small>
             </div>

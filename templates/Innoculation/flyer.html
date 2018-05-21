@@ -7,10 +7,10 @@
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Lato:400,300,900' rel='stylesheet' type='text/css'>
 
-<link rel="stylesheet" href="http://toolkit-afscme.bytrilogy.com/print/css/reset.css" type="text/css" />
-<link rel="stylesheet" href="http://toolkit-afscme.bytrilogy.com/print/css/print-marks.css" type="text/css" />
-<link rel="stylesheet" href="http://toolkit-afscme.bytrilogy.com/print/css/global.css" type="text/css" />
-<link rel="stylesheet" href="http://toolkit-afscme.bytrilogy.com/print/css/inoculation-flyer.css" type="text/css" />
+<link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/reset.css" type="text/css" />
+<link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/print-marks.css" type="text/css" />
+<link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/global.css" type="text/css" />
+<link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/inoculation-flyer.css" type="text/css" />
 
 </head>
 
@@ -19,7 +19,7 @@
       <div class="top-bar"></div>
       <header>
         <div class="bar"></div>
-        <h1><%= @document.headline %></h1>
+        <div class="text"><%= @document.headline %></div>
       </header>
     
       <aside class="message">
@@ -39,11 +39,7 @@
         <% if @document.affiliate_logo.present? %>
           <div class="affiliate-logo"><div style="background-image: url('<%= @document.affiliate_logo %>');"></div></div>
         <% end %>
-
-        <% if @document.logo.present? %>
-          <div class="nq-logo" style="background-image: url('<%= @document.logo %>');"></div>
-        <% end %>
-
+        <div class="main-logo"></div>
         <div class="union-bug"></div>
       </footer>
     </main>
