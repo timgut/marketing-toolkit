@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700i" rel="stylesheet">
+  <link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/dynamic-print-marks.css" type="text/css" />
+  <link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/global.css" type="text/css" />
+  <link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/reset.css" type="text/css" />
+  <link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/print/css/trifold.css" type="text/css">
+</head>
+
+<body class="standard <%= 'show-print-marks ' if @document.crop_marks? %> <%= @document.branding %>">
+
+<div class="container">
+<div class="table" id="page1">
+
+  <div id="column1" class="col">
+      <h2>The AFSCME Difference</h2>
+      <p>Standing together with 1.6 million fellow AFSCME public services workers and retirees from around the country makes all the difference. AFSCME members set the standards of our pay, benefits and working condition by coming together to negotiate for strong contracts.</p> 
+      <%= @document.difference_text %>
+  </div><!--col 1-->
+
+  <div id="column2" class="col">
+    <div class="contact">
+
+    <figure class="main-logo"></figure>
+
+    <% if @document.office_title.present? %>
+      <b><p><%= @document.office_title %></p></b>
+    <% end %>
+
+    <% if @document.address.present? %>
+      <p><%= @document.address %></p>
+    <% end %>
+
+    <% if @document.city_state_zip.present? %>
+      <p><%= @document.city_state_zip %></p>
+    <% end %>
+
+    <% if @document.phone.present? %>
+      <p><%= @document.phone %></p>
+    <% end %>  
+
+    <% if @document.fax.present? %>
+      <p><%= @document.fax %></p>
+    <% end %>                
+
+    <% if @document.website.present? %>              
+      <h7><%= @document.website %></h7>
+    <% end %>                
+
+    <% unless @document.affiliate_logo.blank? %>
+      <div class="affiliate-logo" style="background-image: url('<%= "#{@document.affiliate_logo}" %>');"></div>
+    <% end %>
+
+    <div class="social">
+      <p>American Federation of State, County and Municipal Employees, AFL-CIO</p>
+    </div>
+
+  </div><!--col 2-->
+        
+  <div id="column3" class="col">
+
+    <h6><%= @document.headline %></h6>
+    <div class="image-cover" style="background-image: url('<%= "#{@document.photo1}" %>');"></div>
+    <div class="image-cover" style="background-image: url('<%= "#{@document.photo2}" %>');"></div>
+
+    <div class="main-logo inverted"></div>
+
+  </div><!--col 3-->
+
+</div><!--table-->
+</div><!--container-->
+
+<div class="container">
+<div class="top-bar"></div>
+<div class="bottom-bar"></div>
+<div class="table" id="page2">
+
+  <div id="column4" class="col">
+      <figure class="image-large" style="background-image: url('<%= @document.whoweare_photo %>');"></figure>
+      <h3>Who We Are</h3>
+      <p>We are state employees, and we work everywhere our communities need us.</p>
+      <p>We are corrections officers, nurses, social service workers, sanitation workers, engineers, administrative support, snowplow drivers, park rangers, and so much more. The people of our community depend on us every day. We’re proud of the work we do.</p>
+      <p>Because public service isn’t just a job. It’s a calling. The work matters because it means something to make a community better.</span> <span>That’s why we’re coming together for respect — and a voice on the job and a seat at the table.</p>
+      <p>Together, we can win strong public services and jobs — for stronger communities.</p>
+  </div><!--col 4-->
+
+  <div id="column5" class="col">
+      <figure class="image-large" style="background-image: url('<%= @document.benefits_photo %>');"></figure>
+      <h3>AFSCME Benefits</h3>
+      <p>The AFSCME Advantage program gives members and access to special programs and in discounts including:</p>
+      <ul>
+        <li>AFSCME Free College</li>
+        <li>Scholarships</li>
+        <li>Mortgage program</li>
+        <li><i>And more</i></li>
+      </ul>
+      <div class="calltoaction">
+        To learn more go to
+        <h4>AFSCME.org/advantage</h4>
+        or call
+        <h4>(800) 588-0374</h4>
+      <div>
+      <h3>Get Involved!</h3>
+      <p>Not a member yet? Ask the steward at your workplace for a membership card.</p>
+      <p>Already a member? Talk to your steward about ways to help us grow stronger.</p>
+      <div class="calltoaction"> 
+        Or contact us at
+        <h4><%= @document.benefits_phone %></h4>
+        or
+        <h4><%= @document.benefits_email %></h4>
+      </div>
+  </div><!--col 5-->
+
+  <div id="column6" class="col">
+
+    <div class="testimonials">
+        <div class="quote">
+          <%= @document.testimonial1_quote %>
+        </div>
+        <div class="title">
+          <%= @document.testimonial1_name %>,<br>
+          <%= @document.testimonial1_title %>,<br>
+          <%= @document.testimonial1_location %>
+        </div>
+        <figure class="headshots" style="background-image: url('<%= @document.testimonial1_photo %>');"></figure>
+    </div><!--testimonial 1-->
+
+    <div class="testimonials">
+        <div class="quote">
+          <%= @document.testimonial2_quote %>
+        </div>
+        <div class="title">
+          <%= @document.testimonial2_name %>,<br>
+          <%= @document.testimonial2_title %>,<br>
+          <%= @document.testimonial2_location %>
+        </div>
+        <figure class="headshots" style="background-image: url('<%= @document.testimonial2_photo %>');"></figure>
+    </div><!--testimonial 2-->
+
+    <div class="testimonials">
+        <div class="quote">
+          <%= @document.testimonial3_quote %>
+        </div>
+        <div class="title">
+          <%= @document.testimonial3_name %>,<br>
+          <%= @document.testimonial3_title %>,<br>
+          <%= @document.testimonial3_location %>
+        </div>
+        <figure class="headshots" style="background-image: url('<%= @document.testimonial3_photo %>');"></figure>
+    </div>><!--testimonial 3-->
+  </div>><!--col 6-->
+
+</div><!--table-->
+</div><!--container-->
+</body>
+</html>
