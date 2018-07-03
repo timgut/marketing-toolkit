@@ -100,19 +100,20 @@ window.Toolkit.Document.fillWysiwyg = (editor) ->
   else
     console.log "[wysiwyg] Cannot find savedData for #{id}"
 
+# Put the savedData values in the correct fields.
 window.Toolkit.Document.fillForm = ->
   $.each(Toolkit.Document.savedData, (key, data) ->
     if data.fieldID
-      # Assign the saved value to the field
+      # Assign the saved value to the field, and persist the field ID and value with the change() event.
       $field = $("##{data.fieldID}")
-      
+      $field.val(data.value)
+      $field.change()
+
       switch $field.attr("type")
         when "hidden"
           $field.val(data.value)
         else
           $field.prop("checked", true)
-      
-      $field.trigger("change")
 
       # If there is a custom field, fill in the value
       if $field.attr("data-custom")?
@@ -128,7 +129,6 @@ window.Toolkit.Document.fillForm = ->
 
             $customField = $(customSelector)
             $customField.val(data.value)
-            $customField.trigger("change")
           when "combine"
             $customFields = $("label[for='#{data.fieldID}']").find("[data-combine-tag]")
 
@@ -140,7 +140,6 @@ window.Toolkit.Document.fillForm = ->
               tag = $(field).attr("data-combine-tag")
               value = $("#custom-text").find(tag)
               $(field).val(value.text())
-              $(field).trigger("change")
             )
 
             # Erase the custom text in case another field needs to use it.
