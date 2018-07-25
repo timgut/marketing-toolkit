@@ -237,6 +237,8 @@ window.Toolkit.Document.dropzone = ->
           
           # Callback when the image is uploaded
           success: ((file, data) ->
+            @.removeFile(file)
+
             $(document).on("submit", ".edit_image", ->
               $(".edit_image").hide( ->
                 $("#image-picker #loading").show()
@@ -248,8 +250,6 @@ window.Toolkit.Document.dropzone = ->
               $("#image-picker .choose-crop").hide()
               # Get the image crop form
               $.get("/images/#{data.id}/contextual_crop?image[template_id]=#{$form.attr("data-template-id")}&image[strategy]=contextual_crop", (data) =>
-                @.removeFile(file)
-
                 $("#image-picker #loading").hide( ->
                   $("#image-picker .crop-image").html(data).show(->
                     $(".drag").draggable({
@@ -294,7 +294,7 @@ window.Toolkit.Document.dropzone = ->
               )
 
             # Default Crop is enabled for this image field
-            else if Toolkit.Document.papercrop?
+            else if Toolkit.Document.papercrop isnt false 
               $("#image-picker .choose-crop").hide()
               
               # Get the image crop form
@@ -346,15 +346,17 @@ window.Toolkit.Document.dropzone = ->
 
             # Cropping is not enabled in this modal. Show the image grid.
             else
-              $("#image-picker .crop-image").hide( ->
-                $("#image-picker .image-grid").append("
-                  <figure>
-                    <img src='#{data.cropped_url}' alt='#{data.file_name}' />
-                    <figcaption>#{data.file_name}</figcaption>
-                  </figure>
-                ")
+              $("#image-picker .crop-image, #loading").hide( ->
+                if $("#image-picker .image-grid img[src='#{data.cropped_url}']").length is 0 # The image isn't in the picker
+                  $("#image-picker .image-grid").append("
+                    <figure>
+                      <img src='#{data.cropped_url}' alt='#{data.file_name}' />
+                      <figcaption>#{data.file_name}</figcaption>
+                    </figure>
+                  ")
 
                 $(".image-grid figure:last").click()
+                $("#image-picker .select-image").show()
               )
           )
         });
