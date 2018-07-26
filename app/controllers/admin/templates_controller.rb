@@ -54,6 +54,15 @@ class Admin::TemplatesController < AdminController
     @templates = Template.publish
   end
 
+  # PATCH /admin/templates/1/remove_image
+  def remove_image
+    load_template
+    # The value of params[:image] is the image to remove
+    @template.update_attributes("#{params[:image]}": nil)
+
+    redirect_back fallback_location: admin_templates_path, notice: "Image removed!"
+  end
+
   # PATCH /admin/templates/1
   def update
     load_template

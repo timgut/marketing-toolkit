@@ -33,6 +33,8 @@ class Image < ApplicationRecord
 
   serialize :crop_data, Hash
 
+  before_post_process :give_unique_filename
+
   attr_accessor :pos_x,           # contextual_crop setting: the X position of the image within the context image.
                 :pos_y,           # contextual_crop setting: the Y position of the image within the context image.
                 :context,         # The Template record to use for contextual cropping.
@@ -70,5 +72,32 @@ class Image < ApplicationRecord
       commands: self.commands,
       drag:     {x: self.pos_x, y: self.pos_y}
     })
+  end
+
+  # Friendly filenames have the two dashes (--) and 10 digit timestamp removed.
+  def friendly_filename
+    @friendly_filename ||= self.image_file_name.sub(/--\d{10}/, "")
+  end
+
+  # Unique filename consist of two dashes (--) and a 10 digit timestamp.
+  # If a filename does not contain these characters, we consider it
+  # to not be unique.
+  def has_unique_filename?
+    self.image_file_name.scan(/--\d{10}/).length > 0
+  end
+
+  protected
+
+  # Renames image.png to image--1234567890.png
+  # Renames my.image.gif to my.image--1234567890.gif
+  def give_unique_filename
+    unless has_unique_filename?
+      separator  = "."
+      file_parts = self.image_file_name.split(separator)
+      file_type  = file_parts.pop
+      file_name  = file_parts.join(separator) + "--#{DateTime.now.to_i}"
+
+      self.image_file_name = "#{file_name}#{separator}#{file_type}"
+    end
   end
 end

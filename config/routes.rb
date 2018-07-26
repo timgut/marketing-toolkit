@@ -72,6 +72,9 @@ Rails.application.routes.draw do
         get   :positions
         patch :update_positions
       end
+      member do
+        patch :remove_image
+      end
     end
 
     get 'documentation',             to: 'misc#documentation', as: :documentation

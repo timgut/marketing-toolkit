@@ -101,6 +101,12 @@
       <%= form_for([:admin, template], html: {class: "dropzone", multipart: true, id: "template-static-pdf-form"}) do |f| %>
         <div class="label">
           <%= f.label :static_pdf %>
+
+          <% if @template.static_pdf_file_name %>
+            <span class="remove">
+              <%= link_to "Remove", remove_image_admin_template_path(@template, image: :static_pdf), method: :patch %>
+            </span>
+          <% end %>
         </div>
         
         <% if @template.static_pdf_file_name %>
@@ -118,6 +124,12 @@
     <%= form_for([:admin, template], html: {class: "dropzone", multipart: true, id: "template-thumbnail-form"}) do |f| %>
       <div class="label">
         <%= f.label :thumbnail %>
+
+        <% if @template.thumbnail_file_name %>
+          <span class="remove">
+            <%= link_to "Remove", remove_image_admin_template_path(@template, image: :thumbnail), method: :patch %>
+          </span>
+        <% end %>
       </div>
       
       <% if @template.thumbnail_file_name %>
@@ -134,6 +146,12 @@
     <%= form_for([:admin, template], html: {class: "dropzone", multipart: true, id: "template-numbered-form"}) do |f| %>
       <div class="label">
         <%= f.label :numbered_image %>
+        
+        <% if @template.numbered_image_file_name %>
+          <span class="remove">
+            <%= link_to "Remove", remove_image_admin_template_path(@template, image: :numbered_image), method: :patch %>
+          </span>
+        <% end %>
       </div>
       
       <% if @template.numbered_image_file_name %>
@@ -150,6 +168,12 @@
     <%= form_for([:admin, template], html: {class: "dropzone", multipart: true, id: "template-blank-form"}) do |f| %>
       <div class="label">
         <%= f.label :blank_image %>
+
+        <% if @template.blank_image_file_name %>
+          <span class="remove">
+            <%= link_to "Remove", remove_image_admin_template_path(@template, image: :blank_image), method: :patch %>
+          </span>
+        <% end %>
       </div>
       
       <% if @template.blank_image_file_name %>
@@ -164,4 +188,3 @@
     <% end %>
   <% end %>
 </div>
-
