@@ -346,9 +346,7 @@ window.Toolkit.Document.dropzone = ->
 
             # Cropping is not enabled in this modal. Show the image grid.
             else
-              console.log "Finished uploading"
               $("#image-picker .crop-image, #loading").hide( ->
-                console.log "Hid loading div"
                 if $("#image-picker .image-grid img[src='#{data.cropped_url}']").length is 0 # The image isn't in the picker
                   $("#image-picker .image-grid").append("
                     <figure>
@@ -359,7 +357,6 @@ window.Toolkit.Document.dropzone = ->
 
                 $(".image-grid figure:last").click()
                 $("#image-picker .select-image").show()
-                console.log "Clicked new image and showed image selector"
               )
           )
         });
