@@ -93,12 +93,13 @@ window.Toolkit.Document.saveButton = ->
   )
 
 window.Toolkit.Document.fillWysiwyg = (editor) ->
-  id = editor.id.split("-custom")[0]
+  if Toolkit.Document.hasOwnProperty("savedData")
+    id = editor.id.split("-custom")[0]
 
-  if Toolkit.Document.savedData[id]
-    editor.setContent(Toolkit.Document.savedData[id].value)
-  else
-    console.log "[wysiwyg] Cannot find savedData for #{id}"
+    if Toolkit.Document.savedData[id]
+      editor.setContent(Toolkit.Document.savedData[id].value)
+    else
+      console.log "[wysiwyg] Cannot find savedData for #{id}"
 
 # Put the savedData values in the correct fields.
 window.Toolkit.Document.fillForm = ->
@@ -299,8 +300,6 @@ window.Toolkit.Document.dropzone = ->
               
               # Get the image crop form
               $.get("/images/#{data.id}/papercrop?image[resize_height]=#{Toolkit.Document.resizeHeight}&image[resize_width]=#{Toolkit.Document.resizeWidth}&image[strategy]=papercrop", (data) =>
-                @.removeFile(file)
-
                 $("#image-picker #loading").hide( ->
                   $("#image-picker .crop-image").html(data).show(->
                     $(".drag").draggable({
