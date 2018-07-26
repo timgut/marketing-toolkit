@@ -140,7 +140,16 @@
 
             <li>
               <a href="#conditional-views">Conditional Views</a>
+            </li>
+            <li>
               <a href="#crop-marks">Crop Marks</a>
+            </li>
+            <li>
+              <a href="#cropping-images">Cropping & Resizing Images</a>
+              <ul>
+                <li><a href="#regular-cropping">Regular Cropping</a></li>
+                <li><a href="#contextual-cropping">Contextual Cropping</a></li>
+              </ul> 
             </li>
           </ul><!-- Root ul -->
         </nav>
@@ -223,19 +232,7 @@
 &lt;/div&gt;
           </code></pre>
 
-          <p>
-            The <em>data-custom="image"</em> attribute belongs on the radio button. The &lt;figure&gt; tag's <em>class</em> opens the modal, and the <em>data-target</em> attribute sends the selected image's URL to the radio button.
-          </p>
-
-          <h4 id="cropping-images">Cropping Images</h4>
-          <p>
-            Passing a <em>data-crop="true"</em> attribute to the &lt;figure&gt; tag that launches the modal will enable cropping after an image is uploaded.
-          </p>
-
-          <h5 id="cropping-images-examples">Example</h5>
-          <pre><code class="html">
-&lt;figure href="javascript:void(0);" title="Add Photo" class="image-picker" data-target="photo7" data-crop="true"&gt;
-          </code></pre>
+          <p>The <em>data-custom="image"</em> attribute belongs on the radio button. The &lt;figure&gt; tag's <em>class</em> opens the modal, and the <em>data-target</em> attribute sends the selected image's URL to the radio button.</p>
         </section>
 
         <section class="definition">
@@ -397,6 +394,42 @@ $("form[data-document='true']").on("change", "#body1-headline-custom, #body1-cus
           <p>
             Checking the 'Crop Marks' checkbox on any document will add 0.75 inches to the height and width of the document, and display crop marks in the margins of the page.
           </p>
+        </section>
+
+        <section class="definition">
+          <h2 id="cropping-images">Cropping & Resizing Images</h2>
+          <h3 id="regular-cropping">Regular Cropping & Resizing</h3>
+          <p>Cropping can be enabled on any custom image by adding the following attributes to the <em>figure</em> tag.</p>
+          <ul>
+            <li><b>data-crop='true'</b> enables cropping for any images uploaded through this modal.</li>
+            <li><b>data-resize-height='100'</b> will set the cropped image's height to 100px.</li>
+            <li><b>data-resize-height='150'</b> will set the cropped image's width to 150px.</li>
+          </ul>
+
+          <pre><code class="html">
+&lt;figure href="javascript:void(0);" title="Add Photo" class="image-picker" data-target="photo7" data-crop="true" data-resize-height="100" data-resize-height="150"&gt;
+  &lt;div class="positioner"&gt;
+    &lt;span class="icons"&gt;C&lt;/span&gt;
+    Add Image
+  &lt;/div&gt;
+&lt;/figure&gt;
+          </code></pre>
+
+          <h3 id="contextual-cropping">Contextual Cropping</h3>
+          <p>Images can also be cropped in the context of the overall PDF. This cropping strategy lays the template's blank image over the uploaded image, and lets the user move and resize the uploaded image in the context of the blank image. Contextual Cropping can be enabled on any custom image by adding the following attributes to the <em>figure</em> tag.</p>
+          <ul>
+            <li><b>data-crop='true'</b> enables cropping for any images uploaded through this modal.</li>
+            <li><b>data-crop-offset='100'</b> will place the uploaded image 100 pixels from the top of the PDF.</li>
+          </ul>
+
+          <pre><code class="html">
+&lt;figure href="javascript:void(0);" title="Add Photo" class="image-picker" data-target="photo7" data-crop="true" data-crop-offset="100"&gt;
+  &lt;div class="positioner"&gt;
+    &lt;span class="icons"&gt;C&lt;/span&gt;
+    Add Image
+  &lt;/div&gt;
+&lt;/figure&gt;
+          </code></pre>
         </section>
       </section>
     </main>
