@@ -12,7 +12,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'chi-dev@trilogyinteractive.com'
+  config.mailer_sender = 'toolkit@afscme.org'
   config.secret_key = '12691a71d01ce4d73de4fc8a3be84d62eacdb7a45b8bede19616fa526392c5af417890c038d59703c3a903de7f2d4eb641c502cef4ebfc74ca22dd768857c129'
 
   # Configure the class responsible to send e-mails.

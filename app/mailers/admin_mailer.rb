@@ -1,5 +1,5 @@
 class AdminMailer < ActionMailer::Base
-  default from: 'chi-dev@trilogyinteractive.com'
+  default from: 'toolkit@afscme.org'
   layout 'mailer'
 
    def new_user_waiting_for_approval(user)
