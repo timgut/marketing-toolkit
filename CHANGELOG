@@ -4,6 +4,12 @@ The timestamp should reflect when either a) the code was deployed into productio
 
 Latest changes go on top.
 
+Thu Jul 26 14:46:32 CDT 2018
+	- Redmine 2094: Miscellaneous Improvements (to image picker code)
+	- Redmine 2095: Change default from address to toolkit@afscme.org on transactional emails
+
+--------------------
+
 Fri Sep  1 16:09:52 CDT 2017
 
 	- Redmine 1824: Modify department options for new users
