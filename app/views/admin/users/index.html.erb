@@ -1,6 +1,12 @@
 <% content_for :title {"Admin: Manage Users"} %>
 <% breadcrumb :admin_users %>
 
+<% content_for :breadcrumb_extras do %>
+  <ol class="options cf">
+    <%= link_to "<span class='icons'>C</span> Download".html_safe, export_admin_users_path(format: :csv) %>
+  </ol>
+<% end %>
+
 <main class="clearfix">
   <section class="workspace cf">
     <p style="text-align:left;">You can manage users on this screen, or you can <%= link_to "create a new user", new_admin_user_path %>.</p>

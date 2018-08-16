@@ -9,6 +9,8 @@ if Rails.env.development? || Rails.env.test?
   require 'irb'
 end
 
+require 'csv'
+
 module AfscmeToolkit
   class Application < Rails::Application
     config.generators do |g|

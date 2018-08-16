@@ -32,6 +32,13 @@ class Admin::UsersController < AdminController
     @templates     = Template.find(@template_ids.uniq)
   end
 
+  # GET /admin/users/export.csv
+  def export
+    respond_to do |format|
+      format.csv { send_data User.to_csv, filename: "users-#{DateTime.now.to_i}.csv" }
+    end
+  end
+
   # GET /admin/users
   def index
     @approved = User.includes(:affiliate).approved

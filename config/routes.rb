@@ -81,7 +81,12 @@ Rails.application.routes.draw do
     get 'documentation/mini_magick', to: 'misc#mini_magick',   as: :mini_magick_documentation
 
     resources :users, except: [:destroy, :show] do
-      get :workspace
+      collection do
+        get :export
+      end
+      member do
+        get :workspace
+      end
     end
 
     resources :campaigns,  except: [:new, :show] do

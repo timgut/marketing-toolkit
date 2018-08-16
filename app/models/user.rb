@@ -13,8 +13,6 @@ class User < ApplicationRecord
   scope :unapproved_and_needs_reminder, -> { where(approved: 0, rejected: 0).where('approval_reminder_sent IS NULL and created_at < ?', DateTime.now - 2.days) }
 
   scope :rejected, -> { where(rejected: 1) }
-
-  #scope :approvers, -> { where(role: ['Administrator','Vetter']) }
   scope :approvers, -> { where(role: 'Vetter') }
 
   after_create :access_all_campaigns!
@@ -40,6 +38,28 @@ class User < ApplicationRecord
     'Information Technology',
     'Retirees'
   ]
+
+  class << self
+    def to_csv
+      CSV.generate do |csv|
+        csv << [
+          "ID", "First Name", "Last Name", "Email", "Zip Code", "Cell Phone",
+          "Department", "Council", "Local #", "Affiliate", "Vetter Region",
+          "Role", "Approved?", "Rejected?", "Receive Alerts?", "Custom Branding?",
+          "Sign In Count", "Most Recent Sign In", "Created At", "Approval Reminder Sent At"
+        ]
+
+        User.includes(:affiliate).all.order(created_at: :desc).each do |user|
+          csv << [
+            user.id, user.first_name, user.last_name, user.email, user.zip_code, user.cell_phone,
+            user.department, user.council, user.local_number, user.affiliate.title, user.vetter_region,
+            user.role, user.approved?, user.rejected?, user.receive_alerts?, user.custom_branding?,
+            user.sign_in_count, user.current_sign_in_at, user.created_at, user.approval_reminder_sent
+          ]
+        end
+      end
+    end
+  end
 
   def send_account_notification(status)
     unless quiet
