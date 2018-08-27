@@ -17,7 +17,7 @@
         <%= link_to document.creator.name, edit_admin_user_path(document.creator), target: :_blank %> created <%= link_to document.title, link, target: :_blank %>.<br />
         <b>Created At:</b> <%= document.created_at.strftime("%B %e %Y at %r") %><br />
         <b>Template:</b> <%= document.template.title %><br />
-        <b>Link:</b> <%= link_to link, link, target: :_blank %>
+        <b> <%= link_to "Download", link, target: :_blank %></b>
       </p>
     </div>
   <% end %>
