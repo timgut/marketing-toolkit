@@ -1,15 +1,24 @@
 <% breadcrumb :admin %>
 
-<main>
-<h2>AFSCME Toolkit Administration</h2>
-
-<ul>
-	<li><%= link_to "Manage Users", admin_users_path %></li>
-	<li><%= link_to "Manage Campaigns", admin_campaigns_path %></li>
-	<li><%= link_to "Manage Categories", admin_categories_path %></li>
-  <li><%= link_to "Manage Templates", admin_templates_path %></li>
-  <li><%= link_to "Statistics", admin_stats_path %></li>
-  <li><%= link_to "Form Documentation", admin_documentation_path, target: :_blank %></li>
-	<li><%= link_to "Mini Magick Documentation", admin_mini_magick_documentation_path, target: :_blank %></li>
-</ul>
+<main class="activity-feed">
+  <% @documents.each do |document| %>
+    <%
+      # Find a link to the document
+      case document.template.format
+      when "pdf"
+        link = document.pdf.url
+      when "png"
+        link = document.share_graphic.url
+      end
+    %>
+    <div class="activity-feed-item cf">
+      <p class="activity-feed-date"><%= time_ago_in_words(document.created_at) %> ago</p>
+      <p class="activity-feed-info">
+        <%= link_to document.creator.name, edit_admin_user_path(document.creator), target: :_blank %> created <%= link_to document.title, link, target: :_blank %>.<br />
+        <b>Created At:</b> <%= document.created_at.strftime("%B %e %Y at %r") %><br />
+        <b>Template:</b> <%= document.template.title %><br />
+        <b>Link:</b> <%= link_to link, link, target: :_blank %>
+      </p>
+    </div>
+  <% end %>
 </main>
