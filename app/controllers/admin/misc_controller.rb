@@ -14,7 +14,7 @@ class Admin::MiscController < AdminController
 
   # GET /admin
   def home
-    @documents = Document.includes(:creator, :template).order(created_at: :desc).last(50)
+    @documents = Document.includes(:creator, :template).newest.rendered.limit(50)
   end
 
   # GET /admin/stats

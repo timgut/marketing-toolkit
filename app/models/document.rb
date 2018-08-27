@@ -21,6 +21,9 @@ class Document < ApplicationRecord
 
   scope :recent,         ->(user) { where("documents.creator_id = ? AND documents.created_at >= ?", user.id, DateTime.now - 2.weeks) }
   scope :shared_with_me, ->(user) { all.joins(:documents_users).where("user_id = ? and documents_users.user_id != ?", user.id, user.id) }
+  
+  scope :rendered, -> { where("pdf_file_name != ? OR share_graphic_file_name != ?", nil, nil) }
+  scope :newest,   -> { order(created_at: :desc) }
 
   before_destroy ->{ self.pdf = nil; self.share_graphic = nil; self.thumbnail = nil }
 
