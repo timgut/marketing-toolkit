@@ -4,6 +4,12 @@ The timestamp should reflect when either a) the code was deployed into productio
 
 Latest changes go on top.
 
+Thu Aug 30 14:44:45 CDT 2018
+	- Redmine 2125: Add recent documents feed to /admin
+
+--------------------
+
+
 Thu Aug 16 13:47:18 CDT 2018
 	- Redmine 2118: Download user data as csv
 
