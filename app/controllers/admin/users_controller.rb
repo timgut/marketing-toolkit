@@ -66,8 +66,10 @@ class Admin::UsersController < AdminController
     account_status = set_account_status
 
     if @user.update_attributes(user_params)
-      @user.set_accessible_campaigns!(params[:campaigns])
-
+      if params[:campaigns]
+        @user.set_accessible_campaigns!(params[:campaigns])
+      end
+      
       if account_status != 'same'
         @user.send_account_notification(account_status)
       end

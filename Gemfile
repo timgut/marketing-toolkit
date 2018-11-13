@@ -5,10 +5,11 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails', '~> 5.0.1'
+ruby '2.5.1'
+
+gem 'rails', '~> 5.1.6'
 gem 'mysql2'
 
-gem 'active_record_query_trace'
 gem 'aws-sdk', '~> 2.7.0'
 gem 'codemirror-rails'
 gem 'coffee-rails', '~> 4.2'
@@ -41,7 +42,6 @@ gem 'listen', '~> 3.0.5'
 gem 'tinymce-rails', github: "spohlenz/tinymce-rails", ref: "8a31db6"
 
 group :development do
-  gem 'active_record_query_trace'
   gem 'puma', '~> 3.0'
   gem 'web-console', '>= 3.3.0'
   gem 'spring'
@@ -61,5 +61,6 @@ group :test do
 end
 
 group :development, :test do
+  gem 'active_record_query_trace'
   gem 'byebug'
 end

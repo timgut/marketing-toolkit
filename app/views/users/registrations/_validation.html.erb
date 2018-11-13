@@ -1,32 +1,26 @@
 <script>
 $(document).ready(function(){
-	$('#new_user').validate({
-
-		onkeyup: false,
-		onfocusout: function(element) {$(element).valid();},
-		// errorElement: "strong",
-		// errorPlacement: function(error, element){
-		// 	var label = $( $(element).parents('form')[0] ).find('label[for="' + $(element).attr('id') + '"]');
-		// 	error.appendTo( label );
-		// },
-		errorElement : 'div',
-		errorLabelContainer: '.errorTxt',
-		rules: {
-			'user[affiliate_id]': { required: true },
-			'user[department]': { required: true },
-			'user[email]': { required: true, email: true},
-			'user[first_name]': { required: true },
-			'user[last_name]': { required: true },
-			'user[zip_code]': { required: true },
-		},
-		messages: {
-			'user[email]': { email: "Please provide a valid email address.", required: "Email address is required." },
-			'user[first_name]': { required: "First name is required." },	
-			'user[last_name]': { required: "Last name is required." },
-			'user[zip_code]': { required: "Zip code is required." },
-			'user[affiliate_id]': { required: "Affiliate/council is required." },
-			'user[department]': { required: "Department is required." },
-		}
-	});
+  $('#new_user').validate({
+    onkeyup: false,
+    onfocusout: function(element) {$(element).valid();},
+    errorElement : 'div',
+    errorLabelContainer: '.errorTxt',
+    rules: {
+      'user[affiliate_id]': { required: true },
+      'user[department]': { required: true },
+      'user[email]': { required: true, email: true},
+      'user[first_name]': { required: true },
+      'user[last_name]': { required: true },
+      'user[zip_code]': { required: true },
+    },
+    messages: {
+      'user[email]': { email: "Please provide a valid email address.", required: "Email address is required." },
+      'user[first_name]': { required: "First name is required." },  
+      'user[last_name]': { required: "Last name is required." },
+      'user[zip_code]': { required: "Zip code is required." },
+      'user[affiliate_id]': { required: "Affiliate/council is required." },
+      'user[department]': { required: "Department is required." },
+    }
+  });
 });
 </script>
