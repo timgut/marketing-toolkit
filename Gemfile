@@ -33,7 +33,6 @@ gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 gem 'unicorn'
 gem 'wicked_pdf'
-gem 'wkhtmltopdf-binary-edge', '~> 0.12.3.0'
 gem 'rufus-scheduler'
 
 # moved outside of :development because of unknown error on remote migrations during deploy
@@ -50,6 +49,7 @@ group :development do
   gem 'capistrano3-delayed-job', '~> 1.0'
   gem 'daemons'
   gem 'wkhtmltoimage-binary', '~> 0.12.4'
+  gem 'wkhtmltopdf-binary-edge', '~> 0.12.3.0'
 end
 
 group :test do
