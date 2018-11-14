@@ -1,12 +1,5 @@
-<% content_for :title {"Templates: #{@template.title}"} %>
+<% content_for :title, "Templates: #{@template.title}" %>
 <% breadcrumb :template, @template %>
-<% content_for :breadcrumb_extras do %>
-<% # These links were in the mockup, but they don't make much sense here. Keeping them here just in case. %>
-<!--   <ol class="options cf">
-    <li><a href="/duplicate" title="Duplicate"><span class="icons">c</span> Duplicate</a></li>
-    <li><a href="/download" title="Download"><span class="icons">d</span> Download</a></li> 
-  </ol> -->
-<% end %>
 
 <aside class="preview">
   <ol> 
@@ -37,15 +30,15 @@
 </aside>
   
 <section class="workspace cf">
-    <figure class="template-preview">
-      <%= image_tag @template.numbered_image.url, alt: @template.title %>
-    </figure>
+  <figure class="template-preview">
+    <%= image_tag @template.numbered_image.url, alt: @template.title %>
+  </figure>
 
-    <div class="buttons small cf">
-      <% if @template.customize %>
-        <%= link_to "Customize", new_document_path(template_id: @template.id), title: "Customize", class: "button" %>
-      <% else %>
-        <%= link_to "Download", @template.static_pdf.url, title: "Download", class: "button" %>
-      <% end %>
-    </div>
+  <div class="buttons small cf">
+    <% if @template.customize %>
+      <%= link_to "Customize", new_document_path(template_id: @template.id), title: "Customize", class: "button" %>
+    <% else %>
+      <%= link_to "Download", @template.static_pdf.url, title: "Download", class: "button" %>
+    <% end %>
+  </div>
 </section>
