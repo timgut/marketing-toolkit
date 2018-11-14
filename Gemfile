@@ -46,7 +46,7 @@ group :development do
   gem 'web-console', '>= 3.3.0'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'capistrano', '~> 3.11', require: false
+  gem 'capistrano', '~> 3.7.2', require: false
   gem 'capistrano-rails', require: false
   gem 'capistrano3-delayed-job', '~> 1.0'
   gem 'daemons'
