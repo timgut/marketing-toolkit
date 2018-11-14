@@ -314,7 +314,7 @@ DEPENDENCIES
   active_record_query_trace
   aws-sdk (~> 2.7.0)
   byebug
-  capistrano (~> 3.7)
+  capistrano (~> 3.11)
   capistrano-rails
   capistrano3-delayed-job (~> 1.0)
   codemirror-rails
