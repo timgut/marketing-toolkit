@@ -86,7 +86,7 @@ class Admin::UsersController < AdminController
 
   # GET /admin/users/1/workspace
   def workspace
-    @user = User.find(params[:user_id])
+    @user = User.find(params[:id])
     @documents = paginate(@user.documents)
   end
 
