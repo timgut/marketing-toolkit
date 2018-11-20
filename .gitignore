@@ -13,3 +13,5 @@
 /public/system
 config/mailer.yml
 config/wkhtmltoimage.yml
+/config/master.key
+/config/credentials.yml.enc

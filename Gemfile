@@ -7,7 +7,7 @@ end
 
 ruby '2.5.1'
 
-gem 'rails', '~> 5.1.6'
+gem 'rails', '~> 5.2.1'
 gem 'mysql2'
 
 gem 'aws-sdk', '~> 2.7.0'

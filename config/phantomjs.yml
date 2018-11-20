@@ -1,4 +1,0 @@
-cmd: phantomjs
-script: /Users/timgut/Documents/git/afscme-toolkit/lib/assets/generator.js
-log: /Users/timgut/Documents/git/afscme-toolkit/log/phantomjs.log
-host: http://localhost:3000
