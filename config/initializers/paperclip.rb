@@ -32,5 +32,5 @@ Paperclip.interpolates :dynamic_path do |attachment, style|
     file_name = "#{attachment.name.to_s}.#{extension}"
   end
 
-  "/#{Rails.application.secrets.aws["folder"]}/#{folder}/#{file_type}/#{style}/#{file_name}".gsub("//", "/")
+  "/#{Rails.application.secrets.aws[:folder]}/#{folder}/#{file_type}/#{style}/#{file_name}".gsub("//", "/")
 end
