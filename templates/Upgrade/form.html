@@ -1,0 +1,90 @@
+<script type="text/javascript">
+  $(document).ready(function(){
+    // data-custom="combine"
+    $("form[data-document='true']").on("click", "#combine1-custom, #combine2-custom", function(){
+      $("#combine").prop("checked", true);
+      $("#combine").trigger("change");
+    });
+    $("form[data-document='true']").on("change", "#combine1-custom, #combine2-custom", function(){
+      $("#combine").val("<h2>" + Toolkit.normalizeQuotes($("#combine1-custom").val()) + "</h2><p>" + Toolkit.normalizeQuotes($("#combine2-custom").val()) + "</p>");
+      $("#combine").trigger("change");
+    });
+  });
+</script>
+
+<div id="branding" class="grouping branding image-select radio cf"> 
+    <h3>Choose Flyer Branding</h3>
+
+    <div class="field logo"> 
+        <input id="branding-afscme" name="data[branding]" type="radio" value="afscme" />
+        <label for="branding-afscme">
+           <div class="radio-button"></div>
+           <figure style="background-image: url(http://toolkit-afscme.bytrilogy.com/theme/img/afscme-branding-thumb.png);"></figure>
+        </label>
+    </div>
+    
+    <div class="field logo"> 
+        <input id="branding-csea" name="data[branding]" type="radio" value="csea" />
+        <label for="branding-csea">
+           <div class="radio-button"></div>
+           <figure style="background-image: url(http://toolkit-afscme.bytrilogy.com/theme/img/csea-branding-thumb.png);"></figure>
+        </label>
+    </div>
+</div><!--theme-->
+
+<div class="step grouping cf"> 
+  <h3>data-custom="text"</h3>
+                                
+  <div class="field"> 
+    <label for="text">
+      <input type="text" data-custom="text" name="data[text]" id="text" maxlength="25" value="" />
+      <small>Maximum of 25 characters. Please preview, since words may wrap unexpectedly and cutoff your headline.</small>
+    </label>
+  </div>
+</div><!--data-custom="text"-->
+
+<div class="step grouping cf"> 
+  <h3>data-custom="wysiwyg"</h3>
+    <label for="wysiwyg">
+      <textarea class="tinymce" name="data[wysiwyg]" data-custom="wysiwyg" id="wysiwyg"></textarea>
+    </label>
+  </div>
+</div><!--data-custom="wysiwyg"-->
+
+<div class="step grouping image-select radio cf"> 
+  <h3>data-custom="image"</h3>
+  <small>This also test data-target, data-crop, data-resize-height, data-resize-width, and data-crop-offset</small>
+    <div class="field"> 
+      <input id="photo1-predefined" name="data[image]" type="radio" value="https://toolkit-afscme.bytrilogy.com/print/img/tri-fold/cover-photo-preset-1.jpg" />
+      <label for="photo1-predefined">
+        <div class="radio-button"></div>
+        <figure style="background-image: url(https://toolkit-afscme.bytrilogy.com/print/img/tri-fold/cover-thumb-preset-1.jpg);" /></figure>
+      </label>
+    </div>
+
+    <div class="field">
+      <input id="photo1-upload" data-custom="image" name="data[image]" type="radio" />
+      <label for="photo1-upload">
+        <div class="radio-button"></div>
+        <figure href="javascript:void(0);" title="Add Photo" class="image-picker" data-target="photo1-upload" data-crop="true" data-crop-offset="150" data-resize-height="100" data-resize-width="100">
+          <div class="positioner">
+            <span class="icons">C</span>
+            Add Image
+          </div>
+        </figure>
+      </label>
+    </div>
+</div><!--data-custom="image"-->
+
+<div class="step grouping columns two cf">
+  <h3>data-custom="combine"</h3>
+           
+  <div class="field radio wide"> 
+    <input id="combine" data-custom="combine" name="data[combine]" type="radio" value="" />
+    <label for="combine">
+      <textarea name="combine1-custom" id="combine1-custom" data-combine-tag="h2" maxlength="120"></textarea>
+      <small>Maximum 120 characters. Please preview, since words may wrap unexpectedly due to size limits.</small>
+      <input type="text" name="combine2-custom" id="combine2-custom" data-combine-tag="p" value="" maxlength="100" />
+    </label>
+  </div>
+</div><!--data-custom="combine"-->

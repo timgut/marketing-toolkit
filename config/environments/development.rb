@@ -56,8 +56,9 @@ Rails.application.configure do
   #   path: ':dynamic_path'
   # }
 
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
+  config.action_mailer.delivery_method     = :smtp
+  config.action_mailer.smtp_settings       = { address: "localhost", port: 1025 }
   # Uncomment to see backtraces for ActiveRecord queries
   # ActiveRecordQueryTrace.enabled = true
 end

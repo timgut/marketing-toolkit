@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+  </head>
+
+  <body>
+    <p>
+      <b>branding</b><br />
+      <%= @document.branding %>
+    </p>
+
+    <p>
+      <b>crop marks</b><br />
+      <%= @document.crop_marks.inspect %>
+    </p>
+
+    <p>
+      <b>data-custom="text"</b><br />
+      <%= @document.text %>
+    </p>
+
+    <p>
+      <b>data-custom="wysiwyg"</b><br />
+      <%= @document.wysiwyg %>
+    </p>
+
+    <p>
+      <b>data-custom="image"</b><br />
+      <%= @document.image.inspect %>
+    </p>
+
+    <p>
+      <b>data-custom="combine"</b><br />
+      <%= @document.combine %>
+    </p>
+  </body>
+</html>

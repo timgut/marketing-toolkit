@@ -1,8 +1,8 @@
 <% if @category %>
-  <% content_for :title {"Templates: #{@category.title}"} %>
+  <% content_for :title, "Templates: #{@category.title}" %>
 	<% breadcrumb :category, @category %>
 <% else %>
-  <% content_for :title {"Templates"} %>
+  <% content_for :title, "Templates" %>
 	<% breadcrumb :templates %>
 <% end %>
 
