@@ -16,7 +16,7 @@ class CampaignsController < ApplicationController
   protected
 
   def assign_sidebar_vars
-    @campaigns = current_user.campaigns.publish.roots.includes(:templates).publish('title ASC')
+    @campaigns = current_user.campaigns.publish.roots.includes(:templates).order(title: :asc)
 
     @templates = @campaigns.inject([]) do |templates, campaign|
       templates << campaign.templates.publish
