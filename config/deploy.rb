@@ -13,7 +13,7 @@ set :keep_releases, 3
 set :keep_assets, 8
 set :assets_roles, [:web, :app]
 
-set :linked_files, %w{config/database.yml config/unicorn.conf.rb config/secrets.yml config/mailer.yml config/wkhtmltoimage.yml /config/master.key /config/credentials.yml.enc}
+set :linked_files, %w{config/database.yml config/unicorn.conf.rb config/secrets.yml config/mailer.yml config/wkhtmltoimage.yml}
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets')
 
 set :migration_role, :db

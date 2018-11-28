@@ -61,4 +61,6 @@ Rails.application.configure do
   config.action_mailer.smtp_settings       = { address: "localhost", port: 1025 }
   # Uncomment to see backtraces for ActiveRecord queries
   # ActiveRecordQueryTrace.enabled = true
+  
+  config.require_master_key = false
 end
