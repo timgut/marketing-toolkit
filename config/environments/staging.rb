@@ -57,4 +57,6 @@ Rails.application.configure do
   }
 
   config.action_mailer.default_url_options = { :host => 'toolkit-app.afscme.bytrilogy.com' }
+  
+  config.require_master_key = false
 end
