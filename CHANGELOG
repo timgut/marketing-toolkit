@@ -4,11 +4,16 @@ The timestamp should reflect when either a) the code was deployed into productio
 
 Latest changes go on top.
 
+Mon Dec 10 19:24:19 CST 2018
+	- Redmine 1913: Upgrade to Rails 5.2.1.1
+	- There have been other updates in the iterim, but this file wasn't updated with them.
+
+--------------------
+
 Thu Aug 30 14:44:45 CDT 2018
 	- Redmine 2125: Add recent documents feed to /admin
 
 --------------------
-
 
 Thu Aug 16 13:47:18 CDT 2018
 	- Redmine 2118: Download user data as csv
