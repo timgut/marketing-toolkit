@@ -3,10 +3,11 @@ class Admin::TemplatesController < AdminController
 
   # POST /admin/templates
   def create
+    campaign_params = params[:template].delete(:campaigns)
+
     @template = Template.new(template_params)
     @template.position = Template.publish.count + 1
     authorize @template
-    campaign_params = params[:template].delete(:campaigns)
 
     if @template.save
       @template.set_campaigns!(campaign_params)
@@ -104,11 +105,6 @@ class Admin::TemplatesController < AdminController
   end
 
   def template_params
-    params.require(:template).permit(
-      :title, :description, :height, :width, :pdf_markup, :form_markup, :status,
-      :thumbnail, :numbered_image, :blank_image, :customizable_options, :campaign_id, 
-      :category_id, :unit, :crop_top, :crop_bottom, :orientation, :customize, 
-      :static_pdf, :crop_marks, :format, :mini_magick_markup
-    )
+    params.require(:template).permit!
   end
 end
