@@ -100,5 +100,6 @@ Rails.application.routes.draw do
 
     resources :categories, except: [:new, :show]
     resources :affiliates, only:   []
+    resources :stock_images
   end
 end

@@ -1,0 +1,32 @@
+<%= form_with(model: stock_image, local: true) do |form| %>
+  <% if stock_image.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(stock_image.errors.count, "error") %> prohibited this stock_image from being saved:</h2>
+
+      <ul>
+      <% stock_image.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :image %>
+    <%= form.text_field :image %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.number_field :status %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
