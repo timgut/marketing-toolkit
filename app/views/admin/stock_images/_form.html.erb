@@ -1,32 +1,21 @@
-<%= form_with(model: stock_image, local: true) do |form| %>
-  <% if stock_image.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(stock_image.errors.count, "error") %> prohibited this stock_image from being saved:</h2>
+<%= form_for stock_image,  url: url, html: { id: "image-form", class: 'dropzone profile-form edit-form split cf', multipart: true } do |f| %>
 
-      <ul>
-      <% stock_image.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <%= render partial: "/shared/errors", locals: {record: stock_image } %>
+
+  <% if stock_image.image_file_name %>
+    <div class="current-image">
+      <img src="<%= stock_image.image.url(:cropped) %>" />
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+  <div class="fallback">
+    <%= f.file_field :image %>
   </div>
 
-  <div class="field">
-    <%= form.label :image %>
-    <%= form.text_field :image %>
+  <div>
+    <%= f.text_field :label %>
   </div>
 
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.number_field :status %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
 <% end %>
+
+<div id="image-error"></div>

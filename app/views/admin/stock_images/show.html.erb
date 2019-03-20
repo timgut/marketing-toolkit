@@ -1,19 +1,9 @@
-<p id="notice"><%= notice %></p>
+<% content_for :title, "Image: #{@stock_image.image_file_name}" %>
+<% breadcrumb :image, @stock_image %>
 
-<p>
-  <strong>Title:</strong>
-  <%= @stock_image.title %>
-</p>
+<p><b>URL: </b><%= @stock_image.image.url %></p>
 
-<p>
-  <strong>Image:</strong>
-  <%= @stock_image.image %>
-</p>
+<p><img width="500px;" src="<%= @stock_image.image.url %>" /></p>
 
-<p>
-  <strong>Status:</strong>
-  <%= @stock_image.status %>
-</p>
-
-<%= link_to 'Edit', edit_stock_image_path(@stock_image) %> |
-<%= link_to 'Back', stock_images_path %>
+<%= link_to 'Edit', edit_admin_stock_image_path(@stock_image) %> |
+<%= link_to 'Back', admin_stock_images_path %>

@@ -1,5 +1,6 @@
-<h1>New Stock Image</h1>
+<% content_for :title, "New Stock Image" %>
+<% breadcrumb :new_stock_image %>
 
-<%= render 'form', stock_image: @stock_image %>
-
-<%= link_to 'Back', stock_images_path %>
+<section class="workspace cf">
+    <%= render 'form', stock_image: @stock_image, url: new_admin_stock_image_path(@stock_image) %>
+</section>

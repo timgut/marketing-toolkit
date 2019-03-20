@@ -1,6 +1,5 @@
-<h1>Editing Stock Image</h1>
+<% content_for :title, "Edit Image: #{@stock_image.image_file_name}" %>
 
-<%= render 'form', stock_image: @stock_image %>
-
-<%= link_to 'Show', @stock_image %> |
-<%= link_to 'Back', stock_images_path %>
+<section class="workspace cf">
+    <%= render 'form', stock_image: @stock_image %>
+</section>

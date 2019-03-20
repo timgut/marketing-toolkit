@@ -1,31 +1,18 @@
-<p id="notice"><%= notice %></p>
+<% content_for :title, "Stock Images" %>
+<% breadcrumb :index_stock_images %>
+<% content_for :breadcrumb_extras do %>
+  <ol class="options cf">
+    <%= link_to "<span class='icons'>C</span> Upload Stock Image".html_safe, new_admin_stock_image_path %>
+  </ol>
+<% end %>
 
-<h1>Stock Images</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Image</th>
-      <th>Status</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @stock_images.each do |stock_image| %>
-      <tr>
-        <td><%= stock_image.title %></td>
-        <td><%= stock_image.image %></td>
-        <td><%= stock_image.status %></td>
-        <td><%= link_to 'Show', stock_image %></td>
-        <td><%= link_to 'Edit', edit_stock_image_path(stock_image) %></td>
-        <td><%= link_to 'Destroy', stock_image, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+  <section class="workspace cf">
+    <section class="image-grid cf">
+    <% if @stock_images.count > 0 %>
+    	<%= render @stock_images %>
+    <% else %>
+    	<p class="no-results">You have not <%= link_to 'uploaded', new_admin_stock_image_path %> any images yet.</p>
     <% end %>
-  </tbody>
-</table>
+  </section>
 
-<br>
-
-<%= link_to 'New Stock Image', new_stock_image_path %>
+</section>
