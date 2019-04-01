@@ -17,6 +17,7 @@ class Admin::StockImagesController < AdminController
 
   # GET /admin/stock_images/1/edit
   def edit
+    @stock_image = StockImage.find(params[:id])
   end
 
   # POST /admin/stock_images
@@ -24,7 +25,7 @@ class Admin::StockImagesController < AdminController
     @stock_image = StockImage.new(stock_image_params)
 
     if @stock_image.save
-      redirect_to admin_stock_image_path(@stock_image), notice: 'Stock image created!'
+      redirect_to edit_admin_stock_image_path(@stock_image), notice: 'Stock image created!'
     else
       render :new, alert: "Cannot create stock image."
     end
@@ -49,6 +50,11 @@ class Admin::StockImagesController < AdminController
     # Use callbacks to share common setup or constraints between actions.
     def set_stock_image
       @stock_image = StockImage.find(params[:id])
+    end
+    
+    def load_stock_image
+      @stock_image = StockImage.find(params[:id])
+      authorize @stock_image
     end
 
     # Only allow a trusted parameter "white list" through.

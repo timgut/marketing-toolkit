@@ -6,16 +6,8 @@ class StockImage < ApplicationRecord
       storage:        :s3,
       s3_protocol:    "https",
       s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials)},
-      styles:         {cropped: ""},
-      path:           "stock_image/",
-      processors:     [
-        :papercrop_normalize, # Resizes larger images so they're easier to crop in the UI.
-        :papercrop,           # The actual papercrop processor that crops the image
-        :papercrop_resize,    # Resizes the image to the target dimensions
-  
-        :contextual_resize,   # Resizes the image in the context of the template.
-        :contextual_crop      # Crops the image in the context of the template.
-      ]
+      path:           "stock_image",
+      style:         {thumb: '100x100>', medium: '450x450>'}
     )
   
     crop_attached_file :image
@@ -25,7 +17,7 @@ class StockImage < ApplicationRecord
       
     serialize :crop_data, Hash
   
-    before_post_process :give_unique_filename
+    ##before_post_process :give_unique_filename
   
     attr_accessor :pos_x,           # contextual_crop setting: the X position of the image within the context image.
                   :pos_y,           # contextual_crop setting: the Y position of the image within the context image.
@@ -66,31 +58,26 @@ class StockImage < ApplicationRecord
       })
     end
   
-    # Friendly filenames have the two dashes (--) and 10 digit timestamp removed.
-    def friendly_filename
-      @friendly_filename ||= self.image_file_name.sub(/--\d{10}/, "")
-    end
-  
     # Unique filename consist of two dashes (--) and a 10 digit timestamp.
     # If a filename does not contain these characters, we consider it
     # to not be unique.
-    def has_unique_filename?
-      self.image_file_name.scan(/--\d{10}/).length > 0
-    end
+    # def has_unique_filename?
+    #   self.image_file_name.scan(/--\d{10}/).length > 0
+    # end
   
-    protected
+    # protected
   
-    # Renames image.png to image--1234567890.png
-    # Renames my.image.gif to my.image--1234567890.gif
-    def give_unique_filename
-      unless has_unique_filename?
-        separator  = "."
-        file_parts = self.image_file_name.split(separator)
-        file_type  = file_parts.pop
-        file_name  = file_parts.join(separator) + "--#{DateTime.now.to_i}"
+    # # Renames image.png to image--1234567890.png
+    # # Renames my.image.gif to my.image--1234567890.gif
+    # def give_unique_filename
+    #   unless has_unique_filename?
+    #     separator  = "."
+    #     file_parts = self.image_file_name.split(separator)
+    #     file_type  = file_parts.pop
+    #     file_name  = file_parts.join(separator) + "--#{DateTime.now.to_i}"
   
-        self.image_file_name = "#{file_name}#{separator}#{file_type}"
-      end
-    end
+    #     self.image_file_name = "#{file_name}#{separator}#{file_type}"
+    #   end
+    # end
   end
   

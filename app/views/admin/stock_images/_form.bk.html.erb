@@ -1,0 +1,21 @@
+<%= form_for stock_image,  url: url, html: { id: "image-form", class: 'dropzone profile-form edit-form split cf', multipart: true } do |f| %>
+
+    <%= render partial: "/shared/errors", locals: {record: stock_image } %>
+  
+    <% if stock_image.image_file_name %>
+      <div class="current-image">
+        <img src="<%= stock_image.image.url(:cropped) %>" />
+      </div>
+    <% end %>
+  
+    <div class="fallback">
+      <%= f.file_field :image %>
+    </div>
+  
+    <div>
+      <%= f.text_field :label %>
+    </div>
+  
+  <% end %>
+  
+  <div id="image-error"></div>
