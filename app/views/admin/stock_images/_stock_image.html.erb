@@ -1,6 +1,6 @@
 <figure>
-  <%= link_to edit_admin_stock_image_path(stock_image) do %>
-    <img src="<%= stock_image.image.url(:cropped) %>" alt="<%= stock_image.image_file_name %>" />
+  <%= link_to admin_stock_image_path(stock_image) do %>
+    <img src="<%= stock_image.image.url %>" alt="<%= stock_image.image_file_name %>" />
     <figcaption><%= stock_image.image_file_name %></figcaption>
   <% end %>
 </figure>

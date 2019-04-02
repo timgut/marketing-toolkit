@@ -6,8 +6,8 @@ class StockImage < ApplicationRecord
       storage:        :s3,
       s3_protocol:    "https",
       s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials)},
-      path:           "stock_image",
-      style:         {thumb: '100x100>', medium: '450x450>'}
+      style:         {thumb: '100x100>', medium: '450x450>', full:''},
+      path:          '/stock_images/:rails_env/:id/:filename'
     )
   
     crop_attached_file :image

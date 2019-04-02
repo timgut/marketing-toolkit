@@ -1,9 +1,17 @@
 <% content_for :title, "Image: #{@stock_image.image_file_name}" %>
-<% breadcrumb :image, @stock_image %>
+<% breadcrumb :stock_image, @stock_image %>
+<% content_for :breadcrumb_extras do %>
+    <ol class="options cf">
+      <%= link_to "<span class='icons'>C</span> Upload Stock Image".html_safe, new_admin_stock_image_path %>
+    </ol>
+  <% end %>
 
-<p><b>URL: </b><%= @stock_image.image.url %></p>
+<div style="padding-top:25px;">
+    <p><strong>Title: <%= @stock_image.title %></strong></p>
+    <p><img width="500px;" src="<%= @stock_image.image.url %>" /></p>
 
-<p><img width="500px;" src="<%= @stock_image.image.url %>" /></p>
+    <p><b>Label: </b><%= @stock_image.label %></p>
 
-<%= link_to 'Edit', edit_admin_stock_image_path(@stock_image) %> |
-<%= link_to 'Back', admin_stock_images_path %>
+    <%= link_to 'Delete', admin_stock_image_path(@stock_image), method: :delete, data: { confirm: 'Are you sure?' } %> |
+    <%= link_to 'All Stock Images', admin_stock_images_path %>
+</div>

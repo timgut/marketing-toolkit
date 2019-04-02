@@ -25,7 +25,7 @@ class Admin::StockImagesController < AdminController
     @stock_image = StockImage.new(stock_image_params)
 
     if @stock_image.save
-      redirect_to edit_admin_stock_image_path(@stock_image), notice: 'Stock image created!'
+      redirect_to admin_stock_image_path(@stock_image), notice: 'Stock image created!'
     else
       render :new, alert: "Cannot create stock image."
     end
@@ -43,7 +43,7 @@ class Admin::StockImagesController < AdminController
   # DELETE /admin/stock_images/1
   def destroy
     @stock_image.destroy
-    redirect_to stock_images_url, notice: 'Stock image was successfully destroyed.'
+    redirect_to admin_stock_images_path, notice: 'Stock image was successfully destroyed.'
   end
 
   private
