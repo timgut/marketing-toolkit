@@ -117,6 +117,7 @@ class ImagesController < ApplicationController
     @shared    = current_user.images.shared_with_me(current_user).not_trashed
     @trashed   = current_user.images.trash
     @documents = current_user.documents.not_trashed
+    @stock_images = StockImage.all
   end
 
   def image_params

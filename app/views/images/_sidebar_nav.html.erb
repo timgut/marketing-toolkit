@@ -19,6 +19,11 @@
     <div class="contents-counter"><%= @all.count %></div>
   </li>
 
+  <li <% if params[:controller] == 'stock_images' && params[:action] == 'index' %>class="active"<% end %>>
+    <%= link_to "Stock Images", stock_images_path, title: "Stock Images" %>
+    <div class="contents-counter"><%= @stock_images.count %></div>
+  </li>  
+
   <li <% if params[:action] == 'trashed' %>class="active"<% end %>>
     <%= link_to "Trash", trashed_images_path, title: "Trash" %>
     <div class="contents-counter"><%= @trashed.count %></div>
