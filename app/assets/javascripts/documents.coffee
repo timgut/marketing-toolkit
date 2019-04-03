@@ -10,7 +10,7 @@ window.Toolkit.Document.reloadImagePicker = ->
     $.get("/images/choose", (data) ->
       $target.html(data)
       $target.attr("data-loaded", "true")
-      #window.Toolkit.Document.dropzone()
+      window.Toolkit.Document.dropzone()
     ).fail((data) ->
       $("#image-picker .image-grid").html("There was a problem retrieving your images. Please try again.")
       $target.attr("data-loaded", "false")
