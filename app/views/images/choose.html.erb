@@ -1,6 +1,6 @@
 <script>
-    $(document).ready(function(){
-        $('#tabs').tabs();
+    $(function(){
+        $("#tabs").tabs();
     });
 </script>
 
@@ -11,7 +11,7 @@
     <li><a href="#tabs-3">Stock Images</a></li>
   </ul>
   <div id="tabs-1">
-    Upload thing here...
+    <script>window.Toolkit.Document.dropzone();</script>
   </div>
   <div id="tabs-2">
     <%= render partial: @images, locals: {no_link: true} %>
