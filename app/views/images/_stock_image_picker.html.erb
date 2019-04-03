@@ -1,0 +1,6 @@
+<% stock_images.each do |image| %>
+  <figure>
+    <img src="<%= image.image.url %>" alt="<%= image.image_file_name %>" />
+    <figcaption>STOCK: <%= image.label %></figcaption>
+</figure>
+<% end %>
