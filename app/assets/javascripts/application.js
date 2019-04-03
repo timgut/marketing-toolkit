@@ -18,6 +18,7 @@
 //= require codemirror/modes/ruby
 //= require jquery.validate
 //= require jquery-ui/widgets/draggable
+//= require jquery-ui/widgets/tabs
 //= require jquery.popupoverlay.1.7.13
 //= require dropzone
 //= require jquery.jcrop

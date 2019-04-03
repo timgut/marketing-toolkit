@@ -6,6 +6,7 @@ class ImagesController < ApplicationController
   # GET /images/choose
   def choose
     @images = current_user.images.publish.reverse
+    @stock_images = StockImage.all
     render layout: false
   end
 
