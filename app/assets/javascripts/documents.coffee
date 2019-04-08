@@ -56,18 +56,30 @@ window.Toolkit.Document.addImage = ->
   )
 
   # Crop the selected stock photo
-  $(document).on("click", "[data-role='crop-image']", ->
-    dz   = Dropzone.forElement("#upload-photo-form")
-    src  = $("#stock figure.enabled img").attr("src")
-    file = {url: src}
+  # $(document).on("click", "[data-role='crop-image']", ->
+  #   dz   = Dropzone.forElement("#upload-photo-form")
+  #   $img = $("#stock figure.enabled img")
+  #   xhr  = new XMLHttpRequest()
 
-    dz.files.push({url: src})
-    dz.emit("addedfile", file)
-    dz.processQueue()
+  #   xhr.onload = ->
+  #     reader = new FileReader()
+  #     reader.onloadend = ->
+  #       console.log(reader.result)
+
+  #     reader.readAsDataURL(xhr.response)
     
-    # Show the Upload tab
-    $("#tabs").tabs("option", "active", 2)
-  )
+  #   xhr.open('GET', $img.attr("src"))
+  #   xhr.responseType = 'blob'
+  #   xhr.send()
+
+  #   # dz.files.push(file)
+  #   # dz.emit("addedfile", file)
+  #   # dz.emit("thumbnail", file, src)
+  #   # dz.processQueue()
+    
+  #   # Show the Upload tab
+  #   $("#tabs").tabs("option", "active", 2)
+  # )
 
   # Close the modal and assign the selected image to the target input
   $(document).on("click", "[data-role='add-image']", ->
