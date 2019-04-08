@@ -31,7 +31,7 @@ window.Toolkit.Document.addImage = ->
     color: 'black'
   })
 
-  $('#add_image_button').attr('disabled','disabled').addClass('disabled')
+  $("[data-role='add-image']").attr('disabled','disabled').addClass('disabled')
   
   # Get images and populate .image-grid
   $(document).on("click", ".image-picker", ->
@@ -46,17 +46,31 @@ window.Toolkit.Document.addImage = ->
   )
 
   # Stylize only the selected image
-  $(document).on("click", ".image-grid > figure", ->
+  $(document).on("click", "[role='tabpanel'] figure", ->
+    $("figure.enabled").removeClass('enabled')
     $(@).addClass('enabled')
-    $(@).siblings().each( ->
-      $(@).removeClass('enabled')
-    )
+    $("[data-role='add-image']").removeAttr('disabled')
 
-    $('#add_image_button').removeAttr('disabled')
+    if $(@).attr("data-stock") is "true"
+      $("[data-role='crop-image']").removeAttr("disabled")
+  )
+
+  # Crop the selected stock photo
+  $(document).on("click", "[data-role='crop-image']", ->
+    dz   = Dropzone.forElement("#upload-photo-form")
+    src  = $("#stock figure.enabled img").attr("src")
+    file = {url: src}
+
+    dz.files.push({url: src})
+    dz.emit("addedfile", file)
+    dz.processQueue()
+    
+    # Show the Upload tab
+    $("#tabs").tabs("option", "active", 2)
   )
 
   # Close the modal and assign the selected image to the target input
-  $(document).on("click", "#add_image_button", ->
+  $(document).on("click", "[data-role='add-image']", ->
     $target     = $("##{$("#image-picker").attr("data-target")}")           # The field where the value is set
     value       = $("#image-picker").find("figure.enabled img").attr("src") # The value to set on the field
     dataTarget  = $("#image-picker").attr("data-target")                    #
@@ -76,7 +90,7 @@ window.Toolkit.Document.addImage = ->
     $("#image-picker").popup("hide")
     $("#image-picker").removeAttr("data-target")
     $("#image-picker").find("figure.enabled").removeClass("enabled")
-    $('#add_image_button').attr("disabled", "disabled")
+    $("[data-role='add-image']").attr("disabled", "disabled")
     $("#image-picker .upload-image").show()
     $(document).off("ajax:success", "#image-picker .edit_image")
     $(document).off("ajax:error", "#image-picker .edit_image")
@@ -213,10 +227,11 @@ window.Toolkit.Document.dropzone = ->
       Toolkit.dropzones.push(
         # Initialize Dropzone
         $("#upload-photo-form").dropzone({
+          autoProcessQueue: true,
           paramName: "image[image]",
           url: "/images",
           dictDefaultMessage: "<h4>DROP IMAGE HERE TO UPLOAD</h4><p class='or'>or</p><div class='button'>Select File</div>",
-          
+
           sending: ((file, xhr, formData) ->
             $("#image-picker .upload-image, #image-picker .select-image, #image-picker #image-error").hide( ->
               $("#image-picker #loading").show()

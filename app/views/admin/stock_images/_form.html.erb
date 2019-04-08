@@ -1,0 +1,26 @@
+<div class="cf">     
+  <ol>
+
+    <li>
+      <%= f.label :title %><br />
+      <%= f.text_field :title %>              
+    </li>   
+
+    <li>
+      <%= f.label :label, "Label; for descriptive use case (e.g., 'Workplace')" %><br />
+      <%= f.text_field :label %>              
+    </li>
+
+    <% if @stock_image.new_record? %>
+      <li>
+        <%= f.label :image %><br />
+        <%= f.file_field :image %>              
+      </li>
+    <% else %>
+      <li>
+      <%= image_tag @stock_image.image.url, id: "image-#{@stock_image.id}" %> <br/>
+    </li>   
+    <% end %>
+    
+
+</div>

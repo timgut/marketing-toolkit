@@ -1,0 +1,18 @@
+<% content_for :title, "Stock Images" %>
+<% breadcrumb :index_stock_images %>
+<% content_for :breadcrumb_extras do %>
+  <ol class="options cf">
+    <%= link_to "<span class='icons'>C</span> Upload Stock Image".html_safe, new_admin_stock_image_path %>
+  </ol>
+<% end %>
+
+  <section class="workspace cf">
+    <section class="image-grid cf">
+    <% if @stock_images.count > 0 %>
+    	<%= render @stock_images %>
+    <% else %>
+    	<p class="no-results">You have not <%= link_to 'uploaded', new_admin_stock_image_path %> any images yet.</p>
+    <% end %>
+  </section>
+
+</section>

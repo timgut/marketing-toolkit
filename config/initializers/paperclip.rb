@@ -17,7 +17,6 @@ Paperclip.interpolates :dynamic_path do |attachment, style|
   if attachment.instance.is_a?(Image)
     file_type = "images"
     file_name = attachment.instance.image_file_name
-
     creator = attachment.instance.creator
     folder  = "#{creator.id}_#{creator.last_name.downcase.gsub(' ','-')}_#{creator.first_name.downcase.gsub(' ','-')}"
   elsif attachment.instance.is_a?(Document)

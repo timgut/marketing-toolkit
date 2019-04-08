@@ -156,6 +156,7 @@ class DocumentsController < ApplicationController
 
     @campaigns = current_user.campaigns.publish
     @trashed   = current_user.documents.trash
+    @stock_images = StockImage.all
 
 
     @sidebar_vars = @categories.inject([]) do |sidebar_vars, category|

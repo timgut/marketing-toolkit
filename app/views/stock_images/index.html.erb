@@ -1,0 +1,16 @@
+<% content_for :title, "Stock Images" %>
+
+<aside>
+  <%= render partial: "images/sidebar_nav" %>  
+</aside>
+
+  <section class="workspace cf">
+    <section class="image-grid cf">
+    <% if @stock_images.count > 0 %>
+    	<%= render @stock_images %>
+    <% else %>
+    	<p class="no-results">There are no stock images available.</p>
+    <% end %>
+  </section>
+
+</section>

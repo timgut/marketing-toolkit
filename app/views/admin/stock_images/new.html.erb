@@ -1,0 +1,19 @@
+<% content_for :title, "New Stock Image" %>
+<% breadcrumb :new_stock_image %>
+
+<main class="clearfix">
+  <section class="workspace cf">
+   <%= form_for(@stock_image, url: admin_stock_images_path, html: { method: :post, class: 'profile-form edit-form split cf'}) do |f| %>
+
+		<%= render partial: "admin/stock_images/form", locals: { f: f } %>
+    
+    <div class="buttons cf">
+      <%= f.submit "Create Stock Image", class: 'button save' %>
+    </div>
+
+          
+   <% end %>
+
+  </section><!--workspace-->
+      
+</main>
