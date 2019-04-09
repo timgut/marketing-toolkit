@@ -10,6 +10,10 @@ window.Toolkit.Document.reloadImagePicker = ->
       $target.html(data)
       $target.attr("data-loaded", "true")
       window.Toolkit.Document.dropzone()
+
+      # Only allow stock images to be cropped if cropping is enabled on this photo
+      if Toolkit.Document.papercrop isnt true
+        $("[data-role='crop-image']").hide()
     ).fail((data) ->
       $("#image-picker .image-grid").html("There was a problem retrieving your images. Please try again.")
       $target.attr("data-loaded", "false")
