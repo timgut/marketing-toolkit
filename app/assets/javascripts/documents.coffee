@@ -1,8 +1,6 @@
 window.Toolkit ||= {}
 window.Toolkit.Document ||= {}
 
-## trivial change to make sure this is recompiled in production
-
 window.Toolkit.Document.reloadImagePicker = ->
   $target = $("#image-picker .image-grid")
 
@@ -56,30 +54,30 @@ window.Toolkit.Document.addImage = ->
   )
 
   # Crop the selected stock photo
-  # $(document).on("click", "[data-role='crop-image']", ->
-  #   dz   = Dropzone.forElement("#upload-photo-form")
-  #   $img = $("#stock figure.enabled img")
-  #   xhr  = new XMLHttpRequest()
+  $(document).on("click", "[data-role='crop-image']", ->
+    dz   = Dropzone.forElement("#upload-photo-form")
+    $img = $("#stock figure.enabled img")
+    xhr  = new XMLHttpRequest()
 
-  #   xhr.onload = ->
-  #     reader = new FileReader()
-  #     reader.onloadend = ->
-  #       console.log(reader.result)
+    xhr.onload = ->
+      reader = new FileReader()
+      reader.onloadend = ->
+        console.log(reader.result)
 
-  #     reader.readAsDataURL(xhr.response)
+      reader.readAsDataURL(xhr.response)
     
-  #   xhr.open('GET', $img.attr("src"))
-  #   xhr.responseType = 'blob'
-  #   xhr.send()
+    xhr.open('GET', $img.attr("src"))
+    xhr.responseType = 'blob'
+    xhr.send()
 
-  #   # dz.files.push(file)
-  #   # dz.emit("addedfile", file)
-  #   # dz.emit("thumbnail", file, src)
-  #   # dz.processQueue()
+    # dz.files.push(file)
+    # dz.emit("addedfile", file)
+    # dz.emit("thumbnail", file, src)
+    # dz.processQueue()
     
-  #   # Show the Upload tab
-  #   $("#tabs").tabs("option", "active", 2)
-  # )
+    # Show the Upload tab
+    $("#tabs").tabs("option", "active", 0)
+  )
 
   # Close the modal and assign the selected image to the target input
   $(document).on("click", "[data-role='add-image']", ->
@@ -347,20 +345,23 @@ window.Toolkit.Document.dropzone = ->
                       $("#image-picker .select-image").show()
                     )
 
-                    # Add the image to the grid and select it
+                    # Add the image to 'My Photos' and select it
                     $("#image-picker .crop-image").hide( ->
-                      $("#image-picker .image-grid").append("
+                      $("#image-picker #mine .gallery").append("
                         <figure>
                           <img src='#{data.cropped_url}' alt='#{data.file_name}' />
                           <figcaption>#{data.file_name}</figcaption>
                         </figure>
                       ")
 
-                      $(".image-grid figure:last").click()
+                      $("#image-picker #mine .gallery figure:last").click()
                       Toolkit.Document.reloadImagePicker()
 
                       # Remove the event listener so it doesn't fire multuple times
                       $(".edit_image").off("ajax:success")
+
+                      # Show the 'My Photos' tab
+                      $("#tabs").tabs("option", "active", 1)
                     )
 
                   # When the image cannot be cropped
@@ -373,17 +374,21 @@ window.Toolkit.Document.dropzone = ->
             # Cropping is not enabled in this modal. Show the image grid.
             else
               $("#image-picker .crop-image, #loading").hide( ->
-                if $("#image-picker .image-grid img[src='#{data.cropped_url}']").length is 0 # The image isn't in the picker
-                  $("#image-picker .image-grid").append("
+                if $("#image-picker #mine img[src='#{data.cropped_url}']").length is 0 # The image isn't in the picker
+                  $("#image-picker #mine .gallery").append("
                     <figure>
                       <img src='#{data.cropped_url}' alt='#{data.file_name}' />
                       <figcaption>#{data.file_name}</figcaption>
                     </figure>
                   ")
 
-                $(".image-grid figure:last").click()
+                # Select the uploaded photo
+                $("#image-picker #mine .gallery figure:last").click()
                 $("#image-picker .select-image").show()
               )
+
+              # Show the 'My Photos' tab
+              $("#tabs").tabs("option", "active", 1)
           )
         });
       )

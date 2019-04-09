@@ -1,12 +1,18 @@
 <div id="tabs">
   <ul>
+    <li><a href="#upload">Upload Photo</a></li>
     <li><a href="#mine">My Photos</a></li>
     <li><a href="#stock">Stock Photos</a></li>
-    <li><a href="#upload">Upload Photo</a></li>
   </ul>
 
+  <div id="upload">
+    <%= render partial: "images/modal/upload_image" %>
+  </div>
+
   <div id="mine">
-    <%= render partial: @images, locals: {no_link: true} %>
+    <div class="gallery">
+      <%= render partial: @images, locals: {no_link: true} %>
+    </div>
 
     <div class="buttons small cf">
       <button value="Select Photo" class="save" data-role="add-image" disabled="disabled">Select Photo</button>
@@ -14,16 +20,14 @@
   </div>
 
   <div id="stock">
-    <%= render partial: "images/stock_image_picker", locals: { stock_images: @stock_images } %>
+    <div class="gallery">
+      <%= render partial: "images/stock_image_picker", locals: { stock_images: @stock_images } %>
+    </div>
 
     <div class="buttons small cf">
       <button value="Select Photo" class="save" data-role="add-image" disabled="disabled">Select Photo</button>
-      <!--<button value="Crop Photo" class="save" data-role="crop-image" disabled="disabled">Crop Photo</button>-->
+      <button value="Crop Photo" class="save" data-role="crop-image" disabled="disabled">Crop Photo</button>
     </div>
-  </div>
-
-  <div id="upload">
-    <%= render partial: "images/modal/upload_image" %>
   </div>
 </div>
 
