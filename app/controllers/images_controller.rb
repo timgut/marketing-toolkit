@@ -130,10 +130,17 @@ class ImagesController < ApplicationController
   end
 
   def load_image
-    @image = Image.find(params[:id])
+    if params[:stock_photo]
+      @stock_image = StockImage.find(params[:id])
+      @image = Image.create(creator: current_user, image: @stock_image.image)
+    else
+      @image = Image.find(params[:id])
+      authorize @image
+    end
+
     @image.reset_crop_data
     @image.reset_commands
-    authorize @image
+    
   end
 
   # Set the strategy; Set data for the processors; Call the processors.
