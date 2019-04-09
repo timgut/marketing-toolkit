@@ -48,6 +48,11 @@ window.Toolkit.Document.addImage = ->
     Toolkit.Document.reloadImagePicker()
   )
 
+  # Mark the image gallery to be reloaded, as another modal may have cropping enabled.
+  $(document).on("click", ".image-picker_close", ->
+    $("#image-picker .image-grid").attr("data-loaded", "false")
+  )
+
   # Stylize only the selected image
   $(document).on("click", "[role='tabpanel'] figure", ->
     $("figure.enabled").removeClass('enabled')
