@@ -64,6 +64,13 @@ window.Toolkit.Document.addImage = ->
     window.Toolkit.Document.cropPhoto(data)
   )
 
+  # Show loading div when submitting the jCrop form
+  $(document).on("submit", ".edit_image", ->
+    $(".edit_image").hide( ->
+      $("#image-picker #loading").show()
+    )
+  )
+
   # Close the modal and assign the selected image to the target input
   $(document).on("click", "[data-role='add-image']", ->
     $target     = $("##{$("#image-picker").attr("data-target")}")           # The field where the value is set
@@ -249,12 +256,6 @@ window.Toolkit.Document.dropzone = ->
           # Callback when the image is uploaded
           success: ((file, data) ->
             @.removeFile(file)
-
-            $(document).on("submit", ".edit_image", ->
-              $(".edit_image").hide( ->
-                $("#image-picker #loading").show()
-              )
-            )
 
             # Contextual Crop is enabled for this image field
             if $form.attr("data-crop-enabled") is "true" and Toolkit.Document.contextualCrop

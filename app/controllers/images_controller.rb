@@ -132,7 +132,11 @@ class ImagesController < ApplicationController
   def load_image
     if params[:stock_photo]
       @stock_image = StockImage.find(params[:id])
-      @image = Image.create(creator: current_user, image: @stock_image.image)
+      @image = Image.create(
+        image_file_name: "#{@stock_image.image_file_name}-#{DateTime.now.to_i}", 
+        creator: current_user, 
+        image: @stock_image.image
+      )
     else
       @image = Image.find(params[:id])
       authorize @image
