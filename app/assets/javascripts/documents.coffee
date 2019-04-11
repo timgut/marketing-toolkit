@@ -70,7 +70,8 @@ window.Toolkit.Document.addImage = ->
     }
 
     Toolkit.Document.croppingStockPhoto = true
-    window.Toolkit.Document.cropPhoto(data)
+    endpoint = endpoint = "/images/#{data.id}/papercrop?image[resize_height]=#{Toolkit.Document.resizeHeight}&image[resize_width]=#{Toolkit.Document.resizeWidth}&image[strategy]=papercrop&stock_photo=true"
+    window.Toolkit.Document.cropPhoto(endpoint, data)
   )
 
   # Show loading div when submitting the jCrop form
@@ -259,7 +260,6 @@ window.Toolkit.Document.dropzone = ->
               $("#image-error").html(xhr.responseText).show()
               $("#image-picker .upload-image, #image-picker .select-image").show()
             )
-            
           ),
           
           # Callback when the image is uploaded
@@ -269,45 +269,17 @@ window.Toolkit.Document.dropzone = ->
             # Contextual Crop is enabled for this image field
             if $form.attr("data-crop-enabled") is "true" and Toolkit.Document.contextualCrop
               $("#image-picker .choose-crop").hide()
-              # Get the image crop form
-              $.get("/images/#{data.id}/contextual_crop?image[template_id]=#{$form.attr("data-template-id")}&image[strategy]=contextual_crop", (data) =>
-                $("#image-picker #loading").hide( ->
-                  $("#image-picker .crop-image").html(data).show(->
-                    $(".drag").draggable({
-                      stop: (event, ui) ->
-                        position = $(".drag").position()
-                        $("#image_pos_x").val(position.left)
-                        $("#image_pos_y").val(position.top - Toolkit.Document.cropOffset)
-                    })
-                  )
-                  
-                  $(".edit_image").on("ajax:success", (e, data, status, xhr) ->
-                    e.preventDefault()
-
-                    # Clear out this image's data in case the user wants to crop another image
-                    $("#image-picker .crop-image").html("")
-                    
-                    $("#image-picker #loading").hide(->
-                      $("#image-picker .select-image").show()
-                    )
-
-                    Toolkit.Document.addToGallery(data)
-
-                  # When the image cannot be cropped
-                  ).on("ajax:error", (e, xhr, status, error) ->
-                    $("#image-error").html("There was an error cropping your image. Please try again.")
-                  )
-                )
-              )
+              endpoint = "/images/#{data.id}/contextual_crop?image[template_id]=#{$form.attr("data-template-id")}&image[strategy]=contextual_crop"
+              Toolkit.Document.cropPhoto(endpoint, data)
 
             # Default Crop is enabled for this image field
-            else if Toolkit.Document.papercrop isnt false 
-              Toolkit.Document.cropPhoto(data)
+            else if Toolkit.Document.papercrop isnt false
+              endpoint = "/images/#{data.id}/papercrop?image[resize_height]=#{Toolkit.Document.resizeHeight}&image[resize_width]=#{Toolkit.Document.resizeWidth}&image[strategy]=papercrop"
+              Toolkit.Document.cropPhoto(endpoint, data)
 
             # Cropping is not enabled in this modal. Show the image grid.
             else
               $("#image-picker .crop-image, #loading").hide( ->
-                #if $("#image-picker #mine img[src='#{data.cropped_url}']").length is 0 # The image isn't in the picker
                 Toolkit.Document.addToGallery(data)
               )
           )
@@ -318,15 +290,10 @@ window.Toolkit.Document.dropzone = ->
       # This shouldn't cause a problem, but you never know.
       # console.log "Dropzone already attached"
 
-window.Toolkit.Document.cropPhoto = (data) ->
+window.Toolkit.Document.cropPhoto = (endpoint, data) ->
   $("#image-picker .select-image").hide( ->
     $("#image-picker #loading").show()
   )
-
-  endpoint = "/images/#{data.id}/papercrop?image[resize_height]=#{Toolkit.Document.resizeHeight}&image[resize_width]=#{Toolkit.Document.resizeWidth}&image[strategy]=papercrop"
-  
-  if Toolkit.Document.croppingStockPhoto is true
-    endpoint += "&stock_photo=true"
 
   Toolkit.Document.croppingStockPhoto = false # Reset this immediately, as we don't need it anymore
   $("[data-role='crop-image']").attr("disabled", "disabled")
@@ -354,6 +321,7 @@ window.Toolkit.Document.cropPhoto = (data) ->
         )
 
         Toolkit.Document.addToGallery(data)
+        $("#mine button.save").trigger("click")
 
       # When the image cannot be cropped
       ).on("ajax:error", (e, xhr, status, error) ->
@@ -362,6 +330,7 @@ window.Toolkit.Document.cropPhoto = (data) ->
     )
   )
 
+# After an image has been uploaoded or cropped, i's added to the gallery and selected.
 window.Toolkit.Document.addToGallery = (data) ->
   # Add the image to 'My Photos' and select it
   $("#image-picker .crop-image").hide( ->

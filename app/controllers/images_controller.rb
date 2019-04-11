@@ -137,6 +137,7 @@ class ImagesController < ApplicationController
         creator: current_user, 
         image: @stock_image.image
       )
+      ImageUser.create(image: @image, user: current_user)
     else
       @image = Image.find(params[:id])
       authorize @image
