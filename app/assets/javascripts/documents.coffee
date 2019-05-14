@@ -87,6 +87,7 @@ window.Toolkit.Document.addImage = ->
     value       = $("#image-picker").find("figure.enabled img").attr("src") # The value to set on the field
     dataTarget  = $("#image-picker").attr("data-target")                    #
     $figure     = $("label[for='#{dataTarget}'] figure")                    #
+    $label      = $("label[for='#{dataTarget}']")                           #
     $positioner = $figure.find(".positioner")                               # The container for the text that launched the modal
     
     # Assign the value to the input
@@ -96,7 +97,8 @@ window.Toolkit.Document.addImage = ->
 
     # Display the selected image
     $figure.css({"background-image": "url('#{value}'"}).addClass("image-added")
-    $positioner.html(Toolkit.Document.photoControls())
+    $label.append(Toolkit.Document.photoControls())
+    $positioner.hide()
 
     # Clean up the modal div
     $("#image-picker").popup("hide")
@@ -106,6 +108,15 @@ window.Toolkit.Document.addImage = ->
     $("#image-picker .upload-image").show()
     $(document).off("ajax:success", "#image-picker .edit_image")
     $(document).off("ajax:error", "#image-picker .edit_image")
+  )
+
+  # Remove the image when the delete button is clicked
+  $(document).on("click", ".controls .delete", (e)->
+    $field = $(@).closest(".field")
+    $field.find("input[data-custom='image']").val("")
+    $field.find("figure").removeAttr("style")
+    $field.find("figure").find(".positioner").show()
+    $field.find(".controls").remove()
   )
 
   # Let the modal know which input to apply the selection to
@@ -184,15 +195,15 @@ window.Toolkit.Document.fillForm = ->
             # Erase the custom text in case another field needs to use it.
             $("#custom-text").html("")
           when "image"
-            $figure     = $("label[for='#{data.fieldID}'] figure")
-            $positioner = $figure.find(".positioner")
+            $figure = $("label[for='#{data.fieldID}'] figure")
 
             # Set the value
             $field.val(data.value)
 
             # Display the selected image
             $figure.css({"background-image": "url('#{data.value}'"}).addClass("image-added")
-            $positioner.html(Toolkit.Document.photoControls())
+            $("label[for='#{data.fieldID}']").append(Toolkit.Document.photoControls())
+            $figure.find(".positioner").hide()
           when "wysiwyg"
             # See /documents/_form.html.erb and the fillWysiwyg(editor) function
           else
