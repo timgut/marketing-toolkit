@@ -280,7 +280,7 @@ window.Toolkit.Document.dropzone = ->
             # Cropping is not enabled in this modal. Show the image grid.
             else
               $("#image-picker .crop-image, #loading").hide( ->
-                Toolkit.Document.addToGallery(data)
+                Toolkit.Document.addToGallery(data, false)
               )
           )
         });
@@ -320,8 +320,7 @@ window.Toolkit.Document.cropPhoto = (endpoint, data) ->
           $("#image-picker .select-image").show()
         )
 
-        Toolkit.Document.addToGallery(data)
-        $("#mine button.save").trigger("click")
+        Toolkit.Document.addToGallery(data, true)
 
       # When the image cannot be cropped
       ).on("ajax:error", (e, xhr, status, error) ->
@@ -331,7 +330,7 @@ window.Toolkit.Document.cropPhoto = (endpoint, data) ->
   )
 
 # After an image has been uploaoded or cropped, i's added to the gallery and selected.
-window.Toolkit.Document.addToGallery = (data) ->
+window.Toolkit.Document.addToGallery = (data, clickBtn) ->
   # Add the image to 'My Photos' and select it
   $("#image-picker .crop-image").hide( ->
     $("#image-picker #mine .gallery").append("
@@ -350,6 +349,9 @@ window.Toolkit.Document.addToGallery = (data) ->
 
     # Show the 'My Photos' tab
     $("#tabs").tabs("option", "active", 1)
+
+    if clickBtn is true
+      $("#mine button.save").trigger("click")
   )
 
 window.Toolkit.Document.ready = ->
