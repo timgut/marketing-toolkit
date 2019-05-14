@@ -97,8 +97,10 @@ window.Toolkit.Document.addImage = ->
 
     # Display the selected image
     $figure.css({"background-image": "url('#{value}'"}).addClass("image-added")
-    $label.append(Toolkit.Document.photoControls())
     $positioner.hide()
+
+    if $label.find(".controls").length is 0
+      $label.append(Toolkit.Document.photoControls())
 
     # Clean up the modal div
     $("#image-picker").popup("hide")
