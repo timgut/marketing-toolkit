@@ -110,14 +110,29 @@ window.Toolkit.Document.addImage = ->
     $(document).off("ajax:error", "#image-picker .edit_image")
   )
 
+  # Open the image picker when the change button is clicked
+  $(document).on("click", ".controls .change", (e)->
+    $field  = $(@).closest(".field")
+    $figure = $field.find("figure")
+    $figure.trigger("click")
+  )
+
   # Remove the image when the delete button is clicked
   $(document).on("click", ".controls .delete", (e)->
-    $field = $(@).closest(".field")
-    $field.find("input[data-custom='image']").val("")
-    $field.find("figure").removeAttr("style")
-    $field.find("figure").removeClass("image-added")
-    $field.find("figure").find(".positioner").show()
+    $field  = $(@).closest(".field")
+    $figure = $field.find("figure")
+    $input  = $field.find("input[data-custom='image']")
+    
+    $input.prop("checked", false)
+    $figure.removeAttr("style")
+    $figure.removeClass("image-added")
+    $figure.find(".positioner").show()
     $field.find(".controls").remove()
+
+    # For reasons I don't understand, this only works when called after a small delay
+    setTimeout ->
+        $input.prop("checked", false)
+    , 50
   )
 
   # Let the modal know which input to apply the selection to
