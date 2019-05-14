@@ -115,6 +115,7 @@ window.Toolkit.Document.addImage = ->
     $field = $(@).closest(".field")
     $field.find("input[data-custom='image']").val("")
     $field.find("figure").removeAttr("style")
+    $field.find("figure").removeClass("image-added")
     $field.find("figure").find(".positioner").show()
     $field.find(".controls").remove()
   )
