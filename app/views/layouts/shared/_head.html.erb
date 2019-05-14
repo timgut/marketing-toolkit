@@ -14,6 +14,10 @@
   <link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/theme/css/reset.css" type="text/css" media="screen, projection"/>   
   <link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/theme/css/type.css" type="text/css" media="screen, projection"/>
   <link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/theme/css/global.css" type="text/css" media="screen, projection"/>
+  
+  <% unless Rails.env == "production" %>
+    <link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/theme/css/toolkit-DEV.css" type="text/css" media="screen, projection"/>
+  <% end %>
 
   <% if params[:controller] == "users" && params[:action] == "sign-in" %>
     <link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/theme/css/login.css" type="text/css" media="screen, projection"/>
