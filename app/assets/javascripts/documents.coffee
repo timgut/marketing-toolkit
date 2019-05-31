@@ -87,6 +87,7 @@ window.Toolkit.Document.addImage = ->
     value       = $("#image-picker").find("figure.enabled img").attr("src") # The value to set on the field
     dataTarget  = $("#image-picker").attr("data-target")                    #
     $figure     = $("label[for='#{dataTarget}'] figure")                    #
+    $label      = $("label[for='#{dataTarget}']")                           #
     $positioner = $figure.find(".positioner")                               # The container for the text that launched the modal
     
     # Assign the value to the input
@@ -96,7 +97,10 @@ window.Toolkit.Document.addImage = ->
 
     # Display the selected image
     $figure.css({"background-image": "url('#{value}'"}).addClass("image-added")
-    $positioner.html("<span class='icons'>C</span>Change Image")
+    $positioner.hide()
+
+    if $label.find(".controls").length is 0
+      $label.append(Toolkit.Document.photoControls())
 
     # Clean up the modal div
     $("#image-picker").popup("hide")
@@ -108,10 +112,47 @@ window.Toolkit.Document.addImage = ->
     $(document).off("ajax:error", "#image-picker .edit_image")
   )
 
+  # Open the image picker when the change button is clicked
+  $(document).on("click", ".controls .change", (e)->
+    $field  = $(@).closest(".field")
+    $figure = $field.find("figure")
+    $figure.trigger("click")
+  )
+
+  # Remove the image when the delete button is clicked
+  $(document).on("click", ".controls .delete", (e)->
+    $field  = $(@).closest(".field")
+    $figure = $field.find("figure")
+    $input  = $field.find("input[data-custom='image']")
+    
+    $input.prop("checked", false)
+    $figure.removeAttr("style")
+    $figure.removeClass("image-added")
+    $figure.find(".positioner").show()
+    $field.find(".controls").remove()
+
+    # For reasons I don't understand, this only works when called after a small delay
+    setTimeout ->
+        $input.prop("checked", false)
+    , 50
+  )
+
   # Let the modal know which input to apply the selection to
   $(".image-picker").click( ->
     $("#image-picker").attr("data-target", $(@).attr("data-target"))
   )
+
+window.Toolkit.Document.photoControls = ->
+  "
+    <div class='controls'>
+      <div class='change'>
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'><path d='M245.4,937.5l61.5-61.5L148,717.1l-61.5,61.5V851H173v86.5H245.4z M598.9,310.2c0-9.9-5-14.9-14.9-14.9 c-4.5,0-8.3,1.6-11.5,4.7L206.2,666.4c-3.2,3.2-4.7,7-4.7,11.5c0,9.9,5,14.9,14.9,14.9c4.5,0,8.3-1.6,11.5-4.7l366.3-366.3    C597.3,318.6,598.9,314.7,598.9,310.2z M562.4,180.5l281.2,281.2L281.2,1024H0V742.8L562.4,180.5z M1024,245.4 c0,23.9-8.3,44.2-25,60.8L886.8,418.4L605.6,137.2L717.8,25.7C734,8.6,754.3,0,778.6,0c23.9,0,44.4,8.6,61.5,25.7L999,183.8C1015.7,201.4,1024,221.9,1024,245.4z'/></svg>
+      </div>
+      <div class='delete'>
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'><path d='M696,512l312.7,312.7c20.3,20.3,20.3,53.3,0,73.6l-110.4,110.4c-20.3,20.3-53.3,20.3-73.6,0L512,696l-312.8,312.7 c-20.3,20.3-53.3,20.3-73.6,0L15.2,898.4c-20.3-20.3-20.3-53.3,0-73.6L328,512L15.2,199.2c-20.3-20.3-20.3-53.3,0-73.6L125.7,15.2c20.3-20.3,53.3-20.3,73.6,0L512,328L824.8,15.2c20.3-20.3,53.3-20.3,73.6,0l110.4,110.4c20.3,20.3,20.3,53.3,0,73.6L696,512 L696,512z'/></svg>
+      </div>
+    </div>
+  "
 
 window.Toolkit.Document.saveButton = ->
   $("[data-save='true']").click( ->
@@ -172,15 +213,15 @@ window.Toolkit.Document.fillForm = ->
             # Erase the custom text in case another field needs to use it.
             $("#custom-text").html("")
           when "image"
-            $figure     = $("label[for='#{data.fieldID}'] figure")
-            $positioner = $figure.find(".positioner")
+            $figure = $("label[for='#{data.fieldID}'] figure")
 
             # Set the value
             $field.val(data.value)
 
             # Display the selected image
             $figure.css({"background-image": "url('#{data.value}'"}).addClass("image-added")
-            $positioner.html("<span class='icons'>C</span>Change Image")
+            $("label[for='#{data.fieldID}']").append(Toolkit.Document.photoControls())
+            $figure.find(".positioner").hide()
           when "wysiwyg"
             # See /documents/_form.html.erb and the fillWysiwyg(editor) function
           else
