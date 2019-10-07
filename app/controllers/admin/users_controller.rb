@@ -80,7 +80,7 @@ class Admin::UsersController < AdminController
       @header_navigation = true
       @affiliates = Affiliate.order(:state,:title)
 
-      render :edit, notice: "There was a problem updating the user."
+      redirect_to edit_admin_user_path(@user), notice: "There was a problem updating the user."
     end
   end
 
