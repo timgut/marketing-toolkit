@@ -5,6 +5,8 @@ $(document).ready(function(){
     $('#user_vetter_region').prop('disabled',true);
   }
 
+  $('#user_email').click(function(){ $(this).removeAttr('readonly'); }) // this is to disable Chrome autofill, but allow for field to be edited
+
   $('#user_role').change(function(){
     if ( $(this).val() != 'Vetter' ) {
       $('#user_vetter_region').val('').prop('disabled',true);
@@ -30,7 +32,7 @@ $(document).ready(function(){
       
     <li>
       <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, autocomplete: :off %>
+      <%= f.email_field :email, autofocus: true, autocomplete: :off readonly: true %>
     </li>
       
     <li>
