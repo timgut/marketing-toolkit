@@ -153,6 +153,14 @@ class Document < ApplicationRecord
   end
 
   def pdf_options
+    if crop_marks
+      height = template.height + 0.75
+      width  = template.width  + 0.75
+    else
+      height = template.height
+      width  = template.width
+    end
+
     {
       pdf:           title,
       template:      "documents/build.pdf.erb",
@@ -162,8 +170,8 @@ class Document < ApplicationRecord
       lowquality:    false,
       image_quality: 94,
       show_as_html:  debug_pdf,
-      page_height:   "#{template.height}#{template.unit}",
-      page_width:    "#{template.width}#{template.unit}",
+      page_height:   "#{height}#{template.unit}",
+      page_width:    "#{width}#{template.unit}",
       zoom: 1,
       margin:  {
         top:    0,
