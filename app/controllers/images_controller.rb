@@ -12,6 +12,7 @@ class ImagesController < ApplicationController
 
   # POST /images
   def create
+    normalize_image_filename
     @image = Image.new(image_params)
     authorize @image
 
@@ -144,8 +145,12 @@ class ImagesController < ApplicationController
     end
 
     @image.reset_crop_data
-    @image.reset_commands
-    
+    @image.reset_commands    
+  end
+
+  # Replace any nonword character in the image filename with a dash.
+  def normalize_image_filename
+    params[:image][:image].original_filename = params[:image][:image].original_filename.gsub(/\W/, "-")
   end
 
   # Set the strategy; Set data for the processors; Call the processors.
