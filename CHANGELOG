@@ -4,6 +4,11 @@ The timestamp should reflect when either a) the code was deployed into productio
 
 Latest changes go on top.
 
+Thu Apr  2 14:04:22 CDT 2020
+	- Redmine 2460: Clean up image filenames with special characters
+
+ --------------------
+
 Fri Oct 11 12:08:58 CDT 2019
 	- Redmine 2340: Expand PDF size when crop marks are selected
 
