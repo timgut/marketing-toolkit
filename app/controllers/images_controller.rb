@@ -12,6 +12,7 @@ class ImagesController < ApplicationController
 
   # POST /images
   def create
+    byebug
     normalize_image_filename
     @image = Image.new(image_params)
     authorize @image

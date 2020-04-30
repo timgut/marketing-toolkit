@@ -21,7 +21,7 @@
 //= require jquery-ui/widgets/tabs
 //= require jquery.popupoverlay.1.7.13
 //= require dropzone
-//= require jquery.jcrop
+//= require jcrop.2.0.4.min
 //= require tinymce-jquery
 //= require jquery.tablednd.1.0.3.min
 //= require_tree .

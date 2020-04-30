@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_30_190435) do
+ActiveRecord::Schema.define(version: 2020_04_30_174659) do
 
   create_table "affiliates", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title"
@@ -70,23 +70,14 @@ ActiveRecord::Schema.define(version: 2020_04_30_190435) do
     t.string "title"
     t.text "description"
     t.integer "status"
-    t.string "pdf_file_name"
-    t.string "pdf_content_type"
-    t.integer "pdf_file_size"
-    t.datetime "pdf_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "tag_id"
     t.integer "creator_id"
-    t.string "thumbnail_file_name"
-    t.string "thumbnail_content_type"
-    t.integer "thumbnail_file_size"
-    t.datetime "thumbnail_updated_at"
     t.boolean "crop_marks", default: false
-    t.string "share_graphic_file_name"
-    t.string "share_graphic_content_type"
-    t.integer "share_graphic_file_size"
-    t.datetime "share_graphic_updated_at"
+    t.text "pdf_url"
+    t.text "thumbnail_url"
+    t.text "share_graphic_url"
     t.index ["creator_id"], name: "index_documents_on_creator_id"
     t.index ["template_id"], name: "index_documents_on_template_id"
   end
@@ -101,16 +92,10 @@ ActiveRecord::Schema.define(version: 2020_04_30_190435) do
   end
 
   create_table "images", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "image_file_name"
-    t.string "image_content_type"
-    t.integer "image_file_size"
-    t.datetime "image_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "creator_id"
     t.integer "status", default: 1
-    t.text "crop_data"
-    t.text "image_meta"
     t.text "original_image_url"
     t.text "cropped_image_url"
     t.text "imgix_params"
@@ -128,10 +113,6 @@ ActiveRecord::Schema.define(version: 2020_04_30_190435) do
 
   create_table "stock_images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title"
-    t.string "image_file_name"
-    t.string "image_content_type"
-    t.integer "image_file_size"
-    t.datetime "image_updated_at"
     t.integer "status", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -146,18 +127,6 @@ ActiveRecord::Schema.define(version: 2020_04_30_190435) do
     t.float "width"
     t.text "pdf_markup"
     t.text "form_markup"
-    t.string "thumbnail_file_name"
-    t.string "thumbnail_content_type"
-    t.integer "thumbnail_file_size"
-    t.datetime "thumbnail_updated_at"
-    t.string "numbered_image_file_name"
-    t.string "numbered_image_content_type"
-    t.integer "numbered_image_file_size"
-    t.datetime "numbered_image_updated_at"
-    t.string "blank_image_file_name"
-    t.string "blank_image_content_type"
-    t.integer "blank_image_file_size"
-    t.datetime "blank_image_updated_at"
     t.integer "status"
     t.text "customizable_options"
     t.datetime "created_at", null: false
@@ -165,11 +134,6 @@ ActiveRecord::Schema.define(version: 2020_04_30_190435) do
     t.integer "category_id"
     t.string "orientation"
     t.boolean "customize", default: true
-    t.string "static_pdf_file_name"
-    t.string "static_pdf_content_type"
-    t.integer "static_pdf_file_size"
-    t.datetime "static_pdf_updated_at"
-    t.text "blank_image_meta"
     t.integer "crop_marks", default: 0, null: false
     t.integer "position", null: false
     t.string "unit"

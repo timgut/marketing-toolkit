@@ -1,14 +1,6 @@
 class Document < ApplicationRecord
   include Status
 
-  has_attached_file :pdf,           storage: :s3, s3_protocol: "https", s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) }
-  has_attached_file :thumbnail,     storage: :s3, s3_protocol: "https", s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) }
-  has_attached_file :share_graphic, storage: :s3, s3_protocol: "https", s3_credentials: Proc.new{|i| i.instance.__send__(:s3_credentials) }
-  
-  validates_attachment :pdf,           content_type: {content_type: "application/pdf"}
-  validates_attachment :thumbnail,     content_type: {content_type: /\Aimage\/.*\z/}
-  validates_attachment :share_graphic, content_type: {content_type: /^image\/(png|jpg|jpeg)/,}
-
   has_and_belongs_to_many :users
   
   has_many :data
