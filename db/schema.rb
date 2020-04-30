@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_20_184626) do
+ActiveRecord::Schema.define(version: 2020_04_30_190435) do
 
   create_table "affiliates", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title"
@@ -111,6 +111,9 @@ ActiveRecord::Schema.define(version: 2019_03_20_184626) do
     t.integer "status", default: 1
     t.text "crop_data"
     t.text "image_meta"
+    t.text "original_image_url"
+    t.text "cropped_image_url"
+    t.text "imgix_params"
     t.index ["creator_id"], name: "index_images_on_creator_id"
   end
 
@@ -133,6 +136,7 @@ ActiveRecord::Schema.define(version: 2019_03_20_184626) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "label"
+    t.text "image_url"
   end
 
   create_table "templates", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -170,6 +174,10 @@ ActiveRecord::Schema.define(version: 2019_03_20_184626) do
     t.integer "position", null: false
     t.string "unit"
     t.string "format"
+    t.text "thumbnail_url"
+    t.text "numbered_image_url"
+    t.text "blank_image_url"
+    t.text "static_pdf_url"
   end
 
   create_table "users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
