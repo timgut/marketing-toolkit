@@ -1,5 +1,5 @@
 # Run with: bin/rails c
-# load Rails.root.join("db", "save_paperclip_paths.rb")
+# load Rails.root.join("db", "save_paperclip_urls.rb")
 Image.all.each do |image|
   image.update_attributes!(
     original_image_url: image.image.url(:original).sub("/system", ""),
@@ -18,4 +18,12 @@ end
 
 StockImage.all.each do |image|
   image.update_attributes!(image_url: image.image.url.sub("/system", ""))
+end
+
+Document.all.each do |document|
+  document.update_attributes!(
+    pdf_url:           document.pdf.url.sub("/system", ""),
+    thumbnail_url:     document.thumbnail.url.sub("/system", ""),
+    share_graphic_url: documentshare_graphic.url.sub("/system", ""),
+  )
 end
