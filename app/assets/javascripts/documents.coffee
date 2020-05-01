@@ -277,55 +277,55 @@ window.Toolkit.Document.dropzone = ->
 
   if $("#upload-photo-form").length isnt 0
     try
-      Toolkit.dropzones.push(
-        # Initialize Dropzone
-        $("#upload-photo-form").dropzone({
-          autoProcessQueue: true,
-          paramName: "image[image]",
-          url: "/images",
-          dictDefaultMessage: "<h4>DROP IMAGE HERE TO UPLOAD</h4><p class='or'>or</p><div class='button'>Select File</div>",
+      # Toolkit.dropzones.push(
+      #   # Initialize Dropzone
+      #   $("#upload-photo-form").dropzone({
+      #     autoProcessQueue: true,
+      #     paramName: "image[image]",
+      #     url: "/images",
+      #     dictDefaultMessage: "<h4>DROP IMAGE HERE TO UPLOAD</h4><p class='or'>or</p><div class='button'>Select File</div>",
 
-          sending: ((file, xhr, formData) ->
-            $("#image-picker .upload-image, #image-picker .select-image, #image-picker #image-error").hide( ->
-              $("#image-picker #loading").show()
-            )
-          )
+      #     sending: ((file, xhr, formData) ->
+      #       $("#image-picker .upload-image, #image-picker .select-image, #image-picker #image-error").hide( ->
+      #         $("#image-picker #loading").show()
+      #       )
+      #     )
 
-          # Callback when the image cannot be uploaded
-          error: ((file, message, xhr) ->
-            # console.log(file)
-            # console.log(message)
-            # console.log(xhr)
-            @.removeFile(file)
-            $("#image-picker #loading").hide( ->
-              $("#image-error").html(xhr.responseText).show()
-              $("#image-picker .upload-image, #image-picker .select-image").show()
-            )
-          ),
+      #     # Callback when the image cannot be uploaded
+      #     error: ((file, message, xhr) ->
+      #       # console.log(file)
+      #       # console.log(message)
+      #       # console.log(xhr)
+      #       @.removeFile(file)
+      #       $("#image-picker #loading").hide( ->
+      #         $("#image-error").html(xhr.responseText).show()
+      #         $("#image-picker .upload-image, #image-picker .select-image").show()
+      #       )
+      #     ),
           
-          # Callback when the image is uploaded
-          success: ((file, data) ->
-            @.removeFile(file)
+      #     # Callback when the image is uploaded
+      #     success: ((file, data) ->
+      #       @.removeFile(file)
 
-            # Contextual Crop is enabled for this image field
-            if $form.attr("data-crop-enabled") is "true" and Toolkit.Document.contextualCrop
-              $("#image-picker .choose-crop").hide()
-              endpoint = "/images/#{data.id}/contextual_crop?image[template_id]=#{$form.attr("data-template-id")}&image[strategy]=contextual_crop"
-              Toolkit.Document.cropPhoto(endpoint, data)
+      #       # Contextual Crop is enabled for this image field
+      #       if $form.attr("data-crop-enabled") is "true" and Toolkit.Document.contextualCrop
+      #         $("#image-picker .choose-crop").hide()
+      #         endpoint = "/images/#{data.id}/contextual_crop?image[template_id]=#{$form.attr("data-template-id")}&image[strategy]=contextual_crop"
+      #         Toolkit.Document.cropPhoto(endpoint, data)
 
-            # Default Crop is enabled for this image field
-            else if Toolkit.Document.papercrop isnt false
-              endpoint = "/images/#{data.id}/papercrop?image[resize_height]=#{Toolkit.Document.resizeHeight}&image[resize_width]=#{Toolkit.Document.resizeWidth}&image[strategy]=papercrop"
-              Toolkit.Document.cropPhoto(endpoint, data)
+      #       # Default Crop is enabled for this image field
+      #       else if Toolkit.Document.papercrop isnt false
+      #         endpoint = "/images/#{data.id}/papercrop?image[resize_height]=#{Toolkit.Document.resizeHeight}&image[resize_width]=#{Toolkit.Document.resizeWidth}&image[strategy]=papercrop"
+      #         Toolkit.Document.cropPhoto(endpoint, data)
 
-            # Cropping is not enabled in this modal. Show the image grid.
-            else
-              $("#image-picker .crop-image, #loading").hide( ->
-                Toolkit.Document.addToGallery(data, false)
-              )
-          )
-        });
-      )
+      #       # Cropping is not enabled in this modal. Show the image grid.
+      #       else
+      #         $("#image-picker .crop-image, #loading").hide( ->
+      #           Toolkit.Document.addToGallery(data, false)
+      #         )
+      #     )
+      #   });
+      # )
     catch
       # Dropzone will throw an error if it's being initialized multiple times.
       # This shouldn't cause a problem, but you never know.

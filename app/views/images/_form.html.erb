@@ -5,9 +5,9 @@
 
   <%= render partial: "/shared/errors", locals: {record: image} %>
 
-  <% if image.image_file_name %>
+  <% if image.filename %>
     <div class="current-image">
-      <img src="<%= image.image.url(:cropped) %>" />
+      <img src="<%= image.cropped_image_url %>" />
     </div>
   <% end %>
 

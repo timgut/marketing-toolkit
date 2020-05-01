@@ -2,7 +2,7 @@
 <% if false %>
 <li><%= link_to "<span class='icons'>s</span> Share".html_safe, share_image_path(image), title: "Share" %></li>
 <% end %>
-<li><%= link_to "<span class='icons'>d</span> Download".html_safe, image.image.url, title: "Download", target: :blank %></li>
+<li><%= link_to "<span class='icons'>d</span> Download".html_safe, image.original_image_url, title: "Download", target: :blank %></li>
 <li>
   <%= link_to(
     "<span class='icons'>x</span> Delete".html_safe, 

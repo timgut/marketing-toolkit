@@ -12,29 +12,14 @@ class ImagesController < ApplicationController
 
   # POST /images
   def create
-    byebug
-    normalize_image_filename
-    @image = Image.new(image_params)
+    @image = Image.new(creator_id: current_user.id)
     authorize @image
 
-    respond_to do |format|
-      format.html do
-        if @image.save
-          ImageUser.create(image: @image, user: current_user)    
-          redirect_to image_path(@image), notice: "Image created!"
-        else
-          render :new, alert: "Cannot create image."
-        end
-      end
-
-      format.json do
-        if @image.save
-          ImageUser.create!(image: @image, user: current_user)    
-          render json: {id: @image.id, url: @image.image.url, cropped_url: @image.image.url(:cropped), file_name: @image.image_file_name}
-        else
-          render plain: @image.errors.full_messages.to_sentence, status: 403
-        end
-      end
+    if @image.save
+      ImageUser.create!(image: @image, user: current_user)    
+      render json: @image.to_json
+    else
+      render json: @image.errors.to_json
     end
   end
 
@@ -112,6 +97,20 @@ class ImagesController < ApplicationController
     end
   end
 
+  # POST /images/1/upload_photo
+  def upload_photo
+    @image = Image.find(params[:id])
+    persist_tmpfile!
+    UploadPhotoJob.perform_async(image: @image, filepath: @tmpfile_path, filename: params[:photo].original_filename)
+    head :no_content
+  end
+
+  # GET /images/1/upload_photo_status
+  def upload_photo_status
+    @image = Image.find(params[:id])
+    render json: @image.as_json.merge({uploaded: @image.uploaded_photo?})
+  end
+
   private
 
   def assign_sidebar_vars
@@ -121,14 +120,6 @@ class ImagesController < ApplicationController
     @trashed   = current_user.images.trash
     @documents = current_user.documents.not_trashed
     @stock_images = StockImage.all
-  end
-
-  def image_params
-    params.require(:image).permit(
-      :image, :creator_id, :pos_x, :pos_y, :template_id,
-      :image_original_w, :image_original_h, :image_box_w, :image_aspect, :image_crop_x, :image_crop_y, :image_crop_w, :image_crop_h,
-      :resize_height, :resize_width
-    )
   end
 
   def load_image
@@ -147,11 +138,6 @@ class ImagesController < ApplicationController
 
     @image.reset_crop_data
     @image.reset_commands    
-  end
-
-  # Replace any nonword character in the image filename with a dash.
-  def normalize_image_filename
-    params[:image][:image].original_filename = params[:image][:image].original_filename.gsub(/\W/, "-")
   end
 
   # Set the strategy; Set data for the processors; Call the processors.
@@ -174,5 +160,10 @@ class ImagesController < ApplicationController
     @image.context = @template
     @image.pos_x   = params[:image].delete(:pos_x)
     @image.pos_y   = params[:image].delete(:pos_y)
+  end
+
+  def persist_tmpfile!
+    @tmpfile_path = Rails.root.join("tmp").join("#{current_user.id}-#{params[:photo].original_filename}")
+    File.open(@tmpfile_path, 'wb') {|file| file << File.read(params[:photo].tempfile.path)}
   end
 end

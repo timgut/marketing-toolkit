@@ -21,14 +21,17 @@ class Image < ApplicationRecord
     end
   end
 
-  def upload_to_s3(file:)
-    s3 = Aws::S3::Resource.new(region: "us-east-1")
-    obj = s3.bucket("toolkit.afscme.org").object(image_file_name)
-    obj.upload_file(file)
+  # Filenames have the two dashes (--) and 10 digit timestamp removed.
+  def filename
+    @friendly_filename ||= if original_image_url
+      filename = original_image_url.split("/").last.split(".").first
+      filename.sub(/--\d{10}/, "")
+    else
+      "TODO"
+    end
   end
 
-  # Legacy Paperclip Images
-  def image
-    OpenStruct.new(url: ->(style){self.__send__("#{style}_image_url")})
+  def uploaded_photo?
+    !original_image_url.nil?
   end
 end

@@ -173,4 +173,14 @@ class Document < ApplicationRecord
       }
     }
   end
+
+  # Legacy Paperclip Images
+  def pdf
+    OpenStruct.new(url: self.pdf_url)
+  end
+
+  def thumbnail
+    OpenStruct.new(url: self.thumbnail_url)
+  end
+  
 end

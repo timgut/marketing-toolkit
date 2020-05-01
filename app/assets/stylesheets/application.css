@@ -14,7 +14,6 @@
  *= require codemirror/themes/ambiance
  * require jquery-ui/draggable
  * require jquery-ui/tabs
- *= require dropzone/dropzone
  *= require jcrop.2.0.4.min
  *= require_tree .
  *= require_self

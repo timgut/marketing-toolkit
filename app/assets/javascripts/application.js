@@ -10,18 +10,25 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
+
+//= require react
+//= require react_ujs
+//= require components
+
+//= require jquery.min
 //= require jquery_ujs
-//= require turbolinks
-//= require codemirror
-//= require codemirror/modes/css
-//= require codemirror/modes/ruby
+//= require jquery.popupoverlay.1.7.13
+//= require jquery.tablednd.1.0.3.min
 //= require jquery.validate
 //= require jquery-ui/widgets/draggable
 //= require jquery-ui/widgets/tabs
-//= require jquery.popupoverlay.1.7.13
-//= require dropzone
 //= require jcrop.2.0.4.min
+
+//= require codemirror
+//= require codemirror/modes/css
+//= require codemirror/modes/ruby
+
 //= require tinymce-jquery
-//= require jquery.tablednd.1.0.3.min
+//= require turbolinks
+
 //= require_tree .

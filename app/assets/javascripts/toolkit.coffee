@@ -23,7 +23,10 @@ Toolkit.init.jobs = ->
         console.log "Unknown job: #{job}"
   )
 
-Dropzone.autoDiscover = false
+# We must manage the photo chooser modal's state outside of React
+# because events outside of the component can affect what we show in the modal.
+# For example, clicking the close button should set the modal state to "closed"
+Toolkit.modalState = "closed" # Onf of: "closed", "open", "photo_uploaded", "photo_cropped"
 
 Toolkit.isEditPage = ->
   location.href.indexOf("edit") isnt -1

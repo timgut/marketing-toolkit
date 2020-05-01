@@ -20,6 +20,12 @@ module AfscmeToolkit
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
     config.active_job.queue_adapter = :sucker_punch
 
+    Aws.config.update({
+      access_key_id:     Rails.application.secrets.aws[:access_key_id],
+      secret_access_key: Rails.application.secrets.aws[:secret_access_key],
+      logger: Rails.logger
+    })
+
     # Uncomment to see backtraces of ActiveRecord queries
     # ActiveRecordQueryTrace.enabled = true
   end
