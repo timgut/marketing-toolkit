@@ -62,8 +62,6 @@ Rails.application.routes.draw do
       get  :contextual_crop
       get  :papercrop
       get  :share
-      post :upload_photo
-      get  :upload_photo_status
     end
   end
 

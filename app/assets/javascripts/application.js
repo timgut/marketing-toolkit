@@ -28,6 +28,7 @@
 //= require codemirror/modes/css
 //= require codemirror/modes/ruby
 
+//= require dropzone
 //= require tinymce-jquery
 //= require turbolinks
 

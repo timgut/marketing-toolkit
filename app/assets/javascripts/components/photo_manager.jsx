@@ -6,72 +6,44 @@ class PhotoManager extends React.Component{
   constructor(props={}){
     super(props);
     this.state = {
-      step: "open"
+      step: "open",
+      image: null
     };
     // Toolkit.modalState = "open";
 
-    this.imageFormRef   = React.createRef();
-    this.photoInputRef  = React.createRef();
     this.uploadFormRef  = React.createRef();
-
-    this.handleDrop     = this.handleDrop.bind(this);
-    this.handleDragOver = this.handleDragOver.bind(this);
   };
 
   /**
    * LIFECYCLE FUNCTIONS
    */
   componentDidMount(){
+    const _this = this;
     $("#tabs").tabs();
-  };
 
-  /**
-   * EVENT HANDLERS
-   */
-  handleDragOver(e){
-    e.preventDefault();
-    e.stopPropagation();
-  };
-
-  handleDrop(e){
-    e.preventDefault();
-    e.stopPropagation();
-    const files = e.dataTransfer.files;
-
-    if(files){
-      this.photoInputRef.current.files = files
-
-      const _this = this;
-      const uploadForm = this.uploadFormRef.current;
-
-      $.ajax({
-        url:      "/images",
-        method:   "POST",
-        data:     {},
-        dataType: "json"
-      }).done(function(data){
+    this.dropzone = new Dropzone("#dropzone", { 
+      url: "/images",
+      createImageThumbnails: false,
+      paramName: "photo",
+      dictDefaultMessage: "<h4>DROP IMAGE HERE TO UPLOAD</h4><p class='or'>or</p><div class='button'>Select File</div>",
+      params: {
+        authenticity_token: document.querySelector('[name=csrf-token]').content,
+      },
+      sending: function(file, xhr, formData){
         _this.setState({step: "uploading"});
-        $(uploadForm).attr("action", `/images/${data.id}/upload_photo`)
-        $(uploadForm).trigger("submit");
-        // uploadForm.dispatchEvent(new Event("submit"));
-
-        const interval = setInterval(function(){
-          $.ajax({
-            url:      `/images/${data.id}/upload_photo_status`,
-            type:     "GET",
-            dataType: "json"
-          }).done(function(data){
-            if(data.uploaded){
-              clearInterval(interval);
-              _this.setState({step: "uploaded"});
-            }
-          })
-        }, 1500);
-      });
-
-    } else {
-      console.log("Couldn't find file");
-    }
+      },
+      complete: function(file){
+        if(file.status === "success"){
+          _this.setState({
+            image: JSON.parse(file.xhr.response),
+            step:  "uploaded"
+          });
+        } else {
+          // TODO
+          console.log("Figure out how to handle failures");
+        }
+      }
+    });
   };
 
   render(){
@@ -83,28 +55,13 @@ class PhotoManager extends React.Component{
           <section id="upload-image" className="upload-image">
             <h3>Upload an Image</h3>
 
-            {/* Initial form submission creates an Image record */}
-            <form id="create-image-form" ref={this.imageFormRef} action="/images" method="post">
-              <input type="hidden" name="utf8" value="✓" />
-              <input type="hidden" name="format" value="json" />
-              <input type="hidden" name="authenticity_token" value={document.querySelector('[name=csrf-token]').content} />
-            </form>
-
-            {/* This form is submitted once an Image is created and creates the photo in the background */}
-            <iframe src="about:blank" name="submit-frame" style={{display: "none"}}></iframe>
-            <form id="upload-photo-form" target="submit-frame" ref={this.uploadFormRef} className="dropzone dz-clickable" encType="multipart/form-data" action="#" acceptCharset="UTF-8" method="post">
-              <input type="hidden" name="utf8" value="✓" />
-              <input type="hidden" name="authenticity_token" value={document.querySelector('[name=csrf-token]').content} />
-              <input type="file" name="photo" id="image_photo" value="" ref={this.photoInputRef} readOnly={true} style={{display: "none"}} />
-
-              <div className="dz-default dz-message" onDragOver={this.handleDragOver} onDrop={this.handleDrop}>
+              <div className="dz-default dz-message" id="dropzone">
                 <span>
                   <h4>DROP IMAGE HERE TO UPLOAD</h4>
                   <p className="or">or</p>
                   <div className="button">Select File</div>
                 </span>
               </div>
-            </form>
           </section>
         );
         break;

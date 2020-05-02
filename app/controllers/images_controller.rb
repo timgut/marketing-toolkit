@@ -16,7 +16,8 @@ class ImagesController < ApplicationController
     authorize @image
 
     if @image.save
-      ImageUser.create!(image: @image, user: current_user)    
+      ImageUser.create!(image: @image, user: current_user)   
+      @image.upload_to_s3!(params[:photo])
       render json: @image.to_json
     else
       render json: @image.errors.to_json
@@ -97,14 +98,6 @@ class ImagesController < ApplicationController
     end
   end
 
-  # POST /images/1/upload_photo
-  def upload_photo
-    @image = Image.find(params[:id])
-    persist_tmpfile!
-    UploadPhotoJob.perform_async(image: @image, filepath: @tmpfile_path, filename: params[:photo].original_filename)
-    head :no_content
-  end
-
   # GET /images/1/upload_photo_status
   def upload_photo_status
     @image = Image.find(params[:id])
@@ -160,10 +153,5 @@ class ImagesController < ApplicationController
     @image.context = @template
     @image.pos_x   = params[:image].delete(:pos_x)
     @image.pos_y   = params[:image].delete(:pos_y)
-  end
-
-  def persist_tmpfile!
-    @tmpfile_path = Rails.root.join("tmp").join("#{current_user.id}-#{params[:photo].original_filename}")
-    File.open(@tmpfile_path, 'wb') {|file| file << File.read(params[:photo].tempfile.path)}
   end
 end

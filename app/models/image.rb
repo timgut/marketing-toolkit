@@ -31,7 +31,12 @@ class Image < ApplicationRecord
     end
   end
 
-  def uploaded_photo?
-    !original_image_url.nil?
+  def upload_to_s3!(file)
+    fullpath = s3_path(filename: file.original_filename)
+    service  = Aws::S3::Resource.new(region: "us-east-1")
+    object   = service.bucket("toolkit.afscme.org").object(fullpath)
+    response = object.upload_file(file.tempfile, acl: "public-read")
+
+    self.update!(original_image_url: "https://s3.amazonaws.com/toolkit.afscme.org#{fullpath}")
   end
 end

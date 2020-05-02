@@ -15,6 +15,7 @@
  * require jquery-ui/draggable
  * require jquery-ui/tabs
  *= require jcrop.2.0.4.min
+ *= require dropzone/dropzone
  *= require_tree .
  *= require_self
  */
