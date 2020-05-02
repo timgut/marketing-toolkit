@@ -31,12 +31,19 @@ class Image < ApplicationRecord
     end
   end
 
-  def upload_to_s3!(file)
-    fullpath = s3_path(filename: file.original_filename)
-    service  = Aws::S3::Resource.new(region: "us-east-1")
-    object   = service.bucket("toolkit.afscme.org").object(fullpath)
-    response = object.upload_file(file.tempfile, acl: "public-read")
+  def upload_to_s3!(upload)
+    # Persist the tempfile
+    filepath = Rails.root.join("tmp").join("#{DateTime.now.to_i}-#{upload.original_filename}")
+    File.open(filepath, 'wb') {|file| file << File.read(upload.tempfile.path)}
 
-    self.update!(original_image_url: "https://s3.amazonaws.com/toolkit.afscme.org#{fullpath}")
+    # Upload to S3
+    fullpath = s3_path(filename: upload.original_filename)
+    service  = Aws::S3::Resource.new(region: "us-east-1", http_wire_trace: true)
+    object   = service.bucket("toolkit.afscme.org").object(fullpath)
+    object.upload_file(filepath, acl: "public-read")
+
+    # Cleanup
+    FileUtils.rm(filepath)
+    self.update!(original_image_url: "https://s3.amazonaws.com/toolkit.afscme.org/#{fullpath}")
   end
 end

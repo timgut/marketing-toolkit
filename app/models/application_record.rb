@@ -12,6 +12,6 @@ class ApplicationRecord < ActiveRecord::Base
       raise "#{self.class.to_s} does not implement #s3_path."
     end
 
-    "/#{Rails.application.secrets.aws[:folder]}/#{folder}//#{filename}".gsub("//", "/")
+    "#{Rails.application.secrets.aws[:folder]}/#{folder}/#{filename}"
   end
 end

@@ -10,8 +10,6 @@ class PhotoManager extends React.Component{
       image: null
     };
     // Toolkit.modalState = "open";
-
-    this.uploadFormRef  = React.createRef();
   };
 
   /**
@@ -34,8 +32,17 @@ class PhotoManager extends React.Component{
       },
       complete: function(file){
         if(file.status === "success"){
+          const data = JSON.parse(file.xhr.response);
+          const image = {
+            id: data.id,
+            croppedUrl:  data.cropped_image_url,
+            originalUrl: data.original_image_url,
+            imgixUrl:    `https://afscme.imgix.net/${data.original_image_url.split("https://s3.amazonaws.com/")[1]}`,
+            imgixParams: {}
+          };
+
           _this.setState({
-            image: JSON.parse(file.xhr.response),
+            image: image,
             step:  "uploaded"
           });
         } else {
@@ -54,14 +61,15 @@ class PhotoManager extends React.Component{
         uploadTab = (
           <section id="upload-image" className="upload-image">
             <h3>Upload an Image</h3>
-
-              <div className="dz-default dz-message" id="dropzone">
-                <span>
-                  <h4>DROP IMAGE HERE TO UPLOAD</h4>
-                  <p className="or">or</p>
-                  <div className="button">Select File</div>
-                </span>
-              </div>
+              <form id="upload-photo-form" className="dropzone">
+                <div className="dz-default dz-message" id="dropzone">
+                  <span>
+                    <h4>DROP IMAGE HERE TO UPLOAD</h4>
+                    <p className="or">or</p>
+                    <div className="button">Select File</div>
+                  </span>
+                </div>
+              </form>
           </section>
         );
         break;
@@ -95,9 +103,12 @@ class PhotoManager extends React.Component{
           break;
 
         case "uploaded":
-          uploadTab = (
-            <p>TIME TO CROP!</p>
-          );
+          uploadTab = (<React.Fragment>
+            <h1>Original</h1>
+            <img src={this.state.image.originalUrl} />
+            <h1>ImgIX</h1>
+            <img src={this.state.image.imgixUrl} />
+          </React.Fragment>);
           break;
 
       default:
