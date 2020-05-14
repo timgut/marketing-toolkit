@@ -1,4 +1,5 @@
 <% content_for :title, "New User" %>
+<% if false%>
 <%= render partial: "users/registrations/validation" %>
 
 <%= devise_error_messages! %>
@@ -56,3 +57,4 @@
 
   <% end %>
 </main>
+<% end %>
