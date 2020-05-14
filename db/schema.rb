@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2019_03_20_184626) do
 
-  create_table "affiliates", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "affiliates", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.string "slug"
     t.string "state"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2019_03_20_184626) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "campaigns", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "campaigns", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.integer "status"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2019_03_20_184626) do
     t.text "audit"
   end
 
-  create_table "campaigns_templates", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "campaigns_templates", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "campaign_id"
     t.integer "template_id"
     t.datetime "created_at", null: false
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 2019_03_20_184626) do
     t.index ["template_id"], name: "index_campaigns_templates_on_template_id"
   end
 
-  create_table "campaigns_users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "campaigns_users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "campaign_id"
     t.integer "user_id"
     t.datetime "created_at", null: false
@@ -49,13 +49,13 @@ ActiveRecord::Schema.define(version: 2019_03_20_184626) do
     t.index ["user_id"], name: "index_campaigns_users_on_user_id"
   end
 
-  create_table "categories", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "categories", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "data", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "data", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "document_id"
     t.string "key"
     t.text "value"
@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 2019_03_20_184626) do
     t.index ["document_id"], name: "index_data_on_document_id"
   end
 
-  create_table "documents", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "documents", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "template_id"
     t.string "title"
     t.text "description"
@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(version: 2019_03_20_184626) do
     t.index ["template_id"], name: "index_documents_on_template_id"
   end
 
-  create_table "documents_users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "documents_users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "document_id"
     t.integer "user_id"
     t.datetime "created_at", null: false
@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(version: 2019_03_20_184626) do
     t.index ["user_id"], name: "index_documents_users_on_user_id"
   end
 
-  create_table "images", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "images", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "image_file_name"
     t.string "image_content_type"
     t.integer "image_file_size"
@@ -114,7 +114,7 @@ ActiveRecord::Schema.define(version: 2019_03_20_184626) do
     t.index ["creator_id"], name: "index_images_on_creator_id"
   end
 
-  create_table "images_users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "images_users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "image_id"
     t.integer "user_id"
     t.datetime "created_at", null: false
@@ -123,7 +123,7 @@ ActiveRecord::Schema.define(version: 2019_03_20_184626) do
     t.index ["user_id"], name: "index_images_users_on_user_id"
   end
 
-  create_table "stock_images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "stock_images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.string "image_file_name"
     t.string "image_content_type"
@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(version: 2019_03_20_184626) do
     t.string "label"
   end
 
-  create_table "templates", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "templates", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.float "height"
@@ -172,7 +172,7 @@ ActiveRecord::Schema.define(version: 2019_03_20_184626) do
     t.string "format"
   end
 
-  create_table "users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "first_name", default: "", null: false
     t.string "last_name", default: "", null: false
     t.string "email", default: "", null: false
