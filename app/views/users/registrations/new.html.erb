@@ -1,9 +1,12 @@
 <% content_for :title, "New User" %>
 <%= render partial: "users/registrations/validation" %>
 
-<%= devise_error_messages! %>
-<%= flash[:recaptcha_error] %>
 
+<div id="flash-recaptcha">
+  <%= flash[:recaptcha_error] %>
+</div>
+
+<%= devise_error_messages! %>
 
 <div class="errorTxt"></div>
 
@@ -51,10 +54,14 @@
         </div> 
       </li>
 
-      <li>
+      <div id="g-recaptcha-response-notify" style="display:none;">
+        <p style="color:red;"><strong>You must confirm you are not a robot to submit this form.</strong></p>
+      </div>
+
+      <li class="button">
       <%= recaptcha_tags %>
       </li>
-      
+                     
       <li class="button">
         <input type="submit" name="commit" value="Submit Request">
       </li>
