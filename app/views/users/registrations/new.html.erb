@@ -1,8 +1,9 @@
 <% content_for :title, "New User" %>
-<% if false%>
 <%= render partial: "users/registrations/validation" %>
 
 <%= devise_error_messages! %>
+<%= flash[:recaptcha_error] %>
+
 
 <div class="errorTxt"></div>
 
@@ -49,6 +50,10 @@
           <%= f.label :receive_alerts, 'By providing my cell phone number, I agree to receive text, autodialed and/or prerecorded messages at the cell number provided above on any subject from AFSCME and affiliated labor, political, or charitable organizations. Message and data rates may apply.' %></label>
         </div> 
       </li>
+
+      <li>
+      <%= recaptcha_tags %>
+      </li>
       
       <li class="button">
         <input type="submit" name="commit" value="Submit Request">
@@ -57,4 +62,3 @@
 
   <% end %>
 </main>
-<% end %>

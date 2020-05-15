@@ -131,9 +131,10 @@ class User < ApplicationRecord
 
   def send_admin_emails
     AdminMailer.new_user_waiting_for_approval(self).deliver_now
-    unless self.admin?
-      AdminMailer.notification_to_approvers(self, self.regional_approvers).deliver_now
-    end
+    ## we no longer want to trigger auto-email notifications b/c of possible spam
+    # unless self.admin?
+    #   AdminMailer.notification_to_approvers(self, self.regional_approvers).deliver_now
+    # end
   end
 
   def access_all_campaigns!
