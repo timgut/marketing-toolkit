@@ -1,14 +1,30 @@
 /**
- * TODO NEXT: My idea of uploading a photo in a second form submission isn't panning out.
- * Look into using the FormData class to send the photo upload data via ajax.
+ * STEPS:
+ * open:       The user opened this modal and is looking at the dropzone.
+ * uploading:  The user is looking at the loading screen while their original photo is uploading.
+ * uploaded:   The user has uploaded a photo. Let them decide to use it or crop it.
+ * setup-crop: The user is looking at the loading screen while the cropping interface loads.
+ * cropping:   The user is using the cropping UI.
+ * preview:    The user is previewing their cropped photo.
+ * selected:   The user has selected an image, either their original or the cropped one
  */
 class PhotoManager extends React.Component{
   constructor(props={}){
     super(props);
     this.state = {
-      step: "open",
-      image: null
+      step:       "open",
+      image:      null,
+      coords:     {x1: null, y1: null, x2: null, y2: null, h: null, w: null},
+      canPreview: false,
+      jcropApi:   null,
+      cropHeight: null,
+      cropWidth:  null
     };
+
+    this.handleClick  = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
+
     // Toolkit.modalState = "open";
   };
 
@@ -37,8 +53,8 @@ class PhotoManager extends React.Component{
             id: data.id,
             croppedUrl:  data.cropped_image_url,
             originalUrl: data.original_image_url,
-            imgixUrl:    `https://afscme.imgix.net/${data.original_image_url.split("https://s3.amazonaws.com/")[1]}`,
-            imgixParams: {}
+            imgixUrl:    `https://afscme.imgix.net/${data.original_image_url.split("https://s3.amazonaws.com/toolkit.afscme.org/")[1]}`,
+            meta:        null
           };
 
           _this.setState({
@@ -53,7 +69,133 @@ class PhotoManager extends React.Component{
     });
   };
 
+  componentDidUpdate(){
+    const _this = this;
+
+    switch(this.state.step){
+      case "uploaded":
+        if(this.state.image.meta === null){
+          $.ajax({
+            url:    `${this.state.image.imgixUrl}?fm=json`,
+            method: "GET",
+          }).done(function(data){
+            _this.setState({image: Object.assign({}, _this.state.image, {meta: data})});
+          });
+        }
+        break;
+
+      case "setup-crop":
+        availableHeight = Math.round($("body").height() * 0.8);
+        availableWidth  = Math.round($("body").width()  * 0.8);
+
+        if(this.state.image.meta.PixelHeight > availableHeight && this.state.image.meta.PixelWidth > availableWidth){
+          // Original photo is too large to crop on both dimensions
+          // this.state.imageToCrop = `${this.state.image.imgixUrl}?fit=fill&width=${availableWidth}&height=${availableHeight}`;
+          this.state.cropHeight = availableHeight;
+          this.state.cropWidth  = availableWidth;
+
+        } else if(this.state.image.meta.PixelHeight > availableHeight){
+          // Original photo is too tall to crop
+          // this.state.imageToCrop = `${this.state.image.imgixUrl}?fit=clamp&height=${availableHeight}`;
+          this.state.cropHeight = availableHeight;
+          this.state.cropWidth  = this.state.image.meta.PixelWidth;
+
+        } else if(this.state.image.meta.PixelWidth > availableWidth){
+          // Original photo is too wide to crop
+          // this.state.imageToCrop = `${this.state.image.imgixUrl}?fit=clamp&width=${availableWidth}`;
+          this.state.cropHeight = this.state.image.meta.PixelHeight;
+          this.state.cropWidth  = availableWidth;
+        
+        } else {
+          // Original photo is okay to crop
+          this.state.imageToCrop = this.state.image.imgixUrl;
+        }
+
+        this.state.imageToCrop = this.state.image.imgixUrl;
+        this.setState({step: "cropping"});
+        break;
+
+      case "cropping":
+        if(this.state.jcropApi === null){
+          $("#image-to-crop").Jcrop({
+            boxWidth:  this.state.cropWidth,
+            boxHeight: this.state.cropHeight,
+            onSelect:  this.handleSelect,
+            onChange:  this.handleChange
+          },function(){
+            _this.state.jcropApi = this;
+          });
+        }
+        break;
+
+      case "preview":
+        this.state.jcropApi.destroy();
+        this.state.jcropApi = null;
+        break;
+    }
+  }
+
+  /**
+   * EVENT HANDLERS
+   */
+  // Disable the preview button while the user changes the cropping selection.
+  handleChange(e){
+    if(this.state.canPreview){
+      this.setState({canPreview: false});
+    }
+  };
+
+  handleClick(e){
+    switch(e.target.dataset.action){
+      case "crop-photo":
+        this.setState({cropSetup: false, step: "setup-crop"});
+        break;
+
+      case "preview-photo":
+        this.setState({step: "preview"});
+        break;
+
+      case "select-photo":
+        this.setState({step: "selected"});
+        break;
+
+      default:
+        console.log(e.target.dataset.action);
+    }
+  };
+
+  // The user is done dragging the cropping tool. Let them preview.
+  handleSelect(e){
+    this.setState({
+      canPreview: true,
+      coords: {
+        x1: Math.round(e.x),
+        y1: Math.round(e.y),
+        x2: Math.round(e.x2),
+        y2: Math.round(e.y2),
+        h:  Math.round(e.h),
+        w:  Math.round(e.w)
+      }
+    });
+  };
+
   render(){
+    const loading = (<div className='loading-box'>
+      <div className='vert-align'>
+        <div className='loader'>
+          <svg version='1.1' id='loader-1' xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' width='40px' height='40px' viewBox='0 0 50 50'>
+            <path fill='#fff' d='M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z'>
+              <animateTransform attributeType='xml' attributeName='transform' type='rotate' from='0 25 25' to='360 25 25' dur='0.6s' repeatCount='indefinite' />
+            </path>
+          </svg>
+        </div>
+        <div className='loading-text'>
+          Loading Image
+          <small>High Resolution images may take a moment</small>
+        </div>
+      </div>
+    </div>);
+
     let uploadTab;
 
     switch(this.state.step){
@@ -75,40 +217,48 @@ class PhotoManager extends React.Component{
         break;
 
         case "uploading":
-          uploadTab = (
-            <div className='loading-box'>
-              <div className='vert-align'>
-                <div className='loader'>
-                  <svg version='1.1' id='loader-1' xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' width='40px' height='40px' viewBox='0 0 50 50'>
-                    <path fill='#fff' d='M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z'>
-                      <animateTransform
-                        attributeType='xml'
-                        attributeName='transform'
-                        type='rotate' 
-                        from='0 25 25' 
-                        to='360 25 25' 
-                        dur='0.6s' 
-                        repeatCount='indefinite' 
-                      />
-                    </path>
-                  </svg>
-                </div>
-                <div className='loading-text'>
-                  Loading Image
-                  <small>High Resolution images may take a moment</small>
-                </div>
-              </div>
-            </div>
-          );
+        case "setup-crop":
+          uploadTab = loading;
           break;
 
         case "uploaded":
           uploadTab = (<React.Fragment>
-            <h1>Original</h1>
-            <img src={this.state.image.originalUrl} />
-            <h1>ImgIX</h1>
-            <img src={this.state.image.imgixUrl} />
+            <div className="buttons">
+              <button data-action="crop-photo" onClick={this.handleClick} className="button active">Crop This Photo</button>
+              <button data-action="select-photo" onClick={this.handleClick} className="button active">Use This Photo</button>
+            </div>
+            <img style={{maxWidth: "80%", maxHeight: "80%"}} src={this.state.image.originalUrl} />
           </React.Fragment>);
+          break;
+
+        case "cropping":
+          uploadTab = (<section className="crop-image">
+            <div className="buttons">
+              <button data-action="preview-photo" onClick={this.handleClick} disabled={!this.state.canPreview} className="button active">Preview</button>
+            </div>
+            <img style={{height: "auto", width: "auto"}} src={this.state.imageToCrop} id="image-to-crop" />
+          </section>);
+          break;
+
+        case "preview":
+          let rect = `${this.state.coords.x1},${this.state.coords.y1},${this.state.coords.w},${this.state.coords.h}`;
+
+          let croppedImage;
+          // if(this.state.imageToCrop.indexOf("?" > -1)){
+          //   croppedImage = `${this.state.imageToCrop}&rect=${rect}`;
+          // } else {
+            croppedImage = `${this.state.imageToCrop}?rect=${rect}`;
+          // }
+
+          uploadTab = (<section className="preview-image">
+            <div className="buttons">
+              <button data-action="select-photo" onClick={this.handleClick} className="button active">Use This Photo</button>
+              <button data-action="crop-photo"   onClick={this.handleClick} className="button active">Crop Original Photo Again</button>
+            </div>
+            <img style={{height: "auto", width: "auto"}} src={croppedImage}  />
+          </section>);
+
+        case "selected":
           break;
 
       default:

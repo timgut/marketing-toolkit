@@ -14,8 +14,16 @@
  *= require codemirror/themes/ambiance
  * require jquery-ui/draggable
  * require jquery-ui/tabs
- *= require jcrop.2.0.4.min
+ *= require jquery.Jcrop.min
  *= require dropzone/dropzone
  *= require_tree .
  *= require_self
  */
+
+.field_with_errors {
+  display: inline;
+}
+
+.crop-image, .preview-image {
+  margin-top: 4rem;
+}

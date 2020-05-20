@@ -22,7 +22,7 @@
 //= require jquery.validate
 //= require jquery-ui/widgets/draggable
 //= require jquery-ui/widgets/tabs
-//= require jcrop.2.0.4.min
+//= require jquery.Jcrop.min
 
 //= require codemirror
 //= require codemirror/modes/css
