@@ -6,6 +6,9 @@ class User < ApplicationRecord
   has_and_belongs_to_many :images
   has_and_belongs_to_many :campaigns, join_table: :campaigns_users
 
+  validates_length_of :first_name, :maximum => 30, :message => "must be less than 30 characters"
+  validates_length_of :last_name, :maximum => 30, :message => "must be less than 30 characters"
+
   belongs_to :affiliate
 
   scope :approved, -> { where(approved: 1) }

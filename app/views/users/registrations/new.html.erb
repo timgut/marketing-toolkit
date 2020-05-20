@@ -15,10 +15,10 @@
     <h1>Request Access</h1> 
     <ol class="cf">
       <li>
-        <%= f.text_field :first_name, autofocus: true, placeholder: 'First name*' %>   
+        <%= f.text_field :first_name, autofocus: true, placeholder: 'First name*', maxlength: 30 %>   
       </li>
       <li>
-        <%= f.text_field :last_name, placeholder: 'Last name*' %>   
+        <%= f.text_field :last_name, placeholder: 'Last name*', maxlength: 30 %>   
       </li>  
       <li>
         <%= f.email_field :email, placeholder: 'Email Address*' %>   
