@@ -230,6 +230,8 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    recaptcha (5.5.0)
+      json
     ref (2.0.0)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
@@ -349,6 +351,7 @@ DEPENDENCIES
   pundit
   rails (= 5.2.1.1)
   rails-controller-testing
+  recaptcha
   rspec-rails
   rufus-scheduler
   sass-rails (~> 5.0)
@@ -370,4 +373,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.5
+   1.17.2

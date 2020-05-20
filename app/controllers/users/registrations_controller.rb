@@ -1,4 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
+  prepend_before_action :check_captcha, only: [:create] # Change this to be any actions you want to protect.
+
   def confirmation
   end
 
@@ -41,6 +43,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   private
+
+  def check_captcha
+    unless verify_recaptcha
+      self.resource = resource_class.new sign_up_params
+      resource.validate # Look for any other validation errors besides reCAPTCHA
+      flash[:recaptcha_error] = "reCAPTCHA test failed. You must confirm you are not a robot."
+      redirect_back fallback_location: new_user_registration_path
+    end 
+  end
 
   def load_user
     @user = current_user

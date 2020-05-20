@@ -34,6 +34,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'unicorn'
 gem 'wicked_pdf'
 gem 'rufus-scheduler'
+gem 'recaptcha'
 
 # moved outside of :development because of unknown error on remote migrations during deploy
 gem 'listen', '~> 3.0.5'

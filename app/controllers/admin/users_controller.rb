@@ -1,5 +1,6 @@
 class Admin::UsersController < AdminController
   # POST /admin/users
+
   def create
     @user = User.new(user_params)
     authorize @user

@@ -20,7 +20,17 @@ $(document).ready(function(){
       'user[zip_code]': { required: "Zip code is required." },
       'user[affiliate_id]': { required: "Affiliate/council is required." },
       'user[department]': { required: "Department is required." },
-    }
+    },
+    submitHandler: function(form) {
+      var recaptcha = grecaptcha.getResponse();
+      //console.log(recaptcha);
+      if (recaptcha === 'g-recaptcha-response' || recaptcha === '')  { // this means the "I'm not a robot" checkbox is empty
+        $('#g-recaptcha-response-notify').show(); // show an error message specific to that
+      }
+      else {
+        form.submit();
+      }
+   	}
   });
 });
 </script>
