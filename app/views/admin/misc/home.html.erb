@@ -6,9 +6,9 @@
       # Find a link to the document
       case document.template.format
       when "pdf"
-        link = document.pdf.url
+        link = document.pdf_url
       when "png"
-        link = document.share_graphic.url
+        link = document.share_graphic_url
       end
     %>
     <div class="activity-feed-item cf">

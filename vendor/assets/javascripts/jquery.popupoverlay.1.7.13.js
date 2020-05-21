@@ -701,7 +701,6 @@
 
             // If Close button clicked
             if ($(event.target).closest(closeButton).length) {
-                console.log("Close button clicked")
                 event.preventDefault();
                 methods.hide(el);
             }

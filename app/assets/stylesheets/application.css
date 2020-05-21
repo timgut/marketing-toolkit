@@ -26,4 +26,7 @@
 
 .crop-image, .preview-image {
   margin-top: 4rem;
+  img {
+    margin-top: 4rem;
+  }
 }

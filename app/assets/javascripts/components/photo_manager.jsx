@@ -1,31 +1,13 @@
-/**
- * STEPS:
- * open:       The user opened this modal and is looking at the dropzone.
- * uploading:  The user is looking at the loading screen while their original photo is uploading.
- * uploaded:   The user has uploaded a photo. Let them decide to use it or crop it.
- * setup-crop: The user is looking at the loading screen while the cropping interface loads.
- * cropping:   The user is using the cropping UI.
- * preview:    The user is previewing their cropped photo.
- * selected:   The user has selected an image, either their original or the cropped one
- */
 class PhotoManager extends React.Component{
   constructor(props={}){
     super(props);
-    this.state = {
-      step:       "open",
-      image:      null,
-      coords:     {x1: null, y1: null, x2: null, y2: null, h: null, w: null},
-      canPreview: false,
-      jcropApi:   null,
-      cropHeight: null,
-      cropWidth:  null
-    };
+    this.resetState();
 
     this.handleClick  = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
 
-    // Toolkit.modalState = "open";
+    this.previewRef = React.createRef();
   };
 
   /**
@@ -35,18 +17,16 @@ class PhotoManager extends React.Component{
     const _this = this;
     $("#tabs").tabs();
 
+    console.log(Toolkit.photoManagerData);
+
     this.dropzone = new Dropzone("#dropzone", { 
-      url: "/images",
+      dictDefaultMessage:    "<h4>DROP IMAGE HERE TO UPLOAD</h4><p class='or'>or</p><div class='button'>Select File</div>",
       createImageThumbnails: false,
+      url:       "/images",
       paramName: "photo",
-      dictDefaultMessage: "<h4>DROP IMAGE HERE TO UPLOAD</h4><p class='or'>or</p><div class='button'>Select File</div>",
-      params: {
-        authenticity_token: document.querySelector('[name=csrf-token]').content,
-      },
-      sending: function(file, xhr, formData){
-        _this.setState({step: "uploading"});
-      },
-      complete: function(file){
+      params:    { authenticity_token: document.querySelector('[name=csrf-token]').content },
+      sending:   function(file, xhr, formData){ _this.setState({step: "uploading"}); },
+      complete:  function(file){
         if(file.status === "success"){
           const data = JSON.parse(file.xhr.response);
           const image = {
@@ -62,7 +42,6 @@ class PhotoManager extends React.Component{
             step:  "uploaded"
           });
         } else {
-          // TODO
           console.log("Figure out how to handle failures");
         }
       }
@@ -91,20 +70,20 @@ class PhotoManager extends React.Component{
         if(this.state.image.meta.PixelHeight > availableHeight && this.state.image.meta.PixelWidth > availableWidth){
           // Original photo is too large to crop on both dimensions
           // this.state.imageToCrop = `${this.state.image.imgixUrl}?fit=fill&width=${availableWidth}&height=${availableHeight}`;
-          this.state.cropHeight = availableHeight;
-          this.state.cropWidth  = availableWidth;
+          this.state.boxHeight = availableHeight;
+          this.state.boxWidth  = availableWidth;
 
         } else if(this.state.image.meta.PixelHeight > availableHeight){
           // Original photo is too tall to crop
           // this.state.imageToCrop = `${this.state.image.imgixUrl}?fit=clamp&height=${availableHeight}`;
-          this.state.cropHeight = availableHeight;
-          this.state.cropWidth  = this.state.image.meta.PixelWidth;
+          this.state.boxHeight = availableHeight;
+          this.state.boxWidth  = this.state.image.meta.PixelWidth;
 
         } else if(this.state.image.meta.PixelWidth > availableWidth){
           // Original photo is too wide to crop
           // this.state.imageToCrop = `${this.state.image.imgixUrl}?fit=clamp&width=${availableWidth}`;
-          this.state.cropHeight = this.state.image.meta.PixelHeight;
-          this.state.cropWidth  = availableWidth;
+          this.state.boxHeight = this.state.image.meta.PixelHeight;
+          this.state.boxWidth  = availableWidth;
         
         } else {
           // Original photo is okay to crop
@@ -118,8 +97,8 @@ class PhotoManager extends React.Component{
       case "cropping":
         if(this.state.jcropApi === null){
           $("#image-to-crop").Jcrop({
-            boxWidth:  this.state.cropWidth,
-            boxHeight: this.state.cropHeight,
+            boxWidth:  this.state.boxWidth,
+            boxHeight: this.state.boxHeight,
             onSelect:  this.handleSelect,
             onChange:  this.handleChange
           },function(){
@@ -129,6 +108,7 @@ class PhotoManager extends React.Component{
         break;
 
       case "preview":
+        $(this.previewRef.current).attr("style", "");
         this.state.jcropApi.destroy();
         this.state.jcropApi = null;
         break;
@@ -179,6 +159,67 @@ class PhotoManager extends React.Component{
     });
   };
 
+  /**
+   * COMPONENT FUNCTIONS
+   */
+  /**
+   * Takes the current component state and builds a URL where the user's cropped and resized image lives.
+   */
+  buildPreviewUrl(){
+    let params = {};
+    if(this.state.coords.x1 && this.state.coords.y1 && this.state.coords.w && this.state.coords.h){
+      params.rect = `${this.state.coords.x1},${this.state.coords.y1},${this.state.coords.w},${this.state.coords.h}`;
+    }
+
+    if(this.state.resizeHeight && this.state.resizeWidth){
+      params.fit = "crop";
+      params.h   = this.state.resizeHeight;
+      params.w   = this.state.resizeWidth;
+    } else if(this.state.resizeHeight){
+      params.fit = "clip";
+      params.h   = this.state.resizeHeight;
+    } else if(this.state.resizeWidth){
+      params.fit = "clip";
+      params.w   = this.state.resizeWidth;
+    }
+
+    let paramsString = [];
+    for(key in params){
+      paramsString.push(`${key}=${params[key]}`);
+    }
+    paramsString = paramsString.join("&");
+    console.log(paramsString);
+
+    return `${this.state.imageToCrop}?${paramsString}`;
+  }
+
+  /**
+   * Sets the initial state. SHould be called whenever the step should be set to "open"
+   * STEPS:
+   * open:       The user opened this modal and is looking at the dropzone.
+   * uploading:  The user is looking at the loading screen while their original photo is uploading.
+   * uploaded:   The user has uploaded a photo. Let them decide to use it or crop it.
+   * setup-crop: The user is looking at the loading screen while the cropping interface loads.
+   * cropping:   The user is using the cropping UI.
+   * preview:    The user is previewing their cropped photo.
+   * selected:   The user has selected an image, either their original or the cropped one
+   */
+  resetState(){
+    this.state = {
+      step:       "open",
+      image:      null,  // The URL of the user's original image
+      coords:     {x1: null, y1: null, x2: null, y2: null, h: null, w: null}, // Set whenever the user selects a crop range
+      canPreview: false, // Is the Preview button enabled?
+      jcropApi:   null,  // Access to jCrop
+      boxHeight:  null,  // The height of the Crop UI
+      boxWidth:   null,  // The width of the Crop UI
+      canCrop:      Toolkit.photoManagerData.crop         || false,
+      target:       Toolkit.photoManagerData.target       || null,
+      resizeHeight: Toolkit.photoManagerData.resizeHeight || null,
+      resizeWidth:  Toolkit.photoManagerData.resizeWidth  || null
+    };
+  };
+
   render(){
     const loading = (<div className='loading-box'>
       <div className='vert-align'>
@@ -200,7 +241,7 @@ class PhotoManager extends React.Component{
 
     switch(this.state.step){
       case "open":
-        uploadTab = (
+        uploadTab = (<React.Fragment>
           <section id="upload-image" className="upload-image">
             <h3>Upload an Image</h3>
               <form id="upload-photo-form" className="dropzone">
@@ -213,7 +254,7 @@ class PhotoManager extends React.Component{
                 </div>
               </form>
           </section>
-        );
+        </React.Fragment>);
         break;
 
         case "uploading":
@@ -241,29 +282,19 @@ class PhotoManager extends React.Component{
           break;
 
         case "preview":
-          let rect = `${this.state.coords.x1},${this.state.coords.y1},${this.state.coords.w},${this.state.coords.h}`;
-
-          let croppedImage;
-          // if(this.state.imageToCrop.indexOf("?" > -1)){
-          //   croppedImage = `${this.state.imageToCrop}&rect=${rect}`;
-          // } else {
-            croppedImage = `${this.state.imageToCrop}?rect=${rect}`;
-          // }
-
           uploadTab = (<section className="preview-image">
             <div className="buttons">
               <button data-action="select-photo" onClick={this.handleClick} className="button active">Use This Photo</button>
               <button data-action="crop-photo"   onClick={this.handleClick} className="button active">Crop Original Photo Again</button>
+              <button data-action="upload-photo" onClick={this.handleClick} className="button active">Upload New Photo</button>
             </div>
-            <img style={{height: "auto", width: "auto"}} src={croppedImage}  />
+            <img ref={this.previewRef} src={this.buildPreviewUrl()}  />
           </section>);
 
         case "selected":
           break;
+    };
 
-      default:
-        console.log(`Don't know what to do with ${Toolkit.modalState}`)
-    }
     return(
       <React.Fragment>
         <div className="select-image">

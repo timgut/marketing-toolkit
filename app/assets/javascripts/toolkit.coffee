@@ -91,3 +91,17 @@ Toolkit.mobileMenu()
 Toolkit.init.jobs()
 
 $(document).on('turbolinks:click', Toolkit.cleanup)
+
+$(document).on("turbolinks:load", ->
+  Toolkit.photoManagerData = {};
+
+  $("form[data-document='true']").on("click", ".image-picker", ->
+    Toolkit.photoManagerData = $(this).data();
+  );
+
+  $("body").on("click", ".image-picker_close", ->
+    removed = ReactDOM.unmountComponentAtNode(document.querySelectorAll("[data-react-class='PhotoManager']")[0]);
+    console.log(removed);
+  );
+);
+
