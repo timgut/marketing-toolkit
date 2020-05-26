@@ -24,9 +24,11 @@
   display: inline;
 }
 
-.crop-image, .preview-image {
-  margin-top: 4rem;
-  img {
-    margin-top: 4rem;
-  }
+#tabs .buttons {
+  margin-bottom: 4rem;
+}
+
+.original-image {
+  max-width:  80%; 
+  max-height: 80%;
 }

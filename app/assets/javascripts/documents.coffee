@@ -121,6 +121,8 @@ window.Toolkit.Document.addImage = ->
 
   # Remove the image when the delete button is clicked
   $(document).on("click", ".controls .delete", (e)->
+    e.stopPropagation();
+
     $field  = $(@).closest(".field")
     $figure = $field.find("figure")
     $input  = $field.find("input[data-custom='image']")

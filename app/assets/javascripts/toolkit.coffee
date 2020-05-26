@@ -100,8 +100,8 @@ $(document).on("turbolinks:load", ->
   );
 
   $("body").on("click", ".image-picker_close", ->
-    removed = ReactDOM.unmountComponentAtNode(document.querySelectorAll("[data-react-class='PhotoManager']")[0]);
-    console.log(removed);
+    ReactDOM.unmountComponentAtNode(document.querySelectorAll("[data-react-class='PhotoManager']")[0]);
+    Toolkit.photoManagerData = {};
   );
 );
 

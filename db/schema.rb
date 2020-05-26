@@ -98,7 +98,6 @@ ActiveRecord::Schema.define(version: 2020_04_30_174659) do
     t.integer "status", default: 1
     t.text "original_image_url"
     t.text "cropped_image_url"
-    t.text "imgix_params"
     t.index ["creator_id"], name: "index_images_on_creator_id"
   end
 

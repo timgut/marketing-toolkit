@@ -5,6 +5,7 @@ class PhotoManager extends React.Component{
 
     this.handleClick  = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleFileChooser = this.handleFileChooser.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
 
     this.previewRef = React.createRef();
@@ -17,9 +18,7 @@ class PhotoManager extends React.Component{
     const _this = this;
     $("#tabs").tabs();
 
-    console.log(Toolkit.photoManagerData);
-
-    this.dropzone = new Dropzone("#dropzone", { 
+    this.dropzone = new Dropzone("#dropzone", {
       dictDefaultMessage:    "<h4>DROP IMAGE HERE TO UPLOAD</h4><p class='or'>or</p><div class='button'>Select File</div>",
       createImageThumbnails: false,
       url:       "/images",
@@ -30,7 +29,7 @@ class PhotoManager extends React.Component{
         if(file.status === "success"){
           const data = JSON.parse(file.xhr.response);
           const image = {
-            id: data.id,
+            id:          data.id,
             croppedUrl:  data.cropped_image_url,
             originalUrl: data.original_image_url,
             imgixUrl:    `https://afscme.imgix.net/${data.original_image_url.split("https://s3.amazonaws.com/toolkit.afscme.org/")[1]}`,
@@ -52,6 +51,7 @@ class PhotoManager extends React.Component{
     const _this = this;
 
     switch(this.state.step){
+      // Get the photo's metadata from imgix.
       case "uploaded":
         if(this.state.image.meta === null){
           $.ajax({
@@ -63,37 +63,31 @@ class PhotoManager extends React.Component{
         }
         break;
 
+      // Figure out the dimensions for the crop area based off the photo's metafdata.
       case "setup-crop":
         availableHeight = Math.round($("body").height() * 0.8);
         availableWidth  = Math.round($("body").width()  * 0.8);
 
         if(this.state.image.meta.PixelHeight > availableHeight && this.state.image.meta.PixelWidth > availableWidth){
           // Original photo is too large to crop on both dimensions
-          // this.state.imageToCrop = `${this.state.image.imgixUrl}?fit=fill&width=${availableWidth}&height=${availableHeight}`;
           this.state.boxHeight = availableHeight;
           this.state.boxWidth  = availableWidth;
 
         } else if(this.state.image.meta.PixelHeight > availableHeight){
           // Original photo is too tall to crop
-          // this.state.imageToCrop = `${this.state.image.imgixUrl}?fit=clamp&height=${availableHeight}`;
           this.state.boxHeight = availableHeight;
           this.state.boxWidth  = this.state.image.meta.PixelWidth;
 
         } else if(this.state.image.meta.PixelWidth > availableWidth){
           // Original photo is too wide to crop
-          // this.state.imageToCrop = `${this.state.image.imgixUrl}?fit=clamp&width=${availableWidth}`;
           this.state.boxHeight = this.state.image.meta.PixelHeight;
           this.state.boxWidth  = availableWidth;
-        
-        } else {
-          // Original photo is okay to crop
-          this.state.imageToCrop = this.state.image.imgixUrl;
         }
 
-        this.state.imageToCrop = this.state.image.imgixUrl;
         this.setState({step: "cropping"});
         break;
 
+      // Initialize JCrop
       case "cropping":
         if(this.state.jcropApi === null){
           $("#image-to-crop").Jcrop({
@@ -107,13 +101,52 @@ class PhotoManager extends React.Component{
         }
         break;
 
+      // Destroy JCrop
       case "preview":
         $(this.previewRef.current).attr("style", "");
         this.state.jcropApi.destroy();
         this.state.jcropApi = null;
         break;
+
+      // Update the image with the crop data
+      case "selected":
+        $.ajax({
+          url:    `/images/${_this.state.image.id}`,
+          method: "PATCH",
+          data:   {
+            format: "json",
+            image:  {
+              id: _this.state.image.id,
+              cropped_image_url: _this.buildPreviewUrl()
+            }
+          }
+        }).done(function(data){
+          $(`figure[data-target='${Toolkit.photoManagerData.target}']`).attr("style", `background-image:url(${_this.buildPreviewUrl()})`);
+          _this.setState({step: "done", image: Object.assign({}, _this.state.image, {meta: data})});
+        });
+        break;
+
+      // Change the <figure> to its selected state, and close the modal.
+      case "done":
+        const $figure  = $(`figure[data-target='${Toolkit.photoManagerData.target}']`);
+        const controls = `
+          <div class="controls">
+            <div class="change" title="Change Photo">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path d="M245.4,937.5l61.5-61.5L148,717.1l-61.5,61.5V851H173v86.5H245.4z M598.9,310.2c0-9.9-5-14.9-14.9-14.9 c-4.5,0-8.3,1.6-11.5,4.7L206.2,666.4c-3.2,3.2-4.7,7-4.7,11.5c0,9.9,5,14.9,14.9,14.9c4.5,0,8.3-1.6,11.5-4.7l366.3-366.3    C597.3,318.6,598.9,314.7,598.9,310.2z M562.4,180.5l281.2,281.2L281.2,1024H0V742.8L562.4,180.5z M1024,245.4 c0,23.9-8.3,44.2-25,60.8L886.8,418.4L605.6,137.2L717.8,25.7C734,8.6,754.3,0,778.6,0c23.9,0,44.4,8.6,61.5,25.7L999,183.8C1015.7,201.4,1024,221.9,1024,245.4z"></path></svg>
+            </div>
+            <div class="delete" title="Delete Photo">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path d="M696,512l312.7,312.7c20.3,20.3,20.3,53.3,0,73.6l-110.4,110.4c-20.3,20.3-53.3,20.3-73.6,0L512,696l-312.8,312.7 c-20.3,20.3-53.3,20.3-73.6,0L15.2,898.4c-20.3-20.3-20.3-53.3,0-73.6L328,512L15.2,199.2c-20.3-20.3-20.3-53.3,0-73.6L125.7,15.2c20.3-20.3,53.3-20.3,73.6,0L512,328L824.8,15.2c20.3-20.3,53.3-20.3,73.6,0l110.4,110.4c20.3,20.3,20.3,53.3,0,73.6L696,512 L696,512z"></path></svg>
+            </div>
+          </div>
+        `;
+
+        $figure.find(".positioner").hide();
+        $figure.append(controls);
+
+        $(".image-picker_close").click();
+        break;
     }
-  }
+  };
 
   /**
    * EVENT HANDLERS
@@ -142,6 +175,10 @@ class PhotoManager extends React.Component{
       default:
         console.log(e.target.dataset.action);
     }
+  };
+
+  handleFileChooser(){
+    $(this.dropzone.hiddenFileInput).click();
   };
 
   // The user is done dragging the cropping tool. Let them preview.
@@ -183,14 +220,15 @@ class PhotoManager extends React.Component{
       params.w   = this.state.resizeWidth;
     }
 
-    let paramsString = [];
-    for(key in params){
-      paramsString.push(`${key}=${params[key]}`);
-    }
-    paramsString = paramsString.join("&");
-    console.log(paramsString);
+    if(Object.keys(params).length > 0){
+      let paramsString = [];
+      for(key in params){ paramsString.push(`${key}=${params[key]}`) }
+      paramsString = paramsString.join("&");
 
-    return `${this.state.imageToCrop}?${paramsString}`;
+      return `${this.state.image.imgixUrl}?${paramsString}`;
+    } else {
+      return this.state.image.imgixUrl;
+    }
   }
 
   /**
@@ -202,7 +240,8 @@ class PhotoManager extends React.Component{
    * setup-crop: The user is looking at the loading screen while the cropping interface loads.
    * cropping:   The user is using the cropping UI.
    * preview:    The user is previewing their cropped photo.
-   * selected:   The user has selected an image, either their original or the cropped one
+   * selected:   The user has selected an image, either their original or the cropped one.
+   * done:       The user's selected image has been saved and the modal can be closed.
    */
   resetState(){
     this.state = {
@@ -231,8 +270,8 @@ class PhotoManager extends React.Component{
           </svg>
         </div>
         <div className='loading-text'>
-          Loading Image
-          <small>High Resolution images may take a moment</small>
+          Loading...
+          <small>Please be patient with high resolution images</small>
         </div>
       </div>
     </div>);
@@ -244,7 +283,7 @@ class PhotoManager extends React.Component{
         uploadTab = (<React.Fragment>
           <section id="upload-image" className="upload-image">
             <h3>Upload an Image</h3>
-              <form id="upload-photo-form" className="dropzone">
+              <form id="upload-photo-form" className="dropzone" onClick={this.handleFileChooser} data-action="open-filechooser">
                 <div className="dz-default dz-message" id="dropzone">
                   <span>
                     <h4>DROP IMAGE HERE TO UPLOAD</h4>
@@ -259,6 +298,7 @@ class PhotoManager extends React.Component{
 
         case "uploading":
         case "setup-crop":
+        case "selected":
           uploadTab = loading;
           break;
 
@@ -268,7 +308,7 @@ class PhotoManager extends React.Component{
               <button data-action="crop-photo" onClick={this.handleClick} className="button active">Crop This Photo</button>
               <button data-action="select-photo" onClick={this.handleClick} className="button active">Use This Photo</button>
             </div>
-            <img style={{maxWidth: "80%", maxHeight: "80%"}} src={this.state.image.originalUrl} />
+            <img className="original-image" src={this.state.image.originalUrl} />
           </React.Fragment>);
           break;
 
@@ -277,7 +317,7 @@ class PhotoManager extends React.Component{
             <div className="buttons">
               <button data-action="preview-photo" onClick={this.handleClick} disabled={!this.state.canPreview} className="button active">Preview</button>
             </div>
-            <img style={{height: "auto", width: "auto"}} src={this.state.imageToCrop} id="image-to-crop" />
+            <img style={{height: "auto", width: "auto"}} src={this.state.image.imgixUrl} id="image-to-crop" />
           </section>);
           break;
 

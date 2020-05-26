@@ -24,22 +24,6 @@ class ImagesController < ApplicationController
     end
   end
 
-  # GET /images/1/contextual_crop
-  def contextual_crop
-    load_image
-    set_cropping_data
-
-    render layout: false
-  end
-
-  # GET /images/1/papercrop
-  def papercrop
-    load_image
-    set_cropping_data
-
-    render layout: false
-  end
-
   # GET /images/1/edit
   def edit
     load_image
@@ -75,8 +59,6 @@ class ImagesController < ApplicationController
   # PATCH /images/1
   def update
     load_image
-    set_cropping_data
-    @image.paperclip_resize = true
 
     respond_to do |format|
       format.html do
@@ -89,10 +71,9 @@ class ImagesController < ApplicationController
 
       format.json do
         if @image.update_attributes(image_params)
-          @image.set_crop_data!
-          render json: {id: @image.id, url: @image.image.url, cropped_url: @image.image.url(:cropped), file_name: @image.image_file_name}
+          render json: @image.to_json
         else
-          render plain: @image.errors.full_messages.to_sentence, status: 403
+          render json: @image.errors.to_json
         end
       end
     end
@@ -107,12 +88,16 @@ class ImagesController < ApplicationController
   private
 
   def assign_sidebar_vars
-    @all       = current_user.images.all.not_trashed
-    @recent    = current_user.images.recent(current_user).not_trashed
-    @shared    = current_user.images.shared_with_me(current_user).not_trashed
-    @trashed   = current_user.images.trash
-    @documents = current_user.documents.not_trashed
+    @all          = current_user.images.all.not_trashed
+    @recent       = current_user.images.recent(current_user).not_trashed
+    @shared       = current_user.images.shared_with_me(current_user).not_trashed
+    @trashed      = current_user.images.trash
+    @documents    = current_user.documents.not_trashed
     @stock_images = StockImage.all
+  end
+
+  def image_params
+    params.require(:image).permit!
   end
 
   def load_image
@@ -128,30 +113,5 @@ class ImagesController < ApplicationController
       @image = Image.find(params[:id])
       authorize @image
     end
-
-    @image.reset_crop_data
-    @image.reset_commands    
-  end
-
-  # Set the strategy; Set data for the processors; Call the processors.
-  def set_cropping_data
-    @image.strategy = params[:image].delete(:strategy)&.to_sym
-    __send__("set_#{@image.strategy}_resize_data".to_sym)
-    @image.image.reprocess!
-  end
-
-  # Set the target height/width for Papercrop.
-  def set_papercrop_resize_data
-    params[:image].delete(:template_id)
-    @image.resize_height = params[:image].delete(:resize_height)
-    @image.resize_width  = params[:image].delete(:resize_width)
-  end
-
-  # Set the context image and the drag data for contextual crop.
-  def set_contextual_crop_resize_data
-    @template      = Template.find(params[:image].delete(:template_id))
-    @image.context = @template
-    @image.pos_x   = params[:image].delete(:pos_x)
-    @image.pos_y   = params[:image].delete(:pos_y)
   end
 end
