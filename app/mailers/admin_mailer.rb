@@ -16,7 +16,7 @@ class AdminMailer < ActionMailer::Base
         region = @user.affiliate ? @user.affiliate.region.downcase : 'default'
         emails = MAIL_CONFIG['vetter'][region]
       end
-      mail(to: emails, subject: "Toolkit account request from #{user.name}")
+      mail(to: emails, subject: "New toolkit account request(s) are pending")
     end
   end
 
