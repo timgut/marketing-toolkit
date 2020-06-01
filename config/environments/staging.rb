@@ -66,7 +66,7 @@ Rails.application.configure do
     domain:               "toolkit-app.afscme.bytrilogy.com'", # your domain to identify your server when connecting
   }
 
-  config.action_mailer.default_url_options = { :host => 'toolkit-app.afscme.bytrilogy.com' }
+  config.action_mailer.default_url_options = { :host => 'afscme-toolkit.bytrilogy.com' }
   
   config.require_master_key = false
 end
