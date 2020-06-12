@@ -1,5 +1,5 @@
 set :stage,       :aws_edge
-set :rails_env,   "production"
+set :rails_env,   "staging"
 set :deploy_to,   "/data/afscme-tk-edge"
 set :deploy_user, "app-afscme-tk-edge"
 set :branch,      "edge"
