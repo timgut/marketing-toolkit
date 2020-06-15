@@ -20,7 +20,7 @@ unless defined?(Rails::Console) || File.split($0).last == 'rake' || Rails.env !=
 		new_users.each do |user|
 			user.regional_approvers.each do |approver|
 				unless approvers_notified.include?(approver.email)
-					AdminMailer.notification_to_approvers(user, approver).deliver_now
+					AdminMailer.notification_to_approver(user, approver).deliver_now
 					approvers_notified.push(approver.email) # only send 1 email per approver
 				end
 			end
