@@ -20,15 +20,5 @@ set :migration_role, :db
 
 after :deploy, "unicorn:restart"
 
-before "bundler:install", :switch_users
-
-task :switch_users do
-  on roles(:app) do
-    puts execute "whoami"
-    puts execute "pwd"
-    puts execute "ruby -v"
-  end
-end
-
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }

@@ -31,14 +31,14 @@
   
 <section class="workspace cf">
   <figure class="template-preview">
-    <%= image_tag @template.numbered_image.url, alt: @template.title %>
+    <%= image_tag @template.numbered_image_url, alt: @template.title %>
   </figure>
 
   <div class="buttons small cf">
     <% if @template.customize %>
       <%= link_to "Customize", new_document_path(template_id: @template.id), title: "Customize", class: "button" %>
     <% else %>
-      <%= link_to "Download", @template.static_pdf.url, title: "Download", class: "button" %>
+      <%= link_to "Download", @template.static_pdf_url, title: "Download", class: "button" %>
     <% end %>
   </div>
 </section>
