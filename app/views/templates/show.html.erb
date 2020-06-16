@@ -31,7 +31,9 @@
   
 <section class="workspace cf">
   <figure class="template-preview"> 
-    <%= image_tag @template.numbered_image_url, alt: @template.title %>
+    <% if @template.numbered_image_url>
+      <%= image_tag @template.numbered_image_url, alt: @template.title %>
+    <% end %>
   </figure>
 
   <div class="buttons small cf">
