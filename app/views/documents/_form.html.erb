@@ -32,7 +32,9 @@
             </label>
           <% end %>
 
-          <%= image_tag @template.numbered_image_url %>
+          <% if @template.numbered_image_url %>
+            <%= image_tag @template.numbered_image_url %>
+          <% end %>
         </li>
         <li>
           <%= f.label :title %>
