@@ -5,8 +5,8 @@ class ImagesController < ApplicationController
 
   # GET /images/choose
   def choose
-    @images = current_user.images.publish.reverse
-    @stock_images = StockImage.all
+    @my_photos = current_user.images.select(:id, :original_image_url, :cropped_image_url).publish.reverse
+    @stock_photos = StockImage.select(:id, :title, :label, :image_url).publish
     render layout: false
   end
 

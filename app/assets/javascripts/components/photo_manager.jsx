@@ -12,6 +12,36 @@ class PhotoManager extends React.Component{
   };
 
   /**
+   * Sets the initial state. Should be called whenever the step should be set to "open"
+   * STEPS:
+   * myPhotos:   The user's uploaded photos.     
+   * open:       The user opened this modal and is looking at the dropzone.
+   * uploading:  The user is looking at the loading screen while their original photo is uploading.
+   * uploaded:   The user has uploaded a photo. Let them decide to use it or crop it.
+   * setup-crop: The user is looking at the loading screen while the cropping interface loads.
+   * cropping:   The user is using the cropping UI.
+   * preview:    The user is previewing their cropped photo.
+   * selected:   The user has selected an image, either their original or the cropped one.
+   * done:       The user's selected image has been saved and the modal can be closed.
+   */
+  resetState(){
+    this.state = {
+      myPhotos:   this.hasOwnProperty("state") ? this.state.myPhotos : this.props.myPhotos,
+      step:       "open",
+      image:      null,  // The URL of the user's original image
+      coords:     {x1: null, y1: null, x2: null, y2: null, h: null, w: null}, // Set whenever the user selects a crop range
+      canPreview: false, // Is the Preview button enabled?
+      jcropApi:   null,  // Access to jCrop
+      boxHeight:  null,  // The height of the Crop UI
+      boxWidth:   null,  // The width of the Crop UI
+      canCrop:      Toolkit.photoManagerData.crop         || false,
+      target:       Toolkit.photoManagerData.target       || null,
+      resizeHeight: Toolkit.photoManagerData.resizeHeight || null,
+      resizeWidth:  Toolkit.photoManagerData.resizeWidth  || null
+    };
+  };
+
+  /**
    * LIFECYCLE FUNCTIONS
    */
   componentDidMount(){
@@ -231,34 +261,6 @@ class PhotoManager extends React.Component{
     }
   }
 
-  /**
-   * Sets the initial state. SHould be called whenever the step should be set to "open"
-   * STEPS:
-   * open:       The user opened this modal and is looking at the dropzone.
-   * uploading:  The user is looking at the loading screen while their original photo is uploading.
-   * uploaded:   The user has uploaded a photo. Let them decide to use it or crop it.
-   * setup-crop: The user is looking at the loading screen while the cropping interface loads.
-   * cropping:   The user is using the cropping UI.
-   * preview:    The user is previewing their cropped photo.
-   * selected:   The user has selected an image, either their original or the cropped one.
-   * done:       The user's selected image has been saved and the modal can be closed.
-   */
-  resetState(){
-    this.state = {
-      step:       "open",
-      image:      null,  // The URL of the user's original image
-      coords:     {x1: null, y1: null, x2: null, y2: null, h: null, w: null}, // Set whenever the user selects a crop range
-      canPreview: false, // Is the Preview button enabled?
-      jcropApi:   null,  // Access to jCrop
-      boxHeight:  null,  // The height of the Crop UI
-      boxWidth:   null,  // The width of the Crop UI
-      canCrop:      Toolkit.photoManagerData.crop         || false,
-      target:       Toolkit.photoManagerData.target       || null,
-      resizeHeight: Toolkit.photoManagerData.resizeHeight || null,
-      resizeWidth:  Toolkit.photoManagerData.resizeWidth  || null
-    };
-  };
-
   render(){
     const loading = (<div className='loading-box'>
       <div className='vert-align'>
@@ -353,11 +355,11 @@ class PhotoManager extends React.Component{
               </div>
 
               <div id="mine" aria-labelledby="ui-id-2" role="tabpanel" className="ui-tabs-panel ui-corner-bottom ui-widget-content" style={{display: "none"}} aria-hidden="true">
-                <PhotoChooser type="mine" root={this} />
+                <PhotoChooser type="mine" root={this} photos={this.state.myPhotos} />
               </div>
 
               <div id="stock" aria-labelledby="ui-id-3" role="tabpanel" className="ui-tabs-panel ui-corner-bottom ui-widget-content" style={{display: "none"}} aria-hidden="true">
-                <PhotoChooser type="stock" root={this} />
+                <PhotoChooser type="stock" root={this} photos={this.props.stockPhotos} />
               </div>
             </div>
           </section>

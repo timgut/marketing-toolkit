@@ -1,2 +1,7 @@
-<%= react_component("PhotoManager") %>
+<%= react_component(
+  "PhotoManager", 
+  {myPhotos: @my_photos.as_json, stockPhotos: @stock_photos.as_json},
+  {camelize_props: true}
+) %>
+
 <script>ReactRailsUJS.mountComponents()</script>
