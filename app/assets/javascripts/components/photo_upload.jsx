@@ -1,3 +1,4 @@
+// TODO NEXT: Finish the flip select box: https://dashboard.imgix.com/
 class PhotoUpload extends React.Component{
   constructor(props={}){
     super(props);
@@ -31,6 +32,7 @@ class PhotoUpload extends React.Component{
       jcropApi:   null,  // Access to jCrop
       boxHeight:  null,  // The height of the Crop UI
       boxWidth:   null,  // The width of the Crop UI
+      flip:       "",    // Direction to flip the photo
       canCrop:      Toolkit.photoManagerData.crop         || false,
       target:       Toolkit.photoManagerData.target       || null,
       resizeHeight: Toolkit.photoManagerData.resizeHeight || null,
@@ -189,7 +191,7 @@ class PhotoUpload extends React.Component{
 
   handleClick(e){
     switch(e.target.dataset.action){
-      case "crop-photo":
+      case "edit-photo":
         this.setState({cropSetup: false, step: "setup-crop"});
         break;
 
@@ -199,6 +201,10 @@ class PhotoUpload extends React.Component{
 
       case "select-photo":
         this.setState({step: "selected"});
+        break;
+
+      case "upload-photo":
+        this.setState({step: "open"});
         break;
 
       default:
@@ -310,7 +316,7 @@ class PhotoUpload extends React.Component{
         case "uploaded":
           uploadTab = (<React.Fragment>
             <div className="buttons">
-              <button data-action="crop-photo" onClick={this.handleClick} className="button active">Crop This Photo</button>
+              <button data-action="edit-photo" onClick={this.handleClick} className="button active">Edit This Photo</button>
               <button data-action="select-photo" onClick={this.handleClick} className="button active">Use This Photo</button>
             </div>
             <img className="original-image" src={this.state.image.originalUrl} />
@@ -322,6 +328,14 @@ class PhotoUpload extends React.Component{
             <div className="buttons">
               <button data-action="preview-photo" onClick={this.handleClick} disabled={!this.state.canPreview} className="button active">Preview</button>
             </div>
+            <select value={this.state.flip} onChange={this.handleChange} data-action="flip">
+              <option value="">None</option>
+              <option value="h">Horizontal</option>
+              <option value="v">Vertical</option>
+              <option value="hv">Mirror</option>
+            </select>
+
+            </select>
             <img style={{height: "auto", width: "auto"}} src={this.state.image.imgixUrl} id="image-to-crop" />
           </section>);
           break;
@@ -330,10 +344,10 @@ class PhotoUpload extends React.Component{
           uploadTab = (<section className="preview-image">
             <div className="buttons">
               <button data-action="select-photo" onClick={this.handleClick} className="button active">Use This Photo</button>
-              <button data-action="crop-photo"   onClick={this.handleClick} className="button active">Crop Original Photo Again</button>
+              <button data-action="edit-photo"   onClick={this.handleClick} className="button active">Edit Original Photo Again</button>
               <button data-action="upload-photo" onClick={this.handleClick} className="button active">Upload New Photo</button>
             </div>
-            <img ref={this.previewRef} src={this.buildPreviewUrl()}  />
+            <img className="upload-preview" ref={this.previewRef} src={this.buildPreviewUrl()}  />
           </section>);
 
         case "selected":
