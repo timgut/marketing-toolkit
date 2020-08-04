@@ -1,4 +1,3 @@
-// TODO NEXT: Finish the flip select box: https://dashboard.imgix.com/
 class PhotoUpload extends React.Component{
   constructor(props={}){
     super(props);
@@ -25,14 +24,14 @@ class PhotoUpload extends React.Component{
    */
   resetState(){
     this.state = {
-      step:       "open",
-      image:      null,  // The URL of the user's original image
-      coords:     {x1: null, y1: null, x2: null, y2: null, h: null, w: null}, // Set whenever the user selects a crop range
-      canPreview: false, // Is the Preview button enabled?
-      jcropApi:   null,  // Access to jCrop
-      boxHeight:  null,  // The height of the Crop UI
-      boxWidth:   null,  // The width of the Crop UI
-      flip:       "",    // Direction to flip the photo
+      step:         "open",
+      image:        null,  // The URL of the user's original image
+      coords:       {x1: null, y1: null, x2: null, y2: null, h: null, w: null}, // Set whenever the user selects a crop range
+      canPreview:   false, // Is the Preview button enabled?
+      jcropApi:     null,  // Access to jCrop
+      boxHeight:    null,  // The height of the Crop UI
+      boxWidth:     null,  // The width of the Crop UI
+      flip:         "",    // Direction to flip the photo
       canCrop:      Toolkit.photoManagerData.crop         || false,
       target:       Toolkit.photoManagerData.target       || null,
       resizeHeight: Toolkit.photoManagerData.resizeHeight || null,
@@ -80,7 +79,7 @@ class PhotoUpload extends React.Component{
     });
   };
 
-  componentDidUpdate(){
+  componentDidUpdate(prevProps, prevState){
     const _this = this;
 
     switch(this.state.step){
@@ -123,23 +122,16 @@ class PhotoUpload extends React.Component{
 
       // Initialize JCrop
       case "cropping":
-        if(this.state.jcropApi === null){
-          $("#image-to-crop").Jcrop({
-            boxWidth:  this.state.boxWidth,
-            boxHeight: this.state.boxHeight,
-            onSelect:  this.handleSelect,
-            onChange:  this.handleChange
-          },function(){
-            _this.state.jcropApi = this;
-          });
+        if(prevState.flip !== this.state.flip || this.state.jcropApi === null){
+          this.unloadCrop();
+          this.loadCrop();
         }
         break;
 
       // Destroy JCrop
       case "preview":
         $(this.previewRef.current).attr("style", "");
-        this.state.jcropApi.destroy();
-        this.state.jcropApi = null;
+        this.unloadCrop();
         break;
 
       // Update the image with the crop data
@@ -185,26 +177,34 @@ class PhotoUpload extends React.Component{
   // Disable the preview button while the user changes the cropping selection.
   handleChange(e){
     if(this.state.canPreview){
-      this.setState({canPreview: false});
+      this.setState(Object.assign({}, this.state, {canPreview: false}));
+    }
+
+    if(e.target){
+      switch(e.target.dataset.action){
+        case "flip":
+          this.setState(Object.assign({}, this.state, {flip: e.target.value}));
+          break;
+      }
     }
   };
 
   handleClick(e){
     switch(e.target.dataset.action){
       case "edit-photo":
-        this.setState({cropSetup: false, step: "setup-crop"});
+        this.setState(Object.assign({}, this.state, {cropSetup: false, step: "setup-crop"}));
         break;
 
       case "preview-photo":
-        this.setState({step: "preview"});
+        this.setState(Object.assign({}, this.state, {step: "preview"}));
         break;
 
       case "select-photo":
-        this.setState({step: "selected"});
+        this.setState(Object.assign({}, this.state, {step: "selected"}));
         break;
 
       case "upload-photo":
-        this.setState({step: "open"});
+        this.setState(Object.assign({}, this.state, {step: "open"}));
         break;
 
       default:
@@ -218,7 +218,7 @@ class PhotoUpload extends React.Component{
 
   // The user is done dragging the cropping tool. Let them preview.
   handleSelect(e){
-    this.setState({
+    this.setState(Object.assign({}, this.state, {
       canPreview: true,
       coords: {
         x1: Math.round(e.x),
@@ -228,7 +228,7 @@ class PhotoUpload extends React.Component{
         h:  Math.round(e.h),
         w:  Math.round(e.w)
       }
-    });
+    }));
   };
 
   /**
@@ -255,16 +255,52 @@ class PhotoUpload extends React.Component{
       params.w   = this.state.resizeWidth;
     }
 
+    params.flip = this.state.flip;
+
     if(Object.keys(params).length > 0){
       let paramsString = [];
       for(key in params){ paramsString.push(`${key}=${params[key]}`) }
       paramsString = paramsString.join("&");
 
-      return `${this.state.image.imgixUrl}?${paramsString}`;
+      return `${this.state.image.imgixUrl.split("?")[0]}?${paramsString}`;
     } else {
       return this.state.image.imgixUrl;
     }
-  }
+  };
+
+  loadCrop(){
+    const _this = this;
+    $("#image-to-crop").Jcrop({
+      boxWidth:  this.state.boxWidth,
+      boxHeight: this.state.boxHeight,
+      onSelect:  this.handleSelect,
+      onChange:  this.handleChange
+    },function(){
+      _this.updateImgixUrl();
+      _this.setState(Object.assign({}, _this.state, {jcropApi: this}));
+    });
+  };
+
+  unloadCrop(){
+    if(this.state.jcropApi){
+      this.state.jcropApi.destroy();
+      this.state.jcropApi = null;
+    }
+  };
+
+  /**
+   * Sets the URL for the crop based on toolbar selections.
+   * We wait until jCrop has reloaded with this URL to update the state.
+   */
+  updateImgixUrl(){
+    let url = [`${this.state.image.imgixUrl.split("?")[0]}?`];
+    if(this.state.flip.length > 0){
+      url.push([`flip=${this.state.flip}`]);
+    }
+    url = url.join("&");
+
+    this.state.image.imgixUrl = url;
+  };
 
   render(){
     if (this.state.hasError) {
@@ -324,18 +360,21 @@ class PhotoUpload extends React.Component{
           break;
 
         case "cropping":
+        console.trace(this.state.image.imgixUrl);
           uploadTab = (<section className="crop-image">
             <div className="buttons">
               <button data-action="preview-photo" onClick={this.handleClick} disabled={!this.state.canPreview} className="button active">Preview</button>
             </div>
-            <select value={this.state.flip} onChange={this.handleChange} data-action="flip">
-              <option value="">None</option>
-              <option value="h">Horizontal</option>
-              <option value="v">Vertical</option>
-              <option value="hv">Mirror</option>
-            </select>
 
-            </select>
+            <section id="toolbar">
+              <select value={this.state.flip} onChange={this.handleChange} data-action="flip">
+                <option value="">No Flip</option>
+                <option value="h">Flip Horizontal</option>
+                <option value="v">Flip Vertical</option>
+                <option value="hv">Flip Mirror</option>
+              </select>
+            </section>
+
             <img style={{height: "auto", width: "auto"}} src={this.state.image.imgixUrl} id="image-to-crop" />
           </section>);
           break;

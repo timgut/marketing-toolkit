@@ -37,3 +37,9 @@
   max-height: 80%;
   max-width:  80%;
 }
+
+#toolbar {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
