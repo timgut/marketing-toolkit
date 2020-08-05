@@ -122,9 +122,13 @@ class PhotoUpload extends React.Component{
 
       // Initialize JCrop
       case "cropping":
-        if(prevState.flip !== this.state.flip || this.state.jcropApi === null){
-          this.unloadCrop();
+        if(this.state.jcropApi === null){
           this.loadCrop();
+        }
+
+        if(prevState.flip !== this.state.flip){
+          this.state.image.imgixUrl = this.getImgixUrl();
+          $(".jcrop-holder").find("img:visible").attr("src", this.state.image.imgixUrl);
         }
         break;
 
@@ -270,13 +274,13 @@ class PhotoUpload extends React.Component{
 
   loadCrop(){
     const _this = this;
+
     $("#image-to-crop").Jcrop({
       boxWidth:  this.state.boxWidth,
       boxHeight: this.state.boxHeight,
       onSelect:  this.handleSelect,
       onChange:  this.handleChange
     },function(){
-      _this.updateImgixUrl();
       _this.setState(Object.assign({}, _this.state, {jcropApi: this}));
     });
   };
@@ -289,17 +293,25 @@ class PhotoUpload extends React.Component{
   };
 
   /**
-   * Sets the URL for the crop based on toolbar selections.
-   * We wait until jCrop has reloaded with this URL to update the state.
+   * Generates the URL for Imgix.
+   * @return {string} - The URL for the edited image
    */
-  updateImgixUrl(){
-    let url = [`${this.state.image.imgixUrl.split("?")[0]}?`];
-    if(this.state.flip.length > 0){
-      url.push([`flip=${this.state.flip}`]);
-    }
-    url = url.join("&");
+  getImgixUrl(){
+    const urlBase = `${this.state.image.imgixUrl.split("?")[0]}`;
 
-    this.state.image.imgixUrl = url;
+    let urlParts  = [];
+    if(this.state.flip.length > 0) urlParts.push(`flip=${this.state.flip}`);
+    urlParts = urlParts.join("&");
+
+    return `${urlBase}?${urlParts}`;
+  };
+
+  /**
+   * Sets the URL for the crop based on toolbar selections.
+   */
+  setImgixUrl(){
+    const image = Object.assign(this.state.image, {imgixUrl: this.getImgixUrl()});
+    this.setState(Object.assign({}, this.state, {image: image}));
   };
 
   render(){
@@ -360,7 +372,6 @@ class PhotoUpload extends React.Component{
           break;
 
         case "cropping":
-        console.trace(this.state.image.imgixUrl);
           uploadTab = (<section className="crop-image">
             <div className="buttons">
               <button data-action="preview-photo" onClick={this.handleClick} disabled={!this.state.canPreview} className="button active">Preview</button>
