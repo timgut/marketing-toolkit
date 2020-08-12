@@ -6,8 +6,4 @@ class DocumentPolicy < ApplicationPolicy
       current_user_is_owner_or_admin?
     end
   end
-
-  def phantomjs_user_can_access_document?
-    @record.phantomjs_user.admin? || (@record.phantomjs_user.campaigns.map(&:id) & @record.template.campaigns.map(&:id)).length > 0
-  end
 end

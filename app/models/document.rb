@@ -17,12 +17,124 @@ class Document < ApplicationRecord
   scope :rendered, -> { where("pdf_url != NULL OR pdf_url != '/missing.png' OR share_graphic_url != NULL OR share_graphic_url != '/missing.png' ") }
   scope :newest,   -> { order(created_at: :desc) }
 
-  before_destroy ->{ self.pdf_url = nil; self.share_graphic_url = nil; self.thumbnail_url = nil }
+  attr_accessor :debug_pdf
 
-  attr_accessor :debug_pdf, :phantomjs_user
+  ### GENERATOR METHODS
+  def generate_pdf
+    reload # Grab the latest copy from the database
 
+    av = ActionView::Base.new
+    av.view_paths = ActionController::Base.view_paths
+    pdf_html = av.render(template: "documents/build.pdf.erb", locals: {document: self})
+    pdf = WickedPdf.new.pdf_from_string(pdf_html, pdf_options)
+
+    File.open(pdf_path, 'wb') {|file| file << pdf}
+    upload_to_s3!(filepath: pdf_path)
+  end
+
+  def generate_share_graphic
+    reload # Grab the latest copy from the database
+    config = Rails.application.config.wkhtmltoimage
+
+    %x(#{config["cmd"]} --quality 100 --format jpg #{config["host"]}/documents/#{id}/preview #{share_graphic_path})
+
+    upload_to_s3!(filepath: share_graphic_path)
+  end
+
+  def generate_thumbnail
+    # Assign the correct paths depending on the type of template
+    case template.format
+    when "pdf"
+      document_path = pdf_path
+      thumb_path    = pdf_thumbnail_path
+    when "png"
+      document_path = share_graphic_path
+      thumb_path    = share_graphic_thumbnail_path
+    end
+
+    # Create a thumbnail from the document
+    thumb = ::MiniMagick::Image.open(document_path) 
+    thumb.format "png"
+    thumb.resize "348x269"
+    
+    # Save the thumbnail and upload it to S3
+    FileUtils.cp(thumb.path, thumb_path)
+    upload_to_s3!(filepath: thumb_path)
+  end
+
+  ### PATHING METHODS
+  # => /rails_root/public/pdfs/1.pdf
+  def pdf_path
+    Rails.root.join("public", "pdfs", "#{id}.pdf").to_s
+  end
+
+  # => /rails_root/public/pdfs/1_thumb.png
+  def pdf_thumbnail_path
+    Rails.root.join("public", "pdfs", "#{id}_thumb.png").to_s
+  end
+
+  # => /rails_root/public/share_graphics/1.jpg
+  def share_graphic_path
+    Rails.root.join("public", "share_graphics", "#{id}.jpg").to_s
+  end
+
+  # => /rails_root/public/share_graphics/1_thumb.png
+  def share_graphic_thumbnail_path
+    Rails.root.join("public", "share_graphics", "#{id}_thumb.png").to_s
+  end
+
+  ### URL METHODS
+  # => https://s3.amazonaws.com/toolkit.afscme.org/folder/1.pdf
+  def pdf_s3_url
+    "https://s3.amazonaws.com/toolkit.afscme.org/#{s3_path(filename: "#{id}.pdf")}"
+  end
+
+  # => https://s3.amazonaws.com/toolkit.afscme.org/folder/1_thumb.png
+  def thumbnail_s3_url
+    "https://s3.amazonaws.com/toolkit.afscme.org/#{s3_path(filename: "#{id}_thumb.png")}"
+  end
+
+  # => https://s3.amazonaws.com/toolkit.afscme.org/folder/1.jpg
+  def share_graphic_s3_url
+    "https://s3.amazonaws.com/toolkit.afscme.org/#{s3_path(filename: "#{id}.jpg")}"
+  end
+  
+  # => https://toolkit.afscme.org/pdfs/1_thumb.png
+  def pdf_thumbnail_url
+    "#{Rails.application.config.wkhtmltoimage["host"]}/pdfs/#{id}_thumb.png"
+  end
+
+  # => https://toolkit.afscme.org/pdfs/1.pdf?1234567890
+  def pdf_url_with_timestamp
+    "#{pdf_url}?#{DateTime.now.to_i}"
+  end
+
+  # => https://toolkit.afscme.org/share_graphics/1.jpg?1234567890
+  def share_graphic_url_with_timestamp
+    "#{share_graphic_url}?#{DateTime.now.to_i}"
+  end
+
+  # OTHER METHODS
   def method_missing(meth, *args, &block)
     data.find{|d| d.key == meth.to_s}&.value || ""
+  end
+
+  # Updates the document with S3 URLs for all the documents, and deletes all files from the local filesystem.
+  def cleanup!
+    case template.format
+    when "pdf"
+      update!(pdf_url: pdf_s3_url, thumbnail_url: thumbnail_s3_url, share_graphic_url: nil)
+    when "png"
+      update!(share_graphic_url: share_graphic_s3_url, thumbnail_url: thumbnail_s3_url, pdf_url: nil)
+    end
+
+    begin
+      [pdf_path, pdf_thumbnail_path, share_graphic_path, share_graphic_thumbnail_path].each do |path|
+        FileUtils.rm(path)
+      end
+    rescue => e
+      # File doesn't exist. We don't care.
+    end
   end
 
   def duplicate!(user)
@@ -52,106 +164,10 @@ class Document < ApplicationRecord
   def generated?
     case template.format
     when "pdf"
-      self.pdf_file_name && self.thumbnail_file_name
+      File.file?(pdf_path) && File.file?(pdf_thumbnail_path)
     when "png"
-      self.share_graphic_file_name #&& self.share_graphic_file_name
+      File.file?(share_graphic_path)
     end
-  end
-
-  def generate_thumbnail
-    # Assign the correct paths depending on the type of template
-    case template.format
-    when "pdf"
-      document_path = local_pdf_path
-      thumb_path    = local_pdf_thumb_path
-    when "png"
-      document_path = local_share_graphic_path
-      thumb_path    = local_share_graphic_thumb_path
-    end
-
-    # Create a thumbnail from the document
-    thumb = ::MiniMagick::Image.open(document_path) 
-    thumb.format "png"
-    thumb.resize "348x269"
-    
-    # Update the record, and delete the local thumbnail after it's uploaded to S3.
-    FileUtils.cp(thumb.path, thumb_path)
-    # self.update!(thumbnail_url: thumb_path)
-  end
-
-  def delete_attachment!
-    case template.format
-    when "pdf"
-      self.update!(pdf_url: nil, thumbnail_url: nil)
-    when "png"
-      self.update!(share_graphic_url: nil, thumbnail_url: nil)
-    end
-  end
-
-  # Share Graphic Methods
-  def generate_share_graphic
-    reload # Grab the latest copy from the database
-    config = Rails.application.config.wkhtmltoimage
-
-    %x(#{config["cmd"]} --quality 100 --format jpg #{config["host"]}/documents/#{id}/preview #{local_share_graphic_path})
-    # self.update!(share_graphic_url: local_share_graphic_path)
-  end
-
-  def delete_local_share_graphic
-    File.delete(local_share_graphic_path)
-  end
-
-  def local_share_graphic_path
-    Rails.root.join("public", "share_graphics", "#{id}.jpg").to_s
-  end
-
-  def local_share_graphic_thumb_path
-    Rails.root.join("public", "share_graphics", "#{id}_thumb.png").to_s
-  end
-
-  def share_graphic_url
-    "#{Rails.application.config.wkhtmltoimage["host"]}/share_graphics/#{id}.jpg"
-  end
-
-  def share_graphic_url_with_timestamp
-    "#{share_graphic_url}?#{DateTime.now.to_i}"
-  end
-
-  # PDF Methods
-  def generate_pdf
-    reload # Grab the latest copy from the database
-
-    av = ActionView::Base.new
-    av.view_paths = ActionController::Base.view_paths
-    pdf_html = av.render(template: "documents/build.pdf.erb", locals: {document: self})
-    pdf = WickedPdf.new.pdf_from_string(pdf_html, pdf_options)
-
-    File.open(local_pdf_path, 'wb') {|file| file << pdf}
-    # self.update!(pdf_url: local_pdf_path)
-  end
-
-  def delete_local_pdf
-    File.delete(local_pdf_path)
-  end
-
-  def local_pdf_path
-    Rails.root.join("public", "pdfs", "#{id}.pdf").to_s
-  end
-
-  def pdf_url
-    "#{Rails.application.config.wkhtmltoimage["host"]}/pdfs/#{id}.pdf"
-  end
-
-  def pdf_url_with_timestamp
-    "#{pdf_url}?#{DateTime.now.to_i}"
-  end
-
-  def local_pdf_thumb_path
-    Rails.root.join("public", "pdfs", "#{id}_thumb.png").to_s
-  end
-
-  def local_pdf_thumb_url
-    "#{Rails.application.config.wkhtmltoimage["host"]}/pdfs/#{id}_thumb.png"
   end
 
   def pdf_options
@@ -179,13 +195,12 @@ class Document < ApplicationRecord
     }
   end
 
-  # Legacy Paperclip Images
+  # PAPERCLIP LEGACY METHODS
   def pdf
-    OpenStruct.new(url: self.pdf_url)
+    OpenStruct.new(url: pdf_url)
   end
 
   def thumbnail
-    OpenStruct.new(url: self.thumbnail_url)
+    OpenStruct.new(url: pdf_thumbnail_url)
   end
-  
 end

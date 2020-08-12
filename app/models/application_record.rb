@@ -14,4 +14,16 @@ class ApplicationRecord < ActiveRecord::Base
 
     "#{Rails.application.secrets.aws[:folder]}/#{folder}/#{filename}"
   end
+
+  ###
+  # Uploads a file to S3.
+  # @param {String} filepath - The path where the file is located
+  ###
+  def upload_to_s3!(filepath:)
+    fullpath = s3_path(filename: filepath.split("/").last)
+    service  = Aws::S3::Resource.new(region: "us-east-1", http_wire_trace: true)
+    object   = service.bucket("toolkit.afscme.org").object(fullpath)
+    
+    object.upload_file(filepath, acl: "public-read")
+  end
 end
