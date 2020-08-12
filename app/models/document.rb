@@ -17,7 +17,7 @@ class Document < ApplicationRecord
   scope :rendered, -> { where("pdf_url != NULL OR pdf_url != '/missing.png' OR share_graphic_url != NULL OR share_graphic_url != '/missing.png' ") }
   scope :newest,   -> { order(created_at: :desc) }
 
-  before_destroy ->{ self.pdf = nil; self.share_graphic = nil; self.thumbnail = nil }
+  before_destroy ->{ self.pdf_url = nil; self.share_graphic_url = nil; self.thumbnail_url = nil }
 
   attr_accessor :debug_pdf, :phantomjs_user
 
@@ -70,23 +70,21 @@ class Document < ApplicationRecord
     end
 
     # Create a thumbnail from the document
-    thumb = MiniMagick::Image.open(document_path) 
+    thumb = ::MiniMagick::Image.open(document_path) 
     thumb.format "png"
     thumb.resize "348x269"
     
     # Update the record, and delete the local thumbnail after it's uploaded to S3.
     FileUtils.cp(thumb.path, thumb_path)
-    self.thumbnail = File.open(thumb_path)
-    self.save
-    File.delete(thumb_path)
+    # self.update!(thumbnail_url: thumb_path)
   end
 
   def delete_attachment!
     case template.format
     when "pdf"
-      self.update_attributes!(pdf: nil, thumbnail: nil)
+      self.update!(pdf_url: nil, thumbnail_url: nil)
     when "png"
-      self.update_attributes!(share_graphic: nil, thumbnail: nil)
+      self.update!(share_graphic_url: nil, thumbnail_url: nil)
     end
   end
 
@@ -96,7 +94,7 @@ class Document < ApplicationRecord
     config = Rails.application.config.wkhtmltoimage
 
     %x(#{config["cmd"]} --quality 100 --format jpg #{config["host"]}/documents/#{id}/preview #{local_share_graphic_path})
-    self.update_attributes(share_graphic: File.open(local_share_graphic_path))
+    # self.update!(share_graphic_url: local_share_graphic_path)
   end
 
   def delete_local_share_graphic
@@ -111,8 +109,12 @@ class Document < ApplicationRecord
     Rails.root.join("public", "share_graphics", "#{id}_thumb.png").to_s
   end
 
+  def share_graphic_url
+    "#{Rails.application.config.wkhtmltoimage["host"]}/share_graphics/#{id}.jpg"
+  end
+
   def share_graphic_url_with_timestamp
-    "#{share_graphic.url}?#{DateTime.now.to_i}"
+    "#{share_graphic_url}?#{DateTime.now.to_i}"
   end
 
   # PDF Methods
@@ -125,7 +127,7 @@ class Document < ApplicationRecord
     pdf = WickedPdf.new.pdf_from_string(pdf_html, pdf_options)
 
     File.open(local_pdf_path, 'wb') {|file| file << pdf}
-    self.update_attributes(pdf: File.open(local_pdf_path))
+    # self.update!(pdf_url: local_pdf_path)
   end
 
   def delete_local_pdf
@@ -136,12 +138,20 @@ class Document < ApplicationRecord
     Rails.root.join("public", "pdfs", "#{id}.pdf").to_s
   end
 
+  def pdf_url
+    "#{Rails.application.config.wkhtmltoimage["host"]}/pdfs/#{id}.pdf"
+  end
+
+  def pdf_url_with_timestamp
+    "#{pdf_url}?#{DateTime.now.to_i}"
+  end
+
   def local_pdf_thumb_path
     Rails.root.join("public", "pdfs", "#{id}_thumb.png").to_s
   end
 
-  def pdf_url_with_timestamp
-    "#{pdf.url}?#{DateTime.now.to_i}"
+  def local_pdf_thumb_url
+    "#{Rails.application.config.wkhtmltoimage["host"]}/pdfs/#{id}_thumb.png"
   end
 
   def pdf_options
@@ -164,13 +174,8 @@ class Document < ApplicationRecord
       show_as_html:  debug_pdf,
       page_height:   "#{height}#{template.unit}",
       page_width:    "#{width}#{template.unit}",
-      zoom: 1,
-      margin:  {
-        top:    0,
-        bottom: 0,
-        left:   0,
-        right:  0
-      }
+      zoom:          1,
+      margin:        { top: 0, bottom: 0, left: 0, right: 0 }
     }
   end
 

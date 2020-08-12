@@ -8,12 +8,12 @@ class DocumentThumbnailJob < ApplicationJob
 
         # Delete the original document since we don't need a local copy anymore.
         begin
-          case document.template.format
-          when "pdf"  
-            document.delete_local_pdf
-          when "png"
-            document.delete_local_share_graphic
-          end
+          # case document.template.format
+          # when "pdf"  
+          #   document.delete_local_pdf
+          # when "png"
+          #   document.delete_local_share_graphic
+          # end
         rescue
           # Silently fail if the file doesn't exist anymore
         end

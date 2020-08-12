@@ -9,6 +9,7 @@
 /config/mailer.yml
 /coverage
 /public/pdfs/*.pdf
+/public/pdfs/*.png
 /public/share_graphics/*.png
 /public/system
 config/mailer.yml

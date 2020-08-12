@@ -31,7 +31,6 @@ class PhotoUpload extends React.Component{
       jcropApi:     null,  // Access to jCrop
       boxHeight:    null,  // The height of the Crop UI
       boxWidth:     null,  // The width of the Crop UI
-      flip:         "",    // Direction to flip the photo
       canCrop:      Toolkit.photoManagerData.crop         || false,
       target:       Toolkit.photoManagerData.target       || null,
       resizeHeight: Toolkit.photoManagerData.resizeHeight || null,
@@ -126,10 +125,10 @@ class PhotoUpload extends React.Component{
           this.loadCrop();
         }
 
-        if(prevState.flip !== this.state.flip){
-          this.state.image.imgixUrl = this.getImgixUrl();
-          $(".jcrop-holder").find("img:visible").attr("src", this.state.image.imgixUrl);
-        }
+        // if(prevState.flip !== this.state.flip){
+        //   this.state.image.imgixUrl = this.getImgixUrl();
+        //   $(".jcrop-holder").find("img:visible").attr("src", this.state.image.imgixUrl);
+        // }
         break;
 
       // Destroy JCrop
@@ -152,9 +151,15 @@ class PhotoUpload extends React.Component{
           }
         }).done(function(data){
           const $figure  = $(`figure[data-target='${Toolkit.photoManagerData.target}']`);
-          $figure.attr("style", `background-image:url(${_this.buildPreviewUrl()})`);
           
-          const controls = `
+          // Put the photo into the preview div
+          $figure.attr("style", `background-image:url(${_this.buildPreviewUrl()})`);
+
+          // Check the checkbox above the preview div
+          $(`#${_this.state.target}`).prop("checked", true);
+          
+          // Show controls to edit/remove this photo
+          $figure.append(`
             <div class="controls">
               <div class="change" title="Change Photo">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path d="M245.4,937.5l61.5-61.5L148,717.1l-61.5,61.5V851H173v86.5H245.4z M598.9,310.2c0-9.9-5-14.9-14.9-14.9 c-4.5,0-8.3,1.6-11.5,4.7L206.2,666.4c-3.2,3.2-4.7,7-4.7,11.5c0,9.9,5,14.9,14.9,14.9c4.5,0,8.3-1.6,11.5-4.7l366.3-366.3    C597.3,318.6,598.9,314.7,598.9,310.2z M562.4,180.5l281.2,281.2L281.2,1024H0V742.8L562.4,180.5z M1024,245.4 c0,23.9-8.3,44.2-25,60.8L886.8,418.4L605.6,137.2L717.8,25.7C734,8.6,754.3,0,778.6,0c23.9,0,44.4,8.6,61.5,25.7L999,183.8C1015.7,201.4,1024,221.9,1024,245.4z"></path></svg>
@@ -163,10 +168,10 @@ class PhotoUpload extends React.Component{
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path d="M696,512l312.7,312.7c20.3,20.3,20.3,53.3,0,73.6l-110.4,110.4c-20.3,20.3-53.3,20.3-73.6,0L512,696l-312.8,312.7 c-20.3,20.3-53.3,20.3-73.6,0L15.2,898.4c-20.3-20.3-20.3-53.3,0-73.6L328,512L15.2,199.2c-20.3-20.3-20.3-53.3,0-73.6L125.7,15.2c20.3-20.3,53.3-20.3,73.6,0L512,328L824.8,15.2c20.3-20.3,53.3-20.3,73.6,0l110.4,110.4c20.3,20.3,20.3,53.3,0,73.6L696,512 L696,512z"></path></svg>
               </div>
             </div>
-          `;
+          `);
 
+          // Close the modal
           $figure.find(".positioner").hide();
-          $figure.append(controls);
 
           $(".image-picker_close").click();
 
@@ -184,13 +189,13 @@ class PhotoUpload extends React.Component{
       this.setState(Object.assign({}, this.state, {canPreview: false}));
     }
 
-    if(e.target){
-      switch(e.target.dataset.action){
-        case "flip":
-          this.setState(Object.assign({}, this.state, {flip: e.target.value}));
-          break;
-      }
-    }
+    // if(e.target){
+    //   switch(e.target.dataset.action){
+    //     case "flip":
+    //       this.setState(Object.assign({}, this.state, {flip: e.target.value}));
+    //       break;
+    //   }
+    // }
   };
 
   handleClick(e){
@@ -259,7 +264,7 @@ class PhotoUpload extends React.Component{
       params.w   = this.state.resizeWidth;
     }
 
-    params.flip = this.state.flip;
+    // params.flip = this.state.flip;
 
     if(Object.keys(params).length > 0){
       let paramsString = [];
@@ -296,23 +301,23 @@ class PhotoUpload extends React.Component{
    * Generates the URL for Imgix.
    * @return {string} - The URL for the edited image
    */
-  getImgixUrl(){
-    const urlBase = `${this.state.image.imgixUrl.split("?")[0]}`;
+  // getImgixUrl(){
+  //   const urlBase = `${this.state.image.imgixUrl.split("?")[0]}`;
 
-    let urlParts  = [];
-    if(this.state.flip.length > 0) urlParts.push(`flip=${this.state.flip}`);
-    urlParts = urlParts.join("&");
+  //   let urlParts  = [];
+  //   if(this.state.flip.length > 0) urlParts.push(`flip=${this.state.flip}`);
+  //   urlParts = urlParts.join("&");
 
-    return `${urlBase}?${urlParts}`;
-  };
+  //   return `${urlBase}?${urlParts}`;
+  // };
 
   /**
    * Sets the URL for the crop based on toolbar selections.
    */
-  setImgixUrl(){
-    const image = Object.assign(this.state.image, {imgixUrl: this.getImgixUrl()});
-    this.setState(Object.assign({}, this.state, {image: image}));
-  };
+  // setImgixUrl(){
+  //   const image = Object.assign(this.state.image, {imgixUrl: this.getImgixUrl()});
+  //   this.setState(Object.assign({}, this.state, {image: image}));
+  // };
 
   render(){
     if (this.state.hasError) {
@@ -377,7 +382,7 @@ class PhotoUpload extends React.Component{
               <button data-action="preview-photo" onClick={this.handleClick} disabled={!this.state.canPreview} className="button active">Preview</button>
             </div>
 
-            <section id="toolbar">
+            <section id="toolbar" style={{display: "none"}}>
               <select value={this.state.flip} onChange={this.handleChange} data-action="flip">
                 <option value="">No Flip</option>
                 <option value="h">Flip Horizontal</option>
