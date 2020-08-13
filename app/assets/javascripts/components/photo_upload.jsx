@@ -63,7 +63,7 @@ class PhotoUpload extends React.Component{
             id:          data.id,
             croppedUrl:  data.cropped_image_url,
             originalUrl: data.original_image_url,
-            imgixUrl:    `http://afscme.imgix.net/${data.original_image_url.split("https://s3.amazonaws.com/toolkit.afscme.org/")[1]}`,
+            imgixUrl:    `https://afscme.imgix.net/${data.original_image_url.split("https://s3.amazonaws.com/toolkit.afscme.org/")[1]}`,
             meta:        null
           };
 
@@ -161,7 +161,7 @@ class PhotoUpload extends React.Component{
           $figure.attr("style", `background-image:url(${url})`);
 
           // Check the custom photo checkbox and give it the correct value
-          $(`#${_this.state.target}`).val(url).prop("checked", true);
+          $(`#${_this.state.target}`).val(url.replace("https", "http")).prop("checked", true);
           
           // Show controls to edit/remove this photo
           $figure.append(`
