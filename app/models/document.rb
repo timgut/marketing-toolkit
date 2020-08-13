@@ -14,7 +14,7 @@ class Document < ApplicationRecord
   scope :recent,         ->(user) { where("documents.creator_id = ? AND documents.created_at >= ?", user.id, DateTime.now - 2.weeks) }
   scope :shared_with_me, ->(user) { all.joins(:documents_users).where("user_id = ? and documents_users.user_id != ?", user.id, user.id) }
   
-  scope :rendered, -> { where("pdf_url != NULL OR pdf_url != '/missing.png' OR share_graphic_url != NULL OR share_graphic_url != '/missing.png' ") }
+  scope :rendered, -> { where(generated: true) }
   scope :newest,   -> { order(created_at: :desc) }
 
   attr_accessor :debug_pdf

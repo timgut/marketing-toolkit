@@ -69,9 +69,9 @@ class DocumentsController < ApplicationController
         if @document.generated?
           case @document.template.format
           when "pdf"
-            render json: {status: :complete, thumbnail: @document.thumbnail_url, pdf: @document.pdf_url_with_timestamp}
+            render json: {status: :complete, thumbnail: @document.thumbnail_s3_url, pdf: @document.pdf_s3_url}
           when "png"
-            render json: {status: :complete, thumbnail: @document.thumbnail_url, pdf: @document.share_graphic_url_with_timestamp}
+            render json: {status: :complete, thumbnail: @document.thumbnail_s3_url, pdf: @document.share_graphic_s3_url}
           end
         else
           render json: {status: :incomplete}
