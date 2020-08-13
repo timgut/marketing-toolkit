@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_174659) do
     t.text "pdf_url"
     t.text "thumbnail_url"
     t.text "share_graphic_url"
+    t.boolean "generated", default: false
     t.index ["creator_id"], name: "index_documents_on_creator_id"
     t.index ["template_id"], name: "index_documents_on_template_id"
   end

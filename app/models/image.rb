@@ -12,12 +12,7 @@ class Image < ApplicationRecord
 
   class << self
     def find_by_url(url)
-      file_name = url.split("/").last
-      begin
-        Image.find_by!(image_file_name: file_name)
-      rescue ActiveRecord::RecordNotFound
-        false # Don't raise an error if the image isn't found
-      end
+      Image.find_by(original_image_url: url)
     end
   end
 
@@ -27,7 +22,7 @@ class Image < ApplicationRecord
       filename = original_image_url.split("/").last.split(".").first
       filename.sub(/--\d{10}/, "")
     else
-      "TODO"
+      "Untitled Image"
     end
   end
 

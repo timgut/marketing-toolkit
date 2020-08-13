@@ -3,12 +3,7 @@ class StockImage < ApplicationRecord
 
   class << self
     def find_by_url(url)
-      file_name = url.split("/").last
-      begin
-        StockImage.find_by!(image_file_name: file_name)
-      rescue ActiveRecord::RecordNotFound
-        false # Don't raise an error if the image isn't found
-      end
+      StockImage.find_by(image_url: url)
     end
   end
 

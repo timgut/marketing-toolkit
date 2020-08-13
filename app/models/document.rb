@@ -135,6 +135,8 @@ class Document < ApplicationRecord
     rescue => e
       # File doesn't exist. We don't care.
     end
+
+    self.update!(generated: true)
   end
 
   def duplicate!(user)
@@ -158,15 +160,6 @@ class Document < ApplicationRecord
       new_self
     rescue => e
       false
-    end
-  end
-
-  def generated?
-    case template.format
-    when "pdf"
-      File.file?(pdf_path) && File.file?(pdf_thumbnail_path)
-    when "png"
-      File.file?(share_graphic_path)
     end
   end
 

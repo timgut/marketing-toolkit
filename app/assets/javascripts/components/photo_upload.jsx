@@ -63,7 +63,7 @@ class PhotoUpload extends React.Component{
             id:          data.id,
             croppedUrl:  data.cropped_image_url,
             originalUrl: data.original_image_url,
-            imgixUrl:    `https://afscme.imgix.net/${data.original_image_url.split("https://s3.amazonaws.com/toolkit.afscme.org/")[1]}`,
+            imgixUrl:    `http://afscme.imgix.net/${data.original_image_url.split("https://s3.amazonaws.com/toolkit.afscme.org/")[1]}`,
             meta:        null
           };
 
@@ -137,8 +137,8 @@ class PhotoUpload extends React.Component{
         this.unloadCrop();
         break;
 
-      // Update the image with the crop data
       case "selected":
+        // Update the image with the crop data
         $.ajax({
           url:    `/images/${_this.state.image.id}`,
           method: "PATCH",
@@ -150,13 +150,18 @@ class PhotoUpload extends React.Component{
             }
           }
         }).done(function(data){
-          const $figure  = $(`figure[data-target='${Toolkit.photoManagerData.target}']`);
-          
-          // Put the photo into the preview div
-          $figure.attr("style", `background-image:url(${_this.buildPreviewUrl()})`);
+          const url     = _this.buildPreviewUrl();
+          const $figure = $(`figure[data-target='${Toolkit.photoManagerData.target}']`);
+          const name    = $(`#${_this.state.target}`).attr("name"); // e.g. data[photo]
 
-          // Check the checkbox above the preview div
-          $(`#${_this.state.target}`).prop("checked", true);
+          // Put the target into the select_data
+          $(`[name='select_${name}']`).val(_this.state.target);
+
+          // Put the photo into the preview div
+          $figure.attr("style", `background-image:url(${url})`);
+
+          // Check the custom photo checkbox and give it the correct value
+          $(`#${_this.state.target}`).val(url).prop("checked", true);
           
           // Show controls to edit/remove this photo
           $figure.append(`
@@ -172,9 +177,7 @@ class PhotoUpload extends React.Component{
 
           // Close the modal
           $figure.find(".positioner").hide();
-
           $(".image-picker_close").click();
-
         });
         break;
     }

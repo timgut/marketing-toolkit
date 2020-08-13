@@ -10,5 +10,6 @@ class AddPaperclipMigrationData < ActiveRecord::Migration[5.2]
     add_column :documents,    :pdf_url,            :text
     add_column :documents,    :thumbnail_url,      :text
     add_column :documents,    :share_graphic_url,  :text
+    add_column :documents,    :generated,          :boolean, default: false
   end
 end

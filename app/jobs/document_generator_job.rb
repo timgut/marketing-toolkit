@@ -4,6 +4,8 @@ class DocumentGeneratorJob < ApplicationJob
   def perform(document)
     Rails.logger.tagged("DocumentGenerator", "#{document.id}") do
       ActiveRecord::Base.connection_pool.with_connection do
+        document.update!(generated: false)
+
         case document.template.format
         when "pdf"
           document.generate_pdf
