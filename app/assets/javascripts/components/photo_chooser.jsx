@@ -88,6 +88,15 @@ class PhotoChooser extends React.Component{
         $figure.find(".positioner").hide();
         $(".image-picker_close").click();
         break;
+
+      case "crop-photo":
+        alert("Coming Soon");
+        // Not sure how to upload this photo and add it to Dropzone
+        // const tab = this.props.root.photoUploadTab;
+        // tab.setState(Object.assign({}, tab.state, {
+        //   step: "setup-crop",
+        // }));
+        break;
     }
   };
 
@@ -99,6 +108,11 @@ class PhotoChooser extends React.Component{
   render() {
     const _this = this;
     const filterStyles = {margin: "1rem 0 1rem 0"};
+
+    let cropPhoto;
+    if(this.props.type === "stock"){
+      cropPhoto = (<button value="Crop Photo" className="save" data-action="crop-photo" onClick={this.handleClick} disabled={!this.state.canChoose}>Crop Photo</button>);
+    }
 
     const gallery = this.state.photos.filter(function(photo) {
       return photo.filtered === false;
@@ -113,6 +127,7 @@ class PhotoChooser extends React.Component{
       <div className="buttons">
         <input type="text" placeholder="Filter Photos..." value={this.state.filter} onChange={this.handleChange} style={filterStyles} />
         <button data-action="choose-photo" onClick={this.handleClick} disabled={!this.state.canChoose} className="button active">Select Photo</button>
+        {cropPhoto}
       </div>
       <div className="gallery">{gallery}</div>
     </React.Fragment>);

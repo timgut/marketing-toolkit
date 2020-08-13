@@ -1,10 +1,12 @@
 class PhotoManager extends React.Component{
   constructor(props={}){
     super(props);
-    this.state = { myPhotos: this.props.myPhotos }
+    this.state = { myPhotos: this.props.myPhotos };
   };
 
   render(){
+    this.photoUploadTab = (<PhotoUpload root={this} />);
+
     return(
       <React.Fragment>
         <div className="select-image">
@@ -19,7 +21,7 @@ class PhotoManager extends React.Component{
               </ul>
 
               <div id="upload" aria-labelledby="ui-id-1" role="tabpanel" className="ui-tabs-panel ui-corner-bottom ui-widget-content" aria-hidden="false" style={{display: "block"}}>
-                <PhotoUpload root={this} />
+                {this.photoUploadTab}
               </div>
 
               <div id="mine" aria-labelledby="ui-id-2" role="tabpanel" className="ui-tabs-panel ui-corner-bottom ui-widget-content" style={{display: "none"}} aria-hidden="true">
