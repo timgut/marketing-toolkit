@@ -104,4 +104,3 @@ $(document).on("turbolinks:load", ->
     Toolkit.photoManagerData = {};
   );
 );
-

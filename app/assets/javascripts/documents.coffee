@@ -34,7 +34,7 @@ window.Toolkit.Document.addImage = ->
     color: 'black'
   })
 
-  $("[data-role='add-image']").attr('disabled','disabled').addClass('disabled')
+  # $("[data-role='add-image']").attr('disabled','disabled').addClass('disabled')
   
   # Get images and populate .image-grid
   $(document).on("click", ".image-picker", ->
@@ -54,72 +54,72 @@ window.Toolkit.Document.addImage = ->
   )
 
   # Stylize only the selected image
-  $(document).on("click", "[role='tabpanel'] figure", ->
-    $("figure.enabled").removeClass('enabled')
-    $(@).addClass('enabled')
-    $("[data-role='add-image']").removeAttr('disabled')
+  # $(document).on("click", "[role='tabpanel'] figure", ->
+  #   $("figure.enabled").removeClass('enabled')
+  #   $(@).addClass('enabled')
+  #   $("[data-role='add-image']").removeAttr('disabled')
 
-    if $(@).attr("data-stock") is "true"
-      $("[data-role='crop-image']").removeAttr("disabled")
-  )
+  #   if $(@).attr("data-stock") is "true"
+  #     $("[data-role='crop-image']").removeAttr("disabled")
+  # )
 
   # Crop the selected stock photo
-  $(document).on("click", "[data-role='crop-image']", ->
-    data = {
-      id: $("#stock .gallery figure.enabled").attr("data-id")
-    }
+  # $(document).on("click", "[data-role='crop-image']", ->
+  #   data = {
+  #     id: $("#stock .gallery figure.enabled").attr("data-id")
+  #   }
 
-    Toolkit.Document.croppingStockPhoto = true
-    endpoint = endpoint = "/images/#{data.id}/papercrop?image[resize_height]=#{Toolkit.Document.resizeHeight}&image[resize_width]=#{Toolkit.Document.resizeWidth}&image[strategy]=papercrop&stock_photo=true"
-    window.Toolkit.Document.cropPhoto(endpoint, data)
-  )
+  #   Toolkit.Document.croppingStockPhoto = true
+  #   endpoint = endpoint = "/images/#{data.id}/papercrop?image[resize_height]=#{Toolkit.Document.resizeHeight}&image[resize_width]=#{Toolkit.Document.resizeWidth}&image[strategy]=papercrop&stock_photo=true"
+  #   window.Toolkit.Document.cropPhoto(endpoint, data)
+  # )
 
   # Show loading div when submitting the jCrop form
-  $(document).on("submit", ".edit_image", ->
-    $(".edit_image").hide( ->
-      $("#image-picker #loading").show()
-    )
-  )
+  # $(document).on("submit", ".edit_image", ->
+  #   $(".edit_image").hide( ->
+  #     $("#image-picker #loading").show()
+  #   )
+  # )
 
   # Close the modal and assign the selected image to the target input
-  $(document).on("click", "[data-role='add-image']", ->
-    $target     = $("##{$("#image-picker").attr("data-target")}")           # The field where the value is set
-    value       = $("#image-picker").find("figure.enabled img").attr("src") # The value to set on the field
-    dataTarget  = $("#image-picker").attr("data-target")                    #
-    $figure     = $("label[for='#{dataTarget}'] figure")                    #
-    $label      = $("label[for='#{dataTarget}']")                           #
-    $positioner = $figure.find(".positioner")                               # The container for the text that launched the modal
+  # $(document).on("click", "[data-role='add-image']", ->
+  #   $target     = $("##{$("#image-picker").attr("data-target")}")           # The field where the value is set
+  #   value       = $("#image-picker").find("figure.enabled img").attr("src") # The value to set on the field
+  #   dataTarget  = $("#image-picker").attr("data-target")                    #
+  #   $figure     = $("label[for='#{dataTarget}'] figure")                    #
+  #   $label      = $("label[for='#{dataTarget}']")                           #
+  #   $positioner = $figure.find(".positioner")                               # The container for the text that launched the modal
     
-    # Assign the value to the input
-    $target.val(value)
-    $target.prop("checked", true)
-    $target.trigger("change")
+  #   # Assign the value to the input
+  #   $target.val(value)
+  #   $target.prop("checked", true)
+  #   $target.trigger("change")
 
-    # Display the selected image
-    $figure.css({"background-image": "url('#{value}'"}).addClass("image-added")
-    $positioner.hide()
+  #   # Display the selected image
+  #   $figure.css({"background-image": "url('#{value}'"}).addClass("image-added")
+  #   $positioner.hide()
 
-    if $label.find(".controls").length is 0
-      $label.append(Toolkit.Document.photoControls())
+  #   if $label.find(".controls").length is 0
+  #     $label.append(Toolkit.Document.photoControls())
 
-    # Clean up the modal div
-    $("#image-picker").popup("hide")
-    $("#image-picker").removeAttr("data-target")
-    $("#image-picker").find("figure.enabled").removeClass("enabled")
-    $("[data-role='add-image']").attr("disabled", "disabled")
-    $("#image-picker .upload-image").show()
-    $(document).off("ajax:success", "#image-picker .edit_image")
-    $(document).off("ajax:error", "#image-picker .edit_image")
-  )
+  #   # Clean up the modal div
+  #   $("#image-picker").popup("hide")
+  #   $("#image-picker").removeAttr("data-target")
+  #   $("#image-picker").find("figure.enabled").removeClass("enabled")
+  #   $("[data-role='add-image']").attr("disabled", "disabled")
+  #   $("#image-picker .upload-image").show()
+  #   $(document).off("ajax:success", "#image-picker .edit_image")
+  #   $(document).off("ajax:error", "#image-picker .edit_image")
+  # )
 
-  # Open the image picker when the change button is clicked
+  # # Open the image picker when the change button is clicked
   $(document).on("click", ".controls .change", (e)->
     $field  = $(@).closest(".field")
     $figure = $field.find("figure")
     $figure.trigger("click")
   )
 
-  # Remove the image when the delete button is clicked
+  # # Remove the image when the delete button is clicked
   $(document).on("click", ".controls .delete", (e)->
     e.stopPropagation();
 
@@ -139,10 +139,10 @@ window.Toolkit.Document.addImage = ->
     , 50
   )
 
-  # Let the modal know which input to apply the selection to
-  $(".image-picker").click( ->
-    $("#image-picker").attr("data-target", $(@).attr("data-target"))
-  )
+  # # Let the modal know which input to apply the selection to
+  # $(".image-picker").click( ->
+  #   $("#image-picker").attr("data-target", $(@).attr("data-target"))
+  # )
 
 window.Toolkit.Document.photoControls = ->
   "
@@ -274,11 +274,11 @@ window.Toolkit.Document.dataTarget = ->
     )
 
 window.Toolkit.Document.dropzone = ->
-  $form = $("form[data-document='true']")
-  Toolkit.dropzones = []
+  # $form = $("form[data-document='true']")
+  # Toolkit.dropzones = []
 
-  if $("#upload-photo-form").length isnt 0
-    try
+  # if $("#upload-photo-form").length isnt 0
+  #   try
       # Toolkit.dropzones.push(
       #   # Initialize Dropzone
       #   $("#upload-photo-form").dropzone({
@@ -328,74 +328,74 @@ window.Toolkit.Document.dropzone = ->
       #     )
       #   });
       # )
-    catch
+    # catch
       # Dropzone will throw an error if it's being initialized multiple times.
       # This shouldn't cause a problem, but you never know.
       # console.log "Dropzone already attached"
 
 window.Toolkit.Document.cropPhoto = (endpoint, data) ->
-  $("#image-picker .select-image").hide( ->
-    $("#image-picker #loading").show()
-  )
+  # $("#image-picker .select-image").hide( ->
+  #   $("#image-picker #loading").show()
+  # )
 
-  Toolkit.Document.croppingStockPhoto = false # Reset this immediately, as we don't need it anymore
-  $("[data-role='crop-image']").attr("disabled", "disabled")
+  # Toolkit.Document.croppingStockPhoto = false # Reset this immediately, as we don't need it anymore
+  # $("[data-role='crop-image']").attr("disabled", "disabled")
 
-  # Get the image crop form
-  $.get(endpoint, (html) =>
-    $("#image-picker #loading").hide( ->
-      $("#image-picker .crop-image").html(html).show(->
-        $(".drag").draggable({
-          stop: (event, ui) ->
-            position = $(".drag").position()
-            $("#image_pos_x").val(position.left)
-            $("#image_pos_y").val(position.top - Toolkit.Document.cropOffset)
-        })
-      )
+  # # Get the image crop form
+  # $.get(endpoint, (html) =>
+  #   $("#image-picker #loading").hide( ->
+  #     $("#image-picker .crop-image").html(html).show(->
+  #       $(".drag").draggable({
+  #         stop: (event, ui) ->
+  #           position = $(".drag").position()
+  #           $("#image_pos_x").val(position.left)
+  #           $("#image_pos_y").val(position.top - Toolkit.Document.cropOffset)
+  #       })
+  #     )
 
-      $(".edit_image").on("ajax:success", (e, data, status, xhr) ->
-        e.preventDefault()
+  #     $(".edit_image").on("ajax:success", (e, data, status, xhr) ->
+  #       e.preventDefault()
 
-        # Clear out this image's data in case the user wants to crop another image
-        $("#image-picker .crop-image").html("")
+  #       # Clear out this image's data in case the user wants to crop another image
+  #       $("#image-picker .crop-image").html("")
         
-        $("#image-picker #loading").hide(->
-          $("#image-picker .select-image").show()
-        )
+  #       $("#image-picker #loading").hide(->
+  #         $("#image-picker .select-image").show()
+  #       )
 
-        Toolkit.Document.addToGallery(data, true)
+  #       Toolkit.Document.addToGallery(data, true)
 
-      # When the image cannot be cropped
-      ).on("ajax:error", (e, xhr, status, error) ->
-        $("#image-error").html("There was an error cropping your image. Please try again.")
-      )
-    )
-  )
+  #     # When the image cannot be cropped
+  #     ).on("ajax:error", (e, xhr, status, error) ->
+  #       $("#image-error").html("There was an error cropping your image. Please try again.")
+  #     )
+  #   )
+  # )
 
 # After an image has been uploaoded or cropped, i's added to the gallery and selected.
 window.Toolkit.Document.addToGallery = (data, clickBtn) ->
   # Add the image to 'My Photos' and select it
-  $("#image-picker .crop-image").hide( ->
-    $("#image-picker #mine .gallery").append("
-      <figure>
-        <img src='#{data.cropped_url}' alt='#{data.file_name}' />
-        <figcaption>#{data.file_name}</figcaption>
-      </figure>
-    ")
+  # $("#image-picker .crop-image").hide( ->
+  #   $("#image-picker #mine .gallery").append("
+  #     <figure>
+  #       <img src='#{data.cropped_url}' alt='#{data.file_name}' />
+  #       <figcaption>#{data.file_name}</figcaption>
+  #     </figure>
+  #   ")
 
-    $("#image-picker #mine .gallery figure:last").click()
-    Toolkit.Document.reloadImagePicker()
-    $("#image-picker .select-image").show()
+  #   $("#image-picker #mine .gallery figure:last").click()
+  #   Toolkit.Document.reloadImagePicker()
+  #   $("#image-picker .select-image").show()
 
-    # Remove the event listener so it doesn't fire multuple times
-    $(".edit_image").off("ajax:success")
+  #   # Remove the event listener so it doesn't fire multuple times
+  #   $(".edit_image").off("ajax:success")
 
-    # Show the 'My Photos' tab
-    $("#tabs").tabs("option", "active", 1)
+  #   # Show the 'My Photos' tab
+  #   $("#tabs").tabs("option", "active", 1)
 
-    if clickBtn is true
-      $("#mine button.save").trigger("click")
-  )
+  #   if clickBtn is true
+  #     $("#mine button.save").trigger("click")
+  # )
 
 window.Toolkit.Document.ready = ->
   if window.Toolkit.isDocumentPage()
