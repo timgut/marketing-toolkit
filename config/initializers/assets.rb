@@ -8,3 +8,17 @@ Rails.application.config.assets.paths << "#{Rails.root}/app/assets/videos"
 Rails.application.config.assets.paths << "#{Rails.root}/app/assets/fonts"
 Rails.application.config.assets.paths << "#{Rails.root}/vendor/assets/javascripts"
 Rails.application.config.assets.paths << "#{Rails.root}/vendor/assets/stylesheets"
+
+# Precompile additional assets.
+# application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
+Rails.application.config.assets.precompile += %w(
+  highlight-js-railscasts.css 
+  highlight.pack.js 
+  jquery.tablednd.1.0.3.min.js
+  reset.css
+  login.css
+  styles.css
+  login.css
+  type.css
+  global.css
+)

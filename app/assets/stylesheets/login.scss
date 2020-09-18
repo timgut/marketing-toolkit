@@ -1,0 +1,145 @@
+body {
+	background: white;
+	}
+
+#logo { 
+  padding: 1.5em 0 0;
+  }
+  
+@media (min-width : 740px) { 
+	#logo { 
+	  padding: 3em 0 2em;
+	  }
+	#logo img { 
+	  max-height: 70px; 
+	  }  
+  }
+
+
+main {
+	padding: 1em;
+	}
+	
+main form {
+	width: 100%;;
+	padding: 1em;
+	background: #e5e5e5;
+	margin-bottom: .5em;
+	border-bottom: 3px solid #00a950;
+	}
+
+@media (min-width : 740px) { 
+	main form { 
+    padding: 2.5em;
+    }
+  main.login-screen form { 
+    width: 450px;
+    }
+  main.password-request form { 
+    width: 600px;
+    }
+  main.account-application form { 
+    width: 700px;
+    }
+  }
+
+.login input, 
+.login select, 
+.login button {
+	font-size: 120%;
+	height: 56px;
+	}
+
+@media (min-width : 740px) { 
+	.account-application ol { 
+    position: relative;
+    }
+	.account-application li { 
+    display: inline-block;
+    width: 50%;
+    float: left;
+    padding-right: .125em;
+    }
+	.account-application li:nth-child(2n) { 
+    padding-right: 0;
+    padding-left: .125em
+    }
+  .account-application li.checkbox { 
+    width: 60%;
+    }
+  .account-application li.button { 
+    width: 100%;
+    }
+  }
+
+.login li label {
+    display: none;
+	}
+	
+.login .checkbox {
+  padding: .5em 0;
+  display: table;
+	}
+	
+.login .checkbox input,
+.login .checkbox label {
+  vertical-align: top;
+  display: table-cell;
+  height: auto;
+	}
+	
+.login .checkbox input {
+  margin-top: .1em;
+	}
+
+.login .checkbox label {
+  color: #5e5e5e;
+  float: left;
+  text-align: left;
+  font-size: .8em;
+  padding-top: .2em;
+	}
+	
+@media (min-width : 1200px) { 
+	.login .checkbox label {
+	  font-size: .8em;
+	  padding-top: 0;
+		}    
+  }	
+	
+.alternative-links { 
+	color: #acacac; 
+	}	
+	
+@media (max-width : 740px) { 
+	.alternative-links { 
+		font-size: .9em; 
+		}	
+  }	
+
+.feedback { 
+    font-size: 150%;
+    max-width: 600px;
+    margin: auto;
+    }
+	
+	
+#alert,
+.errorTxt {
+  background: #b30000;
+  color: #fff;
+  padding: .3em;
+  display: table;
+  margin: 0 auto .6em;
+}
+.errorTxt .error {
+  display: inline;
+  padding: 0 .2em;
+}
+
+
+input.error {
+    -moz-box-shadow: inset 0 -.15em 0 #b30000;
+    -webkit-box-shadow: inset 0 -.15em 0 #b30000;
+    box-shadow: inset 0 -.15em 0 #b30000;
+}

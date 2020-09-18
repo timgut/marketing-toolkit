@@ -11,14 +11,14 @@
   <meta name="copyright"     content="(c) Copyright <%= DateTime.now.year %> AFSCME" /> 
 
   <!-- CSS -->
-  <link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/theme/css/reset.css" type="text/css" media="screen, projection" />   
-  <link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/theme/css/type.css" type="text/css" media="screen, projection" />
-  <link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/theme/css/global.css" type="text/css" media="screen, projection" />
+  <%= stylesheet_link_tag "reset.css", 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag "type.css", 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag "global.css", 'data-turbolinks-track': 'reload' %>
 
   <% if params[:controller] == "users" && params[:action] == "sign-in" %>
-    <link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/theme/css/login.css" type="text/css" media="screen, projection" />
+    <%= stylesheet_link_tag "login", 'data-turbolinks-track': 'reload' %>
   <% else %>
-    <link rel="stylesheet" href="https://toolkit-afscme.bytrilogy.com/theme/css/toolkit-DEV.css" type="text/css" media="screen, projection" />
+    <%= stylesheet_link_tag "styles", 'data-turbolinks-track': 'reload' %>
   <% end %>
 
   <!-- Scripts -->

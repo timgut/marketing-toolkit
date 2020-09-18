@@ -1,24 +1,4 @@
-# README
+# AFSCME Toolkit
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Cloud9
+*URL*: [https://40994753a4834888b1e80bba507b148c.vfs.cloud9.us-east-1.amazonaws.com](https://40994753a4834888b1e80bba507b148c.vfs.cloud9.us-east-1.amazonaws.com)
