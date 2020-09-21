@@ -25,11 +25,11 @@ crumb :trashed_images do
 end
 
 crumb :edit_image do |image|
-  link "Edit '#{image.image_file_name}'", edit_image_path(image)
+  link "Replace '#{image.filename}'", edit_image_path(image)
   parent :index_images
 end
 
 crumb :image do |image|
-  link image.image_file_name, image_path(image)
+  link image.filename, image_path(image)
   parent :index_images
 end

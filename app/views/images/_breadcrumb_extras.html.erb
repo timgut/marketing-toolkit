@@ -12,7 +12,7 @@
       <li>
         <%= link_to(
           "<span class='icons'>d</span> Download".html_safe,
-          @image.image.url,
+          @image.cropped_image_url || @image.original_image_url,
           target: :blank
         ) %>
       </li>
