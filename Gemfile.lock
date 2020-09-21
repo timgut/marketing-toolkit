@@ -360,7 +360,7 @@ DEPENDENCIES
   unicorn
   web-console (>= 3.3.0)
   wicked_pdf
-  wkhtmltoimage-binary (= 0.12.4)
+  wkhtmltoimage-binary (~> 0.12.4)
   wkhtmltopdf-binary-edge (~> 0.12.3.0)
 
 RUBY VERSION

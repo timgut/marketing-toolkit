@@ -48,11 +48,6 @@ group :development do
   gem 'capistrano-rails', require: false
   gem 'capistrano3-delayed-job', '~> 1.0'
   gem 'daemons'
-<<<<<<< Updated upstream
-=======
-  gem 'wkhtmltoimage-binary', '0.12.4'
-  gem 'wkhtmltopdf-binary-edge', '~> 0.12.3.0'
->>>>>>> Stashed changes
 end
 
 group :test do
