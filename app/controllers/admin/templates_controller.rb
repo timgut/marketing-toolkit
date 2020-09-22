@@ -67,10 +67,11 @@ class Admin::TemplatesController < AdminController
   # PATCH /admin/templates/1
   def update
     load_template
-    campaign_params = params[:template].delete(:campaigns)
 
     respond_to do |format|
       format.html do
+        campaign_params = params[:template].delete(:campaigns)
+
         if @template.update_attributes(template_params)
           @template.set_campaigns!(campaign_params)
           redirect_to edit_admin_template_path(@template), notice: "Template updated!"
@@ -80,7 +81,9 @@ class Admin::TemplatesController < AdminController
       end
 
       format.json do
-        @template.update_attributes(template_params)
+        s3_url = "https://s3.amazonaws.com/toolkit.afscme.org/#{@template.s3_path(filename: params[:file].original_filename)}"
+        @template.upload_image_to_s3(params[:file])
+        @template.update(params[:type] => s3_url)
         head :no_content
       end
     end

@@ -103,19 +103,20 @@
   <% unless @template.new_record? %>
     <% unless @template.customize? %>
       <%= form_for([:admin, template], html: {class: "dropzone", multipart: true, id: "template-static-pdf-form"}) do |f| %>
+        <%= hidden_field_tag :type, :static_pdf %>
         <div class="label">
-          <%= f.label :static_pdf %>
+          <%= f.label :static_pdf_url %>
 
-          <% if @template.static_pdf_file_name %>
+          <% if @template.has_static_pdf? %>
             <span class="remove">
-              <%= link_to "Remove", remove_image_admin_template_path(@template, image: :static_pdf), method: :patch %>
+              <%= link_to "Remove", remove_image_admin_template_path(@template, image: :static_pdf_url), method: :patch %>
             </span>
           <% end %>
         </div>
         
         <% if @template.static_pdf_file_name %>
           <div class="current-image">
-            <%= link_to "View PDF", @template.static_pdf.url, target: :_blank %>
+            <%= link_to "View PDF", @template.static_pdf_url, target: :_blank %>
           </div>
         <% end %>
 
@@ -126,19 +127,20 @@
     <% end %>
 
     <%= form_for([:admin, template], html: {class: "dropzone", multipart: true, id: "template-thumbnail-form"}) do |f| %>
+      <%= hidden_field_tag :type, :thumbnail %>
       <div class="label">
-        <%= f.label :thumbnail %>
+        <%= f.label :thumbnail_url %>
 
-        <% if @template.thumbnail_url %>
+        <% if @template.has_thumbnail? %>
           <span class="remove">
-            <%= link_to "Remove", remove_image_admin_template_path(@template, image: :thumbnail), method: :patch %>
+            <%= link_to "Remove", remove_image_admin_template_path(@template, image: :thumbnail_url), method: :patch %>
           </span>
         <% end %>
       </div>
       
-      <% if @template.thumbnail_url %>
+      <% if @template.has_thumbnail? %>
         <div class="current-image">
-          <img src="<%= @template.thumbnail.url %>" />
+          <img src="<%= @template.thumbnail_url %>" />
         </div>
       <% end %>
 
@@ -148,19 +150,20 @@
     <% end %>
 
     <%= form_for([:admin, template], html: {class: "dropzone", multipart: true, id: "template-numbered-form"}) do |f| %>
+      <%= hidden_field_tag :type, :numbered_image_url %>
       <div class="label">
-        <%= f.label :numbered_image %>
+        <%= f.label :numbered_image_url %>
         
-        <% if @template.numbered_image_url %>
+        <% if @template.has_numbered_image? %>
           <span class="remove">
-            <%= link_to "Remove", remove_image_admin_template_path(@template, image: :numbered_image), method: :patch %>
+            <%= link_to "Remove", remove_image_admin_template_path(@template, image: :numbered_image_url), method: :patch %>
           </span>
         <% end %>
       </div>
       
-      <% if @template.numbered_image_url %>
+      <% if @template.has_numbered_image? %>
         <div class="current-image">
-          <img src="<%= @template.numbered_image.url %>" />
+          <img src="<%= @template.numbered_image_url %>" />
         </div>
       <% end %>
 
@@ -170,19 +173,20 @@
     <% end %>
 
     <%= form_for([:admin, template], html: {class: "dropzone", multipart: true, id: "template-blank-form"}) do |f| %>
+      <%= hidden_field_tag :type, :blank_image_url %>
       <div class="label">
         <%= f.label :blank_image %>
 
-        <% if @template.blank_image_url %>
+        <% if @template.has_blank_image? %>
           <span class="remove">
-            <%= link_to "Remove", remove_image_admin_template_path(@template, image: :blank_image), method: :patch %>
+            <%= link_to "Remove", remove_image_admin_template_path(@template, image: :blank_image_url), method: :patch %>
           </span>
         <% end %>
       </div>
       
-      <% if @template.blank_image_url %>
+      <% if @template.has_blank_image? %>
         <div class="current-image">
-          <img src="<%= @template.blank_image.url %>" />
+          <img src="<%= @template.blank_image_url %>" />
         </div>
       <% end %>
 

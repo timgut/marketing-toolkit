@@ -25,8 +25,7 @@ class Template < ApplicationRecord
   end
 
   def croppable?
-    true
-    # blank_image.exists?
+    !blank_image_url.blank?
   end
 
   def set_campaigns!(campaigns)
@@ -37,6 +36,29 @@ class Template < ApplicationRecord
         CampaignTemplate.create!(campaign_id: campaign, template_id: id)
       end
     end
+  end
+
+  def upload_image_to_s3(file)
+    path = Rails.root.join("tmp", file.original_filename).to_s
+    FileUtils.cp(file.tempfile, path)
+    upload_to_s3!(filepath: path)
+    FileUtils.rm(path)
+  end
+
+  def has_static_pdf?
+    !static_pdf_url.nil? && static_pdf_url != "" && static_pdf_url != "/static_pdfs/original/missing.png"
+  end
+  
+  def has_blank_image?
+    !blank_image_url.nil? && blank_image_url != "" && blank_image_url != "/blank_images/original/missing.png"
+  end
+  
+  def has_numbered_image?
+    !numbered_image_url.nil? && numbered_image_url != "" && numbered_image_url != "/numbered_images/original/missing.png"
+  end
+
+  def has_thumbnail?
+    !thumbnail_url.nil? && thumbnail_url != "" && thumbnail_url != "/thumbnails/original/missing.png"
   end
 
   # Legacy Paperclip Images
@@ -51,5 +73,4 @@ class Template < ApplicationRecord
   def thumbnail
     OpenStruct.new(url: thumbnail_url)
   end
-  
 end
