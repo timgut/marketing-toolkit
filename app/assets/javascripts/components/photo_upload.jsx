@@ -34,12 +34,18 @@ class PhotoUpload extends React.Component{
       canCrop:      Toolkit.photoManagerData.crop         || false,
       target:       Toolkit.photoManagerData.target       || null,
       resizeHeight: Toolkit.photoManagerData.resizeHeight || null,
-      resizeWidth:  Toolkit.photoManagerData.resizeWidth  || null
+      resizeWidth:  Toolkit.photoManagerData.resizeWidth  || null,
+      dragX:        null, // Where the user dragged the photo in context
+      dragY:        null  // Where the user dragged the photo in context
     };
 
     if(this.state.resizeHeight && this.state.resizeWidth) {
       this.state.aspectRatio =  (this.state.resizeWidth / this.state.resizeHeight).toPrecision(3); // 2 decimal places
     }
+
+    if(this.props.root.props.contextCrop === true) {
+      this.state.blank = null;
+    }    
   };
 
   /**
@@ -73,7 +79,7 @@ class PhotoUpload extends React.Component{
 
           _this.setState({
             image: image,
-            step:  "uploaded"
+            step:  _this.props.root.props.contextCrop ? "setup-drag" : "uploaded"
           });
         } else {
           console.log("Figure out how to handle failures");
@@ -95,6 +101,34 @@ class PhotoUpload extends React.Component{
           }).done(function(data){
             _this.props.root.setState(Object.assign({}, _this.props.root.state, {myPhotos: _this.props.root.state.myPhotos.concat(data)}));
             _this.setState({image: Object.assign({}, _this.state.image, {meta: data})});
+          });
+        }
+        break;
+
+      // Get the metadata for the blank photo and the uploaded photo.
+      case "setup-drag":
+        const _this = this;
+
+        if(this.props.root.props.contextCrop === true && this.state.blank === null) {
+          const blankImgixUrl = this.props.root.props.blankImage.replace("https://s3.amazonaws.com/toolkit.afscme.org", "https://afscme.imgix.net");
+          $.ajax({
+            url:    `${blankImgixUrl}?fm=json`,
+            method: "GET",
+          }).done(function(data){
+            _this.setState({blank: Object.assign({}, _this.state.blank, {meta: data})});
+
+            if(_this.state.image.meta === null){
+              $.ajax({
+                url:    `${_this.state.image.imgixUrl}?fm=json`,
+                method: "GET",
+              }).done(function(data){
+                _this.props.root.setState(Object.assign({}, _this.props.root.state, {myPhotos: _this.props.root.state.myPhotos.concat(data)}));
+                _this.setState({
+                  step: "dragging",
+                  image: Object.assign({}, _this.state.image, {meta: data})
+                });
+              });
+            }
           });
         }
         break;
@@ -128,11 +162,24 @@ class PhotoUpload extends React.Component{
         if(this.state.jcropApi === null){
           this.loadCrop();
         }
+        break;
 
-        // if(prevState.flip !== this.state.flip){
-        //   this.state.image.imgixUrl = this.getImgixUrl();
-        //   $(".jcrop-holder").find("img:visible").attr("src", this.state.image.imgixUrl);
-        // }
+      // Initialize jQuery UI Drag
+      case "dragging":
+        const $figure = $(`figure[data-target='${Toolkit.photoManagerData.target}']`);
+        const $offset = $figure.find("[data-crop-offset]");
+
+        let offset = 0;
+        if($offset.length === 1) {
+          offset = $offset.val();
+        }
+
+        $(".drag").draggable({
+          stop: function(e, ui) {
+            position = $(".drag").position();
+            _this.setState(Object.assign({}, _this.state, {dragX: position.left, dragY: (position.top - offset)}));
+          }
+        });
         break;
 
       // Destroy JCrop
@@ -142,6 +189,7 @@ class PhotoUpload extends React.Component{
         break;
 
       case "selected":
+        // TODO NEXT: FIGURE OUT HOW TO SEND THE DRAGX AND DRAGY PARAMS TO IMGIX TO GET A COMBINED PHOTO.
         // Update the image with the crop data
         $.ajax({
           url:    `/images/${_this.state.image.id}`,
@@ -197,14 +245,6 @@ class PhotoUpload extends React.Component{
     if(this.state.canPreview){
       this.setState(Object.assign({}, this.state, {canPreview: false}));
     }
-
-    // if(e.target){
-    //   switch(e.target.dataset.action){
-    //     case "flip":
-    //       this.setState(Object.assign({}, this.state, {flip: e.target.value}));
-    //       break;
-    //   }
-    // }
   };
 
   handleClick(e){
@@ -309,28 +349,6 @@ class PhotoUpload extends React.Component{
     }
   };
 
-  /**
-   * Generates the URL for Imgix.
-   * @return {string} - The URL for the edited image
-   */
-  // getImgixUrl(){
-  //   const urlBase = `${this.state.image.imgixUrl.split("?")[0]}`;
-
-  //   let urlParts  = [];
-  //   if(this.state.flip.length > 0) urlParts.push(`flip=${this.state.flip}`);
-  //   urlParts = urlParts.join("&");
-
-  //   return `${urlBase}?${urlParts}`;
-  // };
-
-  /**
-   * Sets the URL for the crop based on toolbar selections.
-   */
-  // setImgixUrl(){
-  //   const image = Object.assign(this.state.image, {imgixUrl: this.getImgixUrl()});
-  //   this.setState(Object.assign({}, this.state, {image: image}));
-  // };
-
   render(){
     if (this.state.hasError) {
       return <h1>Something went wrong.</h1>;
@@ -374,6 +392,7 @@ class PhotoUpload extends React.Component{
 
         case "uploading":
         case "setup-crop":
+        case "setup-drag":
         case "selected":
           uploadTab = loading;
           break;
@@ -385,6 +404,22 @@ class PhotoUpload extends React.Component{
               <button data-action="select-photo" onClick={this.handleClick} className="button active">Use This Photo</button>
             </div>
             <img className="original-image" src={this.state.image.originalUrl} />
+          </React.Fragment>);
+          break;
+
+        case "dragging":
+          uploadTab = (<React.Fragment>
+            <div className="buttons">
+              <button data-action="edit-photo" onClick={this.handleClick} className="button active">Edit This Photo</button>
+              <button data-action="select-photo" onClick={this.handleClick} className="button active">Use This Photo</button>
+            </div>
+            <div id="cc-croparea" style={{height: `${this.state.blank.meta.PixelHeight}px`, width: `${this.state.blank.meta.PixelWidth}px`}}>
+              <div className="drag">
+                <div id="cc-uploaded" style={{backgroundImage: `url(${this.state.image.imgixUrl})`, height: `${this.state.image.meta.PixelHeight}px`, width: `${this.state.image.meta.PixelWidth}px`}}></div>
+              </div>
+
+              <img id="cc-context" src={this.props.root.props.blankImage} />
+            </div>
           </React.Fragment>);
           break;
 

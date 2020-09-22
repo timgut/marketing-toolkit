@@ -3596,3 +3596,27 @@ table.stats td:last-of-type {
 .field_with_errors {
   display: inline;
 }
+
+/* Crop in Context Styles */
+#cc-croparea {
+  border:   solid 2px #000;
+  overflow: hidden;
+  z-index:  3;
+  position: relative;
+}
+
+#cc-context {
+  position: absolute;
+  top:      0;
+  left:     0;
+  z-index:  2;
+  pointer-events: none;
+}
+
+#cc-uploaded {
+  background-repeat:   no-repeat;
+  background-position: center center;
+  z-index:  1;
+  cursor:   grab;
+}
+

@@ -6,7 +6,7 @@ window.Toolkit.Document.reloadImagePicker = ->
   Toolkit.Document.croppingStockPhoto = false
 
   if $target.attr("data-loaded") is "false"
-    $.get("/images/choose", (data) ->
+    $.get("/images/choose?template_id=#{$("#document_template_id").val()}", (data) ->
       $target.html(data)
       $target.attr("data-loaded", "true")
       window.Toolkit.Document.dropzone()

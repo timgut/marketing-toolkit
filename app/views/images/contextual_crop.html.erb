@@ -18,33 +18,5 @@
 <% end %>
 
 <style>
-#croparea {
-  height:   <%= @template.blank_image.height %>px;
-  width:    <%= @template.blank_image.width %>px;
-  border:   solid 2px #000;
-  overflow: hidden;
-  z-index:  3;
-  position: relative;
-}
 
-#context {
-  position: absolute;
-  top:      0;
-  left:     0;
-  z-index:  2;
-
-  pointer-events: none;
-}
-
-#uploaded {
-  background-image:    url('<%= @image.image.url(:cropped) %>');
-  background-repeat:   no-repeat;
-  background-position: center center;
-
-  z-index:  1;
-  height:   <%= @image.image.height(:cropped) %>px;
-  width:    <%= @image.image.width(:cropped) %>px;
-  /*border:   dashed 1px #000;*/
-  cursor:   grab;
-}
 </style>

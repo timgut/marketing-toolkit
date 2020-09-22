@@ -3,10 +3,11 @@ class ImagesController < ApplicationController
 
   before_action :assign_sidebar_vars, only: [:index, :recent, :shared, :trashed]
 
-  # GET /images/choose
+  # GET /images/choose?template_id=1
   def choose
     @my_photos = current_user.images.select(:id, :original_image_url, :cropped_image_url).publish.reverse
     @stock_photos = StockImage.select(:id, :title, :label, :image_url).publish
+    @template = Template.find(params[:template_id])
     render layout: false
   end
 

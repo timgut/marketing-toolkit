@@ -1,6 +1,11 @@
 <%= react_component(
   "PhotoManager", 
-  {myPhotos: @my_photos.as_json, stockPhotos: @stock_photos.as_json},
+  {
+    myPhotos:    @my_photos.as_json,
+    stockPhotos: @stock_photos.as_json,
+    contextCrop: @template.has_blank_image?,
+    blankImage:  @template.blank_image_url
+  },
   {camelize_props: true}
 ) %>
 
