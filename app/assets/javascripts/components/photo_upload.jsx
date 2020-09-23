@@ -1,3 +1,4 @@
+// TODO NEXT: CROPPING, PLACNG, AND PREVIEWING ALL NEED TO USE THE SAME RESIZE / FIT PARAMS
 class PhotoUpload extends React.Component{
   constructor(props={}){
     super(props);
@@ -292,38 +293,51 @@ class PhotoUpload extends React.Component{
   buildPreviewUrl(){
     let params = {};
 
-    if(typeof this.state.coords.x1 === "number" && 
-       typeof this.state.coords.y1 === "number" && 
-       typeof this.state.coords.w  === "number" && 
-       typeof this.state.coords.h  === "number"
-      ) {
+    // Add the data from the croparea
+    if(typeof this.state.coords.x1 === "number" && typeof this.state.coords.y1 === "number" && typeof this.state.coords.w  === "number" && typeof this.state.coords.h  === "number") {
       params.rect = `${this.state.coords.x1},${this.state.coords.y1},${this.state.coords.w},${this.state.coords.h}`;
     }
 
     if(this.state.step !== "placing") {
       if(this.state.resizeHeight && this.state.resizeWidth){
-        params.fit = "crop";
-        params.h   = this.state.resizeHeight;
-        params.w   = this.state.resizeWidth;
+        params = Object.assign(params, {
+          fit: "crop",
+          h: this.state.resizeHeight,
+          w: this.state.resizeWidth
+        });
       } else if(this.state.resizeHeight){
-        params.fit = "clip";
-        params.h   = this.state.resizeHeight;
+        params = Object.assign(params, {
+          fit: "clip",
+          h: this.state.resizeHeight
+        });
       } else if(this.state.resizeWidth){
-        params.fit = "clip";
-        params.w   = this.state.resizeWidth;
-      }
-
-      // Put the blank image on top of the user's photo
-      if(this.props.root.props.contextCrop === true) {
-        params.fit = "fillmax";
-        params.fill = "solid";
-        params.h = this.state.blank.meta.PixelHeight;
-        params.w = this.state.blank.meta.PixelWidth;
-        params["blend-mode"] = "normal";
-        params.blend = this.state.blankImgixUrl;
+        params = Object.assign(params, {
+          fit: "clip",
+          w: this.state.resizeWidth
+        });
       }
     }
+
+    if(this.props.root.props.contextCrop === true) {
+      // Resize the user's photo for context cropping
+      params = Object.assign(params, {
+        fit: "fillmax",
+        fill: "solid",
+        h: this.state.blank.meta.PixelHeight,
+        w: this.state.blank.meta.PixelWidth
+      });
+
+      // Put the blank image on top of the user's photo
+      if(this.state.step === "preview") {
+        params = Object.assign(params, {
+          "blend-mode": "normal",
+          blend: this.state.blankImgixUrl
+        });
+      }
+    }
+
     console.log(params);
+
     if(Object.keys(params).length > 0){
       let paramsString = [];
       for(key in params){ paramsString.push(`${key}=${params[key]}`) }
