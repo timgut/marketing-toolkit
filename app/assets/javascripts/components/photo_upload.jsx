@@ -1,15 +1,24 @@
-// TODO NEXT: CROPPING, PLACNG, AND PREVIEWING ALL NEED TO USE THE SAME RESIZE / FIT PARAMS
 class PhotoUpload extends React.Component{
   constructor(props={}){
     super(props);
+
+    const _this = this;
     this.resetState();
+
+    if(this.props.root.props.contextCrop === true) {
+      // Get the metadata for the blank photo
+      $.ajax({
+        url:    `${this.state.blankImgixUrl}?fm=json`,
+        method: "GET",
+      }).done(function(data){
+        _this.state.blank = {meta: data};
+      });
+    }
 
     this.handleClick  = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleFileChooser = this.handleFileChooser.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
-
-    this.previewRef = React.createRef();
   };
 
   /**
@@ -38,16 +47,14 @@ class PhotoUpload extends React.Component{
       resizeWidth:   Toolkit.photoManagerData.resizeWidth  || null,
       dragX:         null, // Where the user dragged the photo in context
       dragY:         null,  // Where the user dragged the photo in context
+      sizeStrategy:  "hw", // Which size(s) should a cropped photo send to imgix? h = height; w = width;
+      flip:          "", // Should the user's photo be flipped horizontally (h), veritcally (v), both (hv), or not at all?
       blankImgixUrl: this.props.root.props.blankImage.replace("https://s3.amazonaws.com/toolkit.afscme.org", "https://afscme.imgix.net")
     };
 
     if(this.state.resizeHeight && this.state.resizeWidth) {
       this.state.aspectRatio =  (this.state.resizeWidth / this.state.resizeHeight).toPrecision(3); // 2 decimal places
     }
-
-    if(this.props.root.props.contextCrop === true) {
-      this.state.blank = null;
-    }    
   };
 
   /**
@@ -107,22 +114,6 @@ class PhotoUpload extends React.Component{
         }
         break;
 
-      // Get the metadata for the blank photo and the uploaded photo.
-      case "setup-placement":
-        const _this = this;
-
-        if(this.state.blank === null) {
-          $.ajax({
-            url:    `${this.state.blankImgixUrl}?fm=json`,
-            method: "GET",
-          }).done(function(data){
-            _this.setState({step: "placing", blank: Object.assign({}, _this.state.blank, {meta: data})});
-          });
-        } else {
-          this.setState(Object.assign({}, this.state, {step: "placing"}));
-        }
-        break;
-
       // Figure out the dimensions for the crop area based off the photo's metafdata.
       case "setup-crop":
         availableHeight = Math.round($("body").height() * 0.8);
@@ -150,9 +141,7 @@ class PhotoUpload extends React.Component{
       // Initialize JCrop
       case "cropping":
         // console.log(this.state.jcropApi);
-        if(this.state.jcropApi === null){
-          this.loadCrop();
-        }
+        this.loadCrop();
         break;
 
       // Initialize jQuery UI Drag
@@ -175,13 +164,22 @@ class PhotoUpload extends React.Component{
 
       // Destroy JCrop
       case "preview":
-        $(this.previewRef.current).attr("style", "");
         this.unloadCrop();
+
+        if(this.props.root.props.contextCrop === true) {
+          // Get the metadata for the placed user photo, so we can adjust the containing box accordingly
+          $.ajax({
+            url:    `${this.state.previewUrl.split("&blend")[0]}&fm=json`,
+            method: "GET",
+          }).done(function(data){
+            const marginLeft = (data.PixelWidth - _this.state.blank.meta.PixelWidth) / 2;
+            console.log(`(${data.PixelWidth} - ${_this.state.blank.meta.PixelWidth}) / 2`);
+            $(".upload-preview").css({marginLeft: `${marginLeft}px`, display: "block"});
+          });
+        }
         break;
 
       case "selected":
-        // TODO NEXT: FIGURE OUT HOW TO SEND THE DRAGX AND DRAGY PARAMS TO IMGIX TO GET A COMBINED PHOTO.
-        // Update the image with the crop data
         $.ajax({
           url:    `/images/${_this.state.image.id}`,
           method: "PATCH",
@@ -189,7 +187,7 @@ class PhotoUpload extends React.Component{
             format: "json",
             image:  {
               id: _this.state.image.id,
-              cropped_image_url: _this.buildPreviewUrl()
+              cropped_image_url: _this.state.previewUrl
             }
           }
         }).done(function(data){
@@ -233,8 +231,22 @@ class PhotoUpload extends React.Component{
    */
   // Disable the preview button while the user changes the cropping selection.
   handleChange(e){
-    if(this.state.canPreview){
-      this.setState(Object.assign({}, this.state, {canPreview: false}));
+    if(e.target) {
+      // A <select> box was changed
+      switch(e.target.dataset.action){
+        case "size-strategy":
+          this.setState(Object.assign({}, this.state, {sizeStrategy: e.target.value}));
+          break;
+
+        case "flip":
+          this.setState(Object.assign({}, this.state, {flip: e.target.value}));
+          break;
+      }
+    } else {
+      // JCrop was changed
+      if(this.state.canPreview){
+        this.setState(Object.assign({}, this.state, {canPreview: false}));
+      }      
     }
   };
 
@@ -245,7 +257,7 @@ class PhotoUpload extends React.Component{
         break;
 
       case "place-photo":
-        this.setState(Object.assign({}, this.state, {step: "setup-placement"}));
+        this.setState(Object.assign({}, this.state, {step: "placing"}));
         break;
 
       case "preview-photo":
@@ -291,52 +303,60 @@ class PhotoUpload extends React.Component{
    * Takes the current component state and builds a URL where the user's cropped and resized image lives.
    */
   buildPreviewUrl(){
+    const getHeight = this.state.sizeStrategy.indexOf("h") > -1;
+    const getWidth  = this.state.sizeStrategy.indexOf("w") > -1;
+
     let params = {};
 
-    // Add the data from the croparea
+    // Crop the user's photo
     if(typeof this.state.coords.x1 === "number" && typeof this.state.coords.y1 === "number" && typeof this.state.coords.w  === "number" && typeof this.state.coords.h  === "number") {
       params.rect = `${this.state.coords.x1},${this.state.coords.y1},${this.state.coords.w},${this.state.coords.h}`;
     }
 
-    if(this.state.step !== "placing") {
-      if(this.state.resizeHeight && this.state.resizeWidth){
-        params = Object.assign(params, {
-          fit: "crop",
-          h: this.state.resizeHeight,
-          w: this.state.resizeWidth
-        });
-      } else if(this.state.resizeHeight){
-        params = Object.assign(params, {
-          fit: "clip",
-          h: this.state.resizeHeight
-        });
-      } else if(this.state.resizeWidth){
-        params = Object.assign(params, {
-          fit: "clip",
-          w: this.state.resizeWidth
-        });
-      }
-    }
-
     if(this.props.root.props.contextCrop === true) {
-      // Resize the user's photo for context cropping
-      params = Object.assign(params, {
-        fit: "fillmax",
-        fill: "solid",
-        h: this.state.blank.meta.PixelHeight,
-        w: this.state.blank.meta.PixelWidth
-      });
+      // Resize the user's photo
+      params = Object.assign(params, {fit: "fillmax", fill: "solid"});
+      
+      if(getHeight) {
+        params = Object.assign(params, {h: this.state.blank.meta.PixelHeight});
+      }
+
+      if(getWidth) {
+        params = Object.assign(params, {w: this.state.blank.meta.PixelWidth});
+      }
 
       // Put the blank image on top of the user's photo
       if(this.state.step === "preview") {
-        params = Object.assign(params, {
-          "blend-mode": "normal",
-          blend: this.state.blankImgixUrl
-        });
+        params = Object.assign(params, {"blend-mode": "normal", blend: this.state.blankImgixUrl});
+      }
+    } else {
+      // Resize the user's photo
+      if(this.state.resizeHeight && this.state.resizeWidth){
+        params = Object.assign(params, {fit: "crop"});
+
+        if(getHeight) {
+          params = Object.assign(params, {h: this.state.resizeHeight});
+        }
+
+        if(getWidth) {
+          params = Object.assign(params, {w: this.state.resizeWidth});
+        }
+      } else if(this.state.resizeHeight){
+        params = Object.assign(params, {fit: "clip"});
+
+        if(getHeight) {
+          params = Object.assign(params, {h: this.state.resizeHeight});
+        }
+      } else if(this.state.resizeWidth){
+        params = Object.assign(params, {fit: "clip"});
+
+        if(getWidth) {
+          params = Object.assign(params, {w: this.state.resizeWidth});
+        }
       }
     }
 
-    console.log(params);
+    // console.log(params);
 
     if(Object.keys(params).length > 0){
       let paramsString = [];
@@ -351,18 +371,21 @@ class PhotoUpload extends React.Component{
 
   loadCrop(){
     const _this = this;
-    // console.log("loading crop");
-    $("#image-to-crop").Jcrop({
-      boxWidth:    this.state.boxWidth,
-      boxHeight:   this.state.boxHeight,
-      onSelect:    this.handleSelect,
-      onChange:    this.handleChange,
-      aspectRatio: this.state.aspectRatio,
-      setSelect:   [0, 0, 250, 250]
-    },function(){
-      // console.log("loaded");
-      _this.setState(Object.assign({}, _this.state, {jcropApi: this}));
-    });
+
+    if(this.state.jcropApi === null){
+      // console.log("loading crop");
+      $("#image-to-crop").Jcrop({
+        boxWidth:    this.state.boxWidth,
+        boxHeight:   this.state.boxHeight,
+        onSelect:    this.handleSelect,
+        onChange:    this.handleChange,
+        aspectRatio: this.state.aspectRatio,
+        setSelect:   [0, 0, 250, 250]
+      },function(){
+        // console.log("loaded");
+        _this.setState(Object.assign({}, _this.state, {jcropApi: this}));
+      });
+    }
   };
 
   unloadCrop(){
@@ -374,6 +397,11 @@ class PhotoUpload extends React.Component{
   };
 
   render(){
+    if(this.state.image) {
+      this.state.previewUrl = this.buildPreviewUrl();
+      console.log(this.state.previewUrl);
+    }
+    
     if (this.state.hasError) {
       return <h1>Something went wrong.</h1>;
     }
@@ -393,6 +421,23 @@ class PhotoUpload extends React.Component{
         </div>
       </div>
     </div>);
+
+    const toolbar = (
+      <section id="toolbar">
+        <select style={{width: "12rem"}} value={this.state.sizeStrategy} onChange={this.handleChange} data-action="size-strategy">
+          <option value="hw">No Stretch</option>
+          <option value="w">Stretch Horizontally</option>
+          <option value="h">Stretch Vertically</option>
+        </select>
+
+        <select style={{width: "12rem"}} value={this.state.flip} onChange={this.handleChange} data-action="flip">
+          <option value="">No Flip</option>
+          <option value="h">Flip Horizontally</option>
+          <option value="v">Flip Vertically</option>
+          <option value="hv">Flip Mirror</option>
+        </select>
+      </section>
+    );
 
     let uploadTab, placementButton;
 
@@ -420,7 +465,6 @@ class PhotoUpload extends React.Component{
 
         case "uploading":
         case "setup-crop":
-        case "setup-placement":
         case "selected":
           uploadTab = loading;
           break;
@@ -442,9 +486,10 @@ class PhotoUpload extends React.Component{
               <button data-action="crop-photo" onClick={this.handleClick} className="button active">Crop Photo</button>
               <button data-action="preview-photo" onClick={this.handleClick} className="button active">Preview</button>
             </div>
+            {toolbar}
             <div id="cc-croparea" style={{height: `${this.state.blank.meta.PixelHeight}px`, width: `${this.state.blank.meta.PixelWidth}px`}}>
               <div className="drag">
-                <div id="cc-uploaded" style={{backgroundImage: `url(${this.buildPreviewUrl()})`, height: `${this.state.image.meta.PixelHeight}px`, width: `${this.state.image.meta.PixelWidth}px`}}></div>
+                <div id="cc-uploaded" style={{backgroundImage: `url(${this.state.previewUrl})`, height: `${this.state.image.meta.PixelHeight}px`, width: `${this.state.image.meta.PixelWidth}px`}}></div>
               </div>
 
               <img id="cc-context" src={this.props.root.props.blankImage} />
@@ -459,15 +504,6 @@ class PhotoUpload extends React.Component{
               <button data-action="preview-photo" onClick={this.handleClick} disabled={!this.state.canPreview} className="button active">Preview</button>
             </div>
 
-            <section id="toolbar" style={{display: "none"}}>
-              <select value={this.state.flip} onChange={this.handleChange} data-action="flip">
-                <option value="">No Flip</option>
-                <option value="h">Flip Horizontal</option>
-                <option value="v">Flip Vertical</option>
-                <option value="hv">Flip Mirror</option>
-              </select>
-            </section>
-
             <img style={{height: "auto", width: "auto"}} src={this.state.image.imgixUrl} id="image-to-crop" />
           </section>);
           break;
@@ -480,7 +516,10 @@ class PhotoUpload extends React.Component{
               {placementButton}
               <button data-action="upload-photo" onClick={this.handleClick} className="button">Start Over</button>
             </div>
-            <img className="upload-preview" ref={this.previewRef} src={this.buildPreviewUrl()}  />
+
+            <div id="preview" style={{width: this.state.blank.meta.PixelWidth, height: this.state.blank.meta.PixelHeight}}>
+              <img className="upload-preview" src={this.state.previewUrl} style={{display: "none"}} />
+            </div>
           </section>);
 
         case "selected":

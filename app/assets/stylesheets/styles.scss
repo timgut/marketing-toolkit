@@ -3620,3 +3620,16 @@ table.stats td:last-of-type {
   cursor:   grab;
 }
 
+/* Photo Upload Toolbar */
+#toolbar {
+  display: block;
+  text-align: center;
+
+  select {
+    margin: 1rem;
+  }
+}
+
+#preview {
+  overflow: hidden;
+}
