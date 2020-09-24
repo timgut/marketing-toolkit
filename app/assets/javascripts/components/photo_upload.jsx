@@ -164,19 +164,17 @@ class PhotoUpload extends React.Component{
 
       // Destroy JCrop
       case "preview":
-        this.unloadCrop();
+        const photo = document.getElementById("preview-photo");
 
         if(this.props.root.props.contextCrop === true) {
-          // Get the metadata for the placed user photo, so we can adjust the containing box accordingly
-          $.ajax({
-            url:    `${this.state.previewUrl.split("&blend")[0]}&fm=json`,
-            method: "GET",
-          }).done(function(data){
-            const marginLeft = (data.PixelWidth - _this.state.blank.meta.PixelWidth) / 2;
-            console.log(`(${data.PixelWidth} - ${_this.state.blank.meta.PixelWidth}) / 2`);
-            $(".upload-preview").css({marginLeft: `${marginLeft}px`, display: "block"});
-          });
+          photo.onload = function() {
+            const marginLeft = (photo.clientWidth - _this.state.blank.meta.PixelWidth) / 2;
+            console.log(marginLeft);
+            photo.style.marginLeft = `-${marginLeft}px`;
+          }
         }
+        
+        this.unloadCrop();
         break;
 
       case "selected":
@@ -313,6 +311,11 @@ class PhotoUpload extends React.Component{
       params.rect = `${this.state.coords.x1},${this.state.coords.y1},${this.state.coords.w},${this.state.coords.h}`;
     }
 
+    // Apply flip selection
+    if(this.state.flip !== "") {
+      params = Object.assign(params, {flip: this.state.flip});
+    }
+
     if(this.props.root.props.contextCrop === true) {
       // Resize the user's photo
       params = Object.assign(params, {fit: "fillmax", fill: "solid"});
@@ -326,7 +329,7 @@ class PhotoUpload extends React.Component{
       }
 
       // Put the blank image on top of the user's photo
-      if(this.state.step === "preview") {
+      if(this.state.step === "preview" || this.state.step === "selected") {
         params = Object.assign(params, {"blend-mode": "normal", blend: this.state.blankImgixUrl});
       }
     } else {
@@ -430,7 +433,7 @@ class PhotoUpload extends React.Component{
           <option value="h">Stretch Vertically</option>
         </select>
 
-        <select style={{width: "12rem"}} value={this.state.flip} onChange={this.handleChange} data-action="flip">
+        <select style={{width: "12rem", display: "none"}} value={this.state.flip} onChange={this.handleChange} data-action="flip">
           <option value="">No Flip</option>
           <option value="h">Flip Horizontally</option>
           <option value="v">Flip Vertically</option>
@@ -518,7 +521,7 @@ class PhotoUpload extends React.Component{
             </div>
 
             <div id="preview" style={{width: this.state.blank.meta.PixelWidth, height: this.state.blank.meta.PixelHeight}}>
-              <img className="upload-preview" src={this.state.previewUrl} style={{display: "none"}} />
+              <img id="preview-photo" src={this.state.previewUrl} />
             </div>
           </section>);
 
