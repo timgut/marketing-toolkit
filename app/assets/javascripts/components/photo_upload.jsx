@@ -1,5 +1,11 @@
-// Figure out how to move the user's photo to the drag position
-// Figure out where we want to show the blended image, and where to show the cropped user photo
+/**
+  TODO NEXT:
+  1. Organize state
+  2. Test with different image sizes/formats
+  3. Better user feedback when uploading / processing
+  4. Test regular cropping again
+  5. Organize / Expand / Remove functions to make the code cleaner
+*/
 class PhotoUpload extends React.Component{
   constructor(props={}){
     super(props);
