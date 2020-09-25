@@ -1,7 +1,6 @@
 class RemovePaperclip < ActiveRecord::Migration[5.2]
   def change
     remove_attachment :images, :image
-    remove_column     :images, :crop_data
     remove_column     :images, :image_meta
 
     remove_attachment :templates, :thumbnail

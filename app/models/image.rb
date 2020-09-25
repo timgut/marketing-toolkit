@@ -10,6 +10,8 @@ class Image < ApplicationRecord
   scope :recent,         ->(user) { where("images.creator_id = ? and images.created_at >= ?", user.id, DateTime.now - 2.weeks) }
   scope :shared_with_me, ->(user) { all.joins(:images_users).where("images_users.user_id = ? and images_users.user_id != ?", user.id, user.id) }
 
+  serialize :crop_data, Hash
+
   class << self
     def find_by_url(url)
       Image.find_by(original_image_url: url)
