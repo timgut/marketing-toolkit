@@ -3,8 +3,7 @@
   1. Organize state
   2. Test with different image sizes/formats
   3. Better user feedback when uploading / processing
-  4. Test regular cropping again
-  5. Organize / Expand / Remove functions to make the code cleaner
+  4. Organize / Expand / Remove functions to make the code cleaner
 */
 class PhotoUpload extends React.Component{
   constructor(props={}){
@@ -62,11 +61,15 @@ class PhotoUpload extends React.Component{
       cropOffset:    $("[data-crop-offset]").attr("data-crop-offset") || 0,
       multiplier:    1.2, // In context cropping, increase the the smaller dimension of the user's photo
       buildImgixUrl: false, // Should the preview url be generated?
-      blankImgixUrl: this.props.root.props.blankImage.replace("https://s3.amazonaws.com/toolkit.afscme.org", "https://afscme.imgix.net")
+      // userResize:    {active: false, width: null, height: null, aspectRatio: true} // Allows the user to resize their photos
     };
 
     if(this.state.resizeHeight && this.state.resizeWidth) {
       this.state.aspectRatio =  (this.state.resizeWidth / this.state.resizeHeight).toPrecision(3); // 2 decimal places
+    }
+
+    if(this.props.root.props.contextCrop === true) {
+      this.state.blankImgixUrl = this.props.root.props.blankImage.replace("https://s3.amazonaws.com/toolkit.afscme.org", "https://afscme.imgix.net");
     }
   };
 
@@ -118,16 +121,15 @@ class PhotoUpload extends React.Component{
             url:    `${this.state.image.imgixUrl}?fm=json`,
             method: "GET",
           }).done(function(data){
-            console.log(_this.state.image);
             const newState = {
               buildImgixUrl: true,
               step: "uploaded",
+              userResize: {active: false, width: data.PixelWidth, height: data.PixelHeight},
               image: Object.assign({}, _this.state.image, {
                 meta: data,
                 orientation: data.PixelWidth > data.PixelHeight ? "landscape" : "portrait"
               })
             };
-            console.log(newState);
 
             _this.props.root.setState(Object.assign({}, _this.props.root.state, {myPhotos: _this.props.root.state.myPhotos.concat(data)}));
             _this.setState(Object.assign({}, _this.state, newState));
@@ -256,16 +258,32 @@ class PhotoUpload extends React.Component{
    */
   // Disable the preview button while the user changes the cropping selection.
   handleChange(e){
+    let newState;
     if(e.target) {
-      // A <select> box was changed
+      // Features that are not yet fully implemented.
       switch(e.target.dataset.action){
-        case "size-strategy":
-          this.setState(Object.assign({}, this.state, {sizeStrategy: e.target.value}));
-          break;
+        // case "size-strategy":
+        //   this.setState(Object.assign({}, this.state, {sizeStrategy: e.target.value}));
+        //   break;
 
-        case "flip":
-          this.setState(Object.assign({}, this.state, {flip: e.target.value}));
-          break;
+        // case "flip":
+        //   this.setState(Object.assign({}, this.state, {flip: e.target.value}));
+        //   break;
+
+        // case "user-aspect":
+        //   newState = Object.assign({}, this.state.userResize, {aspectRatio: !this.state.userResize.aspectRatio});
+        //   this.setState(Object.assign({}, this.state, {userResize: newState}));
+        //   break;
+
+        // case "user-height":
+        //   newState = Object.assign({}, this.state.userResize, {height: e.target.value});
+        //   this.setState(Object.assign({}, this.state, {userResize: newState}));
+        //   break;
+
+        // case "user-width":
+        //   newState = Object.assign({}, this.state.userResize, {width: e.target.value});
+        //   this.setState(Object.assign({}, this.state, {userResize: newState}));
+        //   break;
       }
     } else {
       // JCrop was changed
@@ -276,6 +294,8 @@ class PhotoUpload extends React.Component{
   };
 
   handleClick(e){
+    let newState;
+
     switch(e.target.dataset.action){
       case "crop-photo":
         this.setState(Object.assign({}, this.state, {cropSetup: false, step: "setup-crop"}));
@@ -295,6 +315,21 @@ class PhotoUpload extends React.Component{
 
       case "upload-photo":
         this.setState(Object.assign({}, this.state, {step: "open"}));
+        break;
+
+      case "user-resize":
+        newState = Object.assign({}, this.state.userResize, {active: true});
+        this.setState(Object.assign({}, this.state, {userResize: newState}));
+        break;
+
+      case "reset-size":
+        newState = Object.assign({}, this.state.userResize, {active: false, height: this.state.image.meta.PixelHeight, width: this.state.image.meta.PixelWidth});
+        this.setState(Object.assign({}, this.state, {userResize: newState}));
+        break;
+
+      case "confirm-size":
+        newState = Object.assign({}, this.state.userResize, {active: false});
+        this.setState(Object.assign({}, this.state, {userResize: newState}));
         break;
 
       default:
@@ -344,33 +379,34 @@ class PhotoUpload extends React.Component{
     // }
 
     if(this.props.root.props.contextCrop === true) {
-        if(this.state.step === "placing") {
-          params = Object.assign(params, {h: this.state.image.meta.PixelHeight, w: this.state.image.meta.PixelWidth});
-        } else {
-          const cropW = this.state.blank.meta.PixelWidth;
-          const cropH = this.state.blank.meta.PixelHeight;
-          const cropX = parseInt(Math.abs(this.state.dragX));
-          const cropY = parseInt(Math.abs(this.state.dragY));
+      if(this.state.step === "placing") {
+        params = Object.assign(params, {h: this.state.userResize.height, w: this.state.userResize.width});
+      } else {
+        const cropW = this.state.blank.meta.PixelWidth;
+        const cropH = this.state.blank.meta.PixelHeight;
+        const cropX = parseInt(Math.abs(this.state.dragX));
+        const cropY = parseInt(Math.abs(this.state.dragY));
 
-          const targetSize  = {height: this.state.image.meta.PixelHeight, width: this.state.image.meta.PixelWidth};
-          const contextSize = {height: this.state.blank.meta.PixelHeight, width: this.state.blank.meta.PixelWidth};
-          console.log(targetSize);
-          console.log(contextSize);
-          let newHeight, newWidth;
-          switch(this.state.image.orientation) {
-            case "landscape":
-              newHeight = Math.ceil(contextSize.height * this.state.multiplier);
-              newWidth  = Math.ceil((targetSize.width * newHeight) / targetSize.height);
-              break;
+        const targetSize  = {height: this.state.userResize.height, width: this.state.userResize.width};
+        const contextSize = {height: this.state.blank.meta.PixelHeight, width: this.state.blank.meta.PixelWidth};
+        // console.log(targetSize);
+        // console.log(contextSize);
+        let newHeight, newWidth;
 
-            case "portrait":
-              newWidth  = Math.ceil(contextSize.width * this.state.multiplier);
-              newHeight = Math.ceil((targetSize.height * newWidth) / targetSize.width);
-              break;
-          }
+        switch(this.state.image.orientation) {
+          case "landscape":
+            newHeight = Math.ceil(contextSize.height * this.state.multiplier);
+            newWidth  = Math.ceil((targetSize.width * newHeight) / targetSize.height);
+            break;
 
-          params = Object.assign(params, {rect: `${cropX},${cropY},${cropW},${cropH}`, h: newHeight, w: newWidth});
+          case "portrait":
+            newWidth  = Math.ceil(contextSize.width * this.state.multiplier);
+            newHeight = Math.ceil((targetSize.height * newWidth) / targetSize.width);
+            break;
         }
+
+        params = Object.assign(params, {rect: `${cropX},${cropY},${cropW},${cropH}`, h: newHeight, w: newWidth});
+      }
 
       // Put the blank image on top of the user's photo
       if(this.state.step === "preview") {
@@ -483,22 +519,22 @@ class PhotoUpload extends React.Component{
       </div>
     </div>);
 
-    const toolbar = (
-      <section id="toolbar" style={{display: "none"}}>
-        <select style={{width: "12rem"}} value={this.state.sizeStrategy} onChange={this.handleChange} data-action="size-strategy">
-          <option value="hw">No Stretch</option>
-          <option value="w">Stretch Horizontally</option>
-          <option value="h">Stretch Vertically</option>
-        </select>
+    // const toolbar = (
+    //   <section id="toolbar" style={{display: "none"}}>
+    //     <select style={{width: "12rem"}} value={this.state.sizeStrategy} onChange={this.handleChange} data-action="size-strategy">
+    //       <option value="hw">No Stretch</option>
+    //       <option value="w">Stretch Horizontally</option>
+    //       <option value="h">Stretch Vertically</option>
+    //     </select>
 
-        <select style={{width: "12rem", display: "none"}} value={this.state.flip} onChange={this.handleChange} data-action="flip">
-          <option value="">No Flip</option>
-          <option value="h">Flip Horizontally</option>
-          <option value="v">Flip Vertically</option>
-          <option value="hv">Flip Mirror</option>
-        </select>
-      </section>
-    );
+    //     <select style={{width: "12rem", display: "none"}} value={this.state.flip} onChange={this.handleChange} data-action="flip">
+    //       <option value="">No Flip</option>
+    //       <option value="h">Flip Horizontally</option>
+    //       <option value="v">Flip Vertically</option>
+    //       <option value="hv">Flip Mirror</option>
+    //     </select>
+    //   </section>
+    // );
 
     switch(this.state.step){
       case "open":
@@ -531,26 +567,71 @@ class PhotoUpload extends React.Component{
               {editButton}
               <button data-action="select-photo" onClick={this.handleClick} className="button active">Confirm Photo</button>
             </div>
-            <img className="original-image" src={this.state.image.originalUrl} />
+            <img style={{maxWidth: "100%", maxHeight: "100%"}} className="original-image" src={this.state.image.originalUrl} />
           </React.Fragment>);
           break;
 
         case "placing":
+          let buttons, tools;
+          // if(this.state.userResize.active === true) {
+          //   buttons = (<div className="buttons">
+          //     <button onClick={this.handleClick} data-action="confirm-size" className="button">Confirm</button>
+          //     <button onClick={this.handleClick} data-action="reset-size"   className="button">Reset</button>
+          //   </div>);
+
+          //   tools = (<React.Fragment>
+          //     <p>
+          //       Width:
+          //       <input
+          //         id="user-width"
+          //         type="range"
+          //         onChange={this.handleChange}
+          //         value={this.state.userResize.width}
+          //         min={1}
+          //         max={2000}
+          //         step={1}
+          //         data-action="user-width"
+          //         style={{width: this.state.blank.meta.PixelWidth}}
+          //       />
+          //     </p>
+
+          //     <p>
+          //       Height:
+          //       <input
+          //         id="user-height"
+          //         type="range"
+          //         onChange={this.handleChange}
+          //         value={this.state.userResize.height}
+          //         min={1}
+          //         max={2000}
+          //         step={1}
+          //         data-action="user-height"
+          //         style={{transform: "rotate(270deg)", position: "absolute", top: "45%", width: this.state.blank.meta.PixelHeight}}
+          //       />
+          //       Maintain Aspect Ratio:
+          //       <input type="checkbox" data-action="user-aspect" onChnage={this.handleChange} checked={this.state.userResize.aspectRatio} />
+          //     </p>
+          //   </React.Fragment>);
+          // } else {
+            buttons = (<div className="buttons">
+              <button data-action="upload-photo"  onClick={this.handleClick} className="button">Start Over</button>
+              {/*<button data-action="user-resize"   onClick={this.handleClick} className="button">Resize Your Photo</button>*/}
+              <button data-action="preview-photo" onClick={this.handleClick} className="button">Preview</button>
+            </div>);
+          // }
+
           uploadTab = (<React.Fragment>
-            <div className="buttons">
-              <button data-action="upload-photo" onClick={this.handleClick} className="button">Start Over</button>
-              {editButton}
-              <button data-action="preview-photo" onClick={this.handleClick} className="button active">Preview</button>
-              <button data-action="select-photo" onClick={this.handleClick} className="button active">Confirm Photo</button>
-            </div>
-            {toolbar}
+            {buttons}
             <div id="cc-croparea" style={{height: `${this.state.blank.meta.PixelHeight}px`, width: `${this.state.blank.meta.PixelWidth}px`}}>
-              <div className="drag">
+              {/*<div style={{zIndex: 1, position: "relative", top: "50%"}}>Please Wait...<br />Resized photos may take a few seconds to load.</div>*/}
+              <div className="drag" style={{zIndex: 2, position: "relative"}}>
                 <div id="cc-uploaded" style={{backgroundImage: `url(${this.state.previewUrl})`, height: `${this.state.image.meta.PixelHeight}px`, width: `${this.state.image.meta.PixelWidth}px`}}></div>
               </div>
 
               <img id="cc-context" src={this.props.root.props.blankImage} />
             </div>
+
+            {tools}
           </React.Fragment>);
           break;
 
@@ -558,7 +639,6 @@ class PhotoUpload extends React.Component{
           uploadTab = (<section className="crop-image">
             <div className="buttons">
               <button data-action="upload-photo" onClick={this.handleClick} className="button">Start Over</button>
-              {editButton}            
               <button data-action="preview-photo" onClick={this.handleClick} disabled={!this.state.canPreview} className="button active">Preview</button>
             </div>
 
@@ -567,6 +647,11 @@ class PhotoUpload extends React.Component{
           break;
 
         case "preview":
+          let previewStyle;
+          if(this.props.root.props.contextCrop === true) {
+            previewStyle = {width: this.state.blank.meta.PixelWidth, height: this.state.blank.meta.PixelHeight};
+          }
+
           uploadTab = (<section className="preview-image">
             <div className="buttons">
               <button data-action="upload-photo" onClick={this.handleClick} className="button">Start Over</button>
@@ -574,7 +659,7 @@ class PhotoUpload extends React.Component{
               <button data-action="select-photo" onClick={this.handleClick} className="button active">Confirm Photo</button>
             </div>
 
-            <div id="preview" style={{width: this.state.blank.meta.PixelWidth, height: this.state.blank.meta.PixelHeight}}>
+            <div id="preview" style={previewStyle}>
               <img id="preview-photo" src={this.state.previewUrl} />
             </div>
           </section>);
