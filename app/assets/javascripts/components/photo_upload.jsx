@@ -43,24 +43,24 @@ class PhotoUpload extends React.Component{
    */
   resetState(){
     this.state = {
-      step:          "open",
-      image:         null,  // The URL of the user's original image
-      coords:        {x1: null, y1: null, x2: null, y2: null, h: null, w: null}, // Set whenever the user selects a crop range
-      canPreview:    false, // Is the Preview button enabled?
-      jcropApi:      null,  // Access to jCrop
-      boxHeight:     null,  // The height of the Crop UI
-      boxWidth:      null,  // The width of the Crop UI
-      canCrop:       Toolkit.photoManagerData.crop         || false,
-      target:        Toolkit.photoManagerData.target       || null,
-      resizeHeight:  Toolkit.photoManagerData.resizeHeight || null,
-      resizeWidth:   Toolkit.photoManagerData.resizeWidth  || null,
-      dragX:         null, // Where the user dragged the photo in context
-      dragY:         null,  // Where the user dragged the photo in context
-      sizeStrategy:  "hw", // Which size(s) should a cropped photo send to imgix? h = height; w = width;
-      flip:          "", // Should the user's photo be flipped horizontally (h), veritcally (v), both (hv), or not at all?
-      cropOffset:    $("[data-crop-offset]").attr("data-crop-offset") || 0,
-      multiplier:    1.2, // In context cropping, increase the the smaller dimension of the user's photo
-      buildImgixUrl: false, // Should the preview url be generated?
+      step:           "open",
+      image:          null,  // The URL of the user's original image
+      coords:         {x1: null, y1: null, x2: null, y2: null, h: null, w: null}, // Set whenever the user selects a crop range
+      canPreview:     false, // Is the Preview button enabled?
+      jcropApi:       null,  // Access to jCrop
+      boxHeight:      null,  // The height of the Crop UI
+      boxWidth:       null,  // The width of the Crop UI
+      canCrop:        Toolkit.photoManagerData.crop         || false,
+      target:         Toolkit.photoManagerData.target       || null,
+      resizeHeight:   Toolkit.photoManagerData.resizeHeight || null,
+      resizeWidth:    Toolkit.photoManagerData.resizeWidth  || null,
+      dragX:          null, // Where the user dragged the photo in context
+      dragY:          null,  // Where the user dragged the photo in context
+      sizeStrategy:   "hw", // Which size(s) should a cropped photo send to imgix? h = height; w = width;
+      flip:           "", // Should the user's photo be flipped horizontally (h), veritcally (v), both (hv), or not at all?
+      cropOffset:     $("[data-crop-offset]").attr("data-crop-offset") || 0,
+      multiplier:     1.2, // In context cropping, increase the the smaller dimension of the user's photo
+      buildImgixUrl:  false, // Should the preview url be generated?
       // userResize:    {active: false, width: null, height: null, aspectRatio: true} // Allows the user to resize their photos
     };
 
@@ -486,6 +486,26 @@ class PhotoUpload extends React.Component{
     }
   };
 
+  renderLoading(extra) {
+    extra = extra || (<small>Please be patient with high resolution images</small>);
+
+    return (<div className='loading-box'>
+      <div className='vert-align'>
+        <div className='loader'>
+          <svg version='1.1' id='loader-1' xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' width='40px' height='40px' viewBox='0 0 50 50'>
+            <path fill='#fff' d='M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z'>
+              <animateTransform attributeType='xml' attributeName='transform' type='rotate' from='0 25 25' to='360 25 25' dur='0.6s' repeatCount='indefinite' />
+            </path>
+          </svg>
+        </div>
+        <div className='loading-text'>
+          Loading...
+          {extra}
+        </div>
+      </div>
+    </div>);
+  };
+
   render(){
     if(this.state.buildImgixUrl) {
       this.state.previewUrl = this.buildPreviewUrl();
@@ -502,22 +522,6 @@ class PhotoUpload extends React.Component{
     if (this.state.hasError) {
       return <h1>Something went wrong.</h1>;
     }
-
-    const loading = (<div className='loading-box'>
-      <div className='vert-align'>
-        <div className='loader'>
-          <svg version='1.1' id='loader-1' xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' width='40px' height='40px' viewBox='0 0 50 50'>
-            <path fill='#fff' d='M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z'>
-              <animateTransform attributeType='xml' attributeName='transform' type='rotate' from='0 25 25' to='360 25 25' dur='0.6s' repeatCount='indefinite' />
-            </path>
-          </svg>
-        </div>
-        <div className='loading-text'>
-          Loading...
-          <small>Please be patient with high resolution images</small>
-        </div>
-      </div>
-    </div>);
 
     // const toolbar = (
     //   <section id="toolbar" style={{display: "none"}}>
@@ -554,11 +558,11 @@ class PhotoUpload extends React.Component{
         </React.Fragment>);
         break;
 
-        case "processing":
         case "uploading":
+        case "processing":
         case "setup-crop":
         case "selected":
-          uploadTab = loading;
+          uploadTab = this.renderLoading();
           break;
 
         case "uploaded":
