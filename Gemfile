@@ -31,6 +31,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'unicorn'
 gem 'wicked_pdf'
 gem 'rufus-scheduler'
+## comment; need below to run the migrations. can remove once we're done with those.
+gem 'paperclip', '~> 5.0.0'
 
 gem 'wkhtmltoimage-binary', '~> 0.12.4'
 gem 'wkhtmltopdf-binary-edge', '~> 0.12.3.0'
