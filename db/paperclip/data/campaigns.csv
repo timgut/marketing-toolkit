@@ -1,0 +1,11 @@
+"id","title","description","status","created_at","updated_at","parent_id","audit"
+6,"Contract","",1,"2017-03-03 05:51:33","2017-07-07 19:49:37",NULL,NULL
+7,"Affiliation","",1,"2017-03-03 05:51:36","2017-05-04 14:26:27",NULL,NULL
+8,"Legislative",NULL,0,"2017-03-03 05:51:44","2017-03-03 05:51:44",NULL,NULL
+9,"Political","",1,"2017-03-03 05:51:50","2017-09-06 21:26:28",NULL,NULL
+11,"Internal Organizing","",1,"2017-03-06 15:18:35","2017-05-25 18:14:42",NULL,NULL
+12,"New Employee Orientation","",1,"2017-06-20 16:37:06","2017-07-07 19:49:45",NULL,NULL
+16,"Janus v. AFSCME","",1,"2018-01-18 22:11:21","2018-01-19 17:05:03",NULL,NULL
+17,"Behavioral Health","",1,"2018-04-05 16:16:41","2018-04-05 16:22:08",NULL,"Updated by TK Spandhla on 04/05/18 12:22:08 PM"
+18,"EMS","",1,"2018-04-05 16:16:52","2018-04-05 16:22:26",NULL,"Updated by TK Spandhla on 04/05/18 12:22:26 PM"
+19,"Hospitals","",1,"2018-04-05 16:16:59","2018-04-05 16:22:32",NULL,"Updated by TK Spandhla on 04/05/18 12:22:32 PM"
