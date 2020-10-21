@@ -31,7 +31,7 @@ CSV.open(Rails.root.join("db", "paperclip", "data", "document_urls.csv"), "wb") 
     csv << [
       document.pdf.url.sub("/system", ""),
       document.thumbnail.url.sub("/system", ""),
-      documentshare_graphic.url.sub("/system", "")
+      document.share_graphic.url.sub("/system", "")
     ]
   end
 end
