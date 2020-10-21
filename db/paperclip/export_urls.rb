@@ -1,6 +1,6 @@
 # Run with: bin/rails c
-# load Rails.root.join("db", "export_urls.rb")
-CSV.open(Rails.root.join("db", "paperclip", "data", "image_urls.csv", "wb") do |csv|
+# load Rails.root.join("db", "paperclip", "export_urls.rb")
+CSV.open(Rails.root.join("db", "paperclip", "data", "image_urls.csv", "wb")) do |csv|
   Image.all.each do |image|
     csv << [
       image.image.url(:original).sub("/system", ""),
@@ -9,7 +9,7 @@ CSV.open(Rails.root.join("db", "paperclip", "data", "image_urls.csv", "wb") do |
   end
 end
 
-CSV.open(Rails.root.join("db", "paperclip", "data", "template_urls.csv", "wb") do |csv|
+CSV.open(Rails.root.join("db", "paperclip", "data", "template_urls.csv", "wb")) do |csv|
   Template.all.each do |template|
     csv << [
     template.thumbnail.url.sub("/system", ""),
@@ -19,7 +19,7 @@ CSV.open(Rails.root.join("db", "paperclip", "data", "template_urls.csv", "wb") d
   ]
 end
 
-CSV.open(Rails.root.join("db", "paperclip", "data", "stock_image_urls.csv", "wb") do |csv|
+CSV.open(Rails.root.join("db", "paperclip", "data", "stock_image_urls.csv", "wb")) do |csv|
   StockImage.all.each do |image|
     csv << [image.update_attributes!(image_url: image.image.url.sub("/system", ""))]
   end
