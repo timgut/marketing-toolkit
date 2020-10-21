@@ -25,7 +25,7 @@ CSV.open(Rails.root.join("db", "paperclip", "data", "stock_image_urls.csv", "wb"
   end
 end
 
-CSV.open(Rails.root.join("db", "paperclip", "data", "document_urls.csv", "wb") do |csv|
+CSV.open(Rails.root.join("db", "paperclip", "data", "document_urls.csv", "wb")) do |csv|
   Document.all.each do |document|
     csv << [
       document.pdf.url.sub("/system", ""),
