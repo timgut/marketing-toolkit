@@ -22,7 +22,7 @@ end
 
 CSV.open(Rails.root.join("db", "paperclip", "data", "stock_image_urls.csv"), "wb") do |csv|
   StockImage.all.each do |image|
-    csv << [image.update_attributes!(image_url: image.image.url.sub("/system", ""))]
+    csv << [image.image.url.sub("/system", "")]
   end
 end
 
