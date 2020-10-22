@@ -12,11 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2020_04_30_174659) do
 
-<<<<<<< Updated upstream
   create_table "affiliates", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-=======
-  create_table "affiliates", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
->>>>>>> Stashed changes
     t.string "title"
     t.string "slug"
     t.string "state"
@@ -25,11 +21,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_174659) do
     t.datetime "updated_at", null: false
   end
 
-<<<<<<< Updated upstream
   create_table "campaigns", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-=======
-  create_table "campaigns", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
->>>>>>> Stashed changes
     t.string "title"
     t.text "description"
     t.integer "status"
@@ -39,11 +31,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_174659) do
     t.text "audit"
   end
 
-<<<<<<< Updated upstream
   create_table "campaigns_templates", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-=======
-  create_table "campaigns_templates", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
->>>>>>> Stashed changes
     t.integer "campaign_id"
     t.integer "template_id"
     t.datetime "created_at", null: false
@@ -52,11 +40,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_174659) do
     t.index ["template_id"], name: "index_campaigns_templates_on_template_id"
   end
 
-<<<<<<< Updated upstream
   create_table "campaigns_users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-=======
-  create_table "campaigns_users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
->>>>>>> Stashed changes
     t.integer "campaign_id"
     t.integer "user_id"
     t.datetime "created_at", null: false
@@ -65,21 +49,13 @@ ActiveRecord::Schema.define(version: 2020_04_30_174659) do
     t.index ["user_id"], name: "index_campaigns_users_on_user_id"
   end
 
-<<<<<<< Updated upstream
   create_table "categories", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-=======
-  create_table "categories", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
->>>>>>> Stashed changes
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-<<<<<<< Updated upstream
   create_table "data", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-=======
-  create_table "data", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
->>>>>>> Stashed changes
     t.integer "document_id"
     t.string "key"
     t.text "value"
@@ -89,11 +65,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_174659) do
     t.index ["document_id"], name: "index_data_on_document_id"
   end
 
-<<<<<<< Updated upstream
   create_table "documents", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-=======
-  create_table "documents", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
->>>>>>> Stashed changes
     t.integer "template_id"
     t.string "title"
     t.text "description"
@@ -111,11 +83,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_174659) do
     t.index ["template_id"], name: "index_documents_on_template_id"
   end
 
-<<<<<<< Updated upstream
   create_table "documents_users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-=======
-  create_table "documents_users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
->>>>>>> Stashed changes
     t.integer "document_id"
     t.integer "user_id"
     t.datetime "created_at", null: false
@@ -124,15 +92,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_174659) do
     t.index ["user_id"], name: "index_documents_users_on_user_id"
   end
 
-<<<<<<< Updated upstream
   create_table "images", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-=======
-  create_table "images", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.string "image_file_name"
-    t.string "image_content_type"
-    t.integer "image_file_size"
-    t.datetime "image_updated_at"
->>>>>>> Stashed changes
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "creator_id"
@@ -142,11 +102,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_174659) do
     t.index ["creator_id"], name: "index_images_on_creator_id"
   end
 
-<<<<<<< Updated upstream
   create_table "images_users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-=======
-  create_table "images_users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
->>>>>>> Stashed changes
     t.integer "image_id"
     t.integer "user_id"
     t.datetime "created_at", null: false
@@ -155,11 +111,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_174659) do
     t.index ["user_id"], name: "index_images_users_on_user_id"
   end
 
-<<<<<<< Updated upstream
   create_table "stock_images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-=======
-  create_table "stock_images", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
->>>>>>> Stashed changes
     t.string "title"
     t.integer "status", default: 1
     t.datetime "created_at", null: false
@@ -168,11 +120,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_174659) do
     t.text "image_url"
   end
 
-<<<<<<< Updated upstream
   create_table "templates", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-=======
-  create_table "templates", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
->>>>>>> Stashed changes
     t.string "title"
     t.text "description"
     t.float "height"
@@ -196,11 +144,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_174659) do
     t.text "static_pdf_url"
   end
 
-<<<<<<< Updated upstream
   create_table "users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-=======
-  create_table "users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
->>>>>>> Stashed changes
     t.string "first_name", default: "", null: false
     t.string "last_name", default: "", null: false
     t.string "email", default: "", null: false
