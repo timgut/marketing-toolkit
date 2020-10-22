@@ -1,5 +1,5 @@
 class AdminMailer < ActionMailer::Base
-  default from: 'toolkit@afscme.org'
+  default from: 'do-not-reply@afscme.org'
   layout 'mailer'
 
    def new_user_waiting_for_approval(user)
@@ -7,17 +7,9 @@ class AdminMailer < ActionMailer::Base
     mail(to: @user.email, subject: 'Thanks for registering for the AFSCME Toolkit')
   end
 
-  def notification_to_approvers(user, approvers)
+  def notification_to_approver(user, approver)
     @user = user
-    unless @user.approved
-      if approvers.count > 0
-        emails = approvers.pluck(:email)
-      else
-        region = @user.affiliate ? @user.affiliate.region.downcase : 'default'
-        emails = MAIL_CONFIG['vetter'][region]
-      end
-      mail(to: emails, subject: "Toolkit account request from #{user.name}")
-    end
+    mail(to: approver.email, subject: "New toolkit account request(s) are pending")
   end
 
   def send_account_activation(user)
