@@ -4,14 +4,14 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <p>A new account has been created in the AFSCME Toolkit for <%= @user.name %></p>
+    <p>At least one new account has been created in the AFSCME Toolkit in the last 24 hours that is pending approval.</p>
     <p>
       This user will not be able to use the Toolkit until an Administrator or Vetter approves their new account.
     </p>
-    <p>To approve or reject this account:<p>
+    <p>To approve or reject accounts:<p>
       <ul>
         <li>Log into the <%= link_to "Toolkit application", new_user_session_url %> with your admin account.</li>
-        <li>Visit the <%= link_to "user's account page", edit_admin_user_url(@user) %> and either approve or reject the user.</li>
+        <li>Visit the <%= link_to "users account page", admin_users_url %> and either approve or reject the user(s).</li>
       </ul>
   </body>
 </html>

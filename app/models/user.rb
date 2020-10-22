@@ -6,11 +6,15 @@ class User < ApplicationRecord
   has_and_belongs_to_many :images
   has_and_belongs_to_many :campaigns, join_table: :campaigns_users
 
+  validates_length_of :first_name, :maximum => 30, :message => "must be less than 30 characters"
+  validates_length_of :last_name, :maximum => 30, :message => "must be less than 30 characters"
+
   belongs_to :affiliate
 
   scope :approved, -> { where(approved: 1) }
   scope :unapproved, -> { where(approved: 0, rejected: 0) }
   scope :unapproved_and_needs_reminder, -> { where(approved: 0, rejected: 0).where('approval_reminder_sent IS NULL and created_at < ?', DateTime.now - 2.days) }
+  scope :needs_admin_notification, -> { where(approved: 0, rejected: 0).where('created_at > ?', DateTime.now - 24.hours) }
 
   scope :rejected, -> { where(rejected: 1) }
   scope :approvers, -> { where(role: 'Vetter') }
@@ -131,9 +135,10 @@ class User < ApplicationRecord
 
   def send_admin_emails
     AdminMailer.new_user_waiting_for_approval(self).deliver_now
-    unless self.admin?
-      AdminMailer.notification_to_approvers(self, self.regional_approvers).deliver_now
-    end
+    ## we no longer want to trigger auto-email notifications b/c of possible spam
+    # unless self.admin?
+    #   AdminMailer.notification_to_approvers(self, self.regional_approvers).deliver_now
+    # end
   end
 
   def access_all_campaigns!

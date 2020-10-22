@@ -236,12 +236,17 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+<<<<<<< HEAD
     react-rails (2.6.1)
       babel-transpiler (>= 0.7.0)
       connection_pool
       execjs
       railties (>= 3.2)
       tilt
+=======
+    recaptcha (5.5.0)
+      json
+>>>>>>> export-paperclip-urls
     ref (2.0.0)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
@@ -359,6 +364,7 @@ DEPENDENCIES
   rails (= 5.2.1.1)
   rails-controller-testing
   react-rails
+  recaptcha
   rspec-rails
   rufus-scheduler
   sass-rails (~> 5.0)

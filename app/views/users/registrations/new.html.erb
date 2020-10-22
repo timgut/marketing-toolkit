@@ -1,6 +1,11 @@
 <% content_for :title, "New User" %>
 <%= render partial: "users/registrations/validation" %>
 
+
+<div id="flash-recaptcha">
+  <%= flash[:recaptcha_error] %>
+</div>
+
 <%= devise_error_messages! %>
 
 <div class="errorTxt"></div>
@@ -10,10 +15,10 @@
     <h1>Request Access</h1> 
     <ol class="cf">
       <li>
-        <%= f.text_field :first_name, autofocus: true, placeholder: 'First name*' %>   
+        <%= f.text_field :first_name, autofocus: true, placeholder: 'First name*', maxlength: 30 %>   
       </li>
       <li>
-        <%= f.text_field :last_name, placeholder: 'Last name*' %>   
+        <%= f.text_field :last_name, placeholder: 'Last name*', maxlength: 30 %>   
       </li>  
       <li>
         <%= f.email_field :email, placeholder: 'Email Address*' %>   
@@ -48,7 +53,15 @@
           <%= f.label :receive_alerts, 'By providing my cell phone number, I agree to receive text, autodialed and/or prerecorded messages at the cell number provided above on any subject from AFSCME and affiliated labor, political, or charitable organizations. Message and data rates may apply.' %></label>
         </div> 
       </li>
-      
+
+      <div id="g-recaptcha-response-notify" style="display:none;">
+        <p style="color:red;"><strong>You must confirm you are not a robot to submit this form.</strong></p>
+      </div>
+
+      <li class="button">
+      <%= recaptcha_tags %>
+      </li>
+                     
       <li class="button">
         <input type="submit" name="commit" value="Submit Request">
       </li>
