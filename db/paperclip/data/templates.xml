@@ -10,7 +10,7 @@
 -
 - Host: chi-prod-db.tri-srv.net (MySQL 5.6.39-log)
 - Database: afscme_tk_prod
-- Generation Time Time: 2020-10-22 16:07:19 +0000
+- Generation Time Time: 2020-10-23 16:06:27 +0000
 -
 -->
 
@@ -20,7 +20,7 @@
 	<row>
 		<id>1</id>
 		<title>Sector Specific Flyer</title>
-		<description>Use this flyer when targeting a specific audience ‚Äì whether it be nurses, correctional officers or sanitation workers. Please make sure to incorporate a high-resolution photo that will work well with the space provided. Add industry-specific language in the left text box and use the text box on the right to include a small quote.</description>
+		<description>Use this flyer when targeting a specific audience ñ whether it be nurses, correctional officers or sanitation workers. Please make sure to incorporate a high-resolution photo that will work well with the space provided. Add industry-specific language in the left text box and use the text box on the right to include a small quote.</description>
 		<height>11</height>
 		<width>8.5</width>
 		<pdf_markup>&lt;% 
@@ -416,7 +416,7 @@ footer .union-bug {
       &lt;input id=&quot;headline2&quot; name=&quot;data[headline]&quot; type=&quot;radio&quot; value=&quot;You never quit.&lt;span&gt;That's why we never rest.&lt;/span&gt;&quot; /&gt;
       &lt;label for=&quot;headline2&quot;&gt;
         &lt;div class=&quot;radio-button&quot;&gt;&lt;/div&gt;
-        You never quit. That‚Äôs why we never rest.
+        You never quit. Thatís why we never rest.
       &lt;/label&gt;
   &lt;/div&gt;
       
@@ -1105,7 +1105,7 @@ aQNzWAE=
 	<row>
 		<id>5</id>
 		<title>We Never Quit Poster</title>
-		<description>Already print-ready ‚Äî use this poster as is or customize it to include an AFSCME affiliate logo.</description>
+		<description>Already print-ready ó use this poster as is or customize it to include an AFSCME affiliate logo.</description>
 		<height>14</height>
 		<width>8.5</width>
 		<pdf_markup>&lt;!DOCTYPE html&gt;
@@ -1344,7 +1344,7 @@ footer .union-bug {
 
         &lt;article class=&quot;body&quot;&gt;
             &lt;h2&gt;A union is people working together for something better.&lt;/h2&gt;
-            &lt;p&gt;A union is also each individual member ‚Äì committed to your job, your family, your hometown. AFSCME is the union that shows every public service worker respect through action‚Äìfighting for better pay, better conditions, a better future. To those who never quit serving your community: your goals are AFSCME‚Äôs goals, and we will not rest until you reach them.&lt;/p&gt;
+            &lt;p&gt;A union is also each individual member ñ committed to your job, your family, your hometown. AFSCME is the union that shows every public service worker respect through actionñfighting for better pay, better conditions, a better future. To those who never quit serving your community: your goals are AFSCMEís goals, and we will not rest until you reach them.&lt;/p&gt;
         &lt;/article&gt;
         &lt;div class=&quot;new-page&quot;&gt;&lt;/div&gt;  
 
@@ -1493,7 +1493,7 @@ aQPhXQE=
 	<row>
 		<id>6</id>
 		<title>Never Quit Meeting Flyer</title>
-		<description>Use this flyer when advertising a specific event ‚Äì whether it be a union town hall, a stewards meeting or a summer BBQ. Use the appropriate fields to update header; date, time and location information; contact information and general description of your event.</description>
+		<description>Use this flyer when advertising a specific event ñ whether it be a union town hall, a stewards meeting or a summer BBQ. Use the appropriate fields to update header; date, time and location information; contact information and general description of your event.</description>
 		<height>11</height>
 		<width>8.5</width>
 		<pdf_markup>&lt;!DOCTYPE html&gt;
@@ -2835,7 +2835,7 @@ aQP0gQE=
 	<row>
 		<id>9</id>
 		<title>AFSCME Stands Poster</title>
-		<description>Already print-ready ‚Äî use this poster as is or customize it to include an AFSCME affiliate logo.</description>
+		<description>Already print-ready ó use this poster as is or customize it to include an AFSCME affiliate logo.</description>
 		<height>14</height>
 		<width>8.5</width>
 		<pdf_markup>&lt;!DOCTYPE html&gt;
@@ -3087,7 +3087,7 @@ footer .union-bug {
         
         &lt;article class=&quot;body&quot;&gt;
             &lt;h2&gt;A union is people working together for something better.&lt;/h2&gt;
-            &lt;p&gt;A union is also each individual member ‚Äì committed to your job, your family, your hometown. AFSCME is the union that shows every public service worker respect through action‚Äìfighting for better pay, better conditions, a better future. To those who never quit serving your community: your goals are AFSCME‚Äôs goals, and we will not rest until you reach them.&lt;/p&gt;
+            &lt;p&gt;A union is also each individual member ñ committed to your job, your family, your hometown. AFSCME is the union that shows every public service worker respect through actionñfighting for better pay, better conditions, a better future. To those who never quit serving your community: your goals are AFSCMEís goals, and we will not rest until you reach them.&lt;/p&gt;
         &lt;/article&gt;
         &lt;div class=&quot;new-page&quot;&gt;&lt;/div&gt;  
         
@@ -3221,7 +3221,7 @@ aQNoFQE=
 	<row>
 		<id>10</id>
 		<title>Never Quit Brand Story</title>
-		<description>Already print-ready ‚Äî use this poster as is or customize it to include an AFSCME affiliate logo and additional contact information.</description>
+		<description>Already print-ready ó use this poster as is or customize it to include an AFSCME affiliate logo and additional contact information.</description>
 		<height>11</height>
 		<width>8.5</width>
 		<pdf_markup>&lt;!DOCTYPE html&gt;
@@ -3527,7 +3527,7 @@ aQPnSgE=
 	<row>
 		<id>11</id>
 		<title>General Announcement</title>
-		<description>Similar to the &quot;Never Quit Meeting Flyer&quot; ‚Äî use this template to announce an event or a recent contract victory within your affiliate. Please make sure to incorporate a high-resolution photo that will work well with the space provided.
+		<description>Similar to the &quot;Never Quit Meeting Flyer&quot; ó use this template to announce an event or a recent contract victory within your affiliate. Please make sure to incorporate a high-resolution photo that will work well with the space provided.
  </description>
 		<height>11</height>
 		<width>8.5</width>
@@ -11376,7 +11376,7 @@ end
 	<row>
 		<id>28</id>
 		<title>Political Postcard</title>
-		<description>Use this 2-sided political postcard as a direct mail piece that brings awarness to your endorsed candidate. On the front, there is space to include up to 2 photos as well as space to include additional information on your candidate. On the back, there‚Äôs additional space for a photo as well as a call-to-action to get your members to the polls. Finally, there is space for disclaimer language and a place to include a permit number or stamp. </description>
+		<description>Use this 2-sided political postcard as a direct mail piece that brings awarness to your endorsed candidate. On the front, there is space to include up to 2 photos as well as space to include additional information on your candidate. On the back, thereís additional space for a photo as well as a call-to-action to get your members to the polls. Finally, there is space for disclaimer language and a place to include a permit number or stamp. </description>
 		<height>11</height>
 		<width>8.5</width>
 		<pdf_markup>&lt;!DOCTYPE html&gt;
@@ -11769,7 +11769,7 @@ end
 	<row>
 		<id>29</id>
 		<title>Door Hanger</title>
-		<description>Use this 2-sided political door hanger as leave-behind literature that brings awareness to your endorsed candidate. On the front, there is space to include 1 photo and a call to action, which drives members to the polls. On the back, there‚Äôs additional space for a photo, and additional background information about your candidate.</description>
+		<description>Use this 2-sided political door hanger as leave-behind literature that brings awareness to your endorsed candidate. On the front, there is space to include 1 photo and a call to action, which drives members to the polls. On the back, thereís additional space for a photo, and additional background information about your candidate.</description>
 		<height>12</height>
 		<width>4</width>
 		<pdf_markup>&lt;!DOCTYPE html&gt;
@@ -13468,7 +13468,7 @@ end
 	<row>
 		<id>33</id>
 		<title>Janus vs AFSCME Sector Flyer</title>
-		<description>Use this flyer when targeting a specific audience ‚Äì whether it be nurses, correctional officers or sanitation workers to create messaging for Janus vs AFSCME campaigns. </description>
+		<description>Use this flyer when targeting a specific audience ñ whether it be nurses, correctional officers or sanitation workers to create messaging for Janus vs AFSCME campaigns. </description>
 		<height>11</height>
 		<width>8.5</width>
 		<pdf_markup>&lt;% 
@@ -14392,7 +14392,7 @@ h2 {
 	<row>
 		<id>36</id>
 		<title>Inoculation Flyer</title>
-		<description>Use this flier to inoculate members against the Freedom Foundation. This flier exposes who‚Äôs behind the Freedom foundation and uses their own words to expose their true agenda.</description>
+		<description>Use this flier to inoculate members against the Freedom Foundation. This flier exposes whoís behind the Freedom foundation and uses their own words to expose their true agenda.</description>
 		<height>11</height>
 		<width>8.5</width>
 		<pdf_markup>&lt;!DOCTYPE html&gt;
@@ -14523,10 +14523,10 @@ h2 {
     &lt;h3&gt;Create a Headline&lt;/h3&gt;
 
     &lt;div class=&quot;field wide&quot;&gt; 
-        &lt;input id=&quot;headline1&quot; class=&quot;required&quot; name=&quot;data[headline]&quot; type=&quot;radio&quot; value=&quot;&lt;h1&gt;Fraud Alert &lt;span&gt;What is the Freedom Foundation‚Äôs real agenda?&lt;/span&gt;&lt;/h1&gt;&quot; /&gt;
+        &lt;input id=&quot;headline1&quot; class=&quot;required&quot; name=&quot;data[headline]&quot; type=&quot;radio&quot; value=&quot;&lt;h1&gt;Fraud Alert &lt;span&gt;What is the Freedom Foundationís real agenda?&lt;/span&gt;&lt;/h1&gt;&quot; /&gt;
         &lt;label for=&quot;headline1&quot;&gt;
             &lt;div class=&quot;radio-button&quot;&gt;&lt;/div&gt;
-            &lt;strong&gt;Fraud Alert&lt;/strong&gt; What is the Freedom Foundation‚Äôs real agenda?
+            &lt;strong&gt;Fraud Alert&lt;/strong&gt; What is the Freedom Foundationís real agenda?
          &lt;/label&gt;
     &lt;/div&gt;
 
@@ -14552,9 +14552,9 @@ h2 {
         &lt;label for=&quot;body1&quot;&gt;
             &lt;div class=&quot;radio-button&quot;&gt;&lt;/div&gt;
             &lt;div id=&quot;body1-text&quot;&gt;
-                &lt;p&gt;A group called the ‚ÄúFreedom Foundation‚Äù ‚Äì funded by powerful anti-worker CEOs ‚Äì is spending millions of dollars on mail and phone calls telling union members that it‚Äôs in your best interest to quit your union. They say they‚Äôre just looking out for you; that you can get all the benefits of a union for free. Sound too good to be true? It is.&lt;/p&gt;
-                &lt;p&gt;Groups like the ‚ÄúFreedom Foundation‚Äù know that when people quit their union, the less power your union has to negotiate job protections, fair pay and benefits. The group‚Äôs own founder, Bob Williams, openly admits that he wants to strip public service workers of their retirement security, urging states to gamble your retirement funds on the stock market through risky 401(k) schemes.&lt;/p&gt;
-                &lt;p&gt;A strong union means stronger contracts and quality public services. If the ‚ÄúFreedom Foundation‚Äù or anyone else tries to bust your union, tell them loud and clear: &lt;strong&gt;I‚Äôll never quit.&lt;/strong&gt;&lt;/p&gt;
+                &lt;p&gt;A group called the ìFreedom Foundationî ñ funded by powerful anti-worker CEOs ñ is spending millions of dollars on mail and phone calls telling union members that itís in your best interest to quit your union. They say theyíre just looking out for you; that you can get all the benefits of a union for free. Sound too good to be true? It is.&lt;/p&gt;
+                &lt;p&gt;Groups like the ìFreedom Foundationî know that when people quit their union, the less power your union has to negotiate job protections, fair pay and benefits. The groupís own founder, Bob Williams, openly admits that he wants to strip public service workers of their retirement security, urging states to gamble your retirement funds on the stock market through risky 401(k) schemes.&lt;/p&gt;
+                &lt;p&gt;A strong union means stronger contracts and quality public services. If the ìFreedom Foundationî or anyone else tries to bust your union, tell them loud and clear: &lt;strong&gt;Iíll never quit.&lt;/strong&gt;&lt;/p&gt;
             &lt;/div&gt;
          &lt;/label&gt;
     &lt;/div&gt;
@@ -14581,8 +14581,8 @@ h2 {
         &lt;label for=&quot;quote1&quot;&gt;
             &lt;div class=&quot;radio-button&quot;&gt;&lt;/div&gt;
             &lt;div id=&quot;quote1-text&quot;&gt;
-              ‚ÄúIt makes little sense to promote a pay raise for state employees who are satisfied enough with their jobs that 90% of them chose to remain employed by the state.‚Äù
-              &lt;small&gt;‚Äì Amber Gunn, Freedom Foundation Blog&lt;/small&gt;
+              ìIt makes little sense to promote a pay raise for state employees who are satisfied enough with their jobs that 90% of them chose to remain employed by the state.î
+              &lt;small&gt;ñ Amber Gunn, Freedom Foundation Blog&lt;/small&gt;
             &lt;/div&gt;
          &lt;/label&gt;
     &lt;/div&gt;
@@ -14592,8 +14592,8 @@ h2 {
         &lt;label for=&quot;quote2&quot;&gt;
             &lt;div class=&quot;radio-button&quot;&gt;&lt;/div&gt;
             &lt;div id=&quot;quote2-text&quot;&gt;
-              ‚ÄúIt‚Äôs about time state worker health insurance premiums were on the table.  The Freedom Foundation has long recommended that state workers pay a bigger share‚Ä¶‚Äù
-              &lt;small&gt;‚Äì Freedom Foundation Official Blog&lt;/small&gt;
+              ìItís about time state worker health insurance premiums were on the table.  The Freedom Foundation has long recommended that state workers pay a bigger shareÖî
+              &lt;small&gt;ñ Freedom Foundation Official Blog&lt;/small&gt;
             &lt;/div&gt;
          &lt;/label&gt;
     &lt;/div&gt;
@@ -14604,8 +14604,8 @@ h2 {
         &lt;label for=&quot;quote3&quot;&gt;
             &lt;div class=&quot;radio-button&quot;&gt;&lt;/div&gt;
             &lt;div id=&quot;quote3-text&quot;&gt;
-              ‚ÄúEverything should be on the table‚Ä¶ states should consider replacing their defined-benefit plans with defined-contribution 401(k) plans.‚Äù
-              &lt;small&gt;‚Äì Bob Williams, founder of the ‚ÄúFreedom Foundation‚Äù&lt;/small&gt;
+              ìEverything should be on the tableÖ states should consider replacing their defined-benefit plans with defined-contribution 401(k) plans.î
+              &lt;small&gt;ñ Bob Williams, founder of the ìFreedom Foundationî&lt;/small&gt;
             &lt;/div&gt;
          &lt;/label&gt;
     &lt;/div&gt;
@@ -14675,7 +14675,7 @@ h2 {
 	<row>
 		<id>37</id>
 		<title>Tri-Fold</title>
-		<description>Modeled on the International Union‚Äôs ‚ÄòNever Quit‚Äô brochure - use this customizable trifold to introduce members to your affiliate. Customizable text, photos and logos will allow you to make this piece your own. Please make sure to use high resolution photography.</description>
+		<description>Modeled on the International Unionís ëNever Quití brochure - use this customizable trifold to introduce members to your affiliate. Customizable text, photos and logos will allow you to make this piece your own. Please make sure to use high resolution photography.</description>
 		<height>8.507</height>
 		<width>11</width>
 		<pdf_markup>&lt;!doctype html&gt;
@@ -14771,9 +14771,9 @@ h2 {
     &lt;div class=&quot;pad&quot;&gt;
         &lt;h3&gt;Who We Are&lt;/h3&gt;
         &lt;p&gt;We are public employees, and we work everywhere our communities need us.&lt;/p&gt;
-        &lt;p&gt;We are corrections officers, nurses, social service workers, sanitation workers, engineers, administrative support, snowplow drivers, park rangers, and so much more. The people of our community depend on us every day. We‚Äôre proud of the work we do.&lt;/p&gt;
-        &lt;p&gt;Because public service isn‚Äôt just a job. It‚Äôs a calling. The work matters because it means something to make a community better.&lt;/span&gt; &lt;span&gt;That‚Äôs why we‚Äôre coming together for respect ‚Äî and a voice on the job and a seat at the table.&lt;/p&gt;
-        &lt;p&gt;Together, we can win strong public services and jobs ‚Äî for stronger communities.&lt;/p&gt;
+        &lt;p&gt;We are corrections officers, nurses, social service workers, sanitation workers, engineers, administrative support, snowplow drivers, park rangers, and so much more. The people of our community depend on us every day. Weíre proud of the work we do.&lt;/p&gt;
+        &lt;p&gt;Because public service isnít just a job. Itís a calling. The work matters because it means something to make a community better.&lt;/span&gt; &lt;span&gt;Thatís why weíre coming together for respect ó and a voice on the job and a seat at the table.&lt;/p&gt;
+        &lt;p&gt;Together, we can win strong public services and jobs ó for stronger communities.&lt;/p&gt;
     &lt;/div&gt;
   &lt;/div&gt;&lt;!--col 4--&gt;
 
@@ -15683,7 +15683,7 @@ aQO5eAE=
 	<row>
 		<id>39</id>
 		<title>PEOPLE Flyer</title>
-		<description>Use this flier to tout your council or local‚Äôs accomplishments and raise money for your PEOPLE program.</description>
+		<description>Use this flier to tout your council or localís accomplishments and raise money for your PEOPLE program.</description>
 		<height>11</height>
 		<width>8.5</width>
 		<pdf_markup>&lt;!DOCTYPE html&gt;
@@ -15720,9 +15720,9 @@ aQO5eAE=
             everyone else. Working families are struggling to get ahead and
             public services are under attack.&lt;/p&gt;
 
-            &lt;p&gt;AFSCME PEOPLE, our union‚Äôs political action fund, provides us
+            &lt;p&gt;AFSCME PEOPLE, our unionís political action fund, provides us
             with an opportunity to stand together to protect the benefits
-            and rights we‚Äôve won in our workplaces and our communities.
+            and rights weíve won in our workplaces and our communities.
             CEOs and corporations who rig the economic rules in their favor
             pour hundreds of millions of dollars into our elections. PEOPLE
             helps us balance the scales.&lt;/p&gt;
@@ -16451,12 +16451,12 @@ end
         &lt;/div&gt;      
 
         &lt;div class=&quot;option&quot;&gt;
-            &lt;input type=&quot;text&quot; name=&quot;data[comp_4_col_1]&quot; data-custom=&quot;text&quot; id=&quot;comp_4_col_1-custom&quot; value=&quot;Unions ensure we have a voice at the workplace ‚Äì a critical voice in the system of care for our clients.&quot; maxlength=&quot;70&quot; placeholder=&quot;Comparison 4, Column 1&quot; /&gt;
+            &lt;input type=&quot;text&quot; name=&quot;data[comp_4_col_1]&quot; data-custom=&quot;text&quot; id=&quot;comp_4_col_1-custom&quot; value=&quot;Unions ensure we have a voice at the workplace ñ a critical voice in the system of care for our clients.&quot; maxlength=&quot;70&quot; placeholder=&quot;Comparison 4, Column 1&quot; /&gt;
             &lt;label for=&quot;comp-4-col-1&quot;&gt;&lt;/label&gt;
         &lt;/div&gt;  
         
         &lt;div class=&quot;option&quot;&gt;
-            &lt;input type=&quot;text&quot; name=&quot;data[comp_4_col_2]&quot; data-custom=&quot;text&quot; id=&quot;comp_4_col_2-custom&quot; value=&quot;If you say something management doesn‚Äôt like, you may be fired.&quot; maxlength=&quot;70&quot; placeholder=&quot;Comparison 4, Column 2&quot; /&gt;
+            &lt;input type=&quot;text&quot; name=&quot;data[comp_4_col_2]&quot; data-custom=&quot;text&quot; id=&quot;comp_4_col_2-custom&quot; value=&quot;If you say something management doesnít like, you may be fired.&quot; maxlength=&quot;70&quot; placeholder=&quot;Comparison 4, Column 2&quot; /&gt;
             &lt;label for=&quot;comp-4-col-2&quot;&gt;&lt;/label&gt;
             &lt;small&gt;Maximum of 70 characters. Please preview, since words may wrap unexpectedly and cutoff your headline.&lt;/small&gt;
         &lt;/div&gt;              
@@ -16762,7 +16762,7 @@ end
                      
   &lt;div class=&quot;field&quot;&gt; 
     &lt;label for=&quot;headline&quot;&gt;
-      &lt;input type=&quot;text&quot; data-custom=&quot;text&quot; name=&quot;data[headline]&quot; id=&quot;headline-custom&quot; value=&quot;We‚Äôre voting yes!&quot; maxlength=&quot;30&quot; placeholder=&quot;Headline&quot; /&gt;
+      &lt;input type=&quot;text&quot; data-custom=&quot;text&quot; name=&quot;data[headline]&quot; id=&quot;headline-custom&quot; value=&quot;Weíre voting yes!&quot; maxlength=&quot;30&quot; placeholder=&quot;Headline&quot; /&gt;
       &lt;small&gt;Maximum of 30 characters. Please preview, since words may wrap unexpectedly and cutoff your headline.&lt;/small&gt;
       &lt;label for=&quot;headline-custom&quot;&gt;&lt;/label&gt;
     &lt;/label&gt;
@@ -17003,13 +17003,13 @@ end
     &lt;h3&gt;Create Body Text&lt;/h3&gt;
         
     &lt;div class=&quot;field&quot;&gt; 
-        &lt;input id=&quot;body1&quot; name=&quot;data[body_text]&quot; type=&quot;radio&quot; value=&quot;&lt;p&gt;Addressing our state‚Äôs huge need for mental and behavioral health services means supporting the professionals on the front lines of building healthier, stronger and more resilient communities. That is why more behavioral health workers are voting to be part of the movement by yes to unite through AFSCME.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;AFSCME is the union for more than 50,000 behavioral health professionals across the country. We are clinicians, caretakers, social workers, therapists, case managers, alcohol and drug counselors and more are joining every day.&lt;/li&gt;&lt;li&gt;Behavioral health workers united through AFSCME in New Jersey make $13,000 a year more than the industry‚Äôs national average.&lt;/li&gt;&lt;li&gt;Standing united, we can deliver whole health care while securing fairness for our families, dignity and respect on the job.&lt;/li&gt;&lt;/ul&gt;&quot; /&gt;
+        &lt;input id=&quot;body1&quot; name=&quot;data[body_text]&quot; type=&quot;radio&quot; value=&quot;&lt;p&gt;Addressing our stateís huge need for mental and behavioral health services means supporting the professionals on the front lines of building healthier, stronger and more resilient communities. That is why more behavioral health workers are voting to be part of the movement by yes to unite through AFSCME.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;AFSCME is the union for more than 50,000 behavioral health professionals across the country. We are clinicians, caretakers, social workers, therapists, case managers, alcohol and drug counselors and more are joining every day.&lt;/li&gt;&lt;li&gt;Behavioral health workers united through AFSCME in New Jersey make $13,000 a year more than the industryís national average.&lt;/li&gt;&lt;li&gt;Standing united, we can deliver whole health care while securing fairness for our families, dignity and respect on the job.&lt;/li&gt;&lt;/ul&gt;&quot; /&gt;
         &lt;label for=&quot;body1&quot;&gt;
           &lt;div class=&quot;radio-button&quot;&gt;&lt;/div&gt;
-          &lt;p&gt;Addressing our state‚Äôs huge need for mental and behavioral health services means supporting the professionals on the front lines of building healthier, stronger and more resilient communities. That is why more behavioral health workers are voting to be part of the movement by yes to unite through AFSCME.&lt;/p&gt;
+          &lt;p&gt;Addressing our stateís huge need for mental and behavioral health services means supporting the professionals on the front lines of building healthier, stronger and more resilient communities. That is why more behavioral health workers are voting to be part of the movement by yes to unite through AFSCME.&lt;/p&gt;
           &lt;ul&gt;
             &lt;li&gt;AFSCME is the union for more than 50,000 behavioral health professionals across the country. We are clinicians, caretakers, social workers, therapists, case managers, alcohol and drug counselors and more are joining every day.&lt;/li&gt;
-            &lt;li&gt;Behavioral health workers united through AFSCME in New Jersey make $13,000 a year more than the industry‚Äôs national average.&lt;/li&gt;
+            &lt;li&gt;Behavioral health workers united through AFSCME in New Jersey make $13,000 a year more than the industryís national average.&lt;/li&gt;
             &lt;li&gt;Standing united, we can deliver whole health care while securing fairness for our families, dignity and respect on the job.&lt;/li&gt;
           &lt;/ul&gt;
         &lt;/label&gt;
@@ -17130,7 +17130,7 @@ end
 	<row>
 		<id>43</id>
 		<title>United We Heal Meeting Flyer</title>
-		<description>Use this flyer when advertising a specific event ‚Äì whether it be a union town hall, a stewards meeting or a summer BBQ. Use the appropriate fields to update header; date, time and location information; contact information and general description of your event.</description>
+		<description>Use this flyer when advertising a specific event ñ whether it be a union town hall, a stewards meeting or a summer BBQ. Use the appropriate fields to update header; date, time and location information; contact information and general description of your event.</description>
 		<height>11</height>
 		<width>8.5</width>
 		<pdf_markup>&lt;!DOCTYPE html&gt;
@@ -17425,11 +17425,11 @@ footer .union-bug {
     &lt;h3&gt;Create body text&lt;/h3&gt;
     
     &lt;div class=&quot;field&quot;&gt; 
-        &lt;input id=&quot;body1&quot; name=&quot;data[body]&quot; type=&quot;radio&quot; value=&quot;&lt;p&gt;Addressing our country‚Äôs mental health and substance abuse crisis means supporting the behavioral health professionals who are critical to the health and well-being of our communities. But with growing caseloads, turnover, stagnant pay, unsafe working conditions, and poor outcomes for our clients, one thing is clear: the behavioral health industry isn‚Äôt going to change unless care providers fight for better care.&lt;/p&gt;&lt;p&gt;United We Heal is a community of therapists, case managers, peers, support staff and allies, all motivated by a shared mission to help our clients heal. Behavioral health professionals are critical to communities all over America. That is why we hope to raise industry standards everywhere. We‚Äôre coming together as a movement so we can improve our working conditions and provide the best possible care for our clients.&lt;/p&gt;&lt;p&gt;A strong and equitable community behavioral health system can empower people to recover, heal and thrive. We aspire to a system that puts healing first as we work towards concrete solutions that will allow behavioral health professionals to deliver the quality care that clients and their families deserve.&lt;/p&gt;&quot; /&gt;
+        &lt;input id=&quot;body1&quot; name=&quot;data[body]&quot; type=&quot;radio&quot; value=&quot;&lt;p&gt;Addressing our countryís mental health and substance abuse crisis means supporting the behavioral health professionals who are critical to the health and well-being of our communities. But with growing caseloads, turnover, stagnant pay, unsafe working conditions, and poor outcomes for our clients, one thing is clear: the behavioral health industry isnít going to change unless care providers fight for better care.&lt;/p&gt;&lt;p&gt;United We Heal is a community of therapists, case managers, peers, support staff and allies, all motivated by a shared mission to help our clients heal. Behavioral health professionals are critical to communities all over America. That is why we hope to raise industry standards everywhere. Weíre coming together as a movement so we can improve our working conditions and provide the best possible care for our clients.&lt;/p&gt;&lt;p&gt;A strong and equitable community behavioral health system can empower people to recover, heal and thrive. We aspire to a system that puts healing first as we work towards concrete solutions that will allow behavioral health professionals to deliver the quality care that clients and their families deserve.&lt;/p&gt;&quot; /&gt;
         &lt;label for=&quot;body1&quot;&gt;
           &lt;div class=&quot;radio-button&quot;&gt;&lt;/div&gt;
-          &lt;p&gt;Addressing our country‚Äôs mental health and substance abuse crisis means supporting the behavioral health professionals who are critical to the health and well-being of our communities. But with growing caseloads, turnover, stagnant pay, unsafe working conditions, and poor outcomes for our clients, one thing is clear: the behavioral health industry isn‚Äôt going to change unless care providers fight for better care.&lt;/p&gt;
-          &lt;p&gt;United We Heal is a community of therapists, case managers, peers, support staff and allies, all motivated by a shared mission to help our clients heal. Behavioral health professionals are critical to communities all over America. That is why we hope to raise industry standards everywhere. We‚Äôre coming together as a movement so we can improve our working conditions and provide the best possible care for our clients.&lt;/p&gt;
+          &lt;p&gt;Addressing our countryís mental health and substance abuse crisis means supporting the behavioral health professionals who are critical to the health and well-being of our communities. But with growing caseloads, turnover, stagnant pay, unsafe working conditions, and poor outcomes for our clients, one thing is clear: the behavioral health industry isnít going to change unless care providers fight for better care.&lt;/p&gt;
+          &lt;p&gt;United We Heal is a community of therapists, case managers, peers, support staff and allies, all motivated by a shared mission to help our clients heal. Behavioral health professionals are critical to communities all over America. That is why we hope to raise industry standards everywhere. Weíre coming together as a movement so we can improve our working conditions and provide the best possible care for our clients.&lt;/p&gt;
           &lt;p&gt;A strong and equitable community behavioral health system can empower people to recover, heal and thrive. We aspire to a system that puts healing first as we work towards concrete solutions that will allow behavioral health professionals to deliver the quality care that clients and their families deserve.&lt;/p&gt;
         &lt;/label&gt;
     &lt;/div&gt;
