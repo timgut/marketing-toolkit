@@ -1,8 +1,8 @@
 <%
-  if document.thumbnail_file_name.nil?
+  if document.thumbnail_url.nil?
     thumbnail = document.template.thumbnail&.url
   else
-    thumbnail = document.thumbnail&.url
+    thumbnail = document.thumbnail_url
   end
 %>
 
@@ -12,7 +12,7 @@
     preview_document_path(document),
     class:  "document-thumbnail",
     title:  document.title,
-    style:  "background-image: url('#{document.thumbnail_url}');",
+    style:  "background-image: url('#{thumbnail}');",
     target: :_blank,
     data: {
       behavior: "download"
