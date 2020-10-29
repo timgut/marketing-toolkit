@@ -127,7 +127,7 @@
     <% end %>
 
     <%= form_for([:admin, template], html: {class: "dropzone", multipart: true, id: "template-thumbnail-form"}) do |f| %>
-      <%= hidden_field_tag :type, :thumbnail %>
+      <%= hidden_field_tag :type, :thumbnail_url %>
       <div class="label">
         <%= f.label :thumbnail_url %>
 
