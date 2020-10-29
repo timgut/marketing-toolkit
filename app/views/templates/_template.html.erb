@@ -24,7 +24,7 @@
             <li><%= link_to "<span class='icons'>e</span> Edit".html_safe, edit_admin_template_path(template), title: "Edit" %></li>
           <% end %>
         <% else %>
-          <li><%= link_to "<span class='icons'>d</span> Download".html_safe, template.static_pdf.url, title: "Download" %></li>
+          <li><%= link_to "<span class='icons'>d</span> Download".html_safe, template.static_pdf_url, title: "Download" %></li>
         <% end %>
       </ol>
     </li>
