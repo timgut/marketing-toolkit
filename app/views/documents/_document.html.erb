@@ -1,8 +1,8 @@
 <%
-  if document.thumbnail_file_name.nil?
+  if document.thumbnail_url.nil?
     thumbnail = document.template.thumbnail&.url
   else
-    thumbnail = document.thumbnail&.url
+    thumbnail = document.thumbnail_url
   end
 %>
 
