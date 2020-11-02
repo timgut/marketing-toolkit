@@ -472,7 +472,17 @@ class PhotoUpload extends React.Component{
         aspectRatio: this.state.aspectRatio,
         setSelect:   [0, 0, 250, 250]
       },function(){
-        // console.log("loaded");
+        console.log("loaded");
+        // Somehow jCrop is creating two or more instances. I don't know why, so only show the first instance.
+        if($(".jcrop-holder").length > 1) {
+          $.each($(".jcrop-holder"), function(i, jcrop){
+            if(i === 0) {
+              $(jcrop).css("display", "block");
+            } else {
+              $(jcrop).css("display", "none");
+            }
+          })
+        }
         _this.setState(Object.assign({}, _this.state, {jcropApi: this}));
       });
     }

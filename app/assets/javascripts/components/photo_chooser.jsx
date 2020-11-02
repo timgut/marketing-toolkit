@@ -90,12 +90,15 @@ class PhotoChooser extends React.Component{
         break;
 
       case "crop-photo":
-        alert("Coming Soon");
-        // Not sure how to upload this photo and add it to Dropzone
-        // const tab = this.props.root.photoUploadTab;
-        // tab.setState(Object.assign({}, tab.state, {
-        //   step: "setup-crop",
-        // }));
+        const tab = this.props.root.uploadTab;
+        
+        console.log(tab.state);
+
+        tab.setState(Object.assign({}, tab.state, {
+          step: "setup-crop",
+        }));
+        
+        console.log(tab.state);
         break;
     }
   };

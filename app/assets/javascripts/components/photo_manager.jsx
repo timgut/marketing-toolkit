@@ -5,8 +5,6 @@ class PhotoManager extends React.Component{
   };
 
   render(){
-    this.photoUploadTab = (<PhotoUpload root={this} />);
-
     return(
       <React.Fragment>
         <div className="select-image">
@@ -21,15 +19,15 @@ class PhotoManager extends React.Component{
               </ul>
 
               <div id="upload" aria-labelledby="ui-id-1" role="tabpanel" className="ui-tabs-panel ui-corner-bottom ui-widget-content" aria-hidden="false" style={{display: "block"}}>
-                {this.photoUploadTab}
+                <PhotoUpload ref={(child) => { this.uploadTab = child; }} root={this} />
               </div>
 
               <div id="mine" aria-labelledby="ui-id-2" role="tabpanel" className="ui-tabs-panel ui-corner-bottom ui-widget-content" style={{display: "none"}} aria-hidden="true">
-                <PhotoChooser type="mine" root={this} photos={this.state.myPhotos} />
+                <PhotoChooser ref={(child) => { this.myPhotosTab = child; }} type="mine" root={this} photos={this.state.myPhotos} />
               </div>
 
               <div id="stock" aria-labelledby="ui-id-3" role="tabpanel" className="ui-tabs-panel ui-corner-bottom ui-widget-content" style={{display: "none"}} aria-hidden="true">
-                <PhotoChooser type="stock" root={this} photos={this.props.stockPhotos} />
+                <PhotoChooser ref={(child) => { this.stockPhotosTab = child; }} type="stock" root={this} photos={this.props.stockPhotos} />
               </div>
             </div>
           </section>
