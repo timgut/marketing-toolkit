@@ -4,7 +4,7 @@
 # debug jobs locally. Include this line to run jobs within the request. You
 # can  then run a REPL session (such as pry) within a job to debug it.
 #
-# require 'sucker_punch/testing/inline'
+require 'sucker_punch/testing/inline'
 
 class ApplicationJob < ActiveJob::Base
   include SuckerPunch::Job

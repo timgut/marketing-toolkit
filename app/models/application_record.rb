@@ -1,8 +1,18 @@
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 
-  def s3_path(filename:)
+  def s3_path(filename:, user_id: nil)
+begin
+    puts self.inspect
+    if creator.nil?
+      creator = User.find(creator_id)
+    end
+
+
     if self.is_a?(Image)
+      folder  = "#{creator.id}_#{creator.last_name.downcase.gsub(' ','-')}_#{creator.first_name.downcase.gsub(' ','-')}/images"
+    elsif self.is_a?(StockImage)
+      creator = User.find(user_id)
       folder  = "#{creator.id}_#{creator.last_name.downcase.gsub(' ','-')}_#{creator.first_name.downcase.gsub(' ','-')}/images"
     elsif self.is_a?(Document)
       folder  = "#{creator.id}_#{creator.last_name.downcase.gsub(' ','-')}_#{creator.first_name.downcase.gsub(' ','-')}/documents"
@@ -13,6 +23,9 @@ class ApplicationRecord < ActiveRecord::Base
     end
 
     "#{Rails.application.secrets.aws[:folder]}/#{folder}/#{filename}"
+rescue => e
+  byebug
+end
   end
 
   ###
