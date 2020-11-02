@@ -77,8 +77,8 @@ doc.root.elements["images"].select{|t| t.is_a?(REXML::Element)}.each do |row|
 
   # URLs
   if urls[id]
-    original = urls[id][:original].gsub("\n", "").gsub(" ", "")
-    cropped = urls[id][:cropped].gsub("\n", "").gsub(" ", "")
+    original = urls[id][:original].gsub("\n", "")
+    cropped = urls[id][:cropped].gsub("\n", "")
   else
     original = ""
     cropped = ""
