@@ -77,8 +77,8 @@ doc.root.elements["images"].select{|t| t.is_a?(REXML::Element)}.each do |row|
 
   # URLs
   if urls[id]
-    original = urls[id][:original].gsub("\n", "")
-    cropped = urls[id][:cropped].gsub("\n", "")
+    original = urls[id][:original].gsub("\r\n", "").gsub("\n", "")
+    cropped = urls[id][:cropped].gsub("\r\n", "").gsub("\n", "")
   else
     original = ""
     cropped = ""
@@ -121,7 +121,7 @@ File.open(Rails.root.join("db", "paperclip", "data", "stock_images.csv")).read.e
     row = line.encode('cp1252', invalid: :replace).split(",")
 
     if urls[row[0]]
-      image = urls[row[0]][:image].gsub("\n", "").gsub(" ", "")
+      image = urls[row[0]][:image].gsub("\r\n", "").gsub("\n", "")
     else
       image = ""
     end
