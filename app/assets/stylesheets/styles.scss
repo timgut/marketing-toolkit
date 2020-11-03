@@ -3544,7 +3544,7 @@ table.stats td:last-of-type {
 }
 
 
-.field.upload .controls {
+.field .controls {
   width: 100%;
   display: block;
   visibility: hidden;
@@ -3564,12 +3564,12 @@ table.stats td:last-of-type {
 	-webkit-transform: translateY(-50%);
   transform:         translateY(-50%);    
 }
-.field.upload:hover .controls {
+.field:hover .controls {
   visibility: visible;
   opacity: 1;
 }
 
-.field.upload .controls > div {
+.field .controls > div {
   width: 2rem;
   height: 2rem;
   line-height: 2rem;
@@ -3585,10 +3585,10 @@ table.stats td:last-of-type {
 	-ms-transition:     all .3s ease-in-out;
 	transition:         all .3s ease-in-out;  
 }
-.field.upload .controls > div:hover {
+.field .controls > div:hover {
   background: #0054a6;
 }
-.field.upload .controls > div svg {
+.field .controls > div svg {
   width: 100%;
   min-height: 1rem;
   fill: #fff;
