@@ -34,7 +34,10 @@ Rails.application.routes.draw do
 
   resources :campaigns, only: [:index, :show]
   resources :templates, only: [:index, :show]
-  resources :stock_images, only: [:index, :show]
+  
+  resources :stock_images, only: [:index, :show] do
+    post :duplicate
+  end
 
   resources :documents, except: [:show], concerns: [:trashable] do
     collection do

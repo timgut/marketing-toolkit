@@ -4,7 +4,8 @@
     myPhotos:    @my_photos.as_json,
     stockPhotos: @stock_photos.as_json,
     contextCrop: @template.has_blank_image?,
-    blankImage:  @template.blank_image_url
+    blankImage:  @template.blank_image_url,
+    userId:      current_user.id
   },
   {camelize_props: true}
 ) %>

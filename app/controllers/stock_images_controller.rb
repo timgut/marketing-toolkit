@@ -5,9 +5,21 @@ class StockImagesController < ApplicationController
   def index
     @stock_images = StockImage.all
   end
-  # GET /images/1
+
+  # GET /stock_images/1
   def show
     @stock_image = StockImage.find(params[:id])
+  end
+
+  # POST /stock_images/1/duplicate
+  def duplicate
+    @stock_image = StockImage.find(params[:id])
+    
+    if image = @stock_image.upload_to_s3!(user_id: params[:user_id])
+      render json: image.to_json
+    else
+      render json: {error: "Cannot crop stock image"}.to_json
+    end
   end
 
   private

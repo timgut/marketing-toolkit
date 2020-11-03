@@ -1,21 +1,22 @@
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 
+  ###
+  # Determines where an image should be placed in S3 depending on the model.
+  # @param {string} filename - The name of the file; the part after the final forward slash.
+  # @param {integer} user_id - For models that don't belong to a user, pass in the ID of the user who should own the image.
+  # @return {string} The path to place the image in the S3 bucket.
   def s3_path(filename:, user_id: nil)
-begin
-    puts self.inspect
-    if creator.nil?
-      creator = User.find(creator_id)
+    if user_id != nil
+      self.creator = User.find(user_id)
     end
 
-
     if self.is_a?(Image)
-      folder  = "#{creator.id}_#{creator.last_name.downcase.gsub(' ','-')}_#{creator.first_name.downcase.gsub(' ','-')}/images"
+      folder  = "#{self.creator.id}_#{self.creator.last_name.downcase.gsub(' ','-')}_#{self.creator.first_name.downcase.gsub(' ','-')}/images"
     elsif self.is_a?(StockImage)
-      creator = User.find(user_id)
-      folder  = "#{creator.id}_#{creator.last_name.downcase.gsub(' ','-')}_#{creator.first_name.downcase.gsub(' ','-')}/images"
+      folder  = "#{self.creator.id}_#{self.creator.last_name.downcase.gsub(' ','-')}_#{self.creator.first_name.downcase.gsub(' ','-')}/images"
     elsif self.is_a?(Document)
-      folder  = "#{creator.id}_#{creator.last_name.downcase.gsub(' ','-')}_#{creator.first_name.downcase.gsub(' ','-')}/documents"
+      folder  = "#{self.creator.id}_#{self.creator.last_name.downcase.gsub(' ','-')}_#{self.creator.first_name.downcase.gsub(' ','-')}/documents"
     elsif self.is_a?(Template)
       folder = "templates/#{self.id}"
     else
@@ -23,9 +24,6 @@ begin
     end
 
     "#{Rails.application.secrets.aws[:folder]}/#{folder}/#{filename}"
-rescue => e
-  byebug
-end
   end
 
   ###

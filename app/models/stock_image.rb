@@ -1,6 +1,8 @@
 class StockImage < ApplicationRecord
   include Status
 
+  attr_accessor :creator # Used to duplicate stock images into a user's gallery
+
   class << self
     def find_by_url(url)
       StockImage.find_by(image_url: url)
@@ -17,7 +19,12 @@ class StockImage < ApplicationRecord
     end
   end
 
-  def upload_to_s3!(user_id)
+  ###
+  # Uploads a stock photo to a user's folder in S3
+  # @param {integer} user_id - The user who will own the duplicated stock photo.
+  # @return {Image} Returns the image that's created.
+  ###
+  def upload_to_s3!(user_id: user_id)
     # Persist the tempfile
     filename = image_url.split("/").last
     tmp_path = Rails.root.join("tmp").join("#{DateTime.now.to_i}-#{}")
@@ -35,6 +42,7 @@ class StockImage < ApplicationRecord
     FileUtils.rm(tmp_path)
     image = Image.create!(creator_id: user_id, status: 1, original_image_url: url, cropped_image_url: url, crop_data: nil)
     ImageUser.create!(image_id: image.id, user_id: user_id)
+    image
   end
 end
   

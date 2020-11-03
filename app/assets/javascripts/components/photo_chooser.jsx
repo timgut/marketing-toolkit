@@ -7,6 +7,7 @@ class PhotoChooser extends React.Component{
     this.state = {
       canChoose: false,
       filter: "",
+      chosen: null,
       photos: this.props.photos.map(function(photo) {
         return {
           id:       photo.id,
@@ -53,7 +54,10 @@ class PhotoChooser extends React.Component{
         e.target.closest("figure").classList.add("enabled");
 
         // Enable the choose button only if a photo is enabled
-        this.setState(Object.assign({}, this.state, {canChoose: document.querySelectorAll("figure.enabled").length}));
+        this.setState(Object.assign({}, this.state, {
+          chosen: target.dataset.id,
+          canChoose: true
+        }));
         break;
 
       case "choose-photo":
@@ -92,13 +96,24 @@ class PhotoChooser extends React.Component{
       case "crop-photo":
         const tab = this.props.root.uploadTab;
         
-        console.log(tab.state);
+        tab.setState(Object.assign({}, tab.state, {step: "uploading"}));
+        $("a[href='#upload']").click();
 
-        tab.setState(Object.assign({}, tab.state, {
-          step: "setup-crop",
-        }));
-        
-        console.log(tab.state);
+        $.ajax({
+          url:    `/stock_images/${this.state.chosen}/duplicate`,
+          method: "POST",
+          data:   {id: this.state.chosen, user_id: this.props.root.props.userId}
+        }).done(function(data){
+          const image = {
+            id:          data.id,
+            croppedUrl:  data.cropped_image_url,
+            originalUrl: data.original_image_url,
+            imgixUrl:    `https://afscme.imgix.net/${data.original_image_url.split("https://s3.amazonaws.com/toolkit.afscme.org/")[1]}`,
+            meta:        null
+          };
+
+          tab.setState(Object.assign({}, tab.state, {cropSetup: false, step: "processing", image: image, autoCrop: true}));
+        });
         break;
     }
   };
@@ -120,8 +135,8 @@ class PhotoChooser extends React.Component{
     const gallery = this.state.photos.filter(function(photo) {
       return photo.filtered === false;
     }).map(function(photo){
-      return(<figure key={photo.id} onClick={_this.handleClick} data-action="enable-photo">
-        <img data-id={photo.id} src={photo.url} alt={photo.title} />
+      return(<figure key={photo.id} onClick={_this.handleClick} data-action="enable-photo" data-id={photo.id}>
+        <img src={photo.url} alt={photo.title} />
         <figcaption>{photo.title}</figcaption>
       </figure>);
     });

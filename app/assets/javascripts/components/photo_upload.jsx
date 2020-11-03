@@ -61,6 +61,7 @@ class PhotoUpload extends React.Component{
       cropOffset:     $("[data-crop-offset]").attr("data-crop-offset") || 0,
       multiplier:     1.2, // In context cropping, increase the the smaller dimension of the user's photo
       buildImgixUrl:  false, // Should the preview url be generated?
+      autoCrop:       false, // Should the 'Crop Photo' button be automatically clicked after the photo is uploaded?
       // userResize:    {active: false, width: null, height: null, aspectRatio: true} // Allows the user to resize their photos
     };
 
@@ -159,6 +160,13 @@ class PhotoUpload extends React.Component{
         }
 
         this.setState({step: "cropping"});
+        break;
+
+      // The user wants to crop a stock image. Send them directly to the crop UI.
+      case "uploaded":
+        if(this.state.autoCrop === true) {
+          $("#upload [data-action='crop-photo']").click();
+        }
         break;
 
       // Initialize JCrop
