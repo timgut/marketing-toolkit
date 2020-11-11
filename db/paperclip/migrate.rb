@@ -6,22 +6,22 @@ include REXML
 ###
 # Tables to migrate as-is
 ###
-# ["affiliates", "ar_internal_metadata", "campaigns_templates", "campaigns_users", "campaigns", "categories", "documents_users", "images_users", "schema_migrations", "users"].each do |table|
-#   ActiveRecord::Base.connection.execute("TRUNCATE #{table}")
-#   line_num = 0
-#   columns = nil
-#   File.open(Rails.root.join("db", "paperclip", "data", "#{table}.csv")).read.each_line do |line|
-#     if line_num == 0
-#       columns = line.gsub('"', '`')
-#     else
-#       row = line.encode('cp1252', invalid: :replace)
-#       # puts "INSERT into `#{table}` (#{columns}) VALUES (#{row})"
-#       ActiveRecord::Base.connection.execute("INSERT into `#{table}` (#{columns}) VALUES (#{row})")
-#     end
+["affiliates", "ar_internal_metadata", "campaigns_templates", "campaigns_users", "campaigns", "categories", "documents_users", "images_users", "schema_migrations", "users"].each do |table|
+  ActiveRecord::Base.connection.execute("TRUNCATE #{table}")
+  line_num = 0
+  columns = nil
+  File.open(Rails.root.join("db", "paperclip", "data", "#{table}.csv")).read.each_line do |line|
+    if line_num == 0
+      columns = line.gsub('"', '`')
+    else
+      row = line.encode('cp1252', invalid: :replace)
+      # puts "INSERT into `#{table}` (#{columns}) VALUES (#{row})"
+      ActiveRecord::Base.connection.execute("INSERT into `#{table}` (#{columns}) VALUES (#{row})")
+    end
 
-#     line_num += 1
-#   end
-# end
+    line_num += 1
+  end
+end
 
 ###
 # The data table is migrated as-is, but needs to use xml because of line breaks
@@ -29,8 +29,10 @@ include REXML
 ActiveRecord::Base.connection.execute("TRUNCATE data")
 columns = "`id`, `document_id`, `key`, `value`, `created_at`, `updated_at`, `field_id`"
 cells = ""
+# xml = File.new(Rails.root.join("db", "paperclip", "data", "data.xml")).read.encode('cp1252', invalid: :replace)
+xml = File.new(Rails.root.join("db", "paperclip", "data", "data.xml")).read.encode('utf-8', invalid: :replace)
+doc = REXML::Document.new(xml)
 
-doc = REXML::Document.new(File.new(Rails.root.join("db", "paperclip", "data", "data.xml")).read.encode('cp1252', invalid: :replace))
 doc.root.elements["data"].select{|t| t.is_a?(REXML::Element)}.each do |row|
   cells = [
     row.elements["id"].text,
@@ -148,7 +150,8 @@ end
 # ###
 ActiveRecord::Base.connection.execute("TRUNCATE documents")
 row = nil
-doc = REXML::Document.new(File.new(Rails.root.join("db", "paperclip", "data", "documents.xml")).read.encode('cp1252', invalid: :replace))
+# doc = REXML::Document.new(File.new(Rails.root.join("db", "paperclip", "data", "documents.xml")).read.encode('cp1252', invalid: :replace))
+doc = REXML::Document.new(File.new(Rails.root.join("db", "paperclip", "data", "documents.xml")).read.encode('utf-8', invalid: :replace))
 columns = "`id`, `template_id`, `title`, `description`, `status`, `created_at`, `updated_at`, `tag_id`, `creator_id`, `crop_marks`, `pdf_url`, `thumbnail_url`, `share_graphic_url`, `generated`"
 
 # Cache the URLs in this format: {1: {pdf: "", thumbnail: "", share_graphic: ""}}
@@ -199,7 +202,9 @@ end
 # ###
 ActiveRecord::Base.connection.execute("TRUNCATE templates")
 row = nil
-doc = REXML::Document.new(File.new(Rails.root.join("db", "paperclip", "data", "templates.xml")).read.encode('cp1252', invalid: :replace))
+# xml = File.new(Rails.root.join("db", "paperclip", "data", "templates.xml")).read.encode('cp1252', invalid: :replace)
+xml = File.new(Rails.root.join("db", "paperclip", "data", "templates.xml")).read.encode('utf-8', invalid: :replace)
+doc = REXML::Document.new(xml)
 columns = "`id`, `title`, `description`, `height`, `width`, `pdf_markup`, `form_markup`, `status`, `customizable_options`,
     `created_at`, `updated_at`, `category_id`, `orientation`, `customize`, `crop_marks`, `position`, `unit`,
     `format`, `thumbnail_url`, `numbered_image_url`, `blank_image_url`, `static_pdf_url`"
