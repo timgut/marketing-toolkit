@@ -1,5 +1,5 @@
 # Run with: load Rails.root.join("db", "paperclip", "migrate.rb")
-require "byebug"
+# require "byebug"
 require "rexml/document"
 include REXML
 
@@ -29,11 +29,8 @@ include REXML
 ActiveRecord::Base.connection.execute("TRUNCATE data")
 columns = "`id`, `document_id`, `key`, `value`, `created_at`, `updated_at`, `field_id`"
 cells = ""
-begin
+
 doc = REXML::Document.new(File.new(Rails.root.join("db", "paperclip", "data", "data.xml")).read.encode('cp1252', invalid: :replace))
-rescue => e
-  byebug
-end
 doc.root.elements["data"].select{|t| t.is_a?(REXML::Element)}.each do |row|
   cells = [
     row.elements["id"].text,
