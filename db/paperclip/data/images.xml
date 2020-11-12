@@ -10,7 +10,7 @@
 -
 - Host: chi-prod-db.tri-srv.net (MySQL 5.6.39-log)
 - Database: afscme_tk_prod
-- Generation Time Time: 2020-10-23 16:06:27 +0000
+- Generation Time Time: 2020-11-11 14:28:06 +0000
 -
 -->
 
@@ -55564,9 +55564,9 @@ aQO+sRQ6DGNyb3BwZWR7CDsGaQJlBDsHaQLcBTsIaQPAvgU=
 		<image_file_size>1356222</image_file_size>
 		<image_updated_at>2020-09-02 02:15:29</image_updated_at>
 		<created_at>2020-09-02 02:15:10</created_at>
-		<updated_at>2020-09-02 02:15:32</updated_at>
+		<updated_at>2020-10-29 21:21:10</updated_at>
 		<creator_id>217</creator_id>
-		<status>1</status>
+		<status>-2</status>
 		<crop_data>---
 :commands:
 - - &quot;-resize&quot;
@@ -56019,6 +56019,485 @@ aQN0bAI6DGNyb3BwZWR7CDsGaQKSBTsHaQK2AzsIaQMiNQE=
 		<crop_data>NULL</crop_data>
 		<image_meta>BAh7BzoNb3JpZ2luYWx7CDoKd2lkdGhpAsoBOgtoZWlnaHRpAfw6CXNpemVp
 A1MeAToMY3JvcHBlZHsIOwZpAsoBOwdpAfw7CGkDZhoB
+</image_meta>
+	</row>
+
+	<row>
+		<id>2825</id>
+		<image_file_name>--1603728814.Julian-Baca-jpg</image_file_name>
+		<image_content_type>image/jpeg</image_content_type>
+		<image_file_size>219056</image_file_size>
+		<image_updated_at>2020-10-26 16:13:43</image_updated_at>
+		<created_at>2020-10-26 16:13:34</created_at>
+		<updated_at>2020-10-29 21:21:26</updated_at>
+		<creator_id>217</creator_id>
+		<status>-2</status>
+		<crop_data>---
+:commands:
+- - &quot;-resize&quot;
+  - 1308x1080!
+- - &quot;-resize&quot;
+  - 1308x1080!
+:drag:
+  :x: 
+  :y: 
+</crop_data>
+		<image_meta>BAh7BzoNb3JpZ2luYWx7CDoKd2lkdGhpAjAEOgtoZWlnaHRpAuIEOglzaXpl
+aQOwVwM6DGNyb3BwZWR7CDsGaQIcBTsHaQI4BDsIaQNxIwE=
+</image_meta>
+	</row>
+
+	<row>
+		<id>2826</id>
+		<image_file_name>--1603728860.Julian-Baca-jpg</image_file_name>
+		<image_content_type>image/jpeg</image_content_type>
+		<image_file_size>219056</image_file_size>
+		<image_updated_at>2020-10-26 16:14:35</image_updated_at>
+		<created_at>2020-10-26 16:14:20</created_at>
+		<updated_at>2020-10-29 21:21:21</updated_at>
+		<creator_id>217</creator_id>
+		<status>-2</status>
+		<crop_data>---
+:commands:
+- - &quot;-resize&quot;
+  - 1308x1080!
+- - &quot;-resize&quot;
+  - 1308x1080!
+:drag:
+  :x: 
+  :y: 
+</crop_data>
+		<image_meta>BAh7BzoNb3JpZ2luYWx7CDoKd2lkdGhpAjAEOgtoZWlnaHRpAuIEOglzaXpl
+aQOwVwM6DGNyb3BwZWR7CDsGaQIcBTsHaQI4BDsIaQK5kQ==
+</image_meta>
+	</row>
+
+	<row>
+		<id>2827</id>
+		<image_file_name>forest-ranger--1603739727.jpg</image_file_name>
+		<image_content_type>image/jpeg</image_content_type>
+		<image_file_size>2697195</image_file_size>
+		<image_updated_at>2020-10-26 19:15:49</image_updated_at>
+		<created_at>2020-10-26 19:15:29</created_at>
+		<updated_at>2020-10-26 19:15:50</updated_at>
+		<creator_id>2</creator_id>
+		<status>1</status>
+		<crop_data>---
+:commands:
+- - &quot;-resize&quot;
+  - 1500x1407
+- - &quot;-resize&quot;
+  - 1500x1407
+- - &quot;-resize&quot;
+  - 354x396!
+- - &quot;-resize&quot;
+  - 1500x1407
+- - &quot;-resize&quot;
+  - 354x396!
+:drag:
+  :x: 
+  :y: 
+</crop_data>
+		<image_meta>BAh7BzoNb3JpZ2luYWx7CDoKd2lkdGhpAtAHOgtoZWlnaHRpAlQHOglzaXpl
+aQPrJyk6DGNyb3BwZWR7CDsGaQJiATsHaQKMATsIaQP3VgI=
+</image_meta>
+	</row>
+
+	<row>
+		<id>2828</id>
+		<image_file_name>--1603841371.logo-png</image_file_name>
+		<image_content_type>image/png</image_content_type>
+		<image_file_size>63310</image_file_size>
+		<image_updated_at>2020-10-27 23:29:31</image_updated_at>
+		<created_at>2020-10-27 23:29:32</created_at>
+		<updated_at>2020-10-27 23:29:32</updated_at>
+		<creator_id>217</creator_id>
+		<status>1</status>
+		<crop_data>NULL</crop_data>
+		<image_meta>BAh7BzoNb3JpZ2luYWx7CDoKd2lkdGhpAmYFOgtoZWlnaHRpAgsDOglzaXpl
+aQJO9zoMY3JvcHBlZHsIOwZpAmYFOwdpAgsDOwhpArOU
+</image_meta>
+	</row>
+
+	<row>
+		<id>2829</id>
+		<image_file_name>--1603914533.punt-jpg</image_file_name>
+		<image_content_type>image/jpeg</image_content_type>
+		<image_file_size>87481</image_file_size>
+		<image_updated_at>2020-10-28 19:48:59</image_updated_at>
+		<created_at>2020-10-28 19:48:53</created_at>
+		<updated_at>2020-10-28 19:49:00</updated_at>
+		<creator_id>2</creator_id>
+		<status>1</status>
+		<crop_data>---
+:commands:
+- - &quot;-resize&quot;
+  - 1539x914^
+- - &quot;-crop&quot;
+  - 600x761+182+11
+- - &quot;-resize&quot;
+  - 1539x914^
+- - &quot;-crop&quot;
+  - 600x761+182+11
+:drag:
+  :x: &quot;-182&quot;
+  :y: &quot;-11&quot;
+</crop_data>
+		<image_meta>BAh7BzoNb3JpZ2luYWx7CDoKd2lkdGhpAoACOgtoZWlnaHRpAnwBOglzaXpl
+aQO5VQE6DGNyb3BwZWR7CDsGaQJYAjsHaQL5AjsIaQNbfgE=
+</image_meta>
+	</row>
+
+	<row>
+		<id>2830</id>
+		<image_file_name>--1604002790.heisman-jpg</image_file_name>
+		<image_content_type>image/jpeg</image_content_type>
+		<image_file_size>257371</image_file_size>
+		<image_updated_at>2020-10-29 20:20:00</image_updated_at>
+		<created_at>2020-10-29 20:19:50</created_at>
+		<updated_at>2020-10-29 20:20:00</updated_at>
+		<creator_id>2</creator_id>
+		<status>1</status>
+		<crop_data>---
+:commands:
+- - &quot;-resize&quot;
+  - 1314x914^
+- - &quot;-crop&quot;
+  - 600x761+392+72
+- - &quot;-resize&quot;
+  - 1314x914^
+- - &quot;-crop&quot;
+  - 600x761+392+72
+:drag:
+  :x: &quot;-392&quot;
+  :y: &quot;-72&quot;
+</crop_data>
+		<image_meta>BAh7BzoNb3JpZ2luYWx7CDoKd2lkdGhpAm0DOgtoZWlnaHRpAmICOglzaXpl
+aQNb7QM6DGNyb3BwZWR7CDsGaQJYAjsHaQL5AjsIaQMmCAM=
+</image_meta>
+	</row>
+
+	<row>
+		<id>2831</id>
+		<image_file_name>--1604006890.Derrek-Escalera--PNM-png</image_file_name>
+		<image_content_type>image/png</image_content_type>
+		<image_file_size>651624</image_file_size>
+		<image_updated_at>2020-10-29 21:28:13</image_updated_at>
+		<created_at>2020-10-29 21:28:13</created_at>
+		<updated_at>2020-10-29 21:28:18</updated_at>
+		<creator_id>217</creator_id>
+		<status>1</status>
+		<crop_data>NULL</crop_data>
+		<image_meta>BAh7BzoNb3JpZ2luYWx7CDoKd2lkdGhpAmACOgtoZWlnaHRpAv0EOglzaXpl
+aQNo8Qk6DGNyb3BwZWR7CDsGaQLfAjsHaQIIBjsIaQOp6Qs=
+</image_meta>
+	</row>
+
+	<row>
+		<id>2832</id>
+		<image_file_name>--1604019258.poster_d872cb1fcf024a46982697a4ca75e784--jpg</image_file_name>
+		<image_content_type>image/jpeg</image_content_type>
+		<image_file_size>65317</image_file_size>
+		<image_updated_at>2020-10-30 00:54:45</image_updated_at>
+		<created_at>2020-10-30 00:54:18</created_at>
+		<updated_at>2020-10-30 00:54:46</updated_at>
+		<creator_id>968</creator_id>
+		<status>1</status>
+		<crop_data>---
+:commands:
+- - &quot;-resize&quot;
+  - 1690x951^
+- - &quot;-crop&quot;
+  - 612x792+470+98
+- - &quot;-resize&quot;
+  - 1690x951^
+- - &quot;-crop&quot;
+  - 612x792+470+98
+:drag:
+  :x: &quot;-470&quot;
+  :y: &quot;-98&quot;
+</crop_data>
+		<image_meta>BAh7BzoNb3JpZ2luYWx7CDoKd2lkdGhpAgAFOgtoZWlnaHRpAtACOglzaXpl
+aQIl/zoMY3JvcHBlZHsIOwZpAmQCOwdpAhgDOwhpAlOs
+</image_meta>
+	</row>
+
+	<row>
+		<id>2833</id>
+		<image_file_name>--1604020017.Logo--WMAH--2C-jpg</image_file_name>
+		<image_content_type>image/jpeg</image_content_type>
+		<image_file_size>334169</image_file_size>
+		<image_updated_at>2020-10-30 01:06:57</image_updated_at>
+		<created_at>2020-10-30 01:06:58</created_at>
+		<updated_at>2020-10-30 01:06:58</updated_at>
+		<creator_id>968</creator_id>
+		<status>1</status>
+		<crop_data>NULL</crop_data>
+		<image_meta>BAh7BzoNb3JpZ2luYWx7CDoKd2lkdGhpAj4MOgtoZWlnaHRpAgYGOglzaXpl
+aQNZGQU6DGNyb3BwZWR7CDsGaQI+DDsHaQIGBjsIaQNNJAU=
+</image_meta>
+	</row>
+
+	<row>
+		<id>2834</id>
+		<image_file_name>--1604020326.Logo-adjust-council-9-jpg</image_file_name>
+		<image_content_type>image/jpeg</image_content_type>
+		<image_file_size>121682</image_file_size>
+		<image_updated_at>2020-10-30 01:12:06</image_updated_at>
+		<created_at>2020-10-30 01:12:06</created_at>
+		<updated_at>2020-10-30 01:12:06</updated_at>
+		<creator_id>968</creator_id>
+		<status>1</status>
+		<crop_data>NULL</crop_data>
+		<image_meta>BAh7BzoNb3JpZ2luYWx7CDoKd2lkdGhpArwCOgtoZWlnaHRpAmoBOglzaXpl
+aQNS2wE6DGNyb3BwZWR7CDsGaQK8AjsHaQJqATsIaQP0yQE=
+</image_meta>
+	</row>
+
+	<row>
+		<id>2835</id>
+		<image_file_name>--1604020751.10041486384_62b3962f25_z-jpg</image_file_name>
+		<image_content_type>image/jpeg</image_content_type>
+		<image_file_size>54445</image_file_size>
+		<image_updated_at>2020-10-30 01:19:22</image_updated_at>
+		<created_at>2020-10-30 01:19:11</created_at>
+		<updated_at>2020-10-30 01:19:22</updated_at>
+		<creator_id>968</creator_id>
+		<status>1</status>
+		<crop_data>---
+:commands:
+- - &quot;-resize&quot;
+  - 1425x951^
+- - &quot;-crop&quot;
+  - 612x792+10+6
+- - &quot;-resize&quot;
+  - 1425x951^
+- - &quot;-crop&quot;
+  - 612x792+10+6
+:drag:
+  :x: &quot;-10&quot;
+  :y: '6'
+</crop_data>
+		<image_meta>BAh7BzoNb3JpZ2luYWx7CDoKd2lkdGhpAoACOgtoZWlnaHRpAqsBOglzaXpl
+aQKt1DoMY3JvcHBlZHsIOwZpAmQCOwdpAhgDOwhpApzH
+</image_meta>
+	</row>
+
+	<row>
+		<id>2836</id>
+		<image_file_name>--1604020777.10041486384_62b3962f25_z-jpg</image_file_name>
+		<image_content_type>image/jpeg</image_content_type>
+		<image_file_size>54445</image_file_size>
+		<image_updated_at>2020-10-30 01:22:25</image_updated_at>
+		<created_at>2020-10-30 01:19:38</created_at>
+		<updated_at>2020-10-30 01:22:26</updated_at>
+		<creator_id>968</creator_id>
+		<status>1</status>
+		<crop_data>---
+:commands:
+- - &quot;-resize&quot;
+  - 1425x951^
+- - &quot;-crop&quot;
+  - 612x792+516+181
+- - &quot;-resize&quot;
+  - 1425x951^
+- - &quot;-crop&quot;
+  - 612x792+516+181
+:drag:
+  :x: &quot;-516&quot;
+  :y: &quot;-181&quot;
+</crop_data>
+		<image_meta>BAh7BzoNb3JpZ2luYWx7CDoKd2lkdGhpAoACOgtoZWlnaHRpAqsBOglzaXpl
+aQKt1DoMY3JvcHBlZHsIOwZpAmQCOwdpAgIDOwhpA9MLAQ==
+</image_meta>
+	</row>
+
+	<row>
+		<id>2837</id>
+		<image_file_name>--1604020964.10041486384_62b3962f25_z-jpg</image_file_name>
+		<image_content_type>image/jpeg</image_content_type>
+		<image_file_size>54445</image_file_size>
+		<image_updated_at>2020-10-30 01:23:13</image_updated_at>
+		<created_at>2020-10-30 01:22:44</created_at>
+		<updated_at>2020-10-30 01:23:14</updated_at>
+		<creator_id>968</creator_id>
+		<status>1</status>
+		<crop_data>---
+:commands:
+- - &quot;-resize&quot;
+  - 1425x951^
+- - &quot;-crop&quot;
+  - 612x792+257+99
+- - &quot;-resize&quot;
+  - 1425x951^
+- - &quot;-crop&quot;
+  - 612x792+257+99
+:drag:
+  :x: '257'
+  :y: &quot;-99&quot;
+</crop_data>
+		<image_meta>BAh7BzoNb3JpZ2luYWx7CDoKd2lkdGhpAoACOgtoZWlnaHRpAqsBOglzaXpl
+aQKt1DoMY3JvcHBlZHsIOwZpAmQCOwdpAhgDOwhpAtby
+</image_meta>
+	</row>
+
+	<row>
+		<id>2838</id>
+		<image_file_name>--1604021013.poster_d872cb1fcf024a46982697a4ca75e784--jpg</image_file_name>
+		<image_content_type>image/jpeg</image_content_type>
+		<image_file_size>36867</image_file_size>
+		<image_updated_at>2020-10-30 01:24:11</image_updated_at>
+		<created_at>2020-10-30 01:23:33</created_at>
+		<updated_at>2020-10-30 01:24:11</updated_at>
+		<creator_id>968</creator_id>
+		<status>1</status>
+		<crop_data>---
+:commands:
+- - &quot;-resize&quot;
+  - 978x951^
+- - &quot;-crop&quot;
+  - 612x792+193+208
+- - &quot;-resize&quot;
+  - 978x951^
+- - &quot;-crop&quot;
+  - 612x792+193+208
+:drag:
+  :x: &quot;-193&quot;
+  :y: &quot;-208&quot;
+</crop_data>
+		<image_meta>BAh7BzoNb3JpZ2luYWx7CDoKd2lkdGhpAp0COgtoZWlnaHRpAooCOglzaXpl
+aQIDkDoMY3JvcHBlZHsIOwZpAmQCOwdpAucCOwhpAgmY
+</image_meta>
+	</row>
+
+	<row>
+		<id>2839</id>
+		<image_file_name>--1604021067.mtn00006-jpg</image_file_name>
+		<image_content_type>image/jpeg</image_content_type>
+		<image_file_size>447471</image_file_size>
+		<image_updated_at>2020-10-30 01:25:01</image_updated_at>
+		<created_at>2020-10-30 01:24:27</created_at>
+		<updated_at>2020-10-30 01:25:02</updated_at>
+		<creator_id>968</creator_id>
+		<status>1</status>
+		<crop_data>---
+:commands:
+- - &quot;-resize&quot;
+  - 1690x951^
+- - &quot;-crop&quot;
+  - 612x792+467+125
+- - &quot;-resize&quot;
+  - 1690x951^
+- - &quot;-crop&quot;
+  - 612x792+467+125
+:drag:
+  :x: &quot;-467&quot;
+  :y: &quot;-125&quot;
+</crop_data>
+		<image_meta>BAh7BzoNb3JpZ2luYWx7CDoKd2lkdGhpAoAHOgtoZWlnaHRpAjgEOglzaXpl
+aQPv0wY6DGNyb3BwZWR7CDsGaQJkAjsHaQIYAzsIaQM3HQI=
+</image_meta>
+	</row>
+
+	<row>
+		<id>2840</id>
+		<image_file_name>--1604083673.mlk_mason-temple-jpg</image_file_name>
+		<image_content_type>image/jpeg</image_content_type>
+		<image_file_size>12110</image_file_size>
+		<image_updated_at>2020-10-30 18:47:53</image_updated_at>
+		<created_at>2020-10-30 18:47:53</created_at>
+		<updated_at>2020-10-30 18:47:53</updated_at>
+		<creator_id>2</creator_id>
+		<status>1</status>
+		<crop_data>NULL</crop_data>
+		<image_meta>BAh7BzoNb3JpZ2luYWx7CDoKd2lkdGhpAcA6C2hlaWdodGkB7zoJc2l6ZWkC
+Ti86DGNyb3BwZWR7CDsGaQHAOwdpAe87CGkCoTA=
+</image_meta>
+	</row>
+
+	<row>
+		<id>2841</id>
+		<image_file_name>--1604083698.Patt-Patterson-1200x628-png</image_file_name>
+		<image_content_type>image/png</image_content_type>
+		<image_file_size>917413</image_file_size>
+		<image_updated_at>2020-10-30 18:48:39</image_updated_at>
+		<created_at>2020-10-30 18:48:22</created_at>
+		<updated_at>2020-10-30 18:48:44</updated_at>
+		<creator_id>2</creator_id>
+		<status>1</status>
+		<crop_data>---
+:commands:
+- - &quot;-resize&quot;
+  - 1746x914^
+- - &quot;-crop&quot;
+  - 600x761+695+27
+- - &quot;-resize&quot;
+  - 1746x914^
+- - &quot;-crop&quot;
+  - 600x761+695+27
+:drag:
+  :x: &quot;-695&quot;
+  :y: &quot;-27&quot;
+</crop_data>
+		<image_meta>BAh7BzoNb3JpZ2luYWx7CDoKd2lkdGhpArAEOgtoZWlnaHRpAnQCOglzaXpl
+aQOl/w06DGNyb3BwZWR7CDsGaQJYAjsHaQL5AjsIaQMt0Ac=
+</image_meta>
+	</row>
+
+	<row>
+		<id>2842</id>
+		<image_file_name>--1604332703.AFSCME_Logo-2Color-2619-png</image_file_name>
+		<image_content_type>image/png</image_content_type>
+		<image_file_size>68671</image_file_size>
+		<image_updated_at>2020-11-02 15:58:23</image_updated_at>
+		<created_at>2020-11-02 15:58:23</created_at>
+		<updated_at>2020-11-02 15:58:23</updated_at>
+		<creator_id>852</creator_id>
+		<status>1</status>
+		<crop_data>NULL</crop_data>
+		<image_meta>BAh7BzoNb3JpZ2luYWx7CDoKd2lkdGhpAn4IOgtoZWlnaHRpAnoDOglzaXpl
+aQM/DAE6DGNyb3BwZWR7CDsGaQJ+CDsHaQJ6AzsIaQJKmg==
+</image_meta>
+	</row>
+
+	<row>
+		<id>2843</id>
+		<image_file_name>--1604948259.1099-jpg</image_file_name>
+		<image_content_type>image/jpeg</image_content_type>
+		<image_file_size>91611</image_file_size>
+		<image_updated_at>2020-11-09 18:57:49</image_updated_at>
+		<created_at>2020-11-09 18:57:39</created_at>
+		<updated_at>2020-11-09 18:57:49</updated_at>
+		<creator_id>1264</creator_id>
+		<status>1</status>
+		<crop_data>---
+:commands:
+- - &quot;-resize&quot;
+  - 1140x576!
+- - &quot;-resize&quot;
+  - 1140x576!
+:drag:
+  :x: 
+  :y: 
+</crop_data>
+		<image_meta>BAh7BzoNb3JpZ2luYWx7CDoKd2lkdGhpAoACOgtoZWlnaHRpAqsBOglzaXpl
+aQPbZQE6DGNyb3BwZWR7CDsGaQJ0BDsHaQJAAjsIaQPj4QE=
+</image_meta>
+	</row>
+
+	<row>
+		<id>2844</id>
+		<image_file_name>--1605042890.gettyimages-dv2173013-2048x2048-jpg</image_file_name>
+		<image_content_type>image/jpeg</image_content_type>
+		<image_file_size>906790</image_file_size>
+		<image_updated_at>2020-11-10 21:14:50</image_updated_at>
+		<created_at>2020-11-10 21:14:50</created_at>
+		<updated_at>2020-11-10 21:14:50</updated_at>
+		<creator_id>9</creator_id>
+		<status>1</status>
+		<crop_data>NULL</crop_data>
+		<image_meta>BAh7BzoNb3JpZ2luYWx7CDoKd2lkdGhpAgAIOgtoZWlnaHRpAgAGOglzaXpl
+aQMm1g06DGNyb3BwZWR7CDsGaQIACDsHaQIABjsIaQNEqw4=
 </image_meta>
 	</row>
 
