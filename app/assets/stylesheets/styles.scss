@@ -3633,3 +3633,9 @@ table.stats td:last-of-type {
 #preview {
   overflow: hidden;
 }
+#upload {
+  img {
+    max-width: 100% !important;
+    max-height: 75vh !important;
+  }
+}
