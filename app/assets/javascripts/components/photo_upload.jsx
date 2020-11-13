@@ -140,8 +140,8 @@ class PhotoUpload extends React.Component{
 
       // Figure out the dimensions for the crop area based off the photo's metafdata.
       case "setup-crop":
-        availableHeight = Math.round($("body").height() * 0.8);
-        availableWidth  = Math.round($("body").width()  * 0.8);
+        availableHeight = Math.round($(window).height() * 0.75);
+        availableWidth  = Math.round($("#upload").width());
 
         if(this.state.image.meta.PixelHeight > availableHeight && this.state.image.meta.PixelWidth > availableWidth){
           // Original photo is too large to crop on both dimensions
@@ -475,6 +475,9 @@ class PhotoUpload extends React.Component{
       $("#image-to-crop").Jcrop({
         boxWidth:    this.state.boxWidth,
         boxHeight:   this.state.boxHeight,
+        // boxWidth:    "100%",
+        // boxHeight:   "75%",
+        // maxSize:     ["100%", "75vh"],
         onSelect:    this.handleSelect,
         onChange:    this.handleChange,
         aspectRatio: this.state.aspectRatio,
