@@ -43,25 +43,24 @@ class PhotoUpload extends React.Component{
    */
   resetState(){
     this.state = {
-      step:           "open",
-      image:          null,  // The URL of the user's original image
-      coords:         {x1: null, y1: null, x2: null, y2: null, h: null, w: null}, // Set whenever the user selects a crop range
-      canPreview:     false, // Is the Preview button enabled?
-      jcropApi:       null,  // Access to jCrop
-      boxHeight:      null,  // The height of the Crop UI
-      boxWidth:       null,  // The width of the Crop UI
-      canCrop:        Toolkit.photoManagerData.crop         || false,
-      target:         Toolkit.photoManagerData.target       || null,
-      resizeHeight:   Toolkit.photoManagerData.resizeHeight || null,
-      resizeWidth:    Toolkit.photoManagerData.resizeWidth  || null,
-      dragX:          null, // Where the user dragged the photo in context
-      dragY:          null,  // Where the user dragged the photo in context
-      sizeStrategy:   "hw", // Which size(s) should a cropped photo send to imgix? h = height; w = width;
-      flip:           "", // Should the user's photo be flipped horizontally (h), veritcally (v), both (hv), or not at all?
-      cropOffset:     $("[data-crop-offset]").attr("data-crop-offset") || 0,
-      multiplier:     1.2, // In context cropping, increase the the smaller dimension of the user's photo
-      buildImgixUrl:  false, // Should the preview url be generated?
-      autoCrop:       false, // Should the 'Crop Photo' button be automatically clicked after the photo is uploaded?
+      step:          "open",
+      image:         null,  // The URL of the user's original image
+      coords:        {x1: null, y1: null, x2: null, y2: null, h: null, w: null}, // Set whenever the user selects a crop range
+      canPreview:    false, // Is the Preview button enabled?
+      jcropApi:      null,  // Access to jCrop
+      boxHeight:     null,  // The height of the Crop UI
+      boxWidth:      null,  // The width of the Crop UI
+      canCrop:       Toolkit.photoManagerData.crop         || false,
+      target:        Toolkit.photoManagerData.target       || null,
+      resizeHeight:  Toolkit.photoManagerData.resizeHeight || null,
+      resizeWidth:   Toolkit.photoManagerData.resizeWidth  || null,
+      dragX:         null, // Where the user dragged the photo in context
+      dragY:         null,  // Where the user dragged the photo in context
+      sizeStrategy:  "hw", // Which size(s) should a cropped photo send to imgix? h = height; w = width;
+      flip:          "", // Should the user's photo be flipped horizontally (h), veritcally (v), both (hv), or not at all?
+      multiplier:    1.2, // In context cropping, increase the the smaller dimension of the user's photo
+      buildImgixUrl: false, // Should the preview url be generated?
+      autoCrop:      false, // Should the 'Crop Photo' button be automatically clicked after the photo is uploaded?
       // userResize:    {active: false, width: null, height: null, aspectRatio: true} // Allows the user to resize their photos
     };
 
@@ -215,7 +214,7 @@ class PhotoUpload extends React.Component{
         };
 
         if(this.state.dragX && this.state.dragY) {
-          image.crop_data = {drag: {x: this.state.dragX, y: (this.state.dragY - this.state.cropOffset)}};
+          image.crop_data = {drag: {x: this.state.dragX, y: this.state.dragY}};
         }
 
         $.ajax({
