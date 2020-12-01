@@ -24,7 +24,7 @@ class StockImage < ApplicationRecord
   # @param {integer} user_id - The user who will own the duplicated stock photo.
   # @return {Image} Returns the image that's created.
   ###
-  def upload_to_s3!(user_id: user_id)
+  def upload_to_s3!(user_id:)
     # Persist the tempfile
     filename = image_url.split("/").last
     tmp_path = Rails.root.join("tmp").join("#{DateTime.now.to_i}-#{}")
