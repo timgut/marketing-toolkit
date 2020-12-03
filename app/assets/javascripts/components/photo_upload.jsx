@@ -382,7 +382,7 @@ class PhotoUpload extends React.Component {
       // Put the blank image on top of the user's photo
       if (this.state.step === "preview") {
         params = Object.assign(params, {
-          h: this.state.blank.meta.PixelHeight,
+          h: this.state.blank.meta.PixelHeight + 200,
           w: this.state.blank.meta.PixelWidth,
           fit: "fillmax",
           fill: "solid",
