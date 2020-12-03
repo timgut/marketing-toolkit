@@ -358,7 +358,7 @@ class PhotoUpload extends React.Component {
         const cropW = this.state.blank.meta.PixelWidth;
         const cropH = this.state.blank.meta.PixelHeight;
         const cropX = parseInt(Math.abs(this.state.dragX));
-        const cropY = parseInt(Math.abs(this.state.dragY));
+        const cropY = parseInt(Math.abs(this.state.dragY)) + 200;
 
         const targetSize = { height: this.state.userResize.height, width: this.state.userResize.width };
         const contextSize = { height: this.state.blank.meta.PixelHeight, width: this.state.blank.meta.PixelWidth };
@@ -383,7 +383,7 @@ class PhotoUpload extends React.Component {
       // Put the blank image on top of the user's photo
       if (this.state.step === "preview") {
         params = Object.assign(params, {
-          h: this.state.blank.meta.PixelHeight + 200,
+          h: this.state.blank.meta.PixelHeight,
           w: this.state.blank.meta.PixelWidth,
           fit: "fillmax",
           fill: "solid",
@@ -444,13 +444,13 @@ class PhotoUpload extends React.Component {
         setSelect: [0, 0, 250, 250]
       }, function () {
         // Somehow jCrop is creating two or more instances. I don't know why, so only show the first instance.
-        if($(".jcrop-holder").length > 1) {
-          $.each($(".jcrop-holder"), function(i, jcrop){
+        if ($(".jcrop-holder").length > 1) {
+          $.each($(".jcrop-holder"), function (i, jcrop) {
             i === 0 ? $(jcrop).css("display", "block") : $(jcrop).css("display", "none");
           });
         }
 
-        _this.setState(Object.assign({}, _this.state, {jcropApi: this}));
+        _this.setState(Object.assign({}, _this.state, { jcropApi: this }));
       });
     }
   };
