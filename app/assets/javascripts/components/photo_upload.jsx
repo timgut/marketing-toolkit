@@ -207,6 +207,7 @@ class PhotoUpload extends React.Component {
           image.crop_data = { drag: { x: this.state.dragX, y: this.state.dragY } };
         }
 
+        // Update the image with the crop data
         $.ajax({
           url: `/images/${_this.state.image.id}`,
           method: "PATCH",
@@ -443,16 +444,13 @@ class PhotoUpload extends React.Component {
         setSelect: [0, 0, 250, 250]
       }, function () {
         // Somehow jCrop is creating two or more instances. I don't know why, so only show the first instance.
-        if ($(".jcrop-holder").length > 1) {
-          $.each($(".jcrop-holder"), function (i, jcrop) {
-            if (i === 0) {
-              $(jcrop).css("display", "block");
-            } else {
-              $(jcrop).css("display", "none");
-            }
-          })
+        if($(".jcrop-holder").length > 1) {
+          $.each($(".jcrop-holder"), function(i, jcrop){
+            i === 0 ? $(jcrop).css("display", "block") : $(jcrop).css("display", "none");
+          });
         }
-        _this.setState(Object.assign({}, _this.state, { jcropApi: this }));
+
+        _this.setState(Object.assign({}, _this.state, {jcropApi: this}));
       });
     }
   };
