@@ -355,10 +355,17 @@ class PhotoUpload extends React.Component {
       if (this.state.step === "placing") {
         params = Object.assign(params, { h: this.state.userResize.height, w: this.state.userResize.width });
       } else {
+        // Get the offset
+        const figure = $(`figure[data-target='${Toolkit.photoManagerData.target}']`);
+        const offset = figure.data('cropOffset');
+
+        console.log("offset:" + offset);
+        console.log("dragY:" + parseInt(Math.abs(this.state.dragY)));
+
         const cropW = this.state.blank.meta.PixelWidth;
         const cropH = this.state.blank.meta.PixelHeight;
         const cropX = parseInt(Math.abs(this.state.dragX));
-        const cropY = parseInt(Math.abs(this.state.dragY)) + 200;
+        const cropY = offset ? parseInt(Math.abs(this.state.dragY)) - offset : parseInt(Math.abs(this.state.dragY));
 
         const targetSize = { height: this.state.userResize.height, width: this.state.userResize.width };
         const contextSize = { height: this.state.blank.meta.PixelHeight, width: this.state.blank.meta.PixelWidth };
