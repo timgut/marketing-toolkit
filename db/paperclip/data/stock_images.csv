@@ -1,4 +1,4 @@
-"id","title","image_file_name","image_content_type","image_file_size","image_updated_at","status","created_at","updated_at","label"
+id,"title","image_file_name","image_content_type",image_file_size,"image_updated_at",status,"created_at","updated_at","label"
 1,"Corrections","corrections.jpg","image/jpeg",1678416,"2019-04-17 19:50:06",1,"2019-04-17 19:50:06","2019-04-17 19:50:06","Workplace"
 2,"Early Childhood Educator","early-childhood-educator.jpg","image/jpeg",1460824,"2019-04-17 19:50:56",1,"2019-04-17 19:50:56","2019-04-17 19:50:56","Education"
 3,"EMT Workers","emt.jpg","image/jpeg",1479273,"2019-04-17 19:51:52",1,"2019-04-17 19:51:52","2019-04-17 19:51:52","Safety"

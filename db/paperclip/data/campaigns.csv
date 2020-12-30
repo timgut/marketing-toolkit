@@ -1,4 +1,4 @@
-"id","title","description","status","created_at","updated_at","parent_id","audit"
+id,"title","description",status,"created_at","updated_at",parent_id,"audit"
 6,"Contract","",1,"2017-03-03 05:51:33","2017-07-07 19:49:37",NULL,NULL
 7,"Affiliation","",1,"2017-03-03 05:51:36","2017-05-04 14:26:27",NULL,NULL
 8,"Legislative",NULL,0,"2017-03-03 05:51:44","2017-03-03 05:51:44",NULL,NULL
