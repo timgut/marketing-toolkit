@@ -1,14 +1,16 @@
 <% no_link ||= false %>
 
+<% img_url = image.cropped_image_url ? image.cropped_image_url : image.original_image_url %>
+
 <% if no_link == true %>
   <figure>
-    <img src="<%= image.cropped_image_url %>" alt="<%= image.filename %>" />
+    <img src="<%= img_url %>" alt="<%= image.filename %>" />
     <figcaption><%= image.filename %></figcaption>
   </figure>
 <% else %>
   <figure>
     <%= link_to edit_image_path(image) do %>
-      <img src="<%= image.cropped_image_url %>" alt="<%= image.filename %>" />
+      <img src="<%= img_url %>" alt="<%= image.filename %>" />
       <figcaption><%= image.filename %></figcaption>
     <% end %>
 
