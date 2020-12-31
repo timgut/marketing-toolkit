@@ -18,7 +18,11 @@ class ImagesController < ApplicationController
 
     if @image.save
       ImageUser.create!(image: @image, user: current_user)   
-      @image.upload_to_s3!(params[:photo])
+      if params[:photo] ## in-context photo chooser
+        @image.upload_to_s3!(params[:photo])
+      else
+        @image.upload_to_s3!(params[:image][:image]) ## /images/new
+      end
       render json: @image.to_json
     else
       render json: @image.errors.to_json
