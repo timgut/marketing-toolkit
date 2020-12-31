@@ -29,8 +29,8 @@ end
 ActiveRecord::Base.connection.execute("TRUNCATE data")
 columns = "`id`, `document_id`, `key`, `value`, `created_at`, `updated_at`, `field_id`"
 cells = ""
-# xml = File.new(Rails.root.join("db", "paperclip", "data", "data.xml")).read.encode('cp1252', invalid: :replace)
-xml = File.new(Rails.root.join("db", "paperclip", "data", "data.xml")).read.encode('utf-8', invalid: :replace)
+xml = File.new(Rails.root.join("db", "paperclip", "data", "data.xml")).read.encode('cp1252', invalid: :replace)
+#xml = File.new(Rails.root.join("db", "paperclip", "data", "data.xml")).read.encode('utf-8', invalid: :replace)
 doc = REXML::Document.new(xml)
 
 doc.root.elements["data"].select{|t| t.is_a?(REXML::Element)}.each do |row|
@@ -150,8 +150,8 @@ end
 # ###
 ActiveRecord::Base.connection.execute("TRUNCATE documents")
 row = nil
-# doc = REXML::Document.new(File.new(Rails.root.join("db", "paperclip", "data", "documents.xml")).read.encode('cp1252', invalid: :replace))
-doc = REXML::Document.new(File.new(Rails.root.join("db", "paperclip", "data", "documents.xml")).read.encode('utf-8', invalid: :replace))
+doc = REXML::Document.new(File.new(Rails.root.join("db", "paperclip", "data", "documents.xml")).read.encode('cp1252', invalid: :replace))
+#doc = REXML::Document.new(File.new(Rails.root.join("db", "paperclip", "data", "documents.xml")).read.encode('utf-8', invalid: :replace))
 columns = "`id`, `template_id`, `title`, `description`, `status`, `created_at`, `updated_at`, `tag_id`, `creator_id`, `crop_marks`, `pdf_url`, `thumbnail_url`, `share_graphic_url`, `generated`"
 
 # Cache the URLs in this format: {1: {pdf: "", thumbnail: "", share_graphic: ""}}
@@ -202,8 +202,8 @@ end
 # ###
 ActiveRecord::Base.connection.execute("TRUNCATE templates")
 row = nil
-# xml = File.new(Rails.root.join("db", "paperclip", "data", "templates.xml")).read.encode('cp1252', invalid: :replace)
-xml = File.new(Rails.root.join("db", "paperclip", "data", "templates.xml")).read.encode('utf-8', invalid: :replace)
+xml = File.new(Rails.root.join("db", "paperclip", "data", "templates.xml")).read.encode('cp1252', invalid: :replace)
+#xml = File.new(Rails.root.join("db", "paperclip", "data", "templates.xml")).read.encode('utf-8', invalid: :replace)
 doc = REXML::Document.new(xml)
 columns = "`id`, `title`, `description`, `height`, `width`, `pdf_markup`, `form_markup`, `status`, `customizable_options`,
     `created_at`, `updated_at`, `category_id`, `orientation`, `customize`, `crop_marks`, `position`, `unit`,
