@@ -7,9 +7,9 @@ class AdminMailer < ActionMailer::Base
     mail(to: @user.email, subject: 'Thanks for registering for the AFSCME Toolkit')
   end
 
-  def notification_to_approver(user, approver)
+  def notification_to_approvers(user, approver)
     @user = user
-    mail(to: approver.email, subject: "New toolkit account request(s) are pending")
+    mail(to: approver.email, subject: "New toolkit account has been requested")
   end
 
   def send_account_activation(user)

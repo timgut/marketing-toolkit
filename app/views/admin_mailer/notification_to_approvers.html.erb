@@ -4,7 +4,7 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <p>At least one new account has been created in the AFSCME Toolkit in the last 24 hours that is pending approval.</p>
+    <p>A new account has been created in the AFSCME Toolkit that is pending approval for <%= @user.first_name + ' ' + @user.last_name %><%= @user.affiliate ? ' from ' + @user.affiliate.title : '' %>.</p>
     <p>
       This user will not be able to use the Toolkit until an Administrator or Vetter approves their new account.
     </p>
