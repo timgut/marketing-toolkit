@@ -4,6 +4,15 @@ The timestamp should reflect when either a) the code was deployed into productio
 
 Latest changes go on top.
 
+Tue Jan 10 18:39:41 CST 2023
+	- Finally cleaned up the whole "tk-rev" crap on the server.
+	- The prod branch had been "edge". It's back to being master in the proper directory on chi-afscme
+	- Did this at the same time as the 5.7 MySQL upgrade.
+	- Also, I added the admin mailer fixes that were done last week into this canonical production branch (they had been in master, but that was not the prod branch, edge was)
+	- In short, everything is standardized once again.
+
+--------------------
+
 Wed May 20 12:18:16 CDT 2020
 	- Redmine 2484: Re-adding new user sign-up page with reCAPTCHA and other changes
 
