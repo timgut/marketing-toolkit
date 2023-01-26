@@ -74,8 +74,11 @@ class Admin::UsersController < AdminController
       if account_status != 'same'
         @user.send_account_notification(account_status)
       end
-
-      redirect_to edit_admin_user_path(@user), notice: "User updated!"
+      if @user.role == 'Administrator'  
+        redirect_to edit_admin_user_path(@user), notice: "User updated!"
+      else 
+        redirect_to profile_path, notice: "User updated!"
+      end
     else
       @body_class = 'toolkit USER'
       @header_navigation = true
