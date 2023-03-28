@@ -135,7 +135,7 @@ class User < ApplicationRecord
 
   def send_admin_emails
     AdminMailer.new_user_waiting_for_approval(self).deliver_now
-    approver = self.regional_approvers.length > 0 ? self.regional_approvers : User.find(MAIL_CONFIG['default_approver'])
+    approver = self.regional_approvers.length > 0 ? self.regional_approvers.first : User.find(MAIL_CONFIG['default_approver'])
     unless self.admin?
       AdminMailer.notification_to_approvers(self, approver).deliver_now
     end
