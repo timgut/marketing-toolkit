@@ -4,6 +4,11 @@ The timestamp should reflect when either a) the code was deployed into productio
 
 Latest changes go on top.
 
+Tue Mar 28 17:36:24 CDT 2023
+	- Fix for new user notification emails
+
+--------------------
+
 Tue Jan 10 18:39:41 CST 2023
 	- Finally cleaned up the whole "tk-rev" crap on the server.
 	- The prod branch had been "edge". It's back to being master in the proper directory on chi-afscme
