@@ -19,7 +19,7 @@ class Admin::MiscController < AdminController
 
   # GET /admin/stats
   def stats
-    @admins      = User.where("role = 'Administrator'")
+    @admins      = User.where("role = 'Administrator' or role = 'Vetter'")
     @non_admins  = User.includes(:documents, :images).where("role != 'Administrator'")
     @templates   = Template.includes(:documents, documents: [:creator]).all
     @departments = @non_admins.map(&:department).uniq.compact
