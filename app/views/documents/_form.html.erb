@@ -83,7 +83,7 @@
             target: :blank,
             class:  "preview action button download-document",
             title:  changed_document_message,
-            style:  @document.pdf_file_name ? "" : "display:none"
+            style:  @document.persisted? ? "display:inline" : "display:none"
           ) %>
         <% end %>
         <%= f.button "Save", class: "button save active" %>
