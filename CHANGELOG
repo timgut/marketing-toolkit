@@ -4,6 +4,13 @@ The timestamp should reflect when either a) the code was deployed into productio
 
 Latest changes go on top.
 
+Wed Apr 30 08:54:45 CDT 2025
+	- Release was added manually to server; master is up-to-date
+	- Fix so Download button appears for persisted records on document edit screen
+	- Removing 'Support' from admin menu
+
+--------------------
+
 Tue Mar 28 17:36:24 CDT 2023
 	- Fix for new user notification emails
 
