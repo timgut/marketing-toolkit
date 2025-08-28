@@ -90,13 +90,7 @@ Rails.application.configure do
   }
 
   config.action_mailer.smtp_settings = {
-    address:              "smtp.mandrillapp.com",
-    port:                 587,                               # port 2525 is also supported with STARTTLS
-    enable_starttls_auto: true,                              # detects and uses STARTTLS
-    user_name:            "mandrill@trilogyinteractive.com",
-    password:             "OPreGdAKhDL5fyUPp8M9cw",          # SMTP password is any valid API key
-    authentication:       "plain",                           # Mandrill supports 'plain' or 'login'
-    domain:               "toolkit.afscme.org",              # your domain to identify your server when connecting
+
   }
 
   config.require_master_key = false
